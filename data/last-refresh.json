@@ -1,10 +1,19 @@
 {
-  "last_run": "2026-07-03T00:00:00Z",
-  "triggered_by": "manual-setup",
-  "sources_swept": [],
-  "projects_updated": [],
-  "items_closed_since_last": 0,
-  "items_opened_since_last": 0,
-  "status_changes": [],
-  "next_scheduled": "2026-07-06T19:00:00Z"
+  "last_run": "2026-07-03T19:03:33.122Z",
+  "triggered_by": "manual-slack",
+  "sources_swept": [
+    "clickup",
+    "slack"
+  ],
+  "projects_updated": [
+    "northlight-os",
+    "northlight-meetings",
+    "northlight-vault",
+    "northlight-website",
+    "skills-market",
+    "tableready",
+    "advisory-board",
+    "standing-pmo"
+  ],
+  "next_scheduled": "See schedule config"
 }
