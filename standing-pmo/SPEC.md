@@ -314,10 +314,11 @@ GitHub Pages serves from root → `elizabethlemoine33-commits.github.io/northlig
 - [x] Create `Northlight PMO Briefs/` folder in Google Drive
 - [x] Create `#northlight-pmo` Slack channel — C0BELQQR6ET
 
-**Session 2 — `/new-project` skill (Code)**
-- [ ] Write the Claude Code skill file (reads config from registry.json)
-- [ ] Test: run it, verify folder + registry update + portfolio card + GitHub commit + Slack post
-- [ ] Backfill: confirm all 7 existing projects are correctly represented in registry.json
+**Session 2 — `/new-project` skill (Code)** ✅ Complete — July 3, 2026
+- [x] Write the Claude Code skill file (reads config from registry.json)
+- [x] Bootstrap all project folders (vault, website, skills-market, tableready, advisory-board) with README, update-log, learnings
+- [ ] Test: run it end-to-end on a real new project
+- [x] Backfill: all 8 projects represented in registry.json
 
 **Session 3 — Updated PMO skill**
 - [ ] Update existing PMO skill to write to `northlight-pmo/` instead of Desktop
