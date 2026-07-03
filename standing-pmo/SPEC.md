@@ -334,11 +334,13 @@ GitHub Pages serves from root → `elizabethlemoine33-commits.github.io/northlig
 - [x] Start scheduler in server.js alongside existing dispatchers
 - [ ] Test: post `skill:standing-pmo` in Slack, verify portfolio updated + summary posted
 
-**Session 5 — `/new-project` skill (Chat)**
-- [ ] Write the Chat-side skill (reads config from registry.json via Drive or hardcoded config)
+**Session 5 — `/new-project` skill (Chat)** ✅ Complete — July 3, 2026
+- [x] Write Chat-side skill to memory (skill_new_project_chat.md) — reads config from registry.json
+- [x] Collects name, description, status, brief-or-park conversationally
+- [x] Posts to #parking-lot-of-ideas, optionally creates Drive brief + posts to #northlight-pmo
+- [x] Offers to register fully inline (runs Code registration protocol in this app)
 - [ ] Test: parking-lot-only path → verify Slack post
 - [ ] Test: full brief path → verify Drive file + Slack posts
-- [ ] Test full handoff: Chat brief → Code registration
 
 **Migration (during Session 1)**
 - Copy files from `C:\Users\erand\Desktop\Northlight Standing PMO\` → GitHub repo
