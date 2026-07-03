@@ -320,10 +320,11 @@ GitHub Pages serves from root → `elizabethlemoine33-commits.github.io/northlig
 - [ ] Test: run it end-to-end on a real new project
 - [x] Backfill: all 8 projects represented in registry.json
 
-**Session 3 — Updated PMO skill**
-- [ ] Update existing PMO skill to write to `northlight-pmo/` instead of Desktop
-- [ ] Add STANDING-PMO-TRIGGER Slack flag to its output
-- [ ] Test: run for a dummy phase, verify GitHub commit + Slack flag
+**Session 3 — Updated PMO skill** ✅ Complete — July 3, 2026
+- [x] Write `/phase-dashboard` Claude Code skill at `~/.claude/commands/phase-dashboard.md`
+- [x] Skill writes to `northlight-pmo/[slug]/phase-N.html` and commits + pushes
+- [x] Skill posts STANDING-PMO-TRIGGER to #northlight-pmo after every dashboard
+- [ ] Test: run on a real phase, verify GitHub commit + Slack trigger fires
 
 **Session 4 — Standing PMO dispatcher skill**
 - [ ] Write `skill-standing-pmo-SPEC.md` in dispatcher specs
