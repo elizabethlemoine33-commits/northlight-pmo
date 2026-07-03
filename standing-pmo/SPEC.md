@@ -326,13 +326,13 @@ GitHub Pages serves from root → `elizabethlemoine33-commits.github.io/northlig
 - [x] Skill posts STANDING-PMO-TRIGGER to #northlight-pmo after every dashboard
 - [ ] Test: run on a real phase, verify GitHub commit + Slack trigger fires
 
-**Session 4 — Standing PMO dispatcher skill**
-- [ ] Write `skill-standing-pmo-SPEC.md` in dispatcher specs
-- [ ] Build the skill in the dispatcher
-- [ ] Wire the STANDING-PMO-TRIGGER Slack listener
-- [ ] Wire the Sunday 7 PM + Wednesday 8 AM schedule
-- [ ] Wire manual trigger via `skill:standing-pmo` in Slack
-- [ ] Test: run manually, verify all sources swept + portfolio updated + Slack summary
+**Session 4 — Standing PMO dispatcher skill** ✅ Complete — July 3, 2026
+- [x] Build `lib/skills/standing-pmo.js` in the dispatcher — sweeps ClickUp + Slack, patches index.html, updates changelog + last-refresh.json
+- [x] Wire STANDING-PMO-TRIGGER Slack listener in slack-events.js
+- [x] Wire Sunday 19:00 + Wednesday 08:00 Halifax schedule in dispatcher.js
+- [x] Wire manual `skill:standing-pmo` trigger in slack-events.js
+- [x] Start scheduler in server.js alongside existing dispatchers
+- [ ] Test: post `skill:standing-pmo` in Slack, verify portfolio updated + summary posted
 
 **Session 5 — `/new-project` skill (Chat)**
 - [ ] Write the Chat-side skill (reads config from registry.json via Drive or hardcoded config)
