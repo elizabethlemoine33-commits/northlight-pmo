@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northlight OS — Phase 2 PMO Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --midnight: #0E0E14;
+    --surface:  #12121E;
+    --border:   #1E2035;
+    --border2:  #2A2A48;
+    --text:     #FFFFFF;
+    --cloud:    #C8CCE0;
+    --haze:     #B0B8D8;
+    --muted:    #8A92A8;
+    --glacial:  #4FC3C8;
+    --boreal:   #5B8DD9;
+    --dusk:     #8B6FD4;
+    --aurora:   #C46FAA;
+    --green:    #3BAA6E;
+    --yellow:   #D4A017;
+    --red:      #C44F4F;
+  }
+  body { background: var(--midnight); color: var(--cloud); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; padding: 32px; }
+  .top-bar { height: 3px; background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%); margin: -32px -32px 32px; }
+
+  .header { margin-bottom: 28px; }
+  .phase-label { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dusk); margin-bottom: 6px; }
+  .title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+  .subtitle { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+  .callout { background: rgba(91,141,217,0.07); border: 1px solid rgba(91,141,217,0.2); border-radius: 8px; padding: 12px 14px; margin-bottom: 24px; }
+  .callout-label { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--boreal); margin-bottom: 6px; }
+  .callout-text { color: var(--haze); font-size: 12px; line-height: 1.6; }
+
+  .progress-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
+  .progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .progress-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .progress-pct { font-size: 24px; font-weight: 700; color: var(--text); }
+  .progress-bar-bg { background: var(--border); border-radius: 4px; height: 6px; }
+  .progress-bar-fill { background: linear-gradient(90deg, #4FC3C8, #8B6FD4); border-radius: 4px; height: 6px; }
+  .progress-counts { display: flex; gap: 20px; margin-top: 10px; }
+  .progress-count { font-size: 11px; color: var(--muted); }
+  .progress-count strong { color: var(--cloud); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .grid-full { grid-column: 1 / -1; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .card-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+
+  .block-table { width: 100%; border-collapse: collapse; }
+  .block-table th { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 0 0 8px; text-align: left; border-bottom: 1px solid var(--border); }
+  .block-table td { padding: 8px 0; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .block-table tr:last-child td { border-bottom: none; }
+  .block-name { color: var(--cloud); font-size: 12px; }
+  .block-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .badge-done     { background: rgba(59,170,110,0.15); color: #3BAA6E; border: 1px solid rgba(59,170,110,0.3); }
+  .badge-fix      { background: rgba(212,160,23,0.12); color: var(--yellow); border: 1px solid rgba(212,160,23,0.25); }
+  .badge-carried  { background: rgba(138,146,168,0.10); color: var(--muted); border: 1px solid var(--border); }
+
+  .decision-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .decision-item:last-child { border-bottom: none; }
+  .decision-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .decision-rationale { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .activity-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-date { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+  .activity-text { color: var(--cloud); font-size: 12px; }
+  .activity-sub { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .issue-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .issue-item:last-child { border-bottom: none; }
+  .issue-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); margin-top: 4px; flex-shrink: 0; }
+  .issue-dot.yellow { background: var(--yellow); }
+  .issue-text { color: var(--cloud); font-size: 12px; }
+  .issue-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .footer { color: var(--muted); font-size: 11px; border-top: 1px solid var(--border); padding-top: 16px; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<div class="header">
+  <div class="phase-label">Northlight OS · Phase 2</div>
+  <div class="title">Tab UI, Dual Accounts &amp; Expense Tracking</div>
+  <div class="subtitle">6-tab interface · dual Google accounts · expense pipeline · parking lot · critical fixes · May 25–26, 2026</div>
+</div>
+
+<div class="callout">
+  <div class="callout-label">Historical Note</div>
+  <div class="callout-text">Phase 2 was planned on the evening of May 25 and shipped in a single intensive build day on May 26. No automated session logs exist — this predates the Slack bot's logging convention. Reconstructed from: Slack planning messages (May 25–26, 2026), COMPLETE-BUILD-ROADMAP.md, STATUS-AND-NEXT-STEPS.md, and the "PHASE 2 COMPLETE" Slack summary sent at the close of the session.</div>
+</div>
+
+<div class="progress-section">
+  <div class="progress-header">
+    <div class="progress-label">Phase Progress</div>
+    <div class="progress-pct">100%</div>
+  </div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%"></div></div>
+  <div class="progress-counts">
+    <div class="progress-count"><strong>5</strong> critical fixes shipped</div>
+    <div class="progress-count"><strong>4</strong> new features shipped</div>
+    <div class="progress-count"><strong>5</strong> key decisions locked</div>
+    <div class="progress-count"><strong>0</strong> open items</div>
+  </div>
+</div>
+
+<div class="grid">
+
+  <!-- Critical fixes -->
+  <div class="card">
+    <div class="card-label">Critical Fixes (Carried from Phase 1)</div>
+    <table class="block-table">
+      <thead><tr><th style="width:55%">Fix</th><th style="width:16%">Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="block-name">OAuth2 default account</div>
+            <div class="block-note">Was defaulting to elizabethlemoine33@gmail.com instead of elizabeth@bynorthlight.ca</div>
+          </td>
+          <td><span class="badge badge-done">Fixed</span></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="block-name">Email archive not working</div>
+            <div class="block-note">Gmail API removeLabelIds call failing silently; archive button had no effect</div>
+          </td>
+          <td><span class="badge badge-done">Fixed</span></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="block-name">Font brightness</div>
+            <div class="block-note">#52556B → #8A92A8; barely readable on dark background, especially mobile</div>
+          </td>
+          <td><span class="badge badge-done">Fixed</span></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="block-name">Dispatcher clarify shows placeholder</div>
+            <div class="block-note">Slack message was sending "[your question]" instead of actual CLARIFY text</div>
+          </td>
+          <td><span class="badge badge-done">Fixed</span></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="block-name">Dual calendar + Eric's constraint</div>
+            <div class="block-note">Read both calendars; block 2:15–4:00 PM on Eric's evening shift days (Halifax driving)</div>
+          </td>
+          <td><span class="badge badge-done">Fixed</span></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- New features -->
+  <div class="card">
+    <div class="card-label">New Features Shipped</div>
+    <table class="block-table">
+      <thead><tr><th style="width:55%">Feature</th><th style="width:16%">Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="block-name">Tab-based UI</div>
+            <div class="block-note">6 tabs: Home, Work, Learning, Finance, Ideas, Settings. ARIA keyboard nav. sessionStorage persistence.</div>
+          </td>
+          <td><span class="badge badge-done">Shipped</span></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="block-name">Dual Google accounts</div>
+            <div class="block-note">elizabeth@bynorthlight.ca (blue) + elizabethlemoine33@gmail.com (orange). Both calendars + Gmail integrated.</div>
+          </td>
+          <td><span class="badge badge-done">Shipped</span></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="block-name">Expense tracking pipeline</div>
+            <div class="block-note">Gmail "northlight-expense" label → Slack #expenses-test review → reaction approval → Google Sheet auto-log. P&amp;L + charts.</div>
+          </td>
+          <td><span class="badge badge-done">Shipped</span></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="block-name">Parking Lot tab</div>
+            <div class="block-note">Pulls from #parking-lot-of-ideas Slack channel. Type filters. One-click convert to ClickUp task.</div>
+          </td>
+          <td><span class="badge badge-done">Shipped</span></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Finance sheet structure -->
+  <div class="card">
+    <div class="card-label">Finance Sheet Architecture (Defined &amp; Built)</div>
+    <div class="decision-item">
+      <div class="decision-title">Sheet 1 — Expense Log</div>
+      <div class="decision-rationale">Date · Vendor · Amount · Category · Project · Notes. Auto-populated from Gmail label approval workflow. 15 expense categories defined.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Sheet 2 — P&amp;L Summary</div>
+      <div class="decision-rationale">Revenue: Product Sales (Vault + TableReady), Services, Sales, Total. Expenses: grouped by type. Net Income / Loss. By-project breakdown (Northlight, Vault, TableReady).</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Sheet 3 — Charts</div>
+      <div class="decision-rationale">Monthly spending trend (line), spending by category (bar), spending by project (pie), "In the Red" status headline. All auto-updating from Expense Log.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Sheet 4 — Category Reference</div>
+      <div class="decision-rationale">All 15 expense categories for dispatcher dropdown + validation. Export-ready for accounting software.</div>
+    </div>
+  </div>
+
+  <!-- Decisions locked -->
+  <div class="card">
+    <div class="card-label">Decisions Locked in Phase 2</div>
+    <div class="decision-item">
+      <div class="decision-title">Tab-based UI — not single-scroll</div>
+      <div class="decision-rationale">Too many panels for one scroll surface. Tabs give each workflow its own space. Design navigation structure before adding panels, not after.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Slack-review-first before expense logging</div>
+      <div class="decision-rationale">AI-guessed categories are right most of the time, not always. Human confirmation at approval is faster than correcting logged errors. Sheet stays clean.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Google Sheet as financial source of truth</div>
+      <div class="decision-rationale">Already export-ready for accounting software. Charts auto-update. Shareable with accountant without granting dashboard access.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">15 expense categories — structured for tax readiness</div>
+      <div class="decision-rationale">Computer Hosting/Software/Hardware/Internet, Bank Charges, Office Supplies, Meals &amp; Entertainment, Utilities ×4, Professional Fees, Owner Draw, Uncategorized.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Parking Lot wires to existing Slack channel</div>
+      <div class="decision-rationale">Channel (#parking-lot-of-ideas) already had ideas in it — no migration needed. Wire the existing source rather than create a new one.</div>
+    </div>
+  </div>
+
+  <!-- What was carried to Phase 3 -->
+  <div class="card">
+    <div class="card-label">Deferred to Phase 3</div>
+    <div class="issue-item">
+      <div class="issue-dot yellow"></div>
+      <div>
+        <div class="issue-text">localStorage → Drive-backed persistence for Wins + Learning</div>
+        <div class="issue-note">Wins Board and Learning Log used localStorage in Phase 1. Data lost on browser clear or device switch. Drive persistence was the fix — built in Phase 3.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot yellow"></div>
+      <div>
+        <div class="issue-text">Mobile responsiveness</div>
+        <div class="issue-note">Tab UI improved things but full mobile responsiveness was planned for Phase 3. Dashboard still primarily desktop-optimized at Phase 2 close.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot yellow"></div>
+      <div>
+        <div class="issue-text">Goals dashboard</div>
+        <div class="issue-note">Annual + quarterly goals (ClickUp Goals API or Drive JSON fallback). Designed and specced in Phase 2 planning; not built until later.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot yellow"></div>
+      <div>
+        <div class="issue-text">Revenue tracking</div>
+        <div class="issue-note">Expense side of P&amp;L fully built. Revenue side (northlight-revenue Gmail label → same workflow) designed in Phase 2, wired in Phase 3.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot yellow"></div>
+      <div>
+        <div class="issue-text">Social tab (LinkedIn + Threads)</div>
+        <div class="issue-note">Phase 2 placeholder held open. LinkedIn API required separate app review. Threads had no API path at all. Built via Buffer in Phase 4.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Activity log -->
+  <div class="card">
+    <div class="card-label">Session Activity (Reconstructed)</div>
+    <div class="activity-item">
+      <div class="activity-date">May 25, 2026 — Evening</div>
+      <div class="activity-text">Phase 2 planning session</div>
+      <div class="activity-sub">Tab UI architecture designed (TAB-UI-ARCHITECTURE.md). Finance sheet structure finalized. Expense categories defined. Revenue structure scoped. Build sequence locked. Docs written: MORNING-SESSION-PLAN.md, CLAUDE-CODE-TAB-PROMPT.md, finance spec, parking lot spec.</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">May 26, 2026 — Morning</div>
+      <div class="activity-text">Tab UI + critical fixes built</div>
+      <div class="activity-sub">6-tab interface shipped. Dual account OAuth wired. Email archive debugged and fixed. Font brightness corrected. Dispatcher clarify fixed. Eric's calendar constraint implemented.</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">May 26, 2026 — Afternoon</div>
+      <div class="activity-text">Finance sheet + expense pipeline built</div>
+      <div class="activity-sub">Google Sheet created (4 sheets, all formulas, sample data). Expense extraction wired into dispatcher. Slack approval workflow tested. Google Sheet auto-log confirmed working end-to-end.</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">May 26, 2026 — Late afternoon</div>
+      <div class="activity-text">Parking Lot + bonus fixes shipped. Phase 2 closed.</div>
+      <div class="activity-sub">Parking Lot wired to #parking-lot-of-ideas. Type filters and ClickUp convert working. Bonus: Project Health scroll fix, Email back on Home tab, Finance cleanup. "PHASE 2 COMPLETE — Everything Shipped" summary posted to Slack.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <span>Northlight OS · Phase 2 PMO · Reconstructed July 3, 2026</span>
+  <span>Sources: Slack planning + completion messages (May 25–26, 2026) · COMPLETE-BUILD-ROADMAP.md · STATUS-AND-NEXT-STEPS.md</span>
+</div>
+
+</body>
+</html>

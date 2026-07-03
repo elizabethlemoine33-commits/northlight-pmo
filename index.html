@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northlight — Portfolio Overview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Outfit:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --birch:     #F0ECE4;
+    --birch-2:   #E8E3D8;
+    --birch-3:   #DDD7C8;
+    --surface:   #FFFFFF;
+    --border:    #DDD8CE;
+    --border-2:  #CEC8BA;
+    --text:      #0E0E14;
+    --body:      #2A2A3A;
+    --secondary: #4A4A5E;
+    --muted:     #6C6C82;
+    --faint:     #9898A8;
+    --glacial:   #2FA8AE;
+    --boreal:    #3A72C4;
+    --dusk:      #6B4FBA;
+    --aurora:    #A84E8A;
+    --green:     #2A8A52;
+    --yellow:    #A07010;
+    --red:       #A43030;
+  }
+  body {
+    background: var(--birch);
+    color: var(--body);
+    font-family: 'Outfit', system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 40px 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .top-bar { height: 3px; background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%); margin: -40px -48px 40px; }
+
+  /* Header */
+  .header { margin-bottom: 36px; }
+  .header-eyebrow { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .header-title { font-family: 'Jost', sans-serif; font-size: 32px; font-weight: 600; letter-spacing: -0.01em; color: var(--text); margin-bottom: 6px; }
+  .header-title span { background: linear-gradient(105deg, #4FC3C8 0%, #5B8DD9 33%, #8B6FD4 66%, #C46FAA 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .header-sub { color: var(--muted); font-size: 13px; }
+
+  /* Stats bar */
+  .stats-bar { display: flex; gap: 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 24px; margin-bottom: 32px; flex-wrap: wrap; }
+  .stat { display: flex; flex-direction: column; gap: 2px; }
+  .stat-value { font-family: 'Jost', sans-serif; font-size: 22px; font-weight: 600; color: var(--text); }
+  .stat-label { font-size: 11px; color: var(--muted); font-family: 'Jost', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; }
+  .stat-divider { width: 1px; background: var(--border); align-self: stretch; margin: 0 4px; }
+
+  /* Section header */
+  .section-header { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+  /* Project cards */
+  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 36px; }
+  .project-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; }
+  .project-card.full { grid-column: 1 / -1; }
+  .project-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+  .project-name { font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+  .project-tagline { font-size: 12px; color: var(--muted); }
+  .project-badges { display: flex; gap: 6px; flex-wrap: wrap; align-items: flex-start; }
+  .badge { display: inline-block; font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 20px; white-space: nowrap; }
+  .badge-active   { background: rgba(42,138,82,0.1);  color: var(--green); border: 1px solid rgba(42,138,82,0.25); }
+  .badge-building { background: rgba(58,114,196,0.1); color: var(--boreal); border: 1px solid rgba(58,114,196,0.25); }
+  .badge-parked   { background: rgba(108,108,130,0.1); color: var(--muted); border: 1px solid var(--border-2); }
+  .badge-new      { background: rgba(107,79,186,0.1); color: var(--dusk); border: 1px solid rgba(107,79,186,0.25); }
+  .badge-watch    { background: rgba(160,112,16,0.1); color: var(--yellow); border: 1px solid rgba(160,112,16,0.25); }
+
+  /* Progress bar */
+  .progress-wrap { margin-bottom: 14px; }
+  .progress-meta { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-bottom: 5px; font-family: 'Jost', sans-serif; }
+  .progress-meta strong { color: var(--secondary); }
+  .progress-bg { background: var(--birch-2); border-radius: 4px; height: 5px; }
+  .progress-fill { border-radius: 4px; height: 5px; background: linear-gradient(90deg, #4FC3C8, #8B6FD4); }
+
+  /* Open items list inside cards */
+  .open-items { margin-top: 12px; }
+  .open-item { display: flex; gap: 8px; padding: 6px 0; border-top: 1px solid var(--birch-2); align-items: flex-start; }
+  .open-item:first-child { border-top: none; }
+  .item-dot { width: 5px; height: 5px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+  .dot-red    { background: var(--red); }
+  .dot-yellow { background: var(--yellow); }
+  .dot-blue   { background: var(--boreal); }
+  .dot-green  { background: var(--green); }
+  .dot-muted  { background: var(--faint); }
+  .item-text { font-size: 12px; color: var(--secondary); line-height: 1.5; }
+  .item-text strong { color: var(--text); font-weight: 500; }
+  .item-tag { display: inline-block; font-size: 9px; font-family: 'Jost', sans-serif; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 1px 5px; border-radius: 3px; margin-left: 5px; vertical-align: middle; }
+  .tag-urgent { background: rgba(164,48,48,0.1); color: var(--red); }
+  .tag-watch  { background: rgba(160,112,16,0.1); color: var(--yellow); }
+  .tag-decide { background: rgba(107,79,186,0.1); color: var(--dusk); }
+  .tag-parked { background: rgba(108,108,130,0.08); color: var(--faint); }
+
+  .card-link { display: inline-block; margin-top: 14px; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--boreal); text-decoration: none; }
+  .card-link:hover { color: var(--dusk); }
+
+  /* All open items table */
+  .open-table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin-bottom: 36px; }
+  .open-table { width: 100%; border-collapse: collapse; }
+  .open-table th { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); padding: 0 12px 10px 0; text-align: left; border-bottom: 1px solid var(--border); }
+  .open-table td { padding: 9px 12px 9px 0; border-bottom: 1px solid var(--birch-2); font-size: 12px; color: var(--secondary); vertical-align: top; }
+  .open-table tr:last-child td { border-bottom: none; }
+  .open-table .td-project { font-family: 'Jost', sans-serif; font-weight: 600; font-size: 11px; color: var(--text); white-space: nowrap; }
+  .open-table .td-item { color: var(--body); }
+  .open-table .td-type { white-space: nowrap; }
+
+  /* Footer */
+  .footer { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid var(--border); color: var(--faint); font-size: 11px; }
+  .footer a { color: var(--muted); text-decoration: none; }
+  .footer a:hover { color: var(--boreal); }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<div class="header">
+  <div class="header-eyebrow">Northlight · Portfolio PMO</div>
+  <div class="header-title"><span>Northlight</span> — All Projects</div>
+  <div class="header-sub">One-human operating system · 5 active projects · Updated July 3, 2026</div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-value">7</div><div class="stat-label">Projects</div></div>
+  <div class="stat-divider"></div>
+  <div class="stat"><div class="stat-value">3</div><div class="stat-label">Active builds</div></div>
+  <div class="stat-divider"></div>
+  <div class="stat"><div class="stat-value">2</div><div class="stat-label">In steady state</div></div>
+  <div class="stat-divider"></div>
+  <div class="stat"><div class="stat-value">2</div><div class="stat-label">Pre-build / planned</div></div>
+  <div class="stat-divider"></div>
+  <div class="stat"><div class="stat-value">Jul 10</div><div class="stat-label">Next key date</div></div>
+  <div class="stat-divider"></div>
+  <div class="stat"><div class="stat-value">17</div><div class="stat-label">Open items</div></div>
+</div>
+
+<!-- PROJECT CARDS -->
+<div class="section-header">Projects</div>
+<div class="projects-grid">
+
+  <!-- Northlight OS -->
+  <div class="project-card">
+    <div class="project-top">
+      <div>
+        <div class="project-name">Northlight OS</div>
+        <div class="project-tagline">One-human AI operating system · Railway · 6am daily dispatcher</div>
+      </div>
+      <div class="project-badges">
+        <span class="badge badge-active">Live</span>
+        <span class="badge badge-watch">Watch Jul 10</span>
+      </div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-meta"><span>Phase 6 complete</span><strong>6 / 6 phases</strong></div>
+      <div class="progress-bg"><div class="progress-fill" style="width:100%"></div></div>
+    </div>
+    <div class="open-items">
+      <div class="open-item">
+        <div class="item-dot dot-red"></div>
+        <div class="item-text"><strong>Premature close error</strong> — OAuth token fetch returning invalid response; uninvestigated <span class="item-tag tag-urgent">Urgent</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-red"></div>
+        <div class="item-text"><strong>Revenue Tracking not wired</strong> — Prompt 2, northlight-revenue label, P&L formula mapping all missing <span class="item-tag tag-urgent">Build needed</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-yellow"></div>
+        <div class="item-text"><strong>Blog auto-publish test: July 10</strong> — post queued; watch Railway logs <span class="item-tag tag-watch">Watch</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-yellow"></div>
+        <div class="item-text"><strong>Advisory Board re-tests needed</strong> — CMO Doctrine, CFO finance, CPO Doctrine, session-expiry modal <span class="item-tag tag-watch">Verify</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-muted"></div>
+        <div class="item-text"><strong>googleapis CVE</strong> — v128→v173, deferred pending Railway preview branch test <span class="item-tag tag-parked">Parked</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-muted"></div>
+        <div class="item-text"><strong>Favicon</strong> — work started July 3, completion unconfirmed <span class="item-tag tag-watch">Confirm</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-muted"></div>
+        <div class="item-text"><strong>Social media publishing</strong> — LinkedIn approval pending; park 60 days, use Buffer directly <span class="item-tag tag-parked">Parked</span></div>
+      </div>
+    </div>
+    <a class="card-link" href="NORTHLIGHT-MASTER-DASHBOARD.html">View OS Phase Dashboard →</a>
+  </div>
+
+  <!-- Northlight Meetings -->
+  <div class="project-card">
+    <div class="project-top">
+      <div>
+        <div class="project-name">Northlight Meetings</div>
+        <div class="project-tagline">Electron desktop app · Groq Whisper · ClickUp + Drive output</div>
+      </div>
+      <div class="project-badges">
+        <span class="badge badge-building">Building</span>
+        <span class="badge badge-new">Started Jul 2</span>
+      </div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-meta"><span>Phase 1 of 4 · Transcription working · VB-Audio pending</span><strong>75%</strong></div>
+      <div class="progress-bg"><div class="progress-fill" style="width:75%"></div></div>
+    </div>
+    <div class="open-items">
+      <div class="open-item">
+        <div class="item-dot dot-yellow"></div>
+        <div class="item-text"><strong>VB-Audio system audio not yet confirmed</strong> — mic only so far; Phase 1 not complete until both streams working <span class="item-tag tag-watch">Remaining</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-blue"></div>
+        <div class="item-text"><strong>Framework decision</strong> — Electron vs Tauri came up; install Rust from rustup.rs if switching <span class="item-tag tag-decide">Decide</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-muted"></div>
+        <div class="item-text"><strong>Privacy policy drafted but not published</strong> — covers Groq, PostHog, VB-Audio <span class="item-tag tag-watch">Publish</span></div>
+      </div>
+    </div>
+    <a class="card-link" href="../../Northlight Meeting/PMO/PMO-NORTHLIGHT-MEETINGS-PHASE-1-DASHBOARD.html">View Meetings Phase 1 Dashboard →</a>
+  </div>
+
+  <!-- Northlight Vault -->
+  <div class="project-card">
+    <div class="project-top">
+      <div>
+        <div class="project-name">Northlight Vault</div>
+        <div class="project-tagline">Privacy-first file storage · GitHub + Google Drive · bynorthlight.ca/vault</div>
+      </div>
+      <div class="project-badges">
+        <span class="badge badge-active">Live</span>
+      </div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-meta"><span>Early access live · 9 backlog items in ClickUp</span><strong>Steady state</strong></div>
+      <div class="progress-bg"><div class="progress-fill" style="width:100%"></div></div>
+    </div>
+    <div class="open-items">
+      <div class="open-item">
+        <div class="item-dot dot-yellow"></div>
+        <div class="item-text"><strong>LinkedIn posts underperforming</strong> — May 22: 230 impressions (41% below baseline), June 9: 97 impressions; needs stronger hooks/CTAs <span class="item-tag tag-watch">Fix messaging</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-muted"></div>
+        <div class="item-text"><strong>In-app feedback request</strong> — Early Access launch list; not yet added <span class="item-tag tag-parked">Backlog</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-muted"></div>
+        <div class="item-text"><strong>Android app + Google Play beta</strong> — two backlog tasks; research phase only <span class="item-tag tag-parked">Backlog</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-muted"></div>
+        <div class="item-text"><strong>Future integrations</strong> — SharePoint, Box, iCloud Drive, Microsoft Store, storage indicator, Settings page (6 tasks, all low/normal priority) <span class="item-tag tag-parked">Backlog</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-muted"></div>
+        <div class="item-text"><strong>Favicon decision</strong> — shared site favicon vs separate vault.html pages <span class="item-tag tag-decide">Decide</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Northlight Website -->
+  <div class="project-card">
+    <div class="project-top">
+      <div>
+        <div class="project-name">Northlight Website</div>
+        <div class="project-tagline">bynorthlight.ca · GitHub Pages · static HTML · blog active</div>
+      </div>
+      <div class="project-badges">
+        <span class="badge badge-active">Active</span>
+      </div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-meta"><span>Live + blogging · last post June 30</span><strong>Steady state</strong></div>
+      <div class="progress-bg"><div class="progress-fill" style="width:100%"></div></div>
+    </div>
+    <div class="open-items">
+      <div class="open-item">
+        <div class="item-dot dot-yellow"></div>
+        <div class="item-text"><strong>Privacy policy edits in progress</strong> — last session (Jul 3 PM) opened to edit main site PP; completion unconfirmed <span class="item-tag tag-watch">Confirm</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-yellow"></div>
+        <div class="item-text"><strong>Google Business Profile</strong> — "Northlight, Eastern Passage, NS" in progress in ClickUp <span class="item-tag tag-watch">In progress</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-muted"></div>
+        <div class="item-text"><strong>Run site through deliverability checker</strong> — ClickUp task open, not yet done <span class="item-tag tag-parked">To do</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-muted"></div>
+        <div class="item-text"><strong>On-brand document &amp; presentation templates</strong> — Branding list, in progress (assigned to Elizabeth) <span class="item-tag tag-parked">In progress</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Northlight Skills Market -->
+  <div class="project-card full">
+    <div class="project-top">
+      <div>
+        <div class="project-name">Northlight Skills Market</div>
+        <div class="project-tagline">MCP marketplace · elizabethlemoine33-commits/northlight-skills-market · Stripe · 80% revenue share</div>
+      </div>
+      <div class="project-badges">
+        <span class="badge badge-new">New</span>
+        <span class="badge badge-decide">Decision needed</span>
+      </div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-meta"><span>3 skills assessed · 2 sell-ready · listing not yet live</span><strong>Pre-launch</strong></div>
+      <div class="progress-bg"><div class="progress-fill" style="width:15%"></div></div>
+    </div>
+    <div class="open-items" style="display:grid;grid-template-columns:1fr 1fr;gap:0 24px;">
+      <div class="open-item">
+        <div class="item-dot dot-red"></div>
+        <div class="item-text"><strong>Agent outcome unconfirmed</strong> — July 2 agent was launched to prep Morning Briefing + Strategic Voice; no confirmation it completed <span class="item-tag tag-urgent">Verify</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-blue"></div>
+        <div class="item-text"><strong>Decide: list on MCP Market Hub?</strong> — Morning Briefing Setup ($15–25 CAD) and Strategic Voice Model ($10–20 CAD) are sell-ready <span class="item-tag tag-decide">Decide</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-muted"></div>
+        <div class="item-text"><strong>ClickUp Ops Agent + Task Creator bundle</strong> — 2–3 hrs to de-personalize (strip Northlight-specific IDs, make configurable); worth doing if first two get traction <span class="item-tag tag-parked">Later</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-muted"></div>
+        <div class="item-text"><strong>No PMO</strong> — simple kanban may be enough; track listing status, revenue, reviews</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  <!-- TableReady -->
+  <div class="project-card">
+    <div class="project-top">
+      <div>
+        <div class="project-name">TableReady</div>
+        <div class="project-tagline">Meal planning app · weekly planner, recipe library, grocery list, reminders</div>
+      </div>
+      <div class="project-badges">
+        <span class="badge badge-parked">Pre-build</span>
+        <span class="badge badge-new">22 backlog tasks</span>
+      </div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-meta"><span>Not started · North Star positioning doc is first task</span><strong>0%</strong></div>
+      <div class="progress-bg"><div class="progress-fill" style="width:0%"></div></div>
+    </div>
+    <div class="open-items">
+      <div class="open-item">
+        <div class="item-dot dot-blue"></div>
+        <div class="item-text"><strong>North Star: Positioning &amp; Strategy Document</strong> — first task before any build begins <span class="item-tag tag-decide">Start here</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-muted"></div>
+        <div class="item-text"><strong>Core feature backlog</strong> — weekly planner with spinner, recipe library (personal + online), grocery list auto-gen, inventory tracking (meat + veg), no-repeat rules, prep calendar</div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-muted"></div>
+        <div class="item-text"><strong>Reminders</strong> — morning defrost reminder, night-before reminder, Sunday meal planning prompt via calendar integration</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Standing PMO System -->
+  <div class="project-card">
+    <div class="project-top">
+      <div>
+        <div class="project-name">Standing PMO System</div>
+        <div class="project-tagline">Automated cross-project portfolio · GitHub Pages · dispatcher skill · MCP candidate</div>
+      </div>
+      <div class="project-badges">
+        <span class="badge badge-building">Building</span>
+        <span class="badge badge-new">Session 1 of 5</span>
+      </div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-meta"><span>Spec complete · foundation not yet built</span><strong>10%</strong></div>
+      <div class="progress-bg"><div class="progress-fill" style="width:10%"></div></div>
+    </div>
+    <div class="open-items">
+      <div class="open-item">
+        <div class="item-dot dot-blue"></div>
+        <div class="item-text"><strong>Session 1</strong> — Create northlight-pmo GitHub repo, enable Pages, migrate dashboards, build registry.json <span class="item-tag tag-watch">Next</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-muted"></div>
+        <div class="item-text"><strong>Session 2</strong> — /new-project skill (Code) <span class="item-tag tag-parked">Queued</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-muted"></div>
+        <div class="item-text"><strong>Session 3</strong> — Update existing PMO skill to commit to GitHub <span class="item-tag tag-parked">Queued</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-muted"></div>
+        <div class="item-text"><strong>Session 4</strong> — Standing PMO dispatcher skill + schedules <span class="item-tag tag-parked">Queued</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-muted"></div>
+        <div class="item-text"><strong>Session 5</strong> — /new-project skill (Chat) <span class="item-tag tag-parked">Queued</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Advisory Board Bot System -->
+  <div class="project-card">
+    <div class="project-top">
+      <div>
+        <div class="project-name">Advisory Board Bot System</div>
+        <div class="project-tagline">Multi-bot advisory system · powers OS advisory board · possible standalone product</div>
+      </div>
+      <div class="project-badges">
+        <span class="badge badge-building">In progress</span>
+        <span class="badge badge-new">2 active · 5 backlog</span>
+      </div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-meta"><span>2 tasks in progress · architecture + roles not yet defined</span><strong>~25%</strong></div>
+      <div class="progress-bg"><div class="progress-fill" style="width:25%"></div></div>
+    </div>
+    <div class="open-items">
+      <div class="open-item">
+        <div class="item-dot dot-blue"></div>
+        <div class="item-text"><strong>Expert advisor bots with contrarian pushback</strong> — in progress, high priority <span class="item-tag tag-watch">In progress</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-blue"></div>
+        <div class="item-text"><strong>Auto-generate markdown docs from bot recommendations</strong> — in progress, high priority <span class="item-tag tag-watch">In progress</span></div>
+      </div>
+      <div class="open-item">
+        <div class="item-dot dot-muted"></div>
+        <div class="item-text"><strong>Backlog</strong> — System architecture (multi-bot design), define specialized bot roles, strategic prompt generation, "You But Better" voice transformation, interview mode for bots <span class="item-tag tag-parked">Backlog</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ALL OPEN ITEMS TABLE -->
+<div class="section-header">All Open Items</div>
+<div class="open-table-wrap">
+  <table class="open-table">
+    <thead>
+      <tr>
+        <th style="width:140px">Project</th>
+        <th>Item</th>
+        <th style="width:90px">Type</th>
+        <th style="width:90px">Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="td-project">OS</td>
+        <td class="td-item">Premature close error — OAuth token fetch uninvestigated</td>
+        <td class="td-type"><span class="badge badge-building" style="font-size:9px">Bug</span></td>
+        <td><span class="item-tag tag-urgent" style="margin:0">Urgent</span></td>
+      </tr>
+      <tr>
+        <td class="td-project">OS</td>
+        <td class="td-item">Revenue Tracking (Prompt 2) — not wired; P&L shows $0 revenue</td>
+        <td class="td-type"><span class="badge badge-building" style="font-size:9px">Build</span></td>
+        <td><span class="item-tag tag-urgent" style="margin:0">High</span></td>
+      </tr>
+      <tr>
+        <td class="td-project">Skills Market</td>
+        <td class="td-item">Confirm July 2 agent completed prep for Morning Briefing + Strategic Voice</td>
+        <td class="td-type"><span class="badge badge-watch" style="font-size:9px">Verify</span></td>
+        <td><span class="item-tag tag-urgent" style="margin:0">High</span></td>
+      </tr>
+      <tr>
+        <td class="td-project">Skills Market</td>
+        <td class="td-item">Decision: list Morning Briefing Setup + Strategic Voice on MCP Market Hub?</td>
+        <td class="td-type"><span class="badge badge-new" style="font-size:9px">Decision</span></td>
+        <td><span class="item-tag tag-decide" style="margin:0">Decide</span></td>
+      </tr>
+      <tr>
+        <td class="td-project">Meetings</td>
+        <td class="td-item">Electron vs Tauri decision — install Rust from rustup.rs before next session</td>
+        <td class="td-type"><span class="badge badge-new" style="font-size:9px">Decision</span></td>
+        <td><span class="item-tag tag-decide" style="margin:0">Decide</span></td>
+      </tr>
+      <tr>
+        <td class="td-project">OS</td>
+        <td class="td-item">Blog auto-publish first test: July 10 — watch Railway logs</td>
+        <td class="td-type"><span class="badge badge-watch" style="font-size:9px">Watch</span></td>
+        <td><span class="item-tag tag-watch" style="margin:0">Jul 10</span></td>
+      </tr>
+      <tr>
+        <td class="td-project">OS</td>
+        <td class="td-item">Advisory Board re-tests: CMO Doctrine, CFO finance, CPO Doctrine, session-expiry</td>
+        <td class="td-type"><span class="badge badge-watch" style="font-size:9px">Verify</span></td>
+        <td><span class="item-tag tag-watch" style="margin:0">Medium</span></td>
+      </tr>
+      <tr>
+        <td class="td-project">Website</td>
+        <td class="td-item">Privacy policy edits — session opened Jul 3, completion unconfirmed</td>
+        <td class="td-type"><span class="badge badge-watch" style="font-size:9px">Confirm</span></td>
+        <td><span class="item-tag tag-watch" style="margin:0">Confirm</span></td>
+      </tr>
+      <tr>
+        <td class="td-project">Meetings</td>
+        <td class="td-item">Publish privacy policy (Groq, PostHog, VB-Audio) — drafted, not live</td>
+        <td class="td-type"><span class="badge badge-watch" style="font-size:9px">Publish</span></td>
+        <td><span class="item-tag tag-watch" style="margin:0">Medium</span></td>
+      </tr>
+      <tr>
+        <td class="td-project">Vault</td>
+        <td class="td-item">LinkedIn messaging — posts underperforming; needs stronger hooks + CTAs</td>
+        <td class="td-type"><span class="badge badge-watch" style="font-size:9px">Content</span></td>
+        <td><span class="item-tag tag-watch" style="margin:0">Medium</span></td>
+      </tr>
+      <tr>
+        <td class="td-project">Vault</td>
+        <td class="td-item">Favicon decision — shared vs separate for vault.html pages</td>
+        <td class="td-type"><span class="badge badge-new" style="font-size:9px">Decision</span></td>
+        <td><span class="item-tag tag-parked" style="margin:0">Low</span></td>
+      </tr>
+      <tr>
+        <td class="td-project">OS</td>
+        <td class="td-item">Favicon — work started Jul 3, confirm deployed</td>
+        <td class="td-type"><span class="badge badge-watch" style="font-size:9px">Confirm</span></td>
+        <td><span class="item-tag tag-parked" style="margin:0">Low</span></td>
+      </tr>
+      <tr>
+        <td class="td-project">OS</td>
+        <td class="td-item">googleapis CVE — v128→v173 deferred pending Railway preview branch test</td>
+        <td class="td-type"><span class="badge badge-parked" style="font-size:9px">Parked</span></td>
+        <td><span class="item-tag tag-parked" style="margin:0">Parked</span></td>
+      </tr>
+      <tr>
+        <td class="td-project">OS</td>
+        <td class="td-item">Social media publishing — LinkedIn approval pending; use Buffer 60 days</td>
+        <td class="td-type"><span class="badge badge-parked" style="font-size:9px">Parked</span></td>
+        <td><span class="item-tag tag-parked" style="margin:0">Parked</span></td>
+      </tr>
+      <tr>
+        <td class="td-project">Skills Market</td>
+        <td class="td-item">ClickUp Ops Agent + Task Creator bundle — de-personalize if first listings get traction</td>
+        <td class="td-type"><span class="badge badge-parked" style="font-size:9px">Later</span></td>
+        <td><span class="item-tag tag-parked" style="margin:0">Later</span></td>
+      </tr>
+      <tr>
+        <td class="td-project">Vault</td>
+        <td class="td-item">Privacy policy access — flagged Jun 29, status unknown</td>
+        <td class="td-type"><span class="badge badge-watch" style="font-size:9px">Confirm</span></td>
+        <td><span class="item-tag tag-parked" style="margin:0">Confirm</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="footer">
+  <span>Northlight Portfolio PMO · Built July 3, 2026 · Sources: Slack, Claude sessions, desktop specs sweep</span>
+  <span>
+    <a href="NORTHLIGHT-MASTER-DASHBOARD.html">OS Dashboard</a> ·
+    <a href="../northlight-dispatcher/specs/pmo/PMO-NORTHLIGHT-OS-PHASE-3-DASHBOARD.html">Phase 3</a> ·
+    <a href="../northlight-dispatcher/specs/pmo/PMO-NORTHLIGHT-OS-PHASE-4-DASHBOARD.html">Phase 4</a> ·
+    <a href="../northlight-dispatcher/specs/pmo/PMO-NORTHLIGHT-OS-PHASE-5-DASHBOARD.html">Phase 5</a> ·
+    <a href="../northlight-dispatcher/specs/pmo/PMO-NORTHLIGHT-OS-PHASE-6-DASHBOARD.html">Phase 6</a>
+  </span>
+</div>
+
+</body>
+</html>

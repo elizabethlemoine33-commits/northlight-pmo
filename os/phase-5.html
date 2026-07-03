@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northlight OS — Phase 5 PMO Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --midnight: #0E0E14;
+    --surface:  #12121E;
+    --border:   #1E2035;
+    --border2:  #2A2A48;
+    --text:     #FFFFFF;
+    --cloud:    #C8CCE0;
+    --haze:     #B0B8D8;
+    --muted:    #8A92A8;
+    --glacial:  #4FC3C8;
+    --boreal:   #5B8DD9;
+    --dusk:     #8B6FD4;
+    --aurora:   #C46FAA;
+    --green:    #3BAA6E;
+    --yellow:   #D4A017;
+    --red:      #C44F4F;
+  }
+  body { background: var(--midnight); color: var(--cloud); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; padding: 32px; }
+  .top-bar { height: 3px; background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%); margin: -32px -32px 32px; }
+
+  .header { margin-bottom: 28px; }
+  .phase-label { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dusk); margin-bottom: 6px; }
+  .title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+  .subtitle { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+  .progress-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
+  .progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .progress-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .progress-pct { font-size: 24px; font-weight: 700; color: var(--text); }
+  .progress-bar-bg { background: var(--border); border-radius: 4px; height: 6px; }
+  .progress-bar-fill { background: linear-gradient(90deg, #4FC3C8, #8B6FD4); border-radius: 4px; height: 6px; transition: width 0.3s; }
+  .progress-counts { display: flex; gap: 20px; margin-top: 10px; flex-wrap: wrap; }
+  .progress-count { font-size: 11px; color: var(--muted); }
+  .progress-count strong { color: var(--cloud); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .grid-full { grid-column: 1 / -1; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .card-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+
+  .block-table { width: 100%; border-collapse: collapse; }
+  .block-table th { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 0 0 8px; text-align: left; border-bottom: 1px solid var(--border); }
+  .block-table td { padding: 8px 0; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .block-table tr:last-child td { border-bottom: none; }
+  .block-name { color: var(--cloud); font-size: 12px; }
+  .block-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .badge-done       { background: rgba(59,170,110,0.15); color: #3BAA6E; border: 1px solid rgba(59,170,110,0.3); }
+  .badge-inprogress { background: rgba(91,141,217,0.15); color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
+  .badge-notstarted { background: rgba(138,146,168,0.10); color: var(--muted); border: 1px solid var(--border); }
+  .badge-blocked    { background: rgba(196,79,79,0.15); color: #C44F4F; border: 1px solid rgba(196,79,79,0.3); }
+  .badge-queued     { background: rgba(212,160,23,0.12); color: var(--yellow); border: 1px solid rgba(212,160,23,0.25); }
+  .badge-partial    { background: rgba(196,111,170,0.12); color: var(--aurora); border: 1px solid rgba(196,111,170,0.25); }
+  .badge-unverified { background: rgba(212,160,23,0.08); color: var(--yellow); border: 1px dashed rgba(212,160,23,0.3); }
+
+  .decision-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .decision-item:last-child { border-bottom: none; }
+  .decision-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .decision-rationale { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .issue-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .issue-item:last-child { border-bottom: none; }
+  .issue-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--yellow); margin-top: 4px; flex-shrink: 0; }
+  .issue-dot.red   { background: var(--red); }
+  .issue-dot.muted { background: var(--muted); }
+  .issue-dot.green { background: var(--green); }
+  .issue-text { color: var(--cloud); font-size: 12px; }
+  .issue-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .activity-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-date { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+  .activity-text { color: var(--cloud); font-size: 12px; }
+
+  .week-header { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dusk); padding: 10px 0 4px; border-top: 1px solid var(--border2); margin-top: 4px; }
+  .week-header:first-child { border-top: none; margin-top: 0; padding-top: 0; }
+
+  .footer { color: var(--muted); font-size: 11px; border-top: 1px solid var(--border); padding-top: 16px; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<div class="header">
+  <div class="phase-label">Northlight OS · Phase 5</div>
+  <div class="title">Advisory Board System (Multi-Agent)</div>
+  <div class="subtitle">Virtual C-suite that debates a scenario Elizabeth brings it and produces an OKF decision record · Knowledge Base gate → Phase 1 minimal board → Phase 2 cadence/GitHub → Phase 3 full board · Started June 24, 2026</div>
+</div>
+
+<div class="progress-section">
+  <div class="progress-header">
+    <div class="progress-label">Phase Progress</div>
+    <div class="progress-pct">~85%</div>
+  </div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:85%"></div></div>
+  <div class="progress-counts">
+    <div class="progress-count"><strong>29</strong> of 38 build items fully done, <strong>1</strong> partial, <strong>3</strong> unverified (no signal yet, not failing)</div>
+    <div class="progress-count"><strong>1</strong> queued (GitHub push for decision records — confirmed not a fix for cross-session memory, see item #11)</div>
+    <div class="progress-count"><strong>4</strong> not started (Phase 2/3)</div>
+  </div>
+</div>
+
+<div class="grid">
+
+  <div class="card grid-full">
+    <div class="card-label">Build Items</div>
+    <table class="block-table">
+      <thead>
+        <tr>
+          <th style="width:5%">#</th>
+          <th style="width:33%">Item</th>
+          <th style="width:14%">Status</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td><span class="block-note" style="color:var(--dusk);font-weight:600">P0</span></td>
+          <td colspan="3"><span class="block-note" style="color:var(--dusk);font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase">Phase 0 — Knowledge Base Gate (hard prerequisite)</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">1</span></td>
+          <td>
+            <div class="block-name">Ratify mission/vision/values/principles</div>
+            <div class="block-note">Required before any persona could be built — gate was enforced, not just noted.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">First AI-drafted attempt explicitly rejected by Elizabeth (inferred, not ratified). Re-run via direct chat interview, sourced to WHO statements doc + You Belong Here charter. mission.md/vision.md/values.md/principles.md ratified June 24. Copied into dashboard/specs/okf/ (the folder actually deployed — repo-root specs/okf-draft/ is build-time only).</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="block-note" style="color:var(--dusk);font-weight:600">P1</span></td>
+          <td colspan="3"><span class="block-note" style="color:var(--dusk);font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase">Phase 1 — Minimal Viable Board</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">2</span></td>
+          <td>
+            <div class="block-name">ADVISORY-BOARD-PERSONAS.md spec</div>
+            <div class="block-note">CFO, Chief Privacy Officer, CMO, Secretary — grounded in ratified KB docs.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">dashboard/specs/ADVISORY-BOARD-PERSONAS.md. Shared behavioral rules: read-only, challenge-idea-not-person, self-check, cite-real-data-only.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">3</span></td>
+          <td>
+            <div class="block-name">lib/advisory-board/personas.js, session-state.js, orchestrator.js</div>
+            <div class="block-note">Persona registry, Drive-backed session/usage state, round orchestration.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">Sonnet for presentation/debate, Haiku for synthesis/Secretary. $5/month hard cap via session-state.js, checked before every session/round.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">4</span></td>
+          <td>
+            <div class="block-name">Self-check + regeneration</div>
+            <div class="block-note">One self-check pass per round; one actual regeneration attempt on failure.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">Bug found during live verification: self-check correctly flagged real issues (invented "three WHOs" reference, fabricated $480/yr figure) but never actually regenerated — only logged a warning. Fixed with runRoundWithSelfCheck wrapper; re-verified fix on real output.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">5</span></td>
+          <td>
+            <div class="block-name">routes/advisory-board.js + AdvisoryBoardPanel.jsx</div>
+            <div class="block-note">Session start/round/synthesize/finalize API; chat-style debate UI.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">Modeled on task-intake.js's chat-loop pattern. Mounted as its own "Advisory Board" tab in App.jsx — not folded into daily-ops tabs.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">6</span></td>
+          <td>
+            <div class="block-name">Decision record storage (Drive-only)</div>
+            <div class="block-note">OKF-formatted record saved to Northlight/Decisions/ + decisions-index.json.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">GitHub push explicitly deferred to Phase 2, gated on northlight-knowledge repo's decisions/ folder existing.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">7</span></td>
+          <td>
+            <div class="block-name">Live end-to-end verification</div>
+            <div class="block-note">Real Anthropic + Drive API calls, not mocked.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">Two full sessions run for real. Total cost $0.154 — confirms plan's cost estimate ($0.10–0.15/session) and stays far under the $5/month cap. Two [TEST]-tagged decision records exist in real Drive (Northlight/Decisions/) pending Elizabeth's cleanup decision.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">8</span></td>
+          <td>
+            <div class="block-name">Merge + deploy</div>
+            <div class="block-note">Commit, merge with concurrent unrelated work, push to main.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">Commit bd1d6e1 → merge e46ec8b (clean auto-merge with a SESSION_SECRET fail-closed fix + dispatcher/ClickUp routing fix from a separate, concurrent Claude Code session) → pushed to origin/main. Railway auto-deploy triggered.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">9</span></td>
+          <td>
+            <div class="block-name">Elizabeth's live click-through of the deployed UI</div>
+            <div class="block-note">The one thing not yet verified — requires her real browser/Google OAuth session.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">Resolved June 25 — Elizabeth ran her first real board meeting through the live UI (mission/vision/values/principles review, CFO + Privacy Officer + CMO). Confirmed working end-to-end in production.</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="block-note" style="color:var(--dusk);font-weight:600">P1.5</span></td>
+          <td colspan="3"><span class="block-note" style="color:var(--dusk);font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase">Phase 1.5 — Real-Usage Hardening (from first real board meeting, June 25)</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">15</span></td>
+          <td>
+            <div class="block-name">Vault + privacy policy context gap</div>
+            <div class="block-note">CMO/CPO debated a data-controller question for two rounds that was already answered in published policy.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">Pulled both live privacy policies (bynorthlight.ca/{northlight,vault}-privacy.html) + existing NORTHLIGHT-CONTENT-FACTS-REFERENCE.md into orchestrator's grounding context as optional context.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">16</span></td>
+          <td>
+            <div class="block-name">Configurable debate rounds</div>
+            <div class="block-note">"Three rounds of debate is not enough" — was a hardcoded constant.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">DEFAULT_MAX_DEBATE_ROUNDS=6, HARD_MAX_DEBATE_ROUNDS=12, set per-session in the UI, clamped server-side.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">17</span></td>
+          <td>
+            <div class="block-name">Secretary session timestamps</div>
+            <div class="block-note">Decision records now record meeting start/end time.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">session.createdAt + finalize-time timestamp flow into runSecretaryRecord, in both OKF frontmatter and a "Meeting Time" body section.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">18</span></td>
+          <td>
+            <div class="block-name">Markdown rendering in panel</div>
+            <div class="block-note">"**bold**" was showing literally — "we are in an HTML environment."</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">Reused the existing MarkdownBlock pattern from WeeklyReviewPanel.jsx — no new dependency added.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">19</span></td>
+          <td>
+            <div class="block-name">Per-persona assignment capability</div>
+            <div class="block-note">"Can I assign things to the advisory board like CFO?" — no mechanism existed.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">New runPersonaAssignment() (single-voice, read-only) + POST /session/assign + UI section. Used for real: CMO's two propositions, Privacy Officer's policy resolution.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">20</span></td>
+          <td>
+            <div class="block-name">Lightweight past-decisions reference</div>
+            <div class="block-note">"Can I reference past conversations?" — MVP of Phase 3 item #14, shipped early.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">New sessions see the 8 most recent decisions-index.json entries in grounding context. Full cross-session relatedDecisions resolution still Phase 3 (item 14 below).</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">21</span></td>
+          <td>
+            <div class="block-name">Assignment deliverables saved to readable Drive files</div>
+            <div class="block-note">Assignments were only inside a session's JSON blob — not actually findable.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">New saveAssignmentRecord() → Northlight/Decisions/Assignments/. Drive link now shown in the panel. Backfilled all 3 of today's real deliverables (CMO, CPO, CFO list) into the folder.</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="block-note" style="color:var(--dusk);font-weight:600">P1.6</span></td>
+          <td colspan="3"><span class="block-note" style="color:var(--dusk);font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase">Phase 1.6 — Real 1:1 Persona Threads (Elizabeth: "I want to meet with an advisor 1:1 and debate the answer")</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">22</span></td>
+          <td>
+            <div class="block-name">runPersonaThread — multi-turn, single-voice conversation</div>
+            <div class="block-note">Replaces the old single-shot runPersonaAssignment entirely.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">Verified live: CMO genuinely reconsidered when pushed back on with new information, rather than just conceding to be agreeable.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">23</span></td>
+          <td>
+            <div class="block-name">Thread persistence — same Drive file across replies</div>
+            <div class="block-note">saveAssignmentRecord now accepts a fileId to upsert instead of creating a new file per turn.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">Verified: two saves with the same fileId confirmed identical file ID returned (no duplicate files).</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">24</span></td>
+          <td>
+            <div class="block-name">Assignment threads feed group meetings</div>
+            <div class="block-note">Debate rounds, synthesis, and the Secretary's record now receive the session's assignment threads as context.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">A 1:1 conversation with one persona is now referenceable in the full board meeting — no longer a dead end. New "Related 1:1 Assignment Threads" section in the OKF record when threads exist.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">25</span></td>
+          <td>
+            <div class="block-name">Cross-session memory for assignments</div>
+            <div class="block-note">New advisory-board-assignments-index.json, mirrors the decisions index.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">formatPastDecisionsContext() now pulls recent assignments too (not just finalized decisions) into every new session's grounding context.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">26</span></td>
+          <td>
+            <div class="block-name">Threaded conversation UI</div>
+            <div class="block-note">Each assignment renders as a real thread with its own reply box, not a single Q&amp;A card.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">AdvisoryBoardPanel.jsx — Elizabeth/persona turns rendered in order, reply input per thread, Drive link shown.</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="block-note" style="color:var(--dusk);font-weight:600">P1.7</span></td>
+          <td colspan="3"><span class="block-note" style="color:var(--dusk);font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase">Phase 1.7 — Second Real-Use Review Round + Website Access</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">27</span></td>
+          <td>
+            <div class="block-name">Interjections persisted in the transcript</div>
+            <div class="block-note">Elizabeth: "I feel like my words are getting lost." Interjections sent to the model once, then discarded — never saved.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">round.interjection now saved to the transcript and rendered in the panel between rounds, surviving into synthesis/the final record. Verified: round-trip through a real Drive save/reload preserved the exact text.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">28</span></td>
+          <td>
+            <div class="block-name">Richer past-context + ask-don't-invent rule</div>
+            <div class="block-note">Referencing prior work by name with only a title+link pointer was causing fabricated backstories instead of a request for real content.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">Most recent decision/assignment now gets real downloaded Drive content (truncated). Every prompt explicitly instructed to ask rather than invent when content is missing. Verified: real 12K-char decision record download succeeded.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">29</span></td>
+          <td>
+            <div class="block-name">Session rehydration on panel load</div>
+            <div class="block-note">GET /session/:id existed but was never called — the actual cause of the "no Finalize button" bug.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">sessionId now persists to localStorage and rehydrates full session state (transcript, synthesis, decision record, assignments) on mount.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">30</span></td>
+          <td>
+            <div class="block-name">Drive links auto-fetched from scenario/interjection text</div>
+            <div class="block-note">Pasting a Drive link did nothing — nothing fetched it.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">Drive links now auto-downloaded and injected as context; non-Drive/failed links get an explicit "I can't open this, paste the text" instruction instead of silent proceeding. Verified against a real Drive link.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">31</span></td>
+          <td>
+            <div class="block-name">Self-check tone + convergence fixes</div>
+            <div class="block-note">Elizabeth: "the in fighting is just not OK." Rubric was also penalizing genuine agreement.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">New tone criterion flags mockery of a persona's reasoning, not just disagreement with their argument — caught a real violation live during verification. Softened the convergence rule so earned agreement passes.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">32</span></td>
+          <td>
+            <div class="block-name">Standing operating notes mechanism</div>
+            <div class="block-note">Corrections shouldn't each need a code patch to become permanent.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">Drive-backed, panel-editable list of standing notes loaded into every prompt as binding instructions. New UI section in AdvisoryBoardPanel.jsx; GET/POST/DELETE /operating-notes routes. Verified live: a test note was honoured exactly in real model output.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">33</span></td>
+          <td>
+            <div class="block-name">Read-only website access</div>
+            <div class="block-note">Elizabeth: "they are all talking about the website, but have no access to the website" — confirmed true.</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">New lib/advisory-board/website-context.js fetches real content from the confirmed public repo (elizabethlemoine33-commits/bynorthlight-site) via the public GitHub API — no token needed. Cached 30 min. Wired into every persona-facing prompt with an explicit read-only rule. Verified live: CMO accurately quoted the real homepage hero section word-for-word.</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="block-note" style="color:var(--dusk);font-weight:600">P1.8</span></td>
+          <td colspan="3"><span class="block-note" style="color:var(--dusk);font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase">Phase 1.8 — Human-Readable Output, Persona Grounding, Fix Verification</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">34</span></td>
+          <td>
+            <div class="block-name">Formatted Google Doc alongside raw .md for Secretary records</div>
+            <div class="block-note">Elizabeth: ".md files save correctly but raw markdown isn't readable, even in Google Docs."</div>
+          </td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><span class="block-note">Elizabeth confirmed live July 1 test: got a human-readable Doc alongside the .md at the end of the meeting, both saved in the same Drive folder (expected, fine). Working as designed.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">35</span></td>
+          <td>
+            <div class="block-name">CMO Doctrine integrated — "Open Source CMO" framework (Paul Syng)</div>
+            <div class="block-note">Elizabeth confirmed this was the CMO source material from ~mid-May, never folded into the persona until now.</div>
+          </td>
+          <td><span class="badge badge-unverified">Unverified</span></td>
+          <td><span class="block-note">Code shipped June 29 — Elizabeth's July 1 live test was the very next session, too soon to clearly attribute behavior to the doctrine specifically. One signal seen: CMO deferred to CFO on a finance-adjacent question rather than overreaching into CFO's lane — consistent with the doctrine's financial-translation discipline, but not conclusive on its own. Elizabeth plans to re-test in a board meeting in early July to get a clearer read.</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="block-note">36</span></td>
+          <td>
+            <div class="block-name">CFO read-only access to finance Drive folder</div>
+            <div class="block-note">Elizabeth: "Is it possible to give the CFO reading access to any files in this folder?"</div>
+          </td>
+          <td><span class="badge badge-partial">Partial</span></td>
+          <td><span class="block-note">New lib/advisory-board/finance-context.js — real-time file listing + most-recently-modified file's actual content (Sheets via Sheets API, Docs via export), same recency-as-relevance pattern as past-decisions context. Cached 30 min. Wired into group debate and 1:1 thread prompts, CFO-only citation rule. Confirmed loading cleanly. Elizabeth plans to test CFO's actual finance-folder access specifically on July 2 — not yet confirmed live.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">37</span></td>
+          <td>
+            <div class="block-name">CPO Doctrine integrated</div>
+            <div class="block-note">Elizabeth: concern that CPO felt "too much like me." Root cause confirmed: CPO had no independent grounding — its "voice" was principles.md quoted back at her, unlike CFO/CMO which each reason from an outside standard.</div>
+          </td>
+          <td><span class="badge badge-unverified">Unverified</span></td>
+          <td><span class="block-note">Reviewed 5 candidate source files (dpa.md, generic privacy-compliance SKILL.md, privacy-risk-audit.zip ×2 duplicate, cipa-tracker-audit.zip) for safety before merging — all clean, no malicious content, no prompt injection, no embedded secrets; only live network dependency found (Firecrawl scrape in privacy-risk-audit) is opt-in/documented, not auto-triggered. Built condensed CPO-DOCTRINE.md from dpa.md + privacy-risk-audit. Wired same as CMO-DOCTRINE.md. Confirmed loading (3,927 chars). CPO wasn't active/relevant in the July 1 test session, so no signal yet either way — needs a session where CPO actually engages to judge.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">38</span></td>
+          <td>
+            <div class="block-name">Human-centred session-expiry message</div>
+            <div class="block-note">Elizabeth hit a confusing "Not authenticated" error mid-meeting with no explanation; turned out her own login session legitimately expired (8hr cookie), not a bug — but the panel's handling of it was.</div>
+          </td>
+          <td><span class="badge badge-unverified">Unverified</span></td>
+          <td><span class="block-note">Found the actual gap: unlike the main dashboard (App.jsx), none of AdvisoryBoardPanel's fetch calls handled a 401 — they surfaced the raw {error:'Not authenticated'} as an inline error. Added authedFetch() wrapper + a modal: explains what happened, confirms nothing is lost (true — sessions are Drive-backed and rehydrate from sessionId), single "Sign in again" action. Also fixed rehydrateSession() incorrectly treating a 401 the same as "session doesn't exist". Frontend build verified clean. July 1 live test had no session expiry occur — Elizabeth hopes not to see it again soon, which is good news but means the modal itself still hasn't actually been observed firing.</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="block-note" style="color:var(--dusk);font-weight:600">P2</span></td>
+          <td colspan="3"><span class="block-note" style="color:var(--dusk);font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase">Phase 2 — Cadence + GitHub (not started)</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">10</span></td>
+          <td>
+            <div class="block-name">Weekly Monday 10am standing session</div>
+            <div class="block-note">Scheduler hook + automated context pull (ClickUp/Calendar/Gmail/Drive).</div>
+          </td>
+          <td><span class="badge badge-notstarted">Not Started</span></td>
+          <td><span class="block-note">Planned to extend dispatcher.js's existing setTimeout-loop pattern and reuse weekly-review.js's ClickUp aggregation helpers, not rebuild them.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">11</span></td>
+          <td>
+            <div class="block-name">GitHub push for decision records</div>
+            <div class="block-note">Push OKF records to northlight-knowledge repo's decisions/ folder.</div>
+          </td>
+          <td><span class="badge badge-queued">Queued</span></td>
+          <td><span class="block-note">Gated on the northlight-knowledge repo and its decisions/ folder existing and being ratified — separate parallel-track project, not started. Confirmed with Elizabeth July 1: this is purely a second storage location (Drive + GitHub), not a fix for "I have to point to the specific meeting" — the board's actual memory (formatPastDecisionsContext) reads from Drive regardless of GitHub. The thing that would actually reduce needing to point to a meeting by name is item #14 (cross-session retrieval, Phase 3, not started) — a different, bigger piece of work.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">12</span></td>
+          <td>
+            <div class="block-name">Brainstorm-mode session type</div>
+            <div class="block-note">New-initiative exploration mode, distinct from on-demand "I'm stuck" mode.</div>
+          </td>
+          <td><span class="badge badge-notstarted">Not Started</span></td>
+          <td><span class="block-note">Phase 1 shipped on-demand only, by design — proving the debate mechanic before adding session-type variety.</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="block-note" style="color:var(--dusk);font-weight:600">P3</span></td>
+          <td colspan="3"><span class="block-note" style="color:var(--dusk);font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase">Phase 3 — Full Board (not started)</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">13</span></td>
+          <td>
+            <div class="block-name">Remaining 10 personas</div>
+            <div class="block-note">CTO, Legal, Risk, Strategy, COO, PM, Accessibility Advocate, Opportunity Cost Analyst, Product, People.</div>
+          </td>
+          <td><span class="badge badge-notstarted">Not Started</span></td>
+          <td><span class="block-note">personas.js is data-driven specifically so this is a config addition, not new orchestration code.</span></td>
+        </tr>
+        <tr>
+          <td><span class="block-note">14</span></td>
+          <td>
+            <div class="block-name">Cross-session decision retrieval</div>
+            <div class="block-note">relatedDecisions in new records actually resolving against the decisions index.</div>
+          </td>
+          <td><span class="badge badge-notstarted">Not Started</span></td>
+          <td><span class="block-note">decisions-index.json already populated by Phase 1 saves — retrieval/lookup logic against it not yet built.</span></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Key Decisions — Locked</div>
+    <div class="decision-item">
+      <div class="decision-title">Architecture: hybrid, same backend, separate surface</div>
+      <div class="decision-rationale">Rejected fully-standalone app (duplicates OAuth/hosting) and a folded-in dashboard tab (couples experimental feature to stable ops tool). New route/panel in the same northlight-dispatcher deployment, reusing existing Drive/Gmail/Calendar/ClickUp auth.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Model: Haiku + Sonnet mix, not Haiku-only or external model</div>
+      <div class="decision-rationale">Real cost math showed Sonnet is negligible at this volume (~$0.10–0.15/session) — quality matters more than the marginal cost difference. External/non-Anthropic model rejected: pennies of savings, new vendor relationship, against Elizabeth's own stated discomfort with adding tools outside the existing relationship.</div>
+    </div>
+    <div class="decision-title">$5/month hard usage cap</div>
+    <div class="decision-rationale">Goal is as-close-to-$0-as-possible; $5 is the ceiling, enforced in code (session-state.js) before every session and round — not just a documented intention.</div>
+    <div class="decision-item">
+      <div class="decision-title">Phase 1 board: CFO, Privacy Officer, CMO, Secretary</div>
+      <div class="decision-rationale">CMO pulled into Phase 1 against the original recommendation to defer it, because marketing decisions were Elizabeth's stated priority. CFO/Privacy/Secretary needed no new data integrations; CMO reuses existing Plausible/LinkedIn/Threads pulls already wired for the OS.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Knowledge Base gate enforced as a hard blocker, not a soft note</div>
+      <div class="decision-rationale">Implementation was paused entirely mid-session when ratified mission/values/principles didn't exist. Resumed only after Elizabeth ran a real chat interview and produced ratified docs — confirms personas need to represent real, sourced principles, not inferred ones.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Storage: Drive-only for Phase 1, GitHub explicitly deferred</div>
+      <div class="decision-rationale">No GitHub push capability exists in the codebase yet. Building it is real, separate work tied to the parallel-track Knowledge Base project — not bundled into Advisory Board Phase 1.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Self-check: one pass, with an actual regeneration retry — not multiple iterative rounds</div>
+      <div class="decision-rationale">Elizabeth confirmed one pass for v1, with room to expand to multiple rounds later for specific sessions. Built as a configurable parameter (refinementPasses), not hardcoded.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Persona assignments are single-voice, not multi-voice</div>
+      <div class="decision-rationale">An assignment is a deliverable from one specific persona, not a debate — voicing multiple personas would blur the distinction the orchestrator already protects in regular rounds.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">"Reference past decisions" shipped as a cheap context-injection MVP now, not deferred entirely to Phase 3</div>
+      <div class="decision-rationale">Full relatedDecisions resolution is real future work, but listing the 8 most recent decisions in every new session's context answers Elizabeth's actual question today at near-zero added cost.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Single-shot assignments replaced entirely with multi-turn threads (not added alongside)</div>
+      <div class="decision-rationale">Elizabeth's actual need ("meet 1:1 and debate the answer") was a different shape than the original single-shot design, not an enhancement to it — kept one clean implementation rather than maintaining two assignment patterns.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Thread persistence upserts the same Drive file, not a new file per reply</div>
+      <div class="decision-rationale">A 5-message back-and-forth shouldn't produce 5 separate Drive files — one thread, one file, updated in place. saveAssignmentRecord takes an optional fileId for this.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Gates &amp; Open Items</div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">Context invention (item #28) — confirmed fixed</div>
+        <div class="issue-note">Elizabeth relayed 4 real decision-record transcripts (June 25 ×3, June 29) for direct review. None show fabricated content — prior decisions are referenced accurately (e.g. "Round 1: Option 2 ratified," "Vision/Values/Principles (prior ratification)"), and the June 29 session builds entirely on real in-session facts (265 LinkedIn connections, real engagement metrics). No invented backstories found in any post-#28 session checked.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">"In-fighting" tone (item #31) — confirmed fixed</div>
+        <div class="issue-note">The original "service catalog" / "fog with better grammar" snipe is the June 25 "Mission Statement Revision" transcript (13:53–18:06) itself — the same incident already diagnosed, not a new one. The very next session that day, "Mission Statement Ratification" (18:09–19:37, post-fix), and the June 29 session are both sharply direct ("The CFO demanded a metric," "CPO objected") with zero personal sniping. Fix is holding across the sessions checked.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot"></div>
+      <div>
+        <div class="issue-text">Persona note: CPO did not read as disengaged in the 4 sessions reviewed</div>
+        <div class="issue-note">Original concern was CPO's narrow scope reading as disengaged in some rounds. In all 3 mission sessions reviewed, CPO is substantively engaged — flagged the data-controller/processor distinction, the brand-perceived-responsibility risk, and caught the "tools plural" perception gap in the Ratification session. May be resolved already, or may still show up in other sessions Elizabeth has seen that weren't included here — needs her confirmation before closing.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">CPO "felt too much like me" — root cause confirmed and fixed (item #37)</div>
+        <div class="issue-note">Separate, more specific concern than the disengagement note above. Confirmed by reading the persona definitions side by side: CFO and CMO each reason from an outside professional standard, but CPO's "voice" was literally principles.md quoted back at Elizabeth — no independent grounding of its own. Fixed by building CPO-DOCTRINE.md from reviewed-safe external privacy-review materials. Not yet live-verified that this actually changes CPO's voice in practice.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">Standing feedback mechanism — built (item #32)</div>
+        <div class="issue-note">Resolved by the standing operating notes mechanism shipped June 25 — a Drive-backed, panel-editable list loaded into every session as binding instructions. Verified live with a real test note. This open item is superseded by that build, not a separate gap.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot red"></div>
+      <div>
+        <div class="issue-text">Ready: persona character role review</div>
+        <div class="issue-note">Previously blocked on the in-progress session finishing — that session has now finished, plus a couple more have run since. Original trigger (CFO/CMO tone, CPO scope) appears largely addressed by the #28/#31 fixes per the 4 transcripts reviewed, and both CMO and CPO now have independent professional grounding (items #35, #37) they didn't have when this was first raised. Elizabeth to confirm in her live test whether any further persona-doc edit is still needed, or whether this can close.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">CMO source documents — confirmed never incorporated, now fixed (item #35)</div>
+        <div class="issue-note">Elizabeth provided the actual source ("Open Source CMO" zip, Paul Syng). Confirmed by direct inspection it was never folded into the persona. Fixed by building CMO-DOCTRINE.md. No longer open as a question — only the live-verification step in item #35 remains.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">Confusing "Not authenticated" error mid-meeting — fixed (item #38)</div>
+        <div class="issue-note">Elizabeth's own login session legitimately expired (she'd been signed in from earlier in the day) — not a bug in itself. But the panel handled it badly: raw inline error, no explanation, and a related bug where the saved session pointer would have been wrongly cleared. Both fixed. No longer open.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">US spelling in Secretary/debate output — fixed</div>
+        <div class="issue-note">No system prompt anywhere had a spelling instruction at all. Added explicit Canadian English rule to all 5 prompt builders. Verified live: real output produced "colour", zero American spellings.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">Responses cut off mid-sentence — fixed</div>
+        <div class="issue-note">maxTokens raised across the board (presentation/debate 1500→2200, synthesis 1200→1800, secretary 1800→2800, threads 2500→3000) + explicit "finish cleanly" instruction added to every prompt. Verified live: clean ending confirmed.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">"6 rounds requested, only 5 delivered" — fixed</div>
+        <div class="issue-note">Real off-by-one: routes/advisory-board.js allows rounds up to maxRounds+1 (correct), but runDebateRound's own inner guard blocked one round earlier (roundNumber > maxRounds instead of > maxRounds + 1). Confirmed by simulation: maxRounds=6 now yields exactly 6 debate rounds.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">UX: entry point for a 1:1-only session — noted for a later phase</div>
+        <div class="issue-note">Elizabeth meant to start a 1:1 with just CMO but landed in a full group session — "Convene the board" is the only visible start action; the 1:1 thread flow only appears after a group session is already running. Not actioned now, per Elizabeth: "let's make a note to reconsider that in a later phase."</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">Knowledge Base gate — cleared</div>
+        <div class="issue-note">mission.md/vision.md/values.md/principles.md ratified June 24. No longer blocking.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">Elizabeth's live click-through — done</div>
+        <div class="issue-note">First real board meeting run June 25 through the live production UI. No longer open.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">Vault/privacy context gap — fixed</div>
+        <div class="issue-note">Found directly from the first real meeting (CMO/CPO debated a question already answered in published policy). Both privacy policies + product facts now in grounding context.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">Assignment deliverables discoverability — fixed</div>
+        <div class="issue-note">Were only inside a session's JSON blob. Now saved as readable files in Northlight/Decisions/Assignments/, with a Drive link shown in the panel.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">Two [TEST]-tagged decision records — deleted</div>
+        <div class="issue-note">Elizabeth confirmed June 25 — both trashed from Drive and removed from decisions-index.json.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">Two unmerged branches — resolved, deleted</div>
+        <div class="issue-note">claude/secret-exposure-audit-oz5yyu and claude/slack-session-gso2k3 confirmed stale: diffed each against main with zero differences — both branches' actual changes (SESSION_SECRET fail-closed, dispatcher polish/blog-polish/dedupe fixes) were already merged to main via different commit hashes. Deleted from origin June 29, 2026.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">GitHub push capability does not exist yet</div>
+        <div class="issue-note">Needed for Phase 2. Gated on the northlight-knowledge repo and its decisions/ folder existing and being ratified — a separate, not-yet-started project.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card grid-full">
+    <div class="card-label">Recent Activity</div>
+    <div class="activity-item">
+      <div class="activity-date">July 1, 2026 — Live test results: Doc output confirmed, GitHub-push question resolved</div>
+      <div class="activity-text">Item #34 (formatted Google Doc output) confirmed Done — Elizabeth got a human-readable Doc alongside the .md at the end of a real meeting. Items #35 (CMO Doctrine) and #38 (session-expiry modal) downgraded to Unverified rather than Done: CMO showed one promising signal (deferring to CFO on a finance-adjacent question) but it's too early to attribute confidently to the doctrine — Elizabeth will re-test in an early-July board meeting; the expiry modal simply didn't fire this session (no news, but not yet observed working either). Item #37 (CPO Doctrine) also Unverified — CPO wasn't active in this session. Item #36 (CFO finance access) still Partial — Elizabeth testing it specifically July 2. Separately, clarified item #11 (GitHub push) is purely a second storage location and would NOT have reduced "I have to point to the specific meeting" — that's item #14 (cross-session retrieval, Phase 3, not started), a different and bigger piece of work.</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">June 30, 2026 — CFO finance-folder access, CPO Doctrine, session-expiry UX fix</div>
+      <div class="activity-text">Three items shipped: CFO read-only finance-folder access (#36), CPO Doctrine built after confirming CPO had no independent grounding unlike CFO/CMO (#37), and a human-centred session-expiry modal plus a related session-pointer bug fix (#38).</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <span>Phase 5 — Advisory Board System (Multi-Agent)</span>
+  <span>In progress — July 1, 2026 · ~85% complete (Phase 0–1.7 done, Phase 1.8 mostly verified — 1 partial, 3 unverified pending more sessions, Phase 2–3 not started)</span>
+</div>
+
+</body>
+</html>

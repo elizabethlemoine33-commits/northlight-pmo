@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northlight OS — Master PMO Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --midnight: #0E0E14;
+    --surface:  #12121E;
+    --border:   #1E2035;
+    --border2:  #2A2A48;
+    --text:     #FFFFFF;
+    --cloud:    #C8CCE0;
+    --haze:     #B0B8D8;
+    --muted:    #8A92A8;
+    --glacial:  #4FC3C8;
+    --boreal:   #5B8DD9;
+    --dusk:     #8B6FD4;
+    --aurora:   #C46FAA;
+    --green:    #3BAA6E;
+    --yellow:   #D4A017;
+    --red:      #C44F4F;
+  }
+  body { background: var(--midnight); color: var(--cloud); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; padding: 32px; max-width: 1100px; margin: 0 auto; }
+  .top-bar { height: 3px; background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%); margin: -32px -32px 32px; }
+
+  /* Header */
+  .header { margin-bottom: 28px; }
+  .os-label { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--glacial); margin-bottom: 6px; }
+  .title { font-size: 26px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+  .subtitle { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+  /* Overall progress */
+  .overall { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin-bottom: 28px; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px; }
+  .stat-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .stat-value { font-size: 28px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+  .stat-sub { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+  /* Phase cards */
+  .phases { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
+  .phase-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; display: grid; grid-template-columns: 80px 1fr auto; gap: 16px; align-items: start; }
+  .phase-card:hover { border-color: var(--border2); }
+  .phase-num { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+  .phase-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+  .phase-subtitle { font-size: 11px; color: var(--muted); margin-bottom: 10px; line-height: 1.5; }
+  .phase-meta { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .phase-dates { font-size: 11px; color: var(--muted); }
+  .phase-link { font-size: 11px; color: var(--boreal); text-decoration: none; }
+  .phase-link:hover { color: var(--glacial); }
+  .phase-link.missing { color: var(--muted); font-style: italic; cursor: default; }
+  .phase-right { text-align: right; min-width: 90px; }
+  .pct-value { font-size: 22px; font-weight: 700; color: var(--text); }
+  .pct-label { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .mini-bar-bg { background: var(--border); border-radius: 3px; height: 4px; margin-top: 8px; width: 90px; }
+  .mini-bar-fill { background: linear-gradient(90deg, #4FC3C8, #8B6FD4); border-radius: 3px; height: 4px; }
+
+  /* Badges */
+  .badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .badge-done       { background: rgba(59,170,110,0.15); color: #3BAA6E; border: 1px solid rgba(59,170,110,0.3); }
+  .badge-inprogress { background: rgba(91,141,217,0.15); color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
+  .badge-queued     { background: rgba(212,160,23,0.12); color: var(--yellow); border: 1px solid rgba(212,160,23,0.25); }
+  .badge-partial    { background: rgba(196,111,170,0.12); color: var(--aurora); border: 1px solid rgba(196,111,170,0.25); }
+
+  /* Divider */
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin: 28px 0 14px; }
+
+  /* Open items grid */
+  .open-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 28px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .card-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .issue-item { display: flex; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .issue-item:last-child { border-bottom: none; }
+  .issue-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--yellow); margin-top: 4px; flex-shrink: 0; }
+  .issue-dot.muted { background: var(--muted); }
+  .issue-dot.green { background: var(--green); }
+  .issue-text { color: var(--cloud); font-size: 12px; }
+  .issue-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  /* Key decisions */
+  .decision-item { padding: 7px 0; border-bottom: 1px solid var(--border); }
+  .decision-item:last-child { border-bottom: none; }
+  .decision-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .decision-rationale { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  /* Footer */
+  .footer { color: var(--muted); font-size: 11px; border-top: 1px solid var(--border); padding-top: 16px; display: flex; justify-content: space-between; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<div class="header">
+  <div class="os-label">Northlight OS — Master PMO</div>
+  <div class="title">Project Overview</div>
+  <div class="subtitle">All phases · Current as of July 3, 2026 · One-human + AI operating system for Northlight</div>
+</div>
+
+<!-- Overall stats -->
+<div class="overall">
+  <div>
+    <div class="stat-label">Phases Complete</div>
+    <div class="stat-value">4<span style="font-size:16px;color:var(--muted)"> / 6</span></div>
+    <div class="stat-sub">Phases 1, 2, 3, 6 closed</div>
+  </div>
+  <div>
+    <div class="stat-label">In Progress</div>
+    <div class="stat-value">2</div>
+    <div class="stat-sub">Phase 4 (90%) · Phase 5 (~85%)</div>
+  </div>
+  <div>
+    <div class="stat-label">Project Age</div>
+    <div class="stat-value">~6<span style="font-size:16px;color:var(--muted)"> wks</span></div>
+    <div class="stat-sub">Started May 2026</div>
+  </div>
+  <div>
+    <div class="stat-label">Next Horizon</div>
+    <div class="stat-value" style="font-size:18px;padding-top:4px;">Phase 4/5</div>
+    <div class="stat-sub">Close out open items</div>
+  </div>
+</div>
+
+<!-- Phase cards -->
+<div class="section-label">Phases</div>
+<div class="phases">
+
+  <!-- Phase 1 -->
+  <div class="phase-card">
+    <div class="phase-num">Phase 1</div>
+    <div>
+      <div class="phase-title">Foundation — Dispatcher &amp; Morning Dashboard</div>
+      <div class="phase-subtitle">Core automation engine + morning intelligence dashboard. ClickUp → Claude → Drive pipeline proven. Slack App, OAuth, 4 skills, 4 dashboard panels.</div>
+      <div class="phase-meta">
+        <span class="badge badge-done">Complete</span>
+        <span class="phase-dates">May 2026</span>
+        <a href="PMO-NORTHLIGHT-OS-PHASE-1-DASHBOARD.html" class="phase-link">→ Phase 1 Dashboard</a>
+      </div>
+    </div>
+    <div class="phase-right">
+      <div class="pct-value">100%</div>
+      <div class="pct-label">complete</div>
+      <div class="mini-bar-bg"><div class="mini-bar-fill" style="width:100%"></div></div>
+    </div>
+  </div>
+
+  <!-- Phase 2 -->
+  <div class="phase-card">
+    <div class="phase-num">Phase 2</div>
+    <div>
+      <div class="phase-title">Tab UI, Dual Accounts &amp; Expense Tracking</div>
+      <div class="phase-subtitle">6-tab interface (Home, Work, Learning, Finance, Ideas, Settings). Dual Google account setup. Email archive fix. Expense pipeline: Gmail label → Slack → Google Sheet. Parking Lot tab.</div>
+      <div class="phase-meta">
+        <span class="badge badge-done">Complete</span>
+        <span class="phase-dates">May 25–26, 2026</span>
+        <span class="phase-link missing">No dashboard — predates convention</span>
+      </div>
+    </div>
+    <div class="phase-right">
+      <div class="pct-value">100%</div>
+      <div class="pct-label">complete</div>
+      <div class="mini-bar-bg"><div class="mini-bar-fill" style="width:100%"></div></div>
+    </div>
+  </div>
+
+  <!-- Phase 3 -->
+  <div class="phase-card">
+    <div class="phase-num">Phase 3</div>
+    <div>
+      <div class="phase-title">Blog Infrastructure &amp; Publishing</div>
+      <div class="phase-subtitle">bynorthlight.ca blog pipeline. Aurora Brief routing gate. Blog polish mode. First post live: "Sometimes things don't go to plan." Kit broadcast wired.</div>
+      <div class="phase-meta">
+        <span class="badge badge-done">Complete</span>
+        <span class="phase-dates">June 4–5, 2026</span>
+        <a href="../northlight-dispatcher/specs/pmo/PMO-NORTHLIGHT-OS-PHASE-3-DASHBOARD.html" class="phase-link">→ Phase 3 Dashboard</a>
+      </div>
+    </div>
+    <div class="phase-right">
+      <div class="pct-value">100%</div>
+      <div class="pct-label">complete</div>
+      <div class="mini-bar-bg"><div class="mini-bar-fill" style="width:100%"></div></div>
+    </div>
+  </div>
+
+  <!-- Phase 4 -->
+  <div class="phase-card">
+    <div class="phase-num">Phase 4</div>
+    <div>
+      <div class="phase-title">Dashboard Completion &amp; Pipeline Hardening</div>
+      <div class="phase-subtitle">Weekly Review, Jobs tab, content-analyst, LinkedIn/Threads via Buffer, Analytics auto-pull, Plausible. 9 of 10 items done. 1 queued: Plausible Events API (requires Business plan billing decision).</div>
+      <div class="phase-meta">
+        <span class="badge badge-queued">90% — 1 item queued</span>
+        <span class="phase-dates">June 5–30, 2026</span>
+        <a href="../northlight-dispatcher/specs/pmo/PMO-NORTHLIGHT-OS-PHASE-4-DASHBOARD.html" class="phase-link">→ Phase 4 Dashboard</a>
+      </div>
+    </div>
+    <div class="phase-right">
+      <div class="pct-value">90%</div>
+      <div class="pct-label">complete</div>
+      <div class="mini-bar-bg"><div class="mini-bar-fill" style="width:90%"></div></div>
+    </div>
+  </div>
+
+  <!-- Phase 5 -->
+  <div class="phase-card">
+    <div class="phase-num">Phase 5</div>
+    <div>
+      <div class="phase-title">Advisory Board System (Multi-Agent)</div>
+      <div class="phase-subtitle">Virtual C-suite (CFO, CMO, CPO, Privacy Officer) that debates scenarios and produces OKF decision records. 29 of 38 items fully done. 4 items not started (Phase 2/3 scope). Mission statement ratified v1.1.</div>
+      <div class="phase-meta">
+        <span class="badge badge-partial">~85% — open items remain</span>
+        <span class="phase-dates">June 24, 2026 – ongoing</span>
+        <a href="../northlight-dispatcher/specs/pmo/PMO-NORTHLIGHT-OS-PHASE-5-DASHBOARD.html" class="phase-link">→ Phase 5 Dashboard</a>
+      </div>
+    </div>
+    <div class="phase-right">
+      <div class="pct-value">~85%</div>
+      <div class="pct-label">complete</div>
+      <div class="mini-bar-bg"><div class="mini-bar-fill" style="width:85%"></div></div>
+    </div>
+  </div>
+
+  <!-- Phase 6 -->
+  <div class="phase-card">
+    <div class="phase-num">Phase 6</div>
+    <div>
+      <div class="phase-title">Code Health Review &amp; Hardening</div>
+      <div class="phase-subtitle">Full codebase audit (Security A−, Cost/Efficiency C+→improved, Code Quality C→improved, Error Handling B+, Housekeeping A−). Prompt caching, ClickUp consolidation (24/24 files), error translation, OAuth outage fix. 3 production bugs found and fixed.</div>
+      <div class="phase-meta">
+        <span class="badge badge-done">Complete</span>
+        <span class="phase-dates">July 1–2, 2026</span>
+        <a href="../northlight-dispatcher/specs/pmo/PMO-NORTHLIGHT-OS-PHASE-6-DASHBOARD.html" class="phase-link">→ Phase 6 Dashboard</a>
+      </div>
+    </div>
+    <div class="phase-right">
+      <div class="pct-value">100%</div>
+      <div class="pct-label">complete</div>
+      <div class="mini-bar-bg"><div class="mini-bar-fill" style="width:100%"></div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Open items -->
+<div class="section-label">Open Items Across All Phases</div>
+<div class="open-grid">
+
+  <div class="card">
+    <div class="card-label">Phase 4 — 1 Queued Item</div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">Plausible Events API (item #8)</div>
+        <div class="issue-note">Requires Business plan ($~190/yr). Currently on Starter — manual zip upload is the final approach. Queued by design until billing decision made.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Phase 5 — Open Items</div>
+    <div class="issue-item">
+      <div class="issue-dot"></div>
+      <div>
+        <div class="issue-text">CMO Doctrine — re-test planned</div>
+        <div class="issue-note">Confirmed loaded; one ambiguous signal in first live session. Needs a dedicated re-test in early July board meeting.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot"></div>
+      <div>
+        <div class="issue-text">CFO finance access — pending Elizabeth's live test</div>
+        <div class="issue-note">Code shipped June 30. Partial until confirmed working in a real board session.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot"></div>
+      <div>
+        <div class="issue-text">CPO Doctrine + session-expiry modal — unverified</div>
+        <div class="issue-note">CPO needs a session where it's active. Modal needs an actual session expiry to fire.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">4 items not started (Phase 2/3 board scope)</div>
+        <div class="issue-note">GitHub push for decision records, cross-session retrieval, persona-role review — deferred, not abandoned.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">1:1 entry-point UX</div>
+        <div class="issue-note">"Convene the board" is the only start action; 1:1 only appears mid-session. Logged for later phase.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Post-Phase-6 Parked Items</div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">googleapis upgrade (4 moderate CVEs)</div>
+        <div class="issue-note">v128 → v173 (45 major versions). Low practical risk — only triggers with custom buf param, never used here. Upgrade parked: test custom Gaxios transporter on Railway preview branch first.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">~79 secondary catch blocks not wired to error-translation</div>
+        <div class="issue-note">Non-fatal secondary effects. Deprioritized — frontend + primary paths now fully covered.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">Reactive 429 backoff for Anthropic / Slack / Google</div>
+        <div class="issue-note">No observed incidents to date. Deprioritized.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">Blog scheduling queue — first real test July 10</div>
+        <div class="issue-note">Post scheduled for July 10, 9:00 AM Halifax. Will auto-publish when morning dispatcher runs. First real test of scheduling queue.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">GMAIL_PERSONAL + CAL_PERSONAL 400 errors</div>
+        <div class="issue-note">Observed in July 2 live log in passing. Non-fatal. Not investigated.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Architecture Decisions — Standing</div>
+    <div class="decision-item">
+      <div class="decision-title">ClickUp is the task database — no replacement</div>
+      <div class="decision-rationale">Locked Phase 1. Claude assigned as claude@bynorthlight.ca workspace member.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Railway hosting — dispatcher + dashboard</div>
+      <div class="decision-rationale">GitHub push triggers auto-deploy. Dispatcher runs 6am daily Halifax time.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Buffer for LinkedIn + Threads publishing</div>
+      <div class="decision-rationale">LinkedIn Community Management API appeal still pending (June 22). Buffer confirmed working end-to-end June 30.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Prompt caching on 5 high-reuse skills</div>
+      <div class="decision-rationale">Shipped July 2. Cache writes confirmed (23k/16k/12k/12k tokens). Reads not yet observed — check after same-skill repeat within 5min TTL.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">CRM does not live in the OS web app</div>
+      <div class="decision-rationale">Locked Phase 1. Client data on public web layer is a privacy risk. Future home: ClickUp. Revisit when Northlight has paying clients.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PMO docs index -->
+<div class="section-label">PMO Document Index</div>
+<div class="card" style="margin-bottom:28px;">
+  <div class="card-label">All Phase Dashboards</div>
+  <table style="width:100%;border-collapse:collapse;">
+    <thead>
+      <tr>
+        <th style="font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);padding:0 0 8px;text-align:left;border-bottom:1px solid var(--border);width:10%">Phase</th>
+        <th style="font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);padding:0 0 8px;text-align:left;border-bottom:1px solid var(--border);width:30%">Title</th>
+        <th style="font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);padding:0 0 8px;text-align:left;border-bottom:1px solid var(--border);width:14%">Status</th>
+        <th style="font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);padding:0 0 8px;text-align:left;border-bottom:1px solid var(--border)">Dashboard</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding:8px 0;border-bottom:1px solid var(--border);color:var(--muted);font-size:12px;">1</td>
+        <td style="padding:8px 0;border-bottom:1px solid var(--border);color:var(--cloud);font-size:12px;">Foundation — Dispatcher &amp; Dashboard</td>
+        <td style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="badge badge-done">100%</span></td>
+        <td style="padding:8px 0;border-bottom:1px solid var(--border);"><a href="PMO-NORTHLIGHT-OS-PHASE-1-DASHBOARD.html" style="color:var(--boreal);font-size:12px;text-decoration:none;">C:\…\Northlight Standing PMO\</a></td>
+      </tr>
+      <tr>
+        <td style="padding:8px 0;border-bottom:1px solid var(--border);color:var(--muted);font-size:12px;">2</td>
+        <td style="padding:8px 0;border-bottom:1px solid var(--border);color:var(--cloud);font-size:12px;">Tab UI, Dual Accounts &amp; Expense Tracking</td>
+        <td style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="badge badge-done">100%</span></td>
+        <td style="padding:8px 0;border-bottom:1px solid var(--border);color:var(--muted);font-size:11px;font-style:italic;">No dashboard — Slack records only</td>
+      </tr>
+      <tr>
+        <td style="padding:8px 0;border-bottom:1px solid var(--border);color:var(--muted);font-size:12px;">3</td>
+        <td style="padding:8px 0;border-bottom:1px solid var(--border);color:var(--cloud);font-size:12px;">Blog Infrastructure &amp; Publishing</td>
+        <td style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="badge badge-done">100%</span></td>
+        <td style="padding:8px 0;border-bottom:1px solid var(--border);"><a href="../northlight-dispatcher/specs/pmo/PMO-NORTHLIGHT-OS-PHASE-3-DASHBOARD.html" style="color:var(--boreal);font-size:12px;text-decoration:none;">northlight-dispatcher\specs\pmo\</a></td>
+      </tr>
+      <tr>
+        <td style="padding:8px 0;border-bottom:1px solid var(--border);color:var(--muted);font-size:12px;">4</td>
+        <td style="padding:8px 0;border-bottom:1px solid var(--border);color:var(--cloud);font-size:12px;">Dashboard Completion &amp; Pipeline Hardening</td>
+        <td style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="badge badge-queued">90%</span></td>
+        <td style="padding:8px 0;border-bottom:1px solid var(--border);"><a href="../northlight-dispatcher/specs/pmo/PMO-NORTHLIGHT-OS-PHASE-4-DASHBOARD.html" style="color:var(--boreal);font-size:12px;text-decoration:none;">northlight-dispatcher\specs\pmo\</a></td>
+      </tr>
+      <tr>
+        <td style="padding:8px 0;border-bottom:1px solid var(--border);color:var(--muted);font-size:12px;">5</td>
+        <td style="padding:8px 0;border-bottom:1px solid var(--border);color:var(--cloud);font-size:12px;">Advisory Board System (Multi-Agent)</td>
+        <td style="padding:8px 0;border-bottom:1px solid var(--border);"><span class="badge badge-partial">~85%</span></td>
+        <td style="padding:8px 0;border-bottom:1px solid var(--border);"><a href="../northlight-dispatcher/specs/pmo/PMO-NORTHLIGHT-OS-PHASE-5-DASHBOARD.html" style="color:var(--boreal);font-size:12px;text-decoration:none;">northlight-dispatcher\specs\pmo\</a></td>
+      </tr>
+      <tr>
+        <td style="padding:8px 0;color:var(--muted);font-size:12px;">6</td>
+        <td style="padding:8px 0;color:var(--cloud);font-size:12px;">Code Health Review &amp; Hardening</td>
+        <td style="padding:8px 0;"><span class="badge badge-done">100%</span></td>
+        <td style="padding:8px 0;"><a href="../northlight-dispatcher/specs/pmo/PMO-NORTHLIGHT-OS-PHASE-6-DASHBOARD.html" style="color:var(--boreal);font-size:12px;text-decoration:none;">northlight-dispatcher\specs\pmo\</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="footer">
+  <span>Northlight OS · Master PMO · Last updated July 3, 2026</span>
+  <span>Phase dashboards: Standing PMO (Ph.1) · northlight-dispatcher\specs\pmo\ (Ph.3–6)</span>
+</div>
+
+</body>
+</html>

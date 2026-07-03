@@ -1,0 +1,112 @@
+{
+  "config": {
+    "owner": "Elizabeth Lemoine",
+    "org": "elizabethlemoine33-commits",
+    "pmo_repo": "northlight-pmo",
+    "pages_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/",
+    "drive_brief_folder": "Northlight PMO Briefs",
+    "parking_lot_channel": "parking-lot-of-ideas",
+    "pmo_channel": "northlight-pmo",
+    "brand_skill": "northlight-brand-skill",
+    "brand_theme": "dark",
+    "schedule": ["Sunday 19:00", "Wednesday 08:00"]
+  },
+  "projects": [
+    {
+      "id": "northlight-os",
+      "name": "Northlight OS",
+      "slug": "os",
+      "status": "live",
+      "github": "https://github.com/elizabethlemoine33-commits/northlight-dispatcher",
+      "local": "C:/Users/erand/Desktop/northlight-dispatcher",
+      "drive_brief": null,
+      "pmo_folder": "os/",
+      "registered": "2026-05-24",
+      "last_refreshed": "2026-07-03"
+    },
+    {
+      "id": "northlight-meetings",
+      "name": "Northlight Meetings",
+      "slug": "meetings",
+      "status": "building",
+      "github": null,
+      "local": "C:/Users/erand/Desktop/northlight-meetings",
+      "drive_brief": null,
+      "pmo_folder": "meetings/",
+      "registered": "2026-07-02",
+      "last_refreshed": "2026-07-03"
+    },
+    {
+      "id": "northlight-vault",
+      "name": "Northlight Vault",
+      "slug": "vault",
+      "status": "live",
+      "github": "https://github.com/elizabethlemoine33-commits/northlight-vault",
+      "local": null,
+      "drive_brief": null,
+      "pmo_folder": "vault/",
+      "registered": "2026-05-24",
+      "last_refreshed": "2026-07-03"
+    },
+    {
+      "id": "northlight-website",
+      "name": "Northlight Website",
+      "slug": "website",
+      "status": "live",
+      "github": "https://github.com/elizabethlemoine33-commits/bynorthlight-site",
+      "local": "C:/Users/erand/Desktop/bynorthlight-site",
+      "drive_brief": null,
+      "pmo_folder": "website/",
+      "registered": "2026-05-24",
+      "last_refreshed": "2026-07-03"
+    },
+    {
+      "id": "skills-market",
+      "name": "Northlight Skills Market",
+      "slug": "skills-market",
+      "status": "pre-build",
+      "github": "https://github.com/elizabethlemoine33-commits/northlight-skills-market",
+      "local": null,
+      "drive_brief": null,
+      "pmo_folder": "skills-market/",
+      "registered": "2026-07-03",
+      "last_refreshed": "2026-07-03"
+    },
+    {
+      "id": "tableready",
+      "name": "TableReady",
+      "slug": "tableready",
+      "status": "pre-build",
+      "github": null,
+      "local": null,
+      "drive_brief": null,
+      "pmo_folder": "tableready/",
+      "registered": "2026-07-03",
+      "last_refreshed": "2026-07-03"
+    },
+    {
+      "id": "advisory-board",
+      "name": "Advisory Board Bot System",
+      "slug": "advisory-board",
+      "status": "building",
+      "github": null,
+      "local": null,
+      "drive_brief": null,
+      "pmo_folder": "advisory-board/",
+      "registered": "2026-07-03",
+      "last_refreshed": "2026-07-03"
+    },
+    {
+      "id": "standing-pmo",
+      "name": "Standing PMO System",
+      "slug": "standing-pmo",
+      "status": "building",
+      "github": "https://github.com/elizabethlemoine33-commits/northlight-pmo",
+      "local": "C:/Users/erand/Desktop/northlight-pmo",
+      "drive_brief": null,
+      "pmo_folder": "standing-pmo/",
+      "registered": "2026-07-03",
+      "last_refreshed": "2026-07-03"
+    }
+  ]
+}

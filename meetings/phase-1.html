@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northlight Meetings — Phase 1 PMO Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --midnight: #0E0E14;
+    --surface:  #12121E;
+    --border:   #1E2035;
+    --border2:  #2A2A48;
+    --text:     #FFFFFF;
+    --cloud:    #C8CCE0;
+    --haze:     #B0B8D8;
+    --muted:    #8A92A8;
+    --glacial:  #4FC3C8;
+    --boreal:   #5B8DD9;
+    --dusk:     #8B6FD4;
+    --aurora:   #C46FAA;
+    --green:    #3BAA6E;
+    --yellow:   #D4A017;
+    --red:      #C44F4F;
+  }
+  body { background: var(--midnight); color: var(--cloud); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; padding: 32px; }
+  .top-bar { height: 3px; background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%); margin: -32px -32px 32px; }
+
+  .header { margin-bottom: 28px; }
+  .phase-label { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dusk); margin-bottom: 6px; }
+  .title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+  .subtitle { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+  .progress-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
+  .progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .progress-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .progress-pct { font-size: 24px; font-weight: 700; color: var(--text); }
+  .progress-bar-bg { background: var(--border); border-radius: 4px; height: 6px; }
+  .progress-bar-fill { background: linear-gradient(90deg, #4FC3C8, #8B6FD4); border-radius: 4px; height: 6px; transition: width 0.3s; }
+  .progress-counts { display: flex; gap: 20px; margin-top: 10px; }
+  .progress-count { font-size: 11px; color: var(--muted); }
+  .progress-count strong { color: var(--cloud); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .grid-full { grid-column: 1 / -1; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .card-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+
+  .block-table { width: 100%; border-collapse: collapse; }
+  .block-table th { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 0 0 8px; text-align: left; border-bottom: 1px solid var(--border); }
+  .block-table td { padding: 8px 0; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .block-table tr:last-child td { border-bottom: none; }
+  .block-name { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .block-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .badge-done       { background: rgba(59,170,110,0.15); color: #3BAA6E; border: 1px solid rgba(59,170,110,0.3); }
+  .badge-inprogress { background: rgba(91,141,217,0.15); color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
+  .badge-notstarted { background: rgba(138,146,168,0.10); color: var(--muted); border: 1px solid var(--border); }
+  .badge-blocked    { background: rgba(196,79,79,0.15); color: #C44F4F; border: 1px solid rgba(196,79,79,0.3); }
+  .badge-queued     { background: rgba(212,160,23,0.12); color: var(--yellow); border: 1px solid rgba(212,160,23,0.25); }
+  .badge-partial    { background: rgba(196,111,170,0.12); color: var(--aurora); border: 1px solid rgba(196,111,170,0.25); }
+
+  .decision-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .decision-item:last-child { border-bottom: none; }
+  .decision-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .decision-rationale { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .issue-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .issue-item:last-child { border-bottom: none; }
+  .issue-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--yellow); margin-top: 4px; flex-shrink: 0; }
+  .issue-dot.red   { background: var(--red); }
+  .issue-dot.muted { background: var(--muted); }
+  .issue-dot.green { background: var(--green); }
+  .issue-text { color: var(--cloud); font-size: 12px; }
+  .issue-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .activity-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-date { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+  .activity-text { color: var(--cloud); font-size: 12px; }
+
+  .phase-roadmap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .phase-card { background: var(--border); border-radius: 8px; padding: 12px 14px; }
+  .phase-card.active { background: rgba(91,141,217,0.12); border: 1px solid rgba(91,141,217,0.3); }
+  .phase-card.future { opacity: 0.5; }
+  .phase-num { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .phase-title { font-size: 12px; font-weight: 600; color: var(--cloud); margin-bottom: 4px; }
+  .phase-desc { font-size: 11px; color: var(--muted); }
+
+  .footer { color: var(--muted); font-size: 11px; border-top: 1px solid var(--border); padding-top: 16px; display: flex; justify-content: space-between; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<div class="header">
+  <div class="phase-label">Phase 1 · Recording + Transcription Foundation</div>
+  <div class="title">Northlight Meetings — PMO Dashboard</div>
+  <div class="subtitle">Build starts July 2, 2026 · Target complete July 9, 2026</div>
+</div>
+
+<div class="progress-section">
+  <div class="progress-header">
+    <div class="progress-label">Phase 1 Progress</div>
+    <div class="progress-pct">75%</div>
+  </div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:75%"></div></div>
+  <div class="progress-counts">
+    <div class="progress-count"><strong>1 / 4</strong> sessions complete</div>
+    <div class="progress-count"><strong>5 / 6</strong> build blocks done</div>
+    <div class="progress-count"><strong>3</strong> bugs found + fixed</div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card grid-full">
+    <div class="card-label">Phase 1 Build Blocks</div>
+    <table class="block-table">
+      <tr><th style="width:40%">Build Block</th><th>Status</th><th>Notes</th></tr>
+      <tr>
+        <td>
+          <div class="block-name">Electron Shell + Pre-call Screen</div>
+          <div class="block-note">App window, mode selector, client/project fields, navigation</div>
+        </td>
+        <td><span class="badge badge-done">Done</span></td>
+        <td><div class="block-note">July 3 — all screens built, branding applied</div></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="block-name">Audio Capture — Mic + VB-Audio Cable</div>
+          <div class="block-note">Dual-stream capture, Web Audio merge, level meters, recording to buffer</div>
+        </td>
+        <td><span class="badge badge-partial">Partial</span></td>
+        <td><div class="block-note">Mic confirmed ✓ · System audio (VB-Cable) not yet confirmed — needs Windows playback device set to VB-Cable during call</div></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="block-name">Groq Whisper Integration</div>
+          <div class="block-note">Audio upload to Groq, transcript returned, 120s timeout, error handling</div>
+        </td>
+        <td><span class="badge badge-done">Done</span></td>
+        <td><div class="block-note">July 3 — 20s test clip transcribed accurately. Fixed: native fetch + Blob replaces node-fetch + form-data</div></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="block-name">Transcript View</div>
+          <div class="block-note">Readable transcript display, processing screen, error states with plain-language messages</div>
+        </td>
+        <td><span class="badge badge-done">Done</span></td>
+        <td><div class="block-note">July 3 — transcript displays, session meta shows mode badge + duration</div></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="block-name">Session Storage</div>
+          <div class="block-note">Local storage, session save, history list, session view — switched from SQLite to JSON (better-sqlite3 requires MSVC, not installed)</div>
+        </td>
+        <td><span class="badge badge-done">Done</span></td>
+        <td><div class="block-note">July 3 — JSON file storage in %APPDATA%. Sessions persist across restarts. History list populates correctly.</div></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="block-name">Settings + safeStorage</div>
+          <div class="block-note">Groq API key entry, OS-encrypted storage, persists across restarts</div>
+        </td>
+        <td><span class="badge badge-done">Done</span></td>
+        <td><div class="block-note">July 3 — Windows DPAPI encryption confirmed. Show/Hide toggle. Warning displayed in pre-call if key missing.</div></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-label">Decisions Made</div>
+    <div class="decision-item">
+      <div class="decision-title">Electron over Tauri/Rust fork of Meetily</div>
+      <div class="decision-rationale">No Rust toolchain or MSVC on machine. Node.js v24 already installed. Lower setup friction — can build today.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Groq Whisper over local Whisper.cpp</div>
+      <div class="decision-rationale">Intel Iris Plus integrated GPU makes local Whisper too slow (~10–15 min for a 1-hr call). Groq transcribes the same in ~30–60s for $0.111/hr.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Groq LLM over Ollama or Claude for analysis</div>
+      <div class="decision-rationale">Same GPU constraint rules out Ollama. Groq Llama 3.3 70B is ~$0.03/call — much cheaper than Claude Sonnet. Analysis is Phase 2.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">VB-Audio Virtual Cable for system audio</div>
+      <div class="decision-rationale">Standard Windows approach. Free. Already installed. Simpler than WASAPI native module in Node.js.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Phase 1 = recording + transcription only</div>
+      <div class="decision-rationale">Prove the audio pipeline works before adding any workflow complexity. Analysis, ClickUp, Drive are Phases 2–3.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Open Issues / Watch Items</div>
+    <div class="issue-item">
+      <div class="issue-dot"></div>
+      <div>
+        <div class="issue-text">System audio (VB-Audio Cable) not yet confirmed</div>
+        <div class="issue-note">Mic capture working. VB-Cable requires Windows default playback device to be set to VB-Cable during calls. Workaround: taskbar audio switcher (3 seconds). In-app switcher added to Phase 2 backlog.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">Groq free tier limits to monitor</div>
+        <div class="issue-note">20 req/min, 100/day, 28.8k audio-sec/hour. At 5 calls/week this is fine. Auto-upgrades to paid if exceeded — note for Elizabeth.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">safeStorage DPAPI key loss on reformat</div>
+        <div class="issue-note">Electron safeStorage on Windows uses DPAPI — keys are tied to the Windows user account. Warn in Settings UI: "If you reinstall Windows, re-enter your API key."</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">Audio file size for very long calls</div>
+        <div class="issue-note">Groq Whisper limit is 25MB. A 1-hr call at 16kbps opus webm ≈ 7MB — fine. Only an issue for 3+ hour calls. Monitor but don't solve in Phase 1.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card grid-full">
+    <div class="card-label">Project Roadmap</div>
+    <div class="phase-roadmap">
+      <div class="phase-card active">
+        <div class="phase-num">Phase 1 · Current</div>
+        <div class="phase-title">Recording + Transcription</div>
+        <div class="phase-desc">Electron shell, mic + VB-Audio capture, Groq Whisper, SQLite storage</div>
+      </div>
+      <div class="phase-card future">
+        <div class="phase-num">Phase 2</div>
+        <div class="phase-title">Analysis + Review</div>
+        <div class="phase-desc">Groq LLM, mode prompts (Discover/Progress/Notes), review + approval screen</div>
+      </div>
+      <div class="phase-card future">
+        <div class="phase-num">Phase 3</div>
+        <div class="phase-title">Integrations</div>
+        <div class="phase-desc">Google OAuth, ClickUp push, Drive push, Calendar date extraction</div>
+      </div>
+      <div class="phase-card future">
+        <div class="phase-num">Phase 4</div>
+        <div class="phase-title">Polish</div>
+        <div class="phase-desc">Feedback window, session history browser, delete/export, auto-update</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card grid-full">
+    <div class="card-label">What Shipped — Most Recent Session</div>
+    <div class="activity-item">
+      <div class="activity-date">July 3, 2026 — Session 1</div>
+      <div class="activity-text">Full app built and running. All 6 screens complete. Transcription working end-to-end — 20s test clip transcribed accurately. Sessions persist in JSON storage. API key saved via Windows DPAPI. App icon + favicon wired from Figma exports. Three bugs found and fixed: CSP blocked CSS, node-fetch incompatible with webpack, form-data incompatible with native fetch.</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">July 2, 2026 — PMO Stand-Up</div>
+      <div class="activity-text">No code shipped. Diagnostic review of existing Replit app completed. Architecture decision made: Electron + Groq (not Meetily/Tauri fork). All Phase 1 PMO documents created. Prerequisites confirmed ready: Node.js v24 ✓, Groq API key ✓, VB-Audio Virtual Cable ✓.</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div>Northlight Meetings · Phase 1 · Recording + Transcription Foundation</div>
+  <div>Last updated: July 3, 2026</div>
+</div>
+</body>
+</html>
