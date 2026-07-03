@@ -303,16 +303,16 @@ GitHub Pages serves from root → `elizabethlemoine33-commits.github.io/northlig
 
 ## Build Sequence
 
-**Session 1 — Foundation**
-- [ ] Create `northlight-pmo` GitHub repo, enable GitHub Pages
-- [ ] Create `data/registry.json` with all 7 current projects + config block
-- [ ] Create `data/last-refresh.json` and `data/changelog.md`
-- [ ] Copy existing dashboards into correct folder structure
-- [ ] Copy existing phase dashboards (OS Phases 1–6, Meetings Phase 1) into project folders
-- [ ] Create `_templates/` with phase dashboard template, update-log, learnings
-- [ ] Verify GitHub Pages is serving correctly
-- [ ] Create `#northlight-pmo` Slack channel
-- [ ] Create `Northlight PMO Briefs/` folder in Google Drive
+**Session 1 — Foundation** ✅ Complete — July 3, 2026
+- [x] Create `northlight-pmo` GitHub repo, enable GitHub Pages
+- [x] Create `data/registry.json` with all 8 current projects + config block
+- [x] Create `data/last-refresh.json` and `data/changelog.md`
+- [x] Copy existing dashboards into correct folder structure
+- [x] Copy existing phase dashboards (OS Phases 1–6, Meetings Phase 1) into project folders
+- [x] Create `_templates/` with update-log, learnings, README templates
+- [x] Verify GitHub Pages is serving → https://elizabethlemoine33-commits.github.io/northlight-pmo/
+- [x] Create `Northlight PMO Briefs/` folder in Google Drive
+- [ ] Create `#northlight-pmo` Slack channel — Elizabeth to create
 
 **Session 2 — `/new-project` skill (Code)**
 - [ ] Write the Claude Code skill file (reads config from registry.json)
