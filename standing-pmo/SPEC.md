@@ -312,7 +312,7 @@ GitHub Pages serves from root → `elizabethlemoine33-commits.github.io/northlig
 - [x] Create `_templates/` with update-log, learnings, README templates
 - [x] Verify GitHub Pages is serving → https://elizabethlemoine33-commits.github.io/northlight-pmo/
 - [x] Create `Northlight PMO Briefs/` folder in Google Drive
-- [ ] Create `#northlight-pmo` Slack channel — Elizabeth to create
+- [x] Create `#northlight-pmo` Slack channel — C0BELQQR6ET
 
 **Session 2 — `/new-project` skill (Code)**
 - [ ] Write the Claude Code skill file (reads config from registry.json)
