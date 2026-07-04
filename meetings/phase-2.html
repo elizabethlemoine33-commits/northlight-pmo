@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northlight Meetings — Phase 2 Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --midnight:  #0E0E14;
+    --deep-night:#08080F;
+    --surface:   #12121E;
+    --surface-2: #10101C;
+    --border:    #1E2035;
+    --border-2:  #2A2A48;
+    --text:      #FFFFFF;
+    --cloud:     #C8CCE0;
+    --haze:      #BCC2DC;
+    --muted:     #99A1B6;
+    --structural:#6C7295;
+    --glacial:   #4FC3C8;
+    --boreal:    #5B8DD9;
+    --dusk:      #8B6FD4;
+    --aurora:    #C46FAA;
+    --green:     #3BAA6E;
+    --yellow:    #D4A017;
+    --red:       #C44F4F;
+  }
+  body {
+    background: var(--midnight);
+    color: var(--cloud);
+    font-family: 'Outfit', system-ui, sans-serif;
+    font-size: 13px;
+    padding: 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .top-bar {
+    height: 3px;
+    background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%);
+    margin: -32px -32px 32px;
+  }
+
+  /* Header */
+  .header { margin-bottom: 28px; }
+  .phase-eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--dusk); margin-bottom: 6px;
+  }
+  .title {
+    font-family: 'Jost', sans-serif;
+    font-size: 24px; font-weight: 700;
+    color: var(--text); letter-spacing: -0.01em;
+  }
+  .subtitle { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  .status-pill {
+    display: inline-block;
+    background: rgba(59,170,110,0.12);
+    color: var(--green);
+    border: 1px solid rgba(59,170,110,0.3);
+    border-radius: 20px;
+    font-family: 'Jost', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 3px 10px; margin-top: 8px;
+  }
+
+  /* Historical callout */
+  .callout {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--dusk);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .callout strong { color: var(--cloud); }
+
+  /* Progress */
+  .progress-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 24px;
+  }
+  .progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .progress-label { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .progress-pct { font-family: 'Jost', sans-serif; font-size: 28px; font-weight: 700; color: var(--text); }
+  .progress-bar-bg { background: var(--border); border-radius: 4px; height: 6px; }
+  .progress-bar-fill { background: linear-gradient(90deg, #4FC3C8, #8B6FD4); border-radius: 4px; height: 6px; }
+  .progress-outcome { color: var(--haze); font-size: 13px; margin-top: 12px; line-height: 1.6; }
+  .progress-counts { display: flex; gap: 24px; margin-top: 10px; }
+  .progress-count { font-size: 11px; color: var(--muted); }
+  .progress-count strong { color: var(--cloud); }
+
+  /* Grid */
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .grid-full { grid-column: 1 / -1; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+
+  /* Cards */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .card-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 12px;
+  }
+
+  /* Tables */
+  .block-table { width: 100%; border-collapse: collapse; }
+  .block-table th {
+    font-family: 'Jost', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted); padding: 0 0 8px;
+    text-align: left; border-bottom: 1px solid var(--border);
+  }
+  .block-table td { padding: 9px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .block-table tr:last-child td { border-bottom: none; }
+  .block-name { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .block-note { color: var(--muted); font-size: 11px; margin-top: 2px; line-height: 1.5; }
+  .col-status { width: 90px; }
+  .col-notes { width: 45%; }
+
+  /* Badges */
+  .badge {
+    display: inline-block; font-family: 'Jost', sans-serif;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 4px; white-space: nowrap;
+  }
+  .badge-done       { background: rgba(59,170,110,0.15); color: var(--green); border: 1px solid rgba(59,170,110,0.3); }
+  .badge-deferred   { background: rgba(212,160,23,0.12); color: var(--yellow); border: 1px solid rgba(212,160,23,0.25); }
+  .badge-high       { background: rgba(91,141,217,0.15); color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
+  .badge-decision   { background: rgba(139,111,212,0.12); color: var(--dusk); border: 1px solid rgba(139,111,212,0.25); }
+  .badge-p3         { background: rgba(196,111,170,0.12); color: var(--aurora); border: 1px solid rgba(196,111,170,0.25); }
+
+  /* Stat tiles */
+  .stat-tile {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    text-align: center;
+  }
+  .stat-num { font-family: 'Jost', sans-serif; font-size: 30px; font-weight: 700; color: var(--text); }
+  .stat-label { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+  /* Items */
+  .item { padding: 9px 0; border-bottom: 1px solid var(--border); }
+  .item:last-child { border-bottom: none; }
+  .item-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .item-note { color: var(--muted); font-size: 11px; margin-top: 2px; line-height: 1.5; }
+  .item-date { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+
+  /* Deferred */
+  .deferred-item { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .deferred-item:last-child { border-bottom: none; }
+  .deferred-text { color: var(--cloud); font-size: 12px; }
+  .deferred-reason { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  /* Stack / key-value */
+  .stack-row { display: flex; gap: 8px; align-items: baseline; padding: 7px 0; border-bottom: 1px solid var(--border); }
+  .stack-row:last-child { border-bottom: none; }
+  .stack-key { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); min-width: 160px; }
+  .stack-val { color: var(--cloud); font-size: 12px; line-height: 1.5; }
+
+  /* Template tag highlight */
+  .tag-pill {
+    display: inline-block;
+    background: rgba(79,195,200,0.10);
+    color: var(--glacial);
+    border: 1px solid rgba(79,195,200,0.2);
+    border-radius: 4px;
+    font-family: 'Jost', monospace;
+    font-size: 10px;
+    padding: 1px 6px;
+    margin: 1px 2px;
+  }
+
+  /* Mode cards */
+  .mode-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 4px; }
+  .mode-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+  .mode-card.discover { border-top: 2px solid var(--glacial); }
+  .mode-card.progress { border-top: 2px solid var(--boreal); }
+  .mode-card.notes    { border-top: 2px solid var(--dusk); }
+  .mode-name { font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+  .mode-name.discover { color: var(--glacial); }
+  .mode-name.progress { color: var(--boreal); }
+  .mode-name.notes    { color: var(--dusk); }
+  .mode-outputs { font-size: 11px; color: var(--muted); line-height: 1.7; }
+
+  /* Roadmap */
+  .phase-roadmap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .phase-card { background: var(--border); border-radius: 8px; padding: 12px 14px; }
+  .phase-card.complete { background: rgba(59,170,110,0.08); border: 1px solid rgba(59,170,110,0.25); }
+  .phase-card.next { background: rgba(91,141,217,0.08); border: 1px solid rgba(91,141,217,0.2); }
+  .phase-card.future { opacity: 0.45; }
+  .phase-num { font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .phase-num.green { color: var(--green); }
+  .phase-num.blue { color: var(--boreal); }
+  .phase-title-sm { font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 600; color: var(--cloud); margin-bottom: 4px; }
+  .phase-desc-sm { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+  /* Footer */
+  .footer { color: var(--muted); font-size: 11px; border-top: 1px solid var(--border); padding-top: 16px; display: flex; justify-content: space-between; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<div class="header">
+  <div class="phase-eyebrow">Northlight Meetings · Phase 2</div>
+  <div class="title">Analysis + Review</div>
+  <div class="subtitle">Build started July 4, 2026 · Completed July 4, 2026 · 1 session</div>
+  <div class="status-pill">✓ Phase Complete</div>
+</div>
+
+<!-- Historical callout -->
+<div class="callout">
+  <strong>Coming from Phase 1:</strong> The record → transcribe → save pipeline was confirmed end-to-end on July 3, 2026 — both mic and system audio captured simultaneously via Voicemeeter Banana, transcribed by Groq Whisper in 30–60 seconds. Phase 2 built the intelligence layer on top of that foundation.
+</div>
+
+<!-- Progress -->
+<div class="progress-section">
+  <div class="progress-header">
+    <div class="progress-label">Phase 2 Progress</div>
+    <div class="progress-pct">100%</div>
+  </div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%"></div></div>
+  <div class="progress-outcome">Phase 2 complete — transcript is now automatically analysed by Groq Llama 3.3 70B in three modes, outputs are structured to match the Northlight Google Docs templates exactly, and every item can be approved or edited before saving.</div>
+  <div class="progress-counts">
+    <div class="progress-count"><strong>1</strong> build session</div>
+    <div class="progress-count"><strong>8 / 8</strong> build blocks done</div>
+    <div class="progress-count"><strong>0</strong> bugs</div>
+    <div class="progress-count"><strong>~$0.14</strong> per 1-hr call (Whisper + Llama)</div>
+    <div class="progress-count"><strong>4</strong> items deferred to Phase 3</div>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="grid-3" style="margin-bottom:24px;">
+  <div class="stat-tile">
+    <div class="stat-num" style="background:linear-gradient(105deg,#4FC3C8,#8B6FD4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">~$0.03</div>
+    <div class="stat-label">LLM analysis per call</div>
+  </div>
+  <div class="stat-tile">
+    <div class="stat-num" style="color:var(--boreal);">3</div>
+    <div class="stat-label">Meeting modes</div>
+  </div>
+  <div class="stat-tile">
+    <div class="stat-num" style="color:var(--green);">0</div>
+    <div class="stat-label">Bugs — clean build</div>
+  </div>
+</div>
+
+<!-- Build Blocks -->
+<div class="grid" style="margin-bottom:24px;">
+  <div class="card grid-full">
+    <div class="card-label">Phase 2 Build Blocks</div>
+    <table class="block-table">
+      <tr>
+        <th>Build Block</th>
+        <th class="col-status">Status</th>
+        <th class="col-notes">Notes</th>
+      </tr>
+      <tr>
+        <td>
+          <div class="block-name">analysis.js — buildPrompt() + analyzeTranscript()</div>
+          <div class="block-note">Mode-specific prompts ported from Replit app. Groq Llama 3.3 70B via REST. 120s timeout. JSON extraction handles accidental markdown wrapping.</div>
+        </td>
+        <td><span class="badge badge-done">Done</span></td>
+        <td><div class="block-note">Native Node 24 fetch (no packages). Prompts modified: sowDraft and meetingNotesDraft output as keyed objects matching Google Docs API templates, not freeform strings.</div></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="block-name">analyze IPC handler (main.js)</div>
+          <div class="block-note">New ipcMain handler. Loads API key, calls analyzeTranscript, returns structured JSON to renderer.</div>
+        </td>
+        <td><span class="badge badge-done">Done</span></td>
+        <td><div class="block-note">Follows same pattern as transcribe handler — 401 guard, throws typed errors, preload exposes electronAPI.analyze().</div></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="block-name">Post-call feedback screen</div>
+          <div class="block-note">New screen between Stop Recording and processing. Mic-only recorder captures a verbal note. Transcribed separately and injected as HIGH PRIORITY context that overrides or clarifies the transcript.</div>
+        </td>
+        <td><span class="badge badge-done">Done</span></td>
+        <td><div class="block-note">Skip button always visible. Feedback transcript stored separately in session JSON as feedback_transcript. Parallel transcription with main audio — no added latency.</div></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="block-name">Two-stage processing screen</div>
+          <div class="block-note">Processing screen now shows stage: "Transcribing your recording…" → "Analysing…" as pipeline progresses.</div>
+        </td>
+        <td><span class="badge badge-done">Done</span></td>
+        <td><div class="block-note">Subtitle text also updates per stage. Retry on analysis failure re-runs from the top of the pipeline.</div></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="block-name">Review screen — section-by-section approve/edit</div>
+          <div class="block-note">New screen after analysis. Each output section rendered as a card. Array items have checkbox + editable text input. approved flags persisted in session JSON. Save Approved or Save All.</div>
+        </td>
+        <td><span class="badge badge-done">Done</span></td>
+        <td><div class="block-note">Section order varies by mode. sowDraft and meetingNotesDraft rendered as individual labeled inputs per template tag. Unapproved items shown with strikethrough, excluded from Phase 3 push.</div></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="block-name">Session view — Transcript / Analysis tabs</div>
+          <div class="block-note">Session view now has two tabs. Transcript tab unchanged. Analysis tab renders each approved section as a read-only card — bullet lists for arrays, field/value grid for doc templates.</div>
+        </td>
+        <td><span class="badge badge-done">Done</span></td>
+        <td><div class="block-note">Tab only shown if session has analysis. Session list rows show "✓ analysed" indicator for sessions with analysis saved. Footer updated from "coming in Phase 2" to "coming in Phase 3".</div></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="block-name">Recording screen — mode-aware cheat sheet</div>
+          <div class="block-note">Prompts panel visible during recording. Lists mode-specific questions to cover: 10 for Discover, 8 for Progress, 6 for Notes. Collapsible with ▾ toggle.</div>
+        </td>
+        <td><span class="badge badge-done">Done</span></td>
+        <td><div class="block-note">Discover prompts: budget, blockers, out-of-scope, decision-makers, success criteria, etc. Progress: completions, blockers, decisions, commitments. Notes: roles, decisions, actions, next meeting.</div></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="block-name">Google Docs template integration (design)</div>
+          <div class="block-note">sowDraft and meetingNotesDraft output objects are keyed exactly to the {{tag}} names in Northlight_Proposal_APITemplate.html and Northlight_MeetingNotes_APITemplate.html.</div>
+        </td>
+        <td><span class="badge badge-done">Done</span></td>
+        <td><div class="block-note">Phase 3 Drive push is Object.entries(sowDraft).map(([tag,val]) => replaceAllText request). No parsing or mapping layer needed. Templates confirmed from Downloads folder.</div></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- Mode outputs -->
+<div class="grid" style="margin-bottom:24px;">
+  <div class="card grid-full">
+    <div class="card-label">Analysis Output by Mode</div>
+    <div class="mode-grid">
+      <div class="mode-card discover">
+        <div class="mode-name discover">Discover</div>
+        <div class="mode-outputs">
+          Summary<br>
+          Action Items<br>
+          ClickUp Tasks (create)<br>
+          Open Questions<br>
+          Extracted Dates<br>
+          SOW Draft → Google Docs<br>
+          Follow-Up Email Draft
+        </div>
+      </div>
+      <div class="mode-card progress">
+        <div class="mode-name progress">Progress</div>
+        <div class="mode-outputs">
+          Summary<br>
+          Action Items<br>
+          ClickUp Tasks (update)<br>
+          Decisions Log<br>
+          Parking Lot<br>
+          Commitments<br>
+          Extracted Dates<br>
+          Meeting Notes → Google Docs<br>
+          Follow-Up Email Draft
+        </div>
+      </div>
+      <div class="mode-card notes">
+        <div class="mode-name notes">Notes</div>
+        <div class="mode-outputs">
+          Summary<br>
+          Action Items<br>
+          Decisions Log<br>
+          Parking Lot<br>
+          Open Questions<br>
+          Extracted Dates<br>
+          Meeting Notes → Google Docs<br>
+          Follow-Up Email Draft<br>
+          <em style="color:var(--muted);font-size:10px;">No ClickUp push</em>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Template design decision -->
+<div class="grid" style="margin-bottom:24px;">
+  <div class="card grid-full">
+    <div class="card-label">Template-Keyed JSON — Design Decision</div>
+    <div class="item">
+      <div class="item-title">sowDraft output is a structured object, not a freeform string</div>
+      <div class="item-note">The original Replit app returned sowDraft as a single markdown string. Phase 2 changes this to a JSON object with keys matching the Northlight Proposal API Template exactly:
+        <br><br>
+        <span class="tag-pill">{{problem_statement}}</span>
+        <span class="tag-pill">{{in_scope_1}}</span>
+        <span class="tag-pill">{{deliverable_1}}</span>
+        <span class="tag-pill">{{approach_summary}}</span>
+        <span class="tag-pill">{{phase1_focus}}</span>
+        <span class="tag-pill">{{phase1_timing}}</span>
+        <span class="tag-pill">{{project_fee}}</span>
+        <span class="tag-pill">{{payment_terms}}</span>
+        <span class="tag-pill">{{next_steps_text}}</span>
+        + 14 more
+        <br><br>
+        Phase 3 Drive push: <code style="background:var(--surface-2);padding:2px 6px;border-radius:4px;font-size:11px;color:var(--glacial);">Object.entries(sowDraft).map(([tag, val]) => replaceAllText request)</code> — no parsing layer needed.
+      </div>
+    </div>
+    <div class="item">
+      <div class="item-title">meetingNotesDraft follows the same pattern</div>
+      <div class="item-note">Progress and Notes modes output a meetingNotesDraft object keyed to the Northlight Meeting Notes API Template:
+        <br><br>
+        <span class="tag-pill">{{meeting_type}}</span>
+        <span class="tag-pill">{{key_point_1}}</span>
+        <span class="tag-pill">{{decision_1}}</span>
+        <span class="tag-pill">{{decision_1_owner}}</span>
+        <span class="tag-pill">{{action_1_owner}}</span>
+        <span class="tag-pill">{{action_1_item}}</span>
+        <span class="tag-pill">{{action_1_due}}</span>
+        <span class="tag-pill">{{next_meeting_date}}</span>
+        + 12 more
+        <br><br>
+        client_name, project_name, date, and prepared_by are filled from session metadata — not by the LLM.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Key decisions -->
+<div class="grid" style="margin-bottom:24px;">
+  <div class="card">
+    <div class="card-label">Key Decisions</div>
+    <div class="item">
+      <div class="item-title">Groq Llama 3.3 70B for analysis</div>
+      <div class="item-note">Same API key as Whisper. ~$0.03/call for analysis. Temperature 0.3 for consistent structured output. Total per-call cost: ~$0.14 for a 1-hour call.</div>
+    </div>
+    <div class="item">
+      <div class="item-title">Post-call feedback as a separate transcription pass</div>
+      <div class="item-note">Verbal note recorded after stopping, transcribed in parallel with the main audio, injected into the LLM prompt as HIGH PRIORITY context that overrides or clarifies the transcript. Adds no latency to the pipeline.</div>
+    </div>
+    <div class="item">
+      <div class="item-title">approved flag on every array item</div>
+      <div class="item-note">Each action item, task, decision, commitment, etc. carries an approved field (default false from LLM, toggled in review screen). Phase 3 push only sends approved items. Unapproved items remain in session JSON for reference.</div>
+    </div>
+    <div class="item">
+      <div class="item-title">Template keys baked into prompts, not mapped post-hoc</div>
+      <div class="item-note">The LLM is instructed to output keys matching the Google Docs template tags directly. Earlier approach (freeform SOW string → manual extraction) was fragile. This approach makes Phase 3 a mechanical loop with no ambiguity.</div>
+    </div>
+    <div class="item">
+      <div class="item-title">Recording-screen prompts are static, not AI-generated</div>
+      <div class="item-note">Cheat sheet items are hardcoded per mode, not generated by the LLM. Faster, no cost, available before the call starts, and predictable. Covers the exact fields the analysis needs to produce good output.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Cost Model — Updated</div>
+    <div class="stack-row">
+      <div class="stack-key">Transcription</div>
+      <div class="stack-val">Groq whisper-large-v3 · $0.111/hr of audio</div>
+    </div>
+    <div class="stack-row">
+      <div class="stack-key">Analysis</div>
+      <div class="stack-val">Groq llama-3.3-70b-versatile · ~$0.03/call</div>
+    </div>
+    <div class="stack-row">
+      <div class="stack-key">Feedback note</div>
+      <div class="stack-val">Separate Whisper pass · typically &lt;$0.01 (short clip)</div>
+    </div>
+    <div class="stack-row">
+      <div class="stack-key">Per 1-hr call (total)</div>
+      <div class="stack-val" style="color:var(--green);font-weight:600;">~$0.14</div>
+    </div>
+    <div class="stack-row">
+      <div class="stack-key">5 calls/week · monthly</div>
+      <div class="stack-val">~$3/month</div>
+    </div>
+    <div class="stack-row">
+      <div class="stack-key">Drive / Calendar / ClickUp</div>
+      <div class="stack-val">Free (existing accounts) — Phase 3</div>
+    </div>
+    <div class="stack-row">
+      <div class="stack-key">Subscriptions added</div>
+      <div class="stack-val" style="color:var(--green);">None — Groq API key only</div>
+    </div>
+  </div>
+</div>
+
+<!-- Activity Timeline -->
+<div class="grid" style="margin-bottom:24px;">
+  <div class="card grid-full">
+    <div class="card-label">Phase 2 Activity Timeline</div>
+    <div class="item">
+      <div class="item-date">July 4, 2026 — Session 1 (Phase 2 only session)</div>
+      <div class="item-title">Full Phase 2 built and confirmed in a single session</div>
+      <div class="item-note">Swept Replit app for buildPrompt() source. Confirmed Google Docs API templates (Proposal + Meeting Notes) from Downloads — extracted all {{tag}} names and restructured LLM output schemas to match. Built all 8 blocks: analysis.js, IPC handler, feedback screen, two-stage processing, review screen, session analysis tab, recording prompts cheat sheet. Zero webpack or runtime errors. Elizabeth tested end-to-end: Discover mode, feedback note, analysis screen with sections populated, approved/unapproved items, session view with Analysis tab showing approved outputs correctly.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Deferred to Phase 3 -->
+<div class="grid" style="margin-bottom:24px;">
+  <div class="card grid-full">
+    <div class="card-label">Deferred to Phase 3</div>
+    <div class="deferred-item">
+      <div>
+        <div class="deferred-text">ClickUp push — create tasks (Discover) + update existing tasks (Progress)</div>
+        <div class="deferred-reason">approved flags and task data are ready in session JSON. Phase 3 wires the push. Requires existing ClickUp integration from Replit app to be ported.</div>
+      </div>
+      <span class="badge badge-high">P1</span>
+    </div>
+    <div class="deferred-item">
+      <div>
+        <div class="deferred-text">Google OAuth (desktop loopback redirect) + Drive push</div>
+        <div class="deferred-reason">Drive push is a replaceAllText loop over sowDraft / meetingNotesDraft — trivial once OAuth is wired. Gated on OAuth setup.</div>
+      </div>
+      <span class="badge badge-high">P1</span>
+    </div>
+    <div class="deferred-item">
+      <div>
+        <div class="deferred-text">Google Calendar — extracted dates → events</div>
+        <div class="deferred-reason">extractedDates field is already in the session JSON with isoDate values. Just needs the Calendar API call once OAuth is live.</div>
+      </div>
+      <span class="badge badge-high">P1</span>
+    </div>
+    <div class="deferred-item">
+      <div>
+        <div class="deferred-text">Close stale ClickUp tasks (framework decision, VB-Audio setup)</div>
+        <div class="deferred-reason">Both were completed in Phase 1 but tasks remain open in backlog. Should be closed in ClickUp before Phase 3 planning.</div>
+      </div>
+      <span class="badge badge-deferred">Housekeeping</span>
+    </div>
+  </div>
+</div>
+
+<!-- Roadmap -->
+<div class="grid" style="margin-bottom:24px;">
+  <div class="card grid-full">
+    <div class="card-label">Project Roadmap</div>
+    <div class="phase-roadmap">
+      <div class="phase-card complete">
+        <div class="phase-num green">Phase 1 · Complete ✓</div>
+        <div class="phase-title-sm">Recording + Transcription</div>
+        <div class="phase-desc-sm">Electron shell, dual-stream capture, Groq Whisper, JSON storage — confirmed July 3, 2026</div>
+      </div>
+      <div class="phase-card complete">
+        <div class="phase-num green">Phase 2 · Complete ✓</div>
+        <div class="phase-title-sm">Analysis + Review</div>
+        <div class="phase-desc-sm">Groq Llama 3.3 70B, 3 modes, template-keyed output, feedback recording, review + approval — confirmed July 4, 2026</div>
+      </div>
+      <div class="phase-card next">
+        <div class="phase-num blue">Phase 3 · Next</div>
+        <div class="phase-title-sm">Integrations</div>
+        <div class="phase-desc-sm">Google OAuth, ClickUp push, Drive push (replaceAllText), Calendar date extraction</div>
+      </div>
+      <div class="phase-card future">
+        <div class="phase-num">Phase 4</div>
+        <div class="phase-title-sm">Polish</div>
+        <div class="phase-desc-sm">Session history browser, delete/export, privacy policy publish, auto-update</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div>Northlight Meetings · Phase 2 · Analysis + Review</div>
+  <div>Completed July 4, 2026 · Last updated July 4, 2026</div>
+</div>
+
+</body>
+</html>
