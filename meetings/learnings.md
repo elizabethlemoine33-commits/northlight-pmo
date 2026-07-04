@@ -1,5 +1,11 @@
 # Northlight Meetings — Learnings
 
+## Phase 3 — Google Integrations (2026-07-04)
+
+- **Drive API and Docs API are separate GCP enablements.** Enabling the Drive API does not enable the Docs API. The batchUpdate call (replaceAllText) requires the Docs API to be enabled independently — easy to miss since both are "Google" APIs in the same project.
+- **LLM date inference needs an anchor year explicitly in the prompt.** Without year guidance, the model defaulted to 2024 for a partial date ("September 15th") even though the current year is 2026. Injecting `new Date().getFullYear()` at prompt-build time costs nothing and eliminates the ambiguity permanently.
+- **Hidden fields in a review screen become invisible bugs.** The isoDate field was stored correctly by the LLM but had no UI — so even when Elizabeth manually edited the date text, the actual calendar date didn't change. Any field that drives downstream behaviour needs to be visible and editable in the review screen.
+
 ## Phase 2 — Analysis + Review (2026-07-04)
 
 - **Template-keyed JSON from day one saves a parsing layer in Phase 3.** The original Replit app returned `sowDraft` as a freeform markdown string. Changing it to a structured object whose keys match the Google Docs `{{tag}}` names exactly means the Phase 3 Drive push is a mechanical `replaceAllText` loop — no extraction, no mapping, no ambiguity about what goes where.
