@@ -187,37 +187,37 @@
 <div class="header">
   <div class="phase-eyebrow">Northlight Meetings · Phase 4</div>
   <div class="title">Launch Prep</div>
-  <div class="subtitle">2026-07-05 → TBD &nbsp;·&nbsp; Privacy policy · Replit retirement · App distribution packaging</div>
-  <div class="status-pill">⟳ In Progress</div>
+  <div class="subtitle">2026-07-05 → 2026-07-05 &nbsp;·&nbsp; Privacy policy · Replit retirement · App packaging · Case study · Template polish</div>
+  <div class="status-pill" style="background:rgba(59,170,110,0.12);color:var(--green);border-color:rgba(59,170,110,0.3);">✓ Complete</div>
 </div>
 
 <div class="callout">
   <strong>Phases 1–3 recap:</strong> Phase 1 built the recording + transcription foundation (Electron + Groq Whisper, mic and system audio simultaneously via VB-Audio Cable). Phase 2 added Groq Llama 3.3 70B analysis in three modes with a full review screen and template-keyed JSON output. Phase 3 wired all three Google integrations end-to-end — Drive push (master template + replaceAllText), ClickUp task creation, and Calendar events with auto-refresh OAuth. The app is feature-complete. Phase 4 is distribution readiness.
 </div>
 
-<div class="blocker-callout">
-  <strong>⚠ Sequencing constraint:</strong> The privacy policy must be live on bynorthlight.ca before the app can be shared externally or packaged for distribution. Items 2 and 3 are unblocked and can proceed in parallel, but distribution packaging should not be finalised until the policy is published.
+<div class="callout">
+  <strong>✓ Phase complete:</strong> All sequencing constraints resolved. Privacy policy published first (unblocked packaging). Replit retired. App packaged as Windows installer with credentials baked in via webpack DefinePlugin + .env. Case study published. Template polish done. Only external dependency remaining is GCP OAuth verification (Google's review process — no action needed).
 </div>
 
 <div class="progress-section">
   <div class="progress-header">
     <div class="progress-label">Phase 4 Progress</div>
-    <div class="progress-pct">0%</div>
+    <div class="progress-pct">100%</div>
   </div>
-  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:0%"></div></div>
-  <div class="progress-outcome">Phase 4 will deliver a published privacy policy, a clean GCP credential state (Replit Web app credential deleted), and a packaged Windows installer — making Northlight Meetings ready for external distribution.</div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%"></div></div>
+  <div class="progress-outcome">Phase 4 delivered: privacy policy published, Replit retired, Windows installer packaged, Google credentials baked into build, first-launch banner added, case study live at bynorthlight.ca/case-studies/northlight-meetings.html, and template polish complete. GCP OAuth verification submitted — awaiting Google review.</div>
   <div class="progress-counts">
     <div class="progress-count"><strong>4</strong> items total</div>
-    <div class="progress-count"><strong>3</strong> require action</div>
-    <div class="progress-count"><strong>1</strong> editorial (no code)</div>
-    <div class="progress-count"><strong>0</strong> complete</div>
+    <div class="progress-count"><strong>4</strong> complete</div>
+    <div class="progress-count"><strong>0</strong> open</div>
+    <div class="progress-count"><strong>1</strong> pending (GCP review — external)</div>
   </div>
 </div>
 
 <div class="grid-3" style="margin-bottom:24px">
-  <div class="stat-tile"><div class="stat-num">1</div><div class="stat-label">Blocker to Resolve</div></div>
-  <div class="stat-tile"><div class="stat-num">2</div><div class="stat-label">Parallel-track Items</div></div>
-  <div class="stat-tile"><div class="stat-num">0</div><div class="stat-label">Code Changes Required</div></div>
+  <div class="stat-tile"><div class="stat-num" style="color:var(--green)">4</div><div class="stat-label">Items Complete</div></div>
+  <div class="stat-tile"><div class="stat-num">1</div><div class="stat-label">Pending (GCP review)</div></div>
+  <div class="stat-tile"><div class="stat-num">0</div><div class="stat-label">Open Items</div></div>
 </div>
 
 <div class="card" style="margin-bottom:24px">
@@ -228,15 +228,13 @@
     <div class="roadmap-body">
       <div class="roadmap-title">
         Publish privacy policy to bynorthlight.ca
-        <span class="badge badge-blocker">Blocker</span>
-        <span class="badge badge-high">High Priority</span>
+        <span class="badge badge-done">✓ Done</span>
       </div>
       <div class="roadmap-desc">
-        A draft exists in ClickUp (task 86e25q9g6) covering Groq (transcription + analysis), VB-Audio Cable (audio capture), and PostHog. Must be reviewed, finalised, and published as a page on bynorthlight.ca. Once live, link it from the app's Settings screen so users can access it directly from within Northlight Meetings. Required before any external distribution.
+        Published at bynorthlight.ca/meetings-privacy.html. Covers Groq (transcription + analysis), VB-Audio Cable (audio capture), Google (Drive/Docs/Calendar), ClickUp, and Sentry. PostHog removed — was never integrated (Replit hangover). Linked from homepage footer and app Settings screen.
       </div>
       <div class="roadmap-meta">
-        <span class="badge badge-open">ClickUp 86e25q9g6</span>
-        <span class="badge badge-decision">Blocks item 3</span>
+        <span class="badge badge-done">ClickUp 86e25q9g6 closed</span>
       </div>
     </div>
   </div>
@@ -246,14 +244,14 @@
     <div class="roadmap-body">
       <div class="roadmap-title">
         Retire Replit + delete Web app OAuth credential
-        <span class="badge badge-low">Low Effort</span>
+        <span class="badge badge-done">✓ Done</span>
       </div>
       <div class="roadmap-desc">
-        The original meeting notetaker ran on Replit and used a "Web application" OAuth credential in GCP project 25008508101. Phase 3 confirmed the desktop app works end-to-end with its own "Desktop app" credential — there is no remaining dependency on Replit. Two steps: (1) delete the Web app credential in GCP Cloud Console, (2) shut down the Replit project. No code changes, no app impact.
+        Web app OAuth credential deleted from GCP project 25008508101. Replit published app deleted. Replit secrets cleared. Desktop app credential confirmed as the sole active credential.
       </div>
       <div class="roadmap-meta">
-        <span class="badge badge-open">GCP project 25008508101</span>
-        <span class="badge badge-open">Unblocked — parallel</span>
+        <span class="badge badge-done">GCP credential deleted</span>
+        <span class="badge badge-done">Replit retired</span>
       </div>
     </div>
   </div>
@@ -263,14 +261,15 @@
     <div class="roadmap-body">
       <div class="roadmap-title">
         Package app for Windows distribution
-        <span class="badge badge-decision">After item 1</span>
+        <span class="badge badge-done">✓ Done</span>
       </div>
       <div class="roadmap-desc">
-        Run <code style="font-family:monospace;font-size:11px;color:var(--glacial)">npx electron-forge make</code> from <code style="font-family:monospace;font-size:11px;color:var(--glacial)">C:\Users\erand\Desktop\northlight-meetings\</code>. This produces a Windows installer (.exe / Squirrel). Decision point: direct installer download from bynorthlight.ca vs auto-update infrastructure (Squirrel + update server). Direct download is simpler for initial distribution; auto-update adds ongoing maintenance. Resolve any packaging issues that surface (icon, entitlements, signing).
+        Windows installer produced via <code style="font-family:monospace;font-size:11px;color:var(--glacial)">npx electron-forge make</code>. Google Client ID + Secret baked into build via webpack DefinePlugin + local .env (gitignored). First-launch onboarding banner added. Installer at <code style="font-family:monospace;font-size:11px;color:var(--glacial)">out/make/squirrel.windows/x64/</code>. GCP OAuth consent screen updated — privacy policy + homepage linked, verification submitted 2026-07-05 (Google review in progress).
       </div>
       <div class="roadmap-meta">
-        <span class="badge badge-open">electron-forge make</span>
-        <span class="badge badge-decision">Blocked by item 1</span>
+        <span class="badge badge-done">Installer built</span>
+        <span class="badge badge-done">Credentials baked in</span>
+        <span class="badge badge-deferred">GCP verification — pending</span>
       </div>
     </div>
   </div>
@@ -280,13 +279,13 @@
     <div class="roadmap-body">
       <div class="roadmap-title">
         Template layout polish in master Google Docs
-        <span class="badge badge-editorial">Editorial — No Code</span>
+        <span class="badge badge-done">✓ Done</span>
       </div>
       <div class="roadmap-desc">
-        The Drive push works correctly. After seeing real output, the master template Docs may need page break and section spacing adjustments. Done by editing the Google Docs templates directly, not in the app code. Template Doc IDs are saved in app Settings (Proposal: 1jRnu2xBhJwkkcIP2pP58jlIjeLJ_Rd1VDnmk1g0nNlQ · Meeting Notes: 1tGxcTGG0b2Wzm0gYfWakrTeBGa-oXOEYlcvipl-Jhzs).
+        Page breaks and section spacing adjusted in both master templates. Edited directly in Google Docs — no app code changes required.
       </div>
       <div class="roadmap-meta">
-        <span class="badge badge-open">Unblocked — parallel</span>
+        <span class="badge badge-done">Both templates polished</span>
       </div>
     </div>
   </div>

@@ -4,6 +4,7 @@
 
 | Date | Phase | Summary | Status |
 |---|---|---|---|
+| 2026-07-05 | Phase 4 complete | Launch Prep — all 4 items done. Privacy policy live, Replit retired, app packaged (Windows installer), credentials baked in, first-launch banner, case study published, template polish done. GCP OAuth verification submitted (awaiting Google review). | Phase 4 — 100% ✓ |
 | 2026-07-05 | Phase 4 complete | Launch Prep — privacy policy live, Replit retired, app packaged as Windows installer, Google credentials baked into build, first-launch banner added. GCP OAuth consent screen update pending (manual). | Phase 4 — 95% |
 | 2026-07-05 | Phase 4 — items 1+2 done | Privacy policy published (bynorthlight.ca/meetings-privacy.html). Replit retired — Web app OAuth credential deleted from GCP, published app deleted, secrets cleared. | Phase 4 — 50% |
 | 2026-07-05 | Phase 4 planned | Launch Prep — privacy policy, Replit retirement, app packaging. Dashboard written at phase open. | Phase 4 — 0% |
