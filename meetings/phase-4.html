@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northlight Meetings — Phase 4 Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --midnight:  #0E0E14;
+    --deep-night:#08080F;
+    --surface:   #12121E;
+    --surface-2: #10101C;
+    --border:    #1E2035;
+    --border-2:  #2A2A48;
+    --text:      #FFFFFF;
+    --cloud:     #C8CCE0;
+    --haze:      #BCC2DC;
+    --muted:     #99A1B6;
+    --structural:#6C7295;
+    --glacial:   #4FC3C8;
+    --boreal:    #5B8DD9;
+    --dusk:      #8B6FD4;
+    --aurora:    #C46FAA;
+    --green:     #3BAA6E;
+    --yellow:    #D4A017;
+    --red:       #C44F4F;
+  }
+  body {
+    background: var(--midnight);
+    color: var(--cloud);
+    font-family: 'Outfit', system-ui, sans-serif;
+    font-size: 13px;
+    padding: 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .top-bar {
+    height: 3px;
+    background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%);
+    margin: -32px -32px 32px;
+  }
+  .header { margin-bottom: 28px; }
+  .phase-eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--dusk); margin-bottom: 6px;
+  }
+  .title {
+    font-family: 'Jost', sans-serif;
+    font-size: 24px; font-weight: 700;
+    color: var(--text); letter-spacing: -0.01em;
+  }
+  .subtitle { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  .status-pill {
+    display: inline-block;
+    background: rgba(91,141,217,0.12);
+    color: var(--boreal);
+    border: 1px solid rgba(91,141,217,0.3);
+    border-radius: 20px;
+    font-family: 'Jost', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 3px 10px; margin-top: 8px;
+  }
+  .callout {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--dusk);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .callout strong { color: var(--cloud); }
+  .blocker-callout {
+    background: rgba(196,79,79,0.06);
+    border: 1px solid rgba(196,79,79,0.25);
+    border-left: 3px solid var(--red);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .blocker-callout strong { color: var(--cloud); }
+  .progress-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 24px;
+  }
+  .progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .progress-label { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .progress-pct { font-family: 'Jost', sans-serif; font-size: 28px; font-weight: 700; color: var(--text); }
+  .progress-bar-bg { background: var(--border); border-radius: 4px; height: 6px; }
+  .progress-bar-fill { background: linear-gradient(90deg, #4FC3C8, #8B6FD4); border-radius: 4px; height: 6px; }
+  .progress-outcome { color: var(--haze); font-size: 13px; margin-top: 12px; line-height: 1.6; }
+  .progress-counts { display: flex; gap: 24px; margin-top: 10px; }
+  .progress-count { font-size: 11px; color: var(--muted); }
+  .progress-count strong { color: var(--cloud); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .grid-full { grid-column: 1 / -1; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .card-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 12px;
+  }
+  .block-table { width: 100%; border-collapse: collapse; }
+  .block-table th {
+    font-family: 'Jost', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted); padding: 0 0 8px;
+    text-align: left; border-bottom: 1px solid var(--border);
+  }
+  .block-table td { padding: 9px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .block-table tr:last-child td { border-bottom: none; }
+  .block-name { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .block-note { color: var(--muted); font-size: 11px; margin-top: 2px; line-height: 1.5; }
+  .col-status { width: 90px; }
+  .col-effort { width: 80px; }
+  .col-notes { width: 45%; }
+  .badge {
+    display: inline-block; font-family: 'Jost', sans-serif;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 4px; white-space: nowrap;
+  }
+  .badge-done     { background: rgba(59,170,110,0.15); color: var(--green); border: 1px solid rgba(59,170,110,0.3); }
+  .badge-open     { background: rgba(91,141,217,0.12); color: var(--boreal); border: 1px solid rgba(91,141,217,0.25); }
+  .badge-high     { background: rgba(196,79,79,0.12); color: var(--red); border: 1px solid rgba(196,79,79,0.25); }
+  .badge-low      { background: rgba(99,114,149,0.12); color: var(--structural); border: 1px solid rgba(99,114,149,0.25); }
+  .badge-deferred { background: rgba(212,160,23,0.12); color: var(--yellow); border: 1px solid rgba(212,160,23,0.25); }
+  .badge-decision { background: rgba(139,111,212,0.12); color: var(--dusk); border: 1px solid rgba(139,111,212,0.25); }
+  .badge-blocker  { background: rgba(196,79,79,0.15); color: var(--red); border: 1px solid rgba(196,79,79,0.3); }
+  .badge-editorial{ background: rgba(79,195,200,0.10); color: var(--glacial); border: 1px solid rgba(79,195,200,0.25); }
+  .stat-tile {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    text-align: center;
+  }
+  .stat-num { font-family: 'Jost', sans-serif; font-size: 30px; font-weight: 700; color: var(--text); }
+  .stat-label { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+  .item { padding: 9px 0; border-bottom: 1px solid var(--border); }
+  .item:last-child { border-bottom: none; }
+  .item-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .item-note { color: var(--muted); font-size: 11px; margin-top: 2px; line-height: 1.5; }
+  .stack-row { display: flex; gap: 8px; align-items: baseline; padding: 7px 0; border-bottom: 1px solid var(--border); }
+  .stack-row:last-child { border-bottom: none; }
+  .stack-key { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); min-width: 200px; }
+  .stack-val { color: var(--cloud); font-size: 12px; line-height: 1.5; }
+  .roadmap-item {
+    display: flex; gap: 16px; align-items: flex-start;
+    padding: 14px 0; border-bottom: 1px solid var(--border);
+  }
+  .roadmap-item:last-child { border-bottom: none; }
+  .roadmap-num {
+    font-family: 'Jost', sans-serif; font-size: 18px; font-weight: 700;
+    color: var(--border-2); min-width: 28px; margin-top: 1px; line-height: 1;
+  }
+  .roadmap-body { flex: 1; }
+  .roadmap-title { color: var(--cloud); font-size: 13px; font-weight: 500; margin-bottom: 4px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .roadmap-desc { color: var(--muted); font-size: 11px; line-height: 1.6; }
+  .roadmap-meta { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<div class="header">
+  <div class="phase-eyebrow">Northlight Meetings · Phase 4</div>
+  <div class="title">Launch Prep</div>
+  <div class="subtitle">2026-07-05 → TBD &nbsp;·&nbsp; Privacy policy · Replit retirement · App distribution packaging</div>
+  <div class="status-pill">⟳ In Progress</div>
+</div>
+
+<div class="callout">
+  <strong>Phases 1–3 recap:</strong> Phase 1 built the recording + transcription foundation (Electron + Groq Whisper, mic and system audio simultaneously via VB-Audio Cable). Phase 2 added Groq Llama 3.3 70B analysis in three modes with a full review screen and template-keyed JSON output. Phase 3 wired all three Google integrations end-to-end — Drive push (master template + replaceAllText), ClickUp task creation, and Calendar events with auto-refresh OAuth. The app is feature-complete. Phase 4 is distribution readiness.
+</div>
+
+<div class="blocker-callout">
+  <strong>⚠ Sequencing constraint:</strong> The privacy policy must be live on bynorthlight.ca before the app can be shared externally or packaged for distribution. Items 2 and 3 are unblocked and can proceed in parallel, but distribution packaging should not be finalised until the policy is published.
+</div>
+
+<div class="progress-section">
+  <div class="progress-header">
+    <div class="progress-label">Phase 4 Progress</div>
+    <div class="progress-pct">0%</div>
+  </div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:0%"></div></div>
+  <div class="progress-outcome">Phase 4 will deliver a published privacy policy, a clean GCP credential state (Replit Web app credential deleted), and a packaged Windows installer — making Northlight Meetings ready for external distribution.</div>
+  <div class="progress-counts">
+    <div class="progress-count"><strong>4</strong> items total</div>
+    <div class="progress-count"><strong>3</strong> require action</div>
+    <div class="progress-count"><strong>1</strong> editorial (no code)</div>
+    <div class="progress-count"><strong>0</strong> complete</div>
+  </div>
+</div>
+
+<div class="grid-3" style="margin-bottom:24px">
+  <div class="stat-tile"><div class="stat-num">1</div><div class="stat-label">Blocker to Resolve</div></div>
+  <div class="stat-tile"><div class="stat-num">2</div><div class="stat-label">Parallel-track Items</div></div>
+  <div class="stat-tile"><div class="stat-num">0</div><div class="stat-label">Code Changes Required</div></div>
+</div>
+
+<div class="card" style="margin-bottom:24px">
+  <div class="card-label">Phase 4 Roadmap</div>
+
+  <div class="roadmap-item">
+    <div class="roadmap-num">1</div>
+    <div class="roadmap-body">
+      <div class="roadmap-title">
+        Publish privacy policy to bynorthlight.ca
+        <span class="badge badge-blocker">Blocker</span>
+        <span class="badge badge-high">High Priority</span>
+      </div>
+      <div class="roadmap-desc">
+        A draft exists in ClickUp (task 86e25q9g6) covering Groq (transcription + analysis), VB-Audio Cable (audio capture), and PostHog. Must be reviewed, finalised, and published as a page on bynorthlight.ca. Once live, link it from the app's Settings screen so users can access it directly from within Northlight Meetings. Required before any external distribution.
+      </div>
+      <div class="roadmap-meta">
+        <span class="badge badge-open">ClickUp 86e25q9g6</span>
+        <span class="badge badge-decision">Blocks item 3</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="roadmap-item">
+    <div class="roadmap-num">2</div>
+    <div class="roadmap-body">
+      <div class="roadmap-title">
+        Retire Replit + delete Web app OAuth credential
+        <span class="badge badge-low">Low Effort</span>
+      </div>
+      <div class="roadmap-desc">
+        The original meeting notetaker ran on Replit and used a "Web application" OAuth credential in GCP project 25008508101. Phase 3 confirmed the desktop app works end-to-end with its own "Desktop app" credential — there is no remaining dependency on Replit. Two steps: (1) delete the Web app credential in GCP Cloud Console, (2) shut down the Replit project. No code changes, no app impact.
+      </div>
+      <div class="roadmap-meta">
+        <span class="badge badge-open">GCP project 25008508101</span>
+        <span class="badge badge-open">Unblocked — parallel</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="roadmap-item">
+    <div class="roadmap-num">3</div>
+    <div class="roadmap-body">
+      <div class="roadmap-title">
+        Package app for Windows distribution
+        <span class="badge badge-decision">After item 1</span>
+      </div>
+      <div class="roadmap-desc">
+        Run <code style="font-family:monospace;font-size:11px;color:var(--glacial)">npx electron-forge make</code> from <code style="font-family:monospace;font-size:11px;color:var(--glacial)">C:\Users\erand\Desktop\northlight-meetings\</code>. This produces a Windows installer (.exe / Squirrel). Decision point: direct installer download from bynorthlight.ca vs auto-update infrastructure (Squirrel + update server). Direct download is simpler for initial distribution; auto-update adds ongoing maintenance. Resolve any packaging issues that surface (icon, entitlements, signing).
+      </div>
+      <div class="roadmap-meta">
+        <span class="badge badge-open">electron-forge make</span>
+        <span class="badge badge-decision">Blocked by item 1</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="roadmap-item">
+    <div class="roadmap-num">4</div>
+    <div class="roadmap-body">
+      <div class="roadmap-title">
+        Template layout polish in master Google Docs
+        <span class="badge badge-editorial">Editorial — No Code</span>
+      </div>
+      <div class="roadmap-desc">
+        The Drive push works correctly. After seeing real output, the master template Docs may need page break and section spacing adjustments. Done by editing the Google Docs templates directly, not in the app code. Template Doc IDs are saved in app Settings (Proposal: 1jRnu2xBhJwkkcIP2pP58jlIjeLJ_Rd1VDnmk1g0nNlQ · Meeting Notes: 1tGxcTGG0b2Wzm0gYfWakrTeBGa-oXOEYlcvipl-Jhzs).
+      </div>
+      <div class="roadmap-meta">
+        <span class="badge badge-open">Unblocked — parallel</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="margin-bottom:24px">
+  <div class="card-label">Key Resource IDs</div>
+  <div class="stack-row"><div class="stack-key">ClickUp privacy policy task</div><div class="stack-val"><code style="font-family:monospace;font-size:11px;color:var(--glacial)">86e25q9g6</code> — list 901714819070 (App Tasks)</div></div>
+  <div class="stack-row"><div class="stack-key">ClickUp client actions list</div><div class="stack-val"><code style="font-family:monospace;font-size:11px;color:var(--glacial)">901714951928</code></div></div>
+  <div class="stack-row"><div class="stack-key">GCP project</div><div class="stack-val"><code style="font-family:monospace;font-size:11px;color:var(--glacial)">25008508101</code> — Drive API, Docs API, Calendar API enabled</div></div>
+  <div class="stack-row"><div class="stack-key">Proposal template Doc</div><div class="stack-val"><code style="font-family:monospace;font-size:11px;color:var(--glacial)">1jRnu2xBhJwkkcIP2pP58jlIjeLJ_Rd1VDnmk1g0nNlQ</code></div></div>
+  <div class="stack-row"><div class="stack-key">Meeting Notes template Doc</div><div class="stack-val"><code style="font-family:monospace;font-size:11px;color:var(--glacial)">1tGxcTGG0b2Wzm0gYfWakrTeBGa-oXOEYlcvipl-Jhzs</code></div></div>
+  <div class="stack-row"><div class="stack-key">Drive target folder</div><div class="stack-val"><code style="font-family:monospace;font-size:11px;color:var(--glacial)">1zy-rU-RtV9Tw2AB4RvwPWbcc85UrueGX</code></div></div>
+  <div class="stack-row"><div class="stack-key">Local repo</div><div class="stack-val"><code style="font-family:monospace;font-size:11px;color:var(--glacial)">C:\Users\erand\Desktop\northlight-meetings\</code></div></div>
+  <div class="stack-row"><div class="stack-key">Git branch / root commit</div><div class="stack-val">master · <code style="font-family:monospace;font-size:11px;color:var(--glacial)">93138a6</code></div></div>
+</div>
+
+</body>
+</html>
