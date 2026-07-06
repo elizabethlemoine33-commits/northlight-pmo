@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northlight Meetings — Phase 5 Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --midnight:  #0E0E14;
+    --deep-night:#08080F;
+    --surface:   #12121E;
+    --surface-2: #10101C;
+    --border:    #1E2035;
+    --border-2:  #2A2A48;
+    --text:      #FFFFFF;
+    --cloud:     #C8CCE0;
+    --haze:      #BCC2DC;
+    --muted:     #99A1B6;
+    --structural:#6C7295;
+    --glacial:   #4FC3C8;
+    --boreal:    #5B8DD9;
+    --dusk:      #8B6FD4;
+    --aurora:    #C46FAA;
+    --green:     #3BAA6E;
+    --yellow:    #D4A017;
+    --red:       #C44F4F;
+  }
+  body {
+    background: var(--midnight);
+    color: var(--cloud);
+    font-family: 'Outfit', system-ui, sans-serif;
+    font-size: 13px;
+    padding: 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .top-bar {
+    height: 3px;
+    background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%);
+    margin: -32px -32px 32px;
+  }
+  .header { margin-bottom: 28px; }
+  .phase-eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--dusk); margin-bottom: 6px;
+  }
+  .title {
+    font-family: 'Jost', sans-serif;
+    font-size: 24px; font-weight: 700;
+    color: var(--text); letter-spacing: -0.01em;
+  }
+  .subtitle { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  .status-pill {
+    display: inline-block;
+    background: rgba(59,170,110,0.12);
+    color: var(--green);
+    border: 1px solid rgba(59,170,110,0.3);
+    border-radius: 20px;
+    font-family: 'Jost', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 3px 10px; margin-top: 8px;
+  }
+  .callout {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--dusk);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .callout strong { color: var(--cloud); }
+  .section { margin-bottom: 32px; }
+  .section-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--structural);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .progress-wrap { margin-bottom: 10px; }
+  .progress-bar-bg {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    height: 8px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--glacial), var(--boreal));
+  }
+  .progress-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px; font-weight: 600;
+    color: var(--glacial);
+    margin-top: 6px;
+  }
+  .progress-outcome {
+    font-size: 12px; color: var(--muted);
+    margin-top: 4px; line-height: 1.5;
+  }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .card-eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--structural); margin-bottom: 6px;
+  }
+  .card-title {
+    font-family: 'Jost', sans-serif;
+    font-size: 14px; font-weight: 600;
+    color: var(--text); margin-bottom: 6px;
+  }
+  .card-body { font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .badge {
+    display: inline-block;
+    font-family: 'Jost', sans-serif;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    border-radius: 4px;
+    padding: 2px 7px;
+    margin-bottom: 8px;
+  }
+  .badge-green  { background: rgba(59,170,110,0.12); color: var(--green); border: 1px solid rgba(59,170,110,0.25); }
+  .badge-blue   { background: rgba(91,141,217,0.12); color: var(--boreal); border: 1px solid rgba(91,141,217,0.25); }
+  .badge-purple { background: rgba(139,111,212,0.12); color: var(--dusk); border: 1px solid rgba(139,111,212,0.25); }
+  .badge-yellow { background: rgba(212,160,23,0.12); color: var(--yellow); border: 1px solid rgba(212,160,23,0.25); }
+  .badge-red    { background: rgba(196,79,79,0.12); color: var(--red); border: 1px solid rgba(196,79,79,0.25); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  th {
+    font-family: 'Jost', sans-serif;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--structural);
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 9px 10px;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    line-height: 1.5;
+    vertical-align: top;
+  }
+  td:first-child { color: var(--cloud); font-weight: 500; }
+  tr:last-child td { border-bottom: none; }
+  .table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .deferred-list { list-style: none; }
+  .deferred-list li {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px; color: var(--muted);
+    line-height: 1.5;
+  }
+  .deferred-list li:last-child { border-bottom: none; }
+  .deferred-list li strong { color: var(--cloud); }
+  .timeline-row {
+    display: flex; gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .timeline-row:last-child { border-bottom: none; }
+  .timeline-date {
+    font-family: 'Jost', sans-serif;
+    font-size: 10px; font-weight: 600;
+    color: var(--structural);
+    white-space: nowrap;
+    padding-top: 1px;
+    min-width: 72px;
+  }
+  .timeline-text { color: var(--muted); line-height: 1.5; }
+  .timeline-text strong { color: var(--cloud); }
+  .open-items-list { list-style: none; }
+  .open-items-list li {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px; color: var(--muted);
+    line-height: 1.5;
+  }
+  .open-items-list li:last-child { border-bottom: none; }
+  .open-items-list li strong { color: var(--cloud); }
+</style>
+</head>
+<body>
+
+<div class="top-bar"></div>
+
+<!-- Header -->
+<div class="header">
+  <div class="phase-eyebrow">Northlight Meetings · Phase 5</div>
+  <div class="title">Post-Launch Polish</div>
+  <div class="subtitle">2026-07-06 → 2026-07-06 · Privacy, consent UX, marketing content, and project record</div>
+  <div class="status-pill">Complete</div>
+</div>
+
+<!-- Historical callout -->
+<div class="callout">
+  <strong>Phases 1–4 recap:</strong> Phase 1 built the recording foundation (Electron + Groq Whisper, dual audio capture). Phase 2 delivered LLM analysis and the review screen. Phase 3 wired Google Drive, ClickUp, and Calendar integrations end-to-end. Phase 4 launched the app — privacy policy published, Replit retired, Windows installer packaged, and the case study went live.
+</div>
+
+<!-- Progress -->
+<div class="section">
+  <div class="section-label">Phase Progress</div>
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%"></div></div>
+    <div class="progress-label">100% — Complete</div>
+    <div class="progress-outcome">Phase 5 complete — privacy policy tightened with ZDR language, consent nudge shipped in-app, case study reframed around the proposal-writing differentiator, and the project registered in PMI's portfolio.</div>
+  </div>
+</div>
+
+<!-- What shipped -->
+<div class="section">
+  <div class="section-label">What Shipped</div>
+  <div class="cards">
+
+    <div class="card">
+      <div class="badge badge-green">Compliance</div>
+      <div class="card-title">Privacy Policy — ZDR Language</div>
+      <div class="card-body">Replaced the original Groq retention claim ("processed in real time, not retained") with Zero Data Retention (ZDR) language reflecting the actual account-level setting. Groq Data Controls confirm ZDR is active for all Northlight Meetings API usage. Published to <code>bynorthlight.ca/meetings-privacy.html</code>.</div>
+    </div>
+
+    <div class="card">
+      <div class="badge badge-purple">UX / Compliance</div>
+      <div class="card-title">Consent Reminder — Settings Toggle + Banner</div>
+      <div class="card-body">Added a Settings checkbox: "Remind me to announce recording before each call." When enabled, a full-screen dismissible banner fires before recording starts asking the user to confirm participants have been notified. Persisted via localStorage (no IPC changes). Three files modified: <code>index.html</code>, <code>index.css</code>, <code>renderer.js</code>.</div>
+    </div>
+
+    <div class="card">
+      <div class="badge badge-blue">Marketing</div>
+      <div class="card-title">Case Study Rewrite — Proposal Mode First</div>
+      <div class="card-body">New hero headline: "Discovery call to client-ready proposal — automatically." Proposal Mode moved from section 05 to section 01 (full-width, flagged as THE DIFFERENTIATOR). Problem section reframed around proposal-writing time waste rather than generic transcription. Client Meeting Mode condensed into sections 02–03. Published to <code>bynorthlight.ca/case-studies/northlight-meetings.html</code>.</div>
+    </div>
+
+    <div class="card">
+      <div class="badge badge-purple">Admin</div>
+      <div class="card-title">PMI Community Profile — Project Entry</div>
+      <div class="card-body">Completed the 3-step PMI Add Project form for Northlight Meetings via Chrome MCP automation. Technologies documented: Electron, Node.js, Groq (Whisper + Llama 3.3 70B), Google APIs, ClickUp API, VB-Audio Cable, DPAPI safeStorage, Webpack. Project record is live in PMI's community portfolio.</div>
+    </div>
+
+    <div class="card">
+      <div class="badge badge-blue">Marketing</div>
+      <div class="card-title">Positioning Document — CMO Brief</div>
+      <div class="card-body">Created <code>northlight-pmo/meetings/northlight-meetings-positioning.md</code> for CMO agent handoff. Covers: what the tool is, the problem it solves, how it works (recording → transcription → analysis → filing), tech stack, pricing (~$0.03/call), competitor landscape (Otter.ai, Fireflies, Fathom, tl;dv, Gong/Chorus), comparison table, and 6 content angles for social/blog outreach.</div>
+    </div>
+
+    <div class="card">
+      <div class="badge badge-green">Tooling</div>
+      <div class="card-title">/pmi-update Skill Created</div>
+      <div class="card-body">Built a new CLI skill (<code>C:\Users\erand\.claude\commands\pmi-update.md</code>) that reads memory files and PMO update logs to generate pre-filled values for all 3 steps of the PMI Add Project form — no Chrome required for future project entries. Covers OS, Vault, and Meetings.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Deferred -->
+<div class="section">
+  <div class="section-label">Deferred to Phase 6</div>
+  <div class="table-wrap">
+    <ul class="deferred-list" style="padding: 4px 16px;">
+      <li>
+        <span class="badge badge-yellow" style="flex-shrink:0;margin-top:2px">Blocked</span>
+        <span><strong>Gumroad Storefront</strong> — ClickUp 86e262uad. Distribution listing for Northlight Meetings on Gumroad is blocked on Google's GCP OAuth consent screen verification. Submitted July 5, 2026; review timeline is weeks. No action available until Google approves.</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Decisions log -->
+<div class="section">
+  <div class="section-label">Decisions Log</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Decision</th>
+          <th>Why</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>ZDR language over ad hoc retention claim</td>
+          <td>The original claim was technically accurate but vague. ZDR is an account-level setting that is verifiable in Groq's Data Controls panel — naming it precisely is more defensible and more honest.</td>
+          <td>2026-07-06</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Lightest-touch consent (toggle + nudge banner, no enforcement)</td>
+          <td>Recording consent laws vary by jurisdiction and most require only one-party consent. A Settings checkbox with a pre-recording nudge meets the legal reminder goal without blocking the workflow or creating friction for users in one-party jurisdictions.</td>
+          <td>2026-07-06</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Proposal Mode moved to section 01 in case study</td>
+          <td>The original structure positioned Meetings as "a better Otter.ai." The actual job-to-be-done is replacing proposal-writing labour — a category of one. Leading with that differentiator changes the product's perceived value tier entirely.</td>
+          <td>2026-07-06</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>localStorage for consent toggle state (no IPC)</td>
+          <td>The toggle is a UI preference with no security implications. localStorage persists across Electron sessions without requiring main-process IPC or safeStorage changes — keeping the change minimal and self-contained.</td>
+          <td>2026-07-06</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Activity timeline -->
+<div class="section">
+  <div class="section-label">Activity Timeline</div>
+  <div class="table-wrap" style="padding: 4px 16px;">
+
+    <div class="timeline-row">
+      <div class="timeline-date">2026-07-06</div>
+      <div class="timeline-text"><strong>Privacy policy ZDR update</strong> — Replaced Groq retention paragraph in <code>meetings-privacy.html</code> with Zero Data Retention language. Pushed to bynorthlight-site.</div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-date">2026-07-06</div>
+      <div class="timeline-text"><strong>Consent toggle + banner shipped</strong> — Settings checkbox, pre-recording overlay banner, and localStorage persistence added to <code>index.html</code>, <code>index.css</code>, <code>renderer.js</code>. Committed and pushed to northlight-meetings-desktop.</div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-date">2026-07-06</div>
+      <div class="timeline-text"><strong>Case study rewritten</strong> — New hero, Proposal Mode to section 01, problem section reframed. Pushed to bynorthlight-site.</div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-date">2026-07-05</div>
+      <div class="timeline-text"><strong>PMI Add Project form completed</strong> — 3-step form filled via Chrome MCP automation. Northlight Meetings now live in PMI community portfolio.</div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-date">2026-07-05</div>
+      <div class="timeline-text"><strong>Positioning document created</strong> — <code>northlight-meetings-positioning.md</code> written for CMO agent briefing. Covers use cases, tech stack, competitor landscape, and 6 content angles.</div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-date">2026-07-05</div>
+      <div class="timeline-text"><strong>/pmi-update skill created</strong> — CLI skill file at <code>~/.claude/commands/pmi-update.md</code> for future PMI entries without Chrome.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Open items going into Phase 6 -->
+<div class="section">
+  <div class="section-label">Open Items → Phase 6</div>
+  <div class="table-wrap">
+    <ul class="open-items-list" style="padding: 4px 16px;">
+      <li>
+        <span class="badge badge-yellow" style="flex-shrink:0;margin-top:2px">Blocked</span>
+        <span><strong>Gumroad storefront (ClickUp 86e262uad)</strong> — Cannot proceed until GCP OAuth consent screen passes Google's verification review. Check status weekly; no further prep needed.</span>
+      </li>
+      <li>
+        <span class="badge badge-blue" style="flex-shrink:0;margin-top:2px">Marketing</span>
+        <span><strong>CMO agent social/blog content</strong> — Positioning doc is ready. Hand off to CMO agent to generate awareness content (LinkedIn posts, blog draft, short-form) from the 6 content angles in the positioning doc.</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>
