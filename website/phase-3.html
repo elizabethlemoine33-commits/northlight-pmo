@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northlight Website — Phase 3 PMO Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --midnight: #0E0E14;
+    --surface:  #12121E;
+    --border:   #1E2035;
+    --border2:  #2A2A48;
+    --text:     #FFFFFF;
+    --cloud:    #C8CCE0;
+    --haze:     #B0B8D8;
+    --muted:    #8A92A8;
+    --glacial:  #4FC3C8;
+    --boreal:   #5B8DD9;
+    --dusk:     #8B6FD4;
+    --aurora:   #C46FAA;
+    --green:    #3BAA6E;
+    --yellow:   #D4A017;
+    --red:      #C44F4F;
+  }
+  body { background: var(--midnight); color: var(--cloud); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; padding: 32px; }
+  .top-bar { height: 3px; background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%); margin: -32px -32px 32px; }
+
+  .header { margin-bottom: 28px; }
+  .phase-label { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dusk); margin-bottom: 6px; }
+  .title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+  .subtitle { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+  .progress-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
+  .progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .progress-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .progress-pct { font-size: 24px; font-weight: 700; color: var(--text); }
+  .progress-bar-bg { background: var(--border); border-radius: 4px; height: 6px; }
+  .progress-bar-fill { background: linear-gradient(90deg, #4FC3C8, #8B6FD4); border-radius: 4px; height: 6px; }
+  .progress-counts { display: flex; gap: 20px; margin-top: 10px; }
+  .progress-count { font-size: 11px; color: var(--muted); }
+  .progress-count strong { color: var(--cloud); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .grid-full { grid-column: 1 / -1; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .card-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+
+  .block-table { width: 100%; border-collapse: collapse; }
+  .block-table th { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 0 0 8px; text-align: left; border-bottom: 1px solid var(--border); }
+  .block-table td { padding: 8px 0; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .block-table tr:last-child td { border-bottom: none; }
+  .block-name { color: var(--cloud); font-size: 12px; }
+  .block-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .badge-done       { background: rgba(59,170,110,0.15); color: #3BAA6E; border: 1px solid rgba(59,170,110,0.3); }
+  .badge-inprogress { background: rgba(91,141,217,0.15); color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
+  .badge-notstarted { background: rgba(138,146,168,0.10); color: var(--muted); border: 1px solid var(--border); }
+  .badge-deferred   { background: rgba(138,146,168,0.10); color: var(--muted); border: 1px solid var(--border); }
+  .badge-blocked    { background: rgba(196,79,79,0.15); color: #C44F4F; border: 1px solid rgba(196,79,79,0.3); }
+
+  .issue-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .issue-item:last-child { border-bottom: none; }
+  .issue-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--yellow); margin-top: 4px; flex-shrink: 0; }
+  .issue-dot.muted { background: var(--muted); }
+  .issue-dot.green { background: var(--green); }
+  .issue-dot.aurora { background: var(--aurora); }
+  .issue-dot.glacial { background: var(--glacial); }
+  .issue-text { color: var(--cloud); font-size: 12px; }
+  .issue-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .callout { background: rgba(91,141,217,0.07); border: 1px solid rgba(91,141,217,0.2); border-radius: 8px; padding: 12px 14px; margin-bottom: 24px; }
+  .callout-label { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--boreal); margin-bottom: 6px; }
+  .callout-text { color: var(--haze); font-size: 12px; line-height: 1.6; }
+
+  .callout-warn { background: rgba(196,111,170,0.07); border: 1px solid rgba(196,111,170,0.2); border-radius: 8px; padding: 12px 14px; margin-bottom: 24px; }
+  .callout-warn .callout-label { color: var(--aurora); }
+
+  .section-divider { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); padding: 6px 0 10px; border-bottom: 1px solid var(--border); margin-bottom: 10px; margin-top: 4px; }
+
+  .footer { color: var(--muted); font-size: 11px; border-top: 1px solid var(--border); padding-top: 16px; display: flex; justify-content: space-between; }
+
+  .owner-tag { display: inline-block; font-size: 9px; font-weight: 600; letter-spacing: 0.08em; padding: 2px 6px; border-radius: 3px; margin-left: 6px; background: rgba(196,111,170,0.10); color: var(--aurora); border: 1px solid rgba(196,111,170,0.2); }
+  .owner-tag.claude { background: rgba(79,195,200,0.10); color: var(--glacial); border: 1px solid rgba(79,195,200,0.2); }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<div class="header">
+  <div class="phase-label">Northlight Website · Phase 3 · In Progress</div>
+  <div class="title">AEO Citation Building, Content &amp; Entity Clarity</div>
+  <div class="subtitle">4 new blog posts · llms.txt disambiguation · Skills Market on site · Portfolio fix · Outreach + monitoring cadence · July 2026 →</div>
+</div>
+
+<!-- Historical note -->
+<div class="callout">
+  <div class="callout-label">Coming From Phase 2 · Complete 2026-07-09</div>
+  <div class="callout-text">Phase 1 built the site and AEO foundation. Phase 2 completed the full schema set (all 5 priority types: Organization, Article, FAQPage, Person, HowTo), question-style H2s across all 10 blog posts, dateModified on all Article JSON-LD, off-site authority on Clutch, Fractionus, Digital Reference, Crunchbase, and GitHub org. HubSpot AEO course implemented same session. AI crawlers confirmed reading the site (GPTBot 8 requests, ClaudeBot 11, PerplexityBot 4). Phase 3 goal: move from 0% AI citation visibility on tracked prompts to measurable citations by closing the Peer channel gap and fixing the Gemini entity collision.</div>
+</div>
+
+<!-- Gemini warning -->
+<div class="callout-warn">
+  <div class="callout-label">Active Issue — Gemini Entity Collision</div>
+  <div class="callout-text">Gemini confuses Northlight Advisory Services (Halifax, NS · Elizabeth Lemoine · strategy/ops/AI) with "Northlight Solutions Group" (NSG — a Salesforce/Agentforce/Anthropic-partner firm) across 100% of its answers. Gemini invents a fictional 5-stage methodology, "Baseline AI" training program, and Lead-to-Cash architecture — none of which are real. A3 (disambiguation blog post) and B1 (llms.txt update) directly address this.</div>
+</div>
+
+<!-- Progress -->
+<div class="progress-section">
+  <div class="progress-header">
+    <div class="progress-label">Phase Progress</div>
+    <div class="progress-pct">0%</div>
+  </div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:0%"></div></div>
+  <div class="progress-counts">
+    <div class="progress-count"><strong>0</strong> / 9 tasks complete</div>
+    <div class="progress-count"><strong>0</strong> Claude tasks done</div>
+    <div class="progress-count">Phase 3 started 2026-07-09</div>
+  </div>
+</div>
+
+<div class="grid">
+
+  <!-- Claude tasks — new content -->
+  <div class="card grid-full">
+    <div class="card-label">Claude Tasks — New Content <span class="owner-tag claude">Claude</span></div>
+    <div class="section-divider">Blog posts</div>
+    <table class="block-table">
+      <thead>
+        <tr><th style="width:42%">Task</th><th style="width:13%">Status</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="block-name">A1 · Canadian fractional advisory listicle</div><div class="block-note">"Best Fractional Advisory Services for Canadian Small Business Operators (2026)" — listicle format targeting the Peer citation channel</div></td>
+          <td><span class="badge badge-notstarted">Not started</span></td>
+          <td><div class="block-note">HubSpot #1 content recommendation. AI cites capstacker.io, chiefjobs.com, gofractional.com — this post targets the same format and query cluster. Full AEO: Article + FAQPage + dateModified, question H2s, At a Glance panel. File: blog/best-fractional-advisory-services-canada.html</div></td>
+        </tr>
+        <tr>
+          <td><div class="block-name">A2 · Ongoing business advisory guide</div><div class="block-note">"How to Get Ongoing Business Advisory Support as a Canadian Small Operator"</div></td>
+          <td><span class="badge badge-notstarted">Not started</span></td>
+          <td><div class="block-note">HubSpot #2 High recommendation. Targets all 10 HubSpot-tracked prompts (0% visibility) in the Fractional Advisory &amp; Ongoing Decision Support cluster. AEO: HowTo schema + FAQPage + Article. File: blog/ongoing-business-advisory-canada.html</div></td>
+        </tr>
+        <tr>
+          <td><div class="block-name">A3 · Entity disambiguation blog post</div><div class="block-note">"About Northlight Advisory Services — Who We Are and What We Do"</div></td>
+          <td><span class="badge badge-notstarted">Not started</span></td>
+          <td><div class="block-note">Dense entity-signal page for Gemini correction. Full name + founder + Halifax NS + service lines + explicit not-Salesforce/not-Agentforce/not-NSG framing. AEO: Person schema + Organization + FAQPage disambiguation Q&amp;As. File: blog/about-northlight-advisory-services.html</div></td>
+        </tr>
+        <tr>
+          <td><div class="block-name">A4 · AEO/GEO learnings post</div><div class="block-note">"What I Learned Optimizing a Website for AI Search (AEO Checklist for 2026)" — practitioner perspective</div></td>
+          <td><span class="badge badge-notstarted">Not started</span></td>
+          <td><div class="block-note">Two phases of hands-on AEO work is rare practitioner experience. Targets AI + marketing strategy prompts. Establishes E-E-A-T on AI implementation topics. Optionally: also write a founder journey post (wins, frustrations, opportunities of building from zero). File: blog/aeo-optimization-lessons-2026.html</div></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="section-divider" style="margin-top:16px;">Site + infrastructure</div>
+    <table class="block-table">
+      <thead>
+        <tr><th style="width:42%">Task</th><th style="width:13%">Status</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="block-name">B1 · llms.txt — entity disambiguation section</div><div class="block-note">Add explicit NSG disambiguation to llms.txt + Skills Market under Products</div></td>
+          <td><span class="badge badge-notstarted">Not started</span></td>
+          <td><div class="block-note">Current "What Northlight is NOT" section doesn't name NSG. Add ## Entity disambiguation section: (1) Northlight Advisory Services = Elizabeth Lemoine, Halifax NS; (2) explicitly not Northlight Solutions Group (NSG, Salesforce/Agentforce partner); (3) not Northlight Theatre. Also add Skills Market listing under ## Products.</div></td>
+        </tr>
+        <tr>
+          <td><div class="block-name">C1 · Skills Market — add to bynorthlight.ca</div><div class="block-note">3 live MCP skills listings have no home on the site</div></td>
+          <td><span class="badge badge-notstarted">Not started</span></td>
+          <td><div class="block-note">mcpmarket.com/sellers/northlight-skills — 3 live listings: Morning Briefing Pro ($19), Strategic Voice Framework ($29), MCP Market Publisher ($29). Add Skills card to homepage "What We're Building" section alongside Vault and Meetings. Nav link deferred until marketplace grows. Files: index.html + llms.txt.</div></td>
+        </tr>
+        <tr>
+          <td><div class="block-name">D1 · Standing PMO portfolio — website phases added</div><div class="block-note">northlight-pmo/index.html footer missing website/phase-1.html and website/phase-2.html links</div></td>
+          <td><span class="badge badge-notstarted">Not started</span></td>
+          <td><div class="block-note">Portfolio footer currently links "OS Dashboard · Meetings Phase 1" but not website phase dashboards. Fix footer + verify website project card open items are current. File: northlight-pmo/index.html</div></td>
+        </tr>
+        <tr>
+          <td><div class="block-name">blog/index.html — 4 new cards</div><div class="block-note">Add cards for A1–A4 with correct source labels and data-topics</div></td>
+          <td><span class="badge badge-notstarted">Not started</span></td>
+          <td><div class="block-note">Each new post needs a card: source label "Blog · [category]", data-topics, image, excerpt, date. Add in newest-first order.</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Elizabeth tasks — high priority -->
+  <div class="card grid-full">
+    <div class="card-label">Elizabeth Tasks — Outreach, Monitoring &amp; Authority <span class="owner-tag">Elizabeth</span></div>
+    <div class="section-divider">Immediate — do first</div>
+    <table class="block-table">
+      <thead>
+        <tr><th style="width:42%">Task</th><th style="width:13%">Status</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="block-name">Re-run 7 missing Perplexity prompts</div><div class="block-note">Rows 12, 15, 18, 21, 24, 33, 35 in P/I/P prompt chart</div></td>
+          <td><span class="badge badge-notstarted">Not started</span></td>
+          <td><div class="block-note">Perplexity hit free search limit on 2026-07-09. Re-run and paste results into Google Sheets. These fill the AMBER gaps in the Protect/Improve/Pursue chart before August triage.</div></td>
+        </tr>
+        <tr>
+          <td><div class="block-name">Google Business Profile — resolve video verification</div><div class="block-note">Street-level video verification for home address · ClickUp 86e1brydj</div></td>
+          <td><span class="badge badge-inprogress">In Progress</span></td>
+          <td><div class="block-note">Due 2026-08-05. High-trust local signal; appears in Google AI Overviews for local searches. Without this, local query citations are weaker. Consider using a co-working address if home address verification remains blocked.</div></td>
+        </tr>
+        <tr>
+          <td><div class="block-name">Medium outreach — Matt Ward</div><div class="block-note">"Startup Business Coaches List" article · HubSpot #1 outreach recommendation</div></td>
+          <td><span class="badge badge-notstarted">Not started</span></td>
+          <td><div class="block-note">Reach out via Medium profile or linked coaching contact. Pitch Northlight Advisory Services as a fit for small company operators needing fractional COO guidance and strategic planning. HubSpot flags this as High priority.</div></td>
+        </tr>
+        <tr>
+          <td><div class="block-name">G2 / Capterra follow-up</div><div class="block-note">Capterra submission pending approval as of 2026-07-08 · ClickUp 86e25q9gf</div></td>
+          <td><span class="badge badge-inprogress">In Progress</span></td>
+          <td><div class="block-note">Check Capterra approval status. If rejected, resubmit or try G2 directly. Also confirm ClickUp item 86e25q9gf "privacy policy edits" — status is Backlog, completion unconfirmed since Jul 3.</div></td>
+        </tr>
+        <tr>
+          <td><div class="block-name">outsourceaccelerator.com — send email</div><div class="block-note">LinkedIn connection to Derek Gallimore (founder) sent 2026-07-08 · email drafted</div></td>
+          <td><span class="badge badge-inprogress">In Progress</span></td>
+          <td><div class="block-note">Email drafted and ready to send. Fire once Derek Gallimore accepts the LinkedIn connection. "Top business consulting firms in Canada" guide — relevant citation target.</div></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="section-divider" style="margin-top:16px;">Ongoing monitoring</div>
+    <table class="block-table">
+      <thead>
+        <tr><th style="width:42%">Task</th><th style="width:13%">Status</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="block-name">HubSpot AEO tool — weekly check</div><div class="block-note">hubspot.com/ai-visibility · 28 days left on trial as of 2026-07-09 · 15 prompts remaining</div></td>
+          <td><span class="badge badge-inprogress">In Progress</span></td>
+          <td><div class="block-note">Watch weekly: brand visibility trend, prompt visibility %, new citation domains. Current: 10/25 prompts used, all at 0% visibility. Citation landscape: capstacker.io, chiefjobs.com, gofractional.com, clutch.co dominate.</div></td>
+        </tr>
+        <tr>
+          <td><div class="block-name">P/I/P prompt triage — monthly cadence</div><div class="block-note">Protect / Improve / Pursue across ChatGPT + Perplexity</div></td>
+          <td><span class="badge badge-inprogress">In Progress</span></td>
+          <td><div class="block-note">First full run: 2026-07-09 (36 rows tested). Key findings: ChatGPT GREEN on most Protect prompts; Gemini 100% RED (NSG collision); Perplexity directionally accurate but 7 prompts unrun. Next run: August 2026. Google Sheets: bit.ly/northlight-pip-prompts</div></td>
+        </tr>
+        <tr>
+          <td><div class="block-name">Reddit community presence — ongoing</div><div class="block-note">u/PassageGal · r/AIDiscussion and AI-adjacent subs · 2 comments posted</div></td>
+          <td><span class="badge badge-inprogress">In Progress</span></td>
+          <td><div class="block-note">Reddit data licensed to OpenAI — genuine citation signal. Continue posting genuine answers. No spamming. Bio links to bynorthlight.ca. Reddit appears in Chatbeat at 2.0% share of 6 prompts. HubSpot flags "Are Founders actually hiring Fractional COOs right now?" as a Reddit social amplification opportunity.</div></td>
+        </tr>
+        <tr>
+          <td><div class="block-name">Google Search Console — August AEO check</div><div class="block-note">First week of August · baseline set 2026-07-08</div></td>
+          <td><span class="badge badge-notstarted">Not started</span></td>
+          <td><div class="block-note">Baseline: homepage pos 3.61, Canada AI strategy pos 37.77. Watch: FAQ rich results, Canadian impressions, Canada AI strategy position. Also check if new Phase 3 blog posts are indexed.</div></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="section-divider" style="margin-top:16px;">Lower priority — outreach</div>
+    <table class="block-table">
+      <thead>
+        <tr><th style="width:42%">Task</th><th style="width:13%">Status</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="block-name">Listicle feature requests — 4 sites</div><div class="block-note">gofractional.com · 5ftview.com · runfutureproof.com · eightx.co</div></td>
+          <td><span class="badge badge-notstarted">Not started</span></td>
+          <td><div class="block-note">HubSpot Low priority outreach. All four actively cited by AI for fractional executive prompts. Getting Northlight listed on any of these closes the Peer citation gap directly without needing new content. Work through the list in order.</div></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="section-divider" style="margin-top:16px;">Entity &amp; authority — now viable</div>
+    <table class="block-table">
+      <thead>
+        <tr><th style="width:42%">Task</th><th style="width:13%">Status</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="block-name">Wikipedia stub — Elizabeth Lemoine</div><div class="block-note">External signals now built; notability research needed</div></td>
+          <td><span class="badge badge-notstarted">Not started</span></td>
+          <td><div class="block-note">External signals live: Crunchbase, Clutch (under review), Digital Reference, Fractionus, GitHub org, LinkedIn. Wikipedia notability requires third-party sources. Research: are there any news articles, podcast appearances, or academic citations mentioning Elizabeth or Northlight? Candidate: "Elizabeth Lemoine" as a strategist/ops leader with bynorthlight.ca linked. 40% of ChatGPT citations come from Wikipedia.</div></td>
+        </tr>
+        <tr>
+          <td><div class="block-name">Knowledge Graph entity — NAP audit</div><div class="block-note">Consistent Name/Address/Phone across all directories</div></td>
+          <td><span class="badge badge-notstarted">Not started</span></td>
+          <td><div class="block-note">Audit all live directory listings: Crunchbase, Clutch, Digital Reference, Fractionus, GitHub org, LinkedIn. Confirm "Northlight Advisory Services" + "Halifax, Nova Scotia, Canada" + "https://bynorthlight.ca" are identical everywhere. Knowledge Graph entity emerges from consistent signals + Google Business Profile (still pending).</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- OS dependency -->
+  <div class="card grid-full">
+    <div class="card-label">OS Project Dependency — Separate OS Session Required</div>
+    <div class="issue-item">
+      <div class="issue-dot aurora"></div>
+      <div>
+        <div class="issue-text">F1 · Blog publishing pipeline — markdown conversion fix</div>
+        <div class="issue-note">Phase 2 required manual fixes on all 5 posts published via the OS pipeline: [text](url) not converted to anchors, ## not converting to h2, lists broken, --- not removed, **bold** not converting to strong. Phase 6 OS brief flagged blog-polish as a prompt caching candidate. This is an OS Phase 7 item. Phase 3 blog posts (A1–A4) are being written manually until this is fixed. Once the OS pipeline is repaired, future posts can use the automated path.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Monitoring -->
+  <div class="card">
+    <div class="card-label">Monitoring This Phase</div>
+    <div class="issue-item">
+      <div class="issue-dot glacial"></div>
+      <div>
+        <div class="issue-text">HubSpot AEO tool — brand visibility + prompt % weekly</div>
+        <div class="issue-note">Free trial: 28 days remaining (expires ~2026-08-06). 15 prompts still available. Current: all 10 tracked prompts at 0%. Watch for first citations after new blog posts are indexed.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot glacial"></div>
+      <div>
+        <div class="issue-text">Google Search Console — August baseline check</div>
+        <div class="issue-note">Baseline pos 3.61 homepage · 37.77 Canada AI strategy. First week of August. Watch for new blog posts appearing + FAQ rich results.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot glacial"></div>
+      <div>
+        <div class="issue-text">Gemini entity collision — monthly retest</div>
+        <div class="issue-note">After A3 (disambiguation post) and B1 (llms.txt update) are indexed, retest Gemini on the same Protect prompts to see if NSG conflation decreases. May take 30–60 days for Gemini's training data to update.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">Cloudflare AI Crawl Control — spot check monthly</div>
+        <div class="issue-note">Confirm GPTBot, ClaudeBot, PerplexityBot remain in Allowed. Currently: GPTBot 8 requests, ClaudeBot 11, PerplexityBot 4.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deferred -->
+  <div class="card">
+    <div class="card-label">Deferred — Later Phase</div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">Review schema on testimonials</div>
+        <div class="issue-note">Wrap named testimonials in Review schema for structured social proof. Requires actual client testimonials first. Revisit when first clients engage.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">Extended Knowledge Graph pursuit</div>
+        <div class="issue-note">After Wikipedia stub is live and Google Business Profile is verified, a Knowledge Graph entity for Northlight Advisory Services becomes viable. Google typically surfaces these within 60–90 days of sufficient consistent signals.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">nav link for Skills Market</div>
+        <div class="issue-note">Add "Skills" to the site nav once the marketplace has traction. Phase 3 adds the homepage card; nav update deferred until the channel is proven.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <span>Northlight Website · Phase 3 · AEO Citation Building, Content &amp; Entity Clarity</span>
+  <span>Started 2026-07-09 (session 7) · In Progress · northlight-pmo/website/phase-3.html</span>
+</div>
+
+</body>
+</html>

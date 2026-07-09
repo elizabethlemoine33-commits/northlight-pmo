@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -102,13 +102,13 @@
 <div class="progress-section">
   <div class="progress-header">
     <div class="progress-label">Phase Progress</div>
-    <div class="progress-pct">98%</div>
+    <div class="progress-pct">100%</div>
   </div>
-  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:98%"></div></div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%"></div></div>
   <div class="progress-counts">
-    <div class="progress-count"><strong>41</strong> of 42 items complete</div>
-    <div class="progress-count"><strong>22</strong> Claude tasks done · <strong>11</strong> Elizabeth tasks done</div>
-    <div class="progress-count"><strong>3</strong> in progress (Google Business Profile · outsourceaccelerator.com · Reddit) · <strong>1</strong> not started (HubSpot AEO)</div>
+    <div class="progress-count"><strong>47</strong> of 47 items complete</div>
+    <div class="progress-count"><strong>27</strong> Claude tasks done · <strong>11</strong> Elizabeth tasks done</div>
+    <div class="progress-count"><strong>3</strong> in progress (Google Business Profile · outsourceaccelerator.com · Reddit)</div>
   </div>
 </div>
 
@@ -263,8 +263,8 @@
         </tr>
         <tr>
           <td><div class="block-name">HubSpot AEO course — implementation review</div><div class="block-note">Review findings after Elizabeth completes course; implement new tactics</div></td>
-          <td><span class="badge badge-notstarted">Not started</span></td>
-          <td><div class="block-note">Treat course completion as trigger for a new session</div></td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><div class="block-note">Completed 2026-07-09 (session 7) — Course framework mapped against Phase 2 work. 5 gaps implemented same session: faq.html group labels → h2, question-style H2s across all 10 blog posts, dateModified added to all Article JSON-LD, HowTo schema added to fractional-coo post, llms.txt timestamp added. HubSpot AEO tool explored (all 4 tabs): 10 prompts at 0% visibility, citation landscape dominated by fractional executive listicles. Prompt chart (36 rows, 3 tools) read and synthesized. robots.txt flagged by HubSpot as HIGH — investigated and confirmed false alarm: Cloudflare AI Crawl Control correctly allows GPTBot (8 requests), ClaudeBot (11 requests), PerplexityBot (4 requests). Key Phase 3 inputs: Gemini entity collision with Northlight Solutions Group (NSG) runs across 100% of Gemini answers; ChatGPT strong on Protect prompts; 7 Perplexity prompts unrun (re-run tomorrow); citation gap is listicle/Peer channel.</div></td>
         </tr>
       </tbody>
     </table>
@@ -430,19 +430,72 @@
 
   <!-- Phase 3 scope -->
   <div class="card">
-    <div class="card-label">Likely Phase 3 Scope</div>
+    <div class="card-label">Phase 3 Scope — AEO Citation Building</div>
+    <div class="section-divider">High priority — content</div>
     <div class="issue-item">
-      <div class="issue-dot muted"></div>
+      <div class="issue-dot" style="background:var(--yellow)"></div>
       <div>
-        <div class="issue-text">AEO iteration based on monitoring data</div>
-        <div class="issue-note">After 30–60 days: adjust content capsules and entity signals based on what Cloudflare, GSC, and prompt testing are showing</div>
+        <div class="issue-text">Canadian fractional advisory listicle</div>
+        <div class="issue-note">HubSpot #1 content recommendation. AI is citing capstacker.io, chiefjobs.com, gofractional.com for fractional executive prompts — not bynorthlight.ca. A Canadian-focused roundup comparing advisory options for small operators + fractional COO positioning closes this citation channel gap.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot" style="background:var(--yellow)"></div>
+      <div>
+        <div class="issue-text">Gemini entity disambiguation content</div>
+        <div class="issue-note">Gemini conflates Northlight Advisory Services with "Northlight Solutions Group" (NSG) — an unrelated Salesforce/Agentforce firm — across 100% of its answers. Need dense, unambiguous content: full registered name, Halifax Nova Scotia, Elizabeth Lemoine, explicit non-Salesforce positioning. Candidate: disambiguation section in llms.txt or a new /about-northlight-advisory-services.html page.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot" style="background:var(--yellow)"></div>
+      <div>
+        <div class="issue-text">"Ongoing Business Advisory for Small Operators in Canada" guide</div>
+        <div class="issue-note">HubSpot recommendation #2 (High). Guide format targeting the exact prompts HubSpot is tracking at 0% visibility.</div>
+      </div>
+    </div>
+    <div class="section-divider" style="margin-top:14px;">High priority — outreach</div>
+    <div class="issue-item">
+      <div class="issue-dot" style="background:var(--yellow)"></div>
+      <div>
+        <div class="issue-text">Medium "Startup Business Coaches List" — pitch Matt Ward</div>
+        <div class="issue-note">HubSpot recommendation #1 outreach. Reach out via Medium profile or linked coaching contact. Pitch Northlight Advisory Services as a fit for small company operators needing fractional COO guidance and strategic planning.</div>
       </div>
     </div>
     <div class="issue-item">
       <div class="issue-dot muted"></div>
       <div>
+        <div class="issue-text">Listicle feature requests — gofractional.com, 5ftview.com, runfutureproof.com, eightx.co</div>
+        <div class="issue-note">HubSpot Low priority outreach. All four sites actively cited by AI for fractional executive prompts. Getting Northlight listed on any of these directly closes the citation gap in the Peer channel.</div>
+      </div>
+    </div>
+    <div class="section-divider" style="margin-top:14px;">Elizabeth tasks — monitoring</div>
+    <div class="issue-item">
+      <div class="issue-dot" style="background:var(--yellow)"></div>
+      <div>
+        <div class="issue-text">Re-run 7 missing Perplexity prompts</div>
+        <div class="issue-note">Rows 12, 15, 18, 21, 24, 33, 35 in prompt chart — Perplexity hit search limit on 2026-07-09. Re-run tomorrow and paste results into sheet.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">HubSpot AEO tool — weekly check</div>
+        <div class="issue-note">28 days left on free trial as of 2026-07-09. Check weekly: brand visibility trend, prompt visibility %, new citation domains. 15 prompts remaining.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">Protect/Improve/Pursue prompt triage — monthly cadence</div>
+        <div class="issue-note">Run 5–8 target prompts across ChatGPT + Perplexity monthly. Categorize results into P/I/P table. First full run done 2026-07-09 (36 rows). Next run: August 2026.</div>
+      </div>
+    </div>
+    <div class="section-divider" style="margin-top:14px;">Later phase</div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
         <div class="issue-text">Wikipedia stub — Elizabeth Lemoine or Northlight Advisory Services</div>
-        <div class="issue-note">40% of ChatGPT citations come from Wikipedia. Notability criteria require external signals first — Crunchbase, Clutch, directory listings, and blog citations need to be established before this is viable. Phase 3 is the right time.</div>
+        <div class="issue-note">40% of ChatGPT citations come from Wikipedia. Notability criteria require external signals first — Crunchbase, Clutch, directory listings, and blog citations need to be established before this is viable.</div>
       </div>
     </div>
     <div class="issue-item">
@@ -465,7 +518,7 @@
 
 <div class="footer">
   <span>Northlight Website · Phase 2 · AEO Completion + Authority Building</span>
-  <span>Last updated 2026-07-08 (session 5) · 10 blog posts live · GEO score 65/100 · Reddit u/PassageGal active · northlight-pmo/website/phase-2.html</span>
+  <span>Last updated 2026-07-09 (session 7) · Phase 2 complete · 10 blog posts live · GEO score 65/100 · Reddit u/PassageGal active · Phase 3 scoped · northlight-pmo/website/phase-2.html</span>
 </div>
 
 </body>

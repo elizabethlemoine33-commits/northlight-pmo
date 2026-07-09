@@ -4,6 +4,12 @@
 
 ---
 
+## Phase 2 — HubSpot AEO + Prompt Testing (2026-07-09)
+
+- Gemini entity collision is real and systematic: Gemini conflated Northlight Advisory Services (Halifax, Elizabeth Lemoine, strategy/ops/AI) with Northlight Solutions Group (NSG, a Salesforce/Agentforce partner) across 100% of tested prompts, inventing a fictional methodology and training program. The fix is content-based — a dense entity-signal page + explicit llms.txt disambiguation naming NSG by name.
+- A robots.txt "HIGH" warning from an AEO tool doesn't mean AI crawlers are blocked — the tool can misread Cloudflare-managed sections. Always verify at the crawl-control dashboard directly, not by reading the raw robots.txt file through a summarizer.
+- HubSpot AEO tool's Chatbeat citation landscape data is more actionable than its Recommendations tab: seeing *which sites* AI cites for your target prompts (capstacker.io, chiefjobs.com, gofractional.com) immediately shows you the format gap to close. Build a listicle; don't guess.
+
 ## Phase 2 — AEO Completion + Authority Building (2026-07-08)
 
 - Prompt testing ChatGPT and Perplexity mid-phase is worth the 20 minutes: both AIs surfaced Northlight but couldn't place it in top lists because og:site_name said "Northlight" not "Northlight Advisory Services." A two-line meta tag fix is easier than months of outreach.
