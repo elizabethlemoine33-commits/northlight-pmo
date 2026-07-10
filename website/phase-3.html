@@ -55,11 +55,12 @@
   .block-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
 
   .badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
-  .badge-done       { background: rgba(59,170,110,0.15); color: #3BAA6E; border: 1px solid rgba(59,170,110,0.3); }
-  .badge-inprogress { background: rgba(91,141,217,0.15); color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
-  .badge-notstarted { background: rgba(138,146,168,0.10); color: var(--muted); border: 1px solid var(--border); }
-  .badge-deferred   { background: rgba(138,146,168,0.10); color: var(--muted); border: 1px solid var(--border); }
-  .badge-blocked    { background: rgba(196,79,79,0.15); color: #C44F4F; border: 1px solid rgba(196,79,79,0.3); }
+  .badge-done       { background: rgba(59,170,110,0.15);  color: #3BAA6E;       border: 1px solid rgba(59,170,110,0.3); }
+  .badge-inprogress { background: rgba(91,141,217,0.15);  color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
+  .badge-notstarted { background: rgba(138,146,168,0.10); color: var(--muted);  border: 1px solid var(--border); }
+  .badge-deferred   { background: rgba(139,111,212,0.12); color: var(--dusk);   border: 1px solid rgba(139,111,212,0.25); }
+  .badge-blocked    { background: rgba(196,79,79,0.15);   color: #C44F4F;       border: 1px solid rgba(196,79,79,0.3); }
+  .badge-wontdo     { background: rgba(212,160,23,0.12);  color: #D4A017;       border: 1px solid rgba(212,160,23,0.25); }
 
   .issue-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
   .issue-item:last-child { border-bottom: none; }
@@ -194,27 +195,27 @@
       <tbody>
         <tr>
           <td><div class="block-name">E1 · Northlight Skills link — wrong color in Apps section</div><div class="block-note">Homepage Apps paragraph · bynorthlight-site/index.html</div></td>
-          <td><span class="badge badge-done">Done 2026-07-10</span></td>
+          <td><span class="badge badge-done">Done</span></td>
           <td><div class="block-note">Added .service-body a { color: var(--glacial) } to index.html CSS. All three links (Vault, Meetings, Skills) now render glacial regardless of visited state. Also corrected the Meetings link in that paragraph from /meetings-privacy.html → /meetings.html.</div></td>
         </tr>
         <tr>
           <td><div class="block-name">E2 · Product cards — unequal height</div><div class="block-note">"What We're Building" section · Vault / Meetings / Skills cards</div></td>
-          <td><span class="badge badge-done">Done 2026-07-10</span></td>
+          <td><span class="badge badge-done">Done</span></td>
           <td><div class="block-note">Changed .building-row align-items from "start" to "stretch" in index.html. All three cards now render at the same height (376px confirmed in browser).</div></td>
         </tr>
         <tr>
           <td><div class="block-name">E3 · Skills card icon — needs gradient logo</div><div class="block-note">Current icon is a flat wrench/settings icon with no gradient</div></td>
-          <td><span class="badge badge-done">Done 2026-07-10</span></td>
+          <td><span class="badge badge-done">Done</span></td>
           <td><div class="block-note">Replaced 🛠 emoji with an inline SVG: aurora gradient background (glacial → dusk → aurora) with a white lightning bolt. Same 48×48 rounded-square treatment as the Vault and Meetings app icons.</div></td>
         </tr>
         <tr>
           <td><div class="block-name">E4 · Vault page — remove "free during early access"</div><div class="block-note">bynorthlight-site/vault.html · at least 4 occurrences</div></td>
-          <td><span class="badge badge-done">Done 2026-07-10</span></td>
+          <td><span class="badge badge-done">Done</span></td>
           <td><div class="block-note">All 4 occurrences removed from vault.html: hero body text, download caption, CTA section, FAQ answer. Also updated newsletter copy site-wide (removed "early access to Vault" reference from who-we-help.html, case studies, vault.html). All now read "Free." or "Free · Windows only."</div></td>
         </tr>
         <tr>
           <td><div class="block-name">E5 · Nav inconsistency — MEETINGS missing from some pages</div><div class="block-note">Some pages: VAULT · BLOG · WORK · CONTACT — others: VAULT · MEETINGS · BLOG · WORK · CONTACT</div></td>
-          <td><span class="badge badge-done">Done 2026-07-10</span></td>
+          <td><span class="badge badge-done">Done</span></td>
           <td><div class="block-note">MEETINGS nav link added to all 27 pages. Footer nav on index.html corrected (#vault → /meetings.html). All pages now consistent: VAULT · MEETINGS · BLOG · WORK · CONTACT.</div></td>
         </tr>
       </tbody>
@@ -232,17 +233,17 @@
       <tbody>
         <tr>
           <td><div class="block-name">Re-run 7 missing Perplexity prompts</div><div class="block-note">Rows 12, 15, 18, 21, 24, 33, 35 in P/I/P prompt chart</div></td>
-          <td><span class="badge badge-done">Done 2026-07-10</span></td>
+          <td><span class="badge badge-done">Done</span></td>
           <td><div class="block-note">All 7 prompts re-run and results added to Google Sheets. P/I/P chart now complete across all 36 rows.</div></td>
         </tr>
         <tr>
           <td><div class="block-name">Google Business Profile — video verification</div><div class="block-note">Street-level video verification for home address · ClickUp 86e1brydj</div></td>
-          <td><span class="badge badge-deferred">Not doing</span></td>
+          <td><span class="badge badge-wontdo">Won't Do</span></td>
           <td><div class="block-note">Decision 2026-07-10: skipped. No clients come to her home; street-level video verification doesn't make sense for this business model.</div></td>
         </tr>
         <tr>
           <td><div class="block-name">Matt Ward outreach — "Startup Business Coaches" list</div><div class="block-note">HubSpot #1 outreach rec · 2022 post</div></td>
-          <td><span class="badge badge-deferred">Scratched</span></td>
+          <td><span class="badge badge-wontdo">Won't Do</span></td>
           <td><div class="block-note">Scratched 2026-07-10. 2022 article, Matt Ward has since pivoted to climate tech. Wrong audience for fractional COO / advisory services. Not a useful lead.</div></td>
         </tr>
         <tr>
@@ -252,7 +253,7 @@
         </tr>
         <tr>
           <td><div class="block-name">outsourceaccelerator.com — company profile</div><div class="block-note">Self-serve registration path found; Derek Gallimore outreach deferred</div></td>
-          <td><span class="badge badge-done">Done 2026-07-10</span></td>
+          <td><span class="badge badge-done">Done</span></td>
           <td><div class="block-note">Self-registered via company profile form. Live: outsourceaccelerator.com/company/northlight-advisory-services/ — banner, logo, and service description uploaded. Derek Gallimore outreach deferred until there's proof of traction to reference.</div></td>
         </tr>
       </tbody>
@@ -280,7 +281,7 @@
         </tr>
         <tr>
           <td><div class="block-name">Google Search Console — August AEO check</div><div class="block-note">First week of August · baseline set 2026-07-08</div></td>
-          <td><span class="badge badge-notstarted">Not started</span></td>
+          <td><span class="badge badge-notstarted">Not Started</span></td>
           <td><div class="block-note">Baseline: homepage pos 3.61, Canada AI strategy pos 37.77. Watch: FAQ rich results, Canadian impressions, Canada AI strategy position. Also check if new Phase 3 blog posts are indexed.</div></td>
         </tr>
       </tbody>
@@ -293,7 +294,7 @@
       <tbody>
         <tr>
           <td><div class="block-name">Listicle feature requests — 4 sites</div><div class="block-note">gofractional.com · 5ftview.com · runfutureproof.com · eightx.co</div></td>
-          <td><span class="badge badge-notstarted">Not started</span></td>
+          <td><span class="badge badge-notstarted">Not Started</span></td>
           <td><div class="block-note">HubSpot Low priority outreach. All four actively cited by AI for fractional executive prompts. Getting Northlight listed on any of these closes the Peer citation gap directly without needing new content. Work through the list in order.</div></td>
         </tr>
       </tbody>
@@ -306,12 +307,12 @@
       <tbody>
         <tr>
           <td><div class="block-name">Wikipedia stub — Elizabeth Lemoine</div><div class="block-note">External signals now built; notability research needed</div></td>
-          <td><span class="badge badge-notstarted">Not started</span></td>
+          <td><span class="badge badge-notstarted">Not Started</span></td>
           <td><div class="block-note">External signals live: Crunchbase, Clutch (under review), Digital Reference, Fractionus, GitHub org, LinkedIn. Wikipedia notability requires third-party sources. Research: are there any news articles, podcast appearances, or academic citations mentioning Elizabeth or Northlight? Candidate: "Elizabeth Lemoine" as a strategist/ops leader with bynorthlight.ca linked. 40% of ChatGPT citations come from Wikipedia.</div></td>
         </tr>
         <tr>
           <td><div class="block-name">Knowledge Graph entity — NAP audit</div><div class="block-note">Consistent Name/Address/Phone across all directories</div></td>
-          <td><span class="badge badge-notstarted">Not started</span></td>
+          <td><span class="badge badge-notstarted">Not Started</span></td>
           <td><div class="block-note">Audit all live directory listings: Crunchbase, Clutch, Digital Reference, Fractionus, GitHub org, LinkedIn. Confirm "Northlight Advisory Services" + "Halifax, Nova Scotia, Canada" + "https://bynorthlight.ca" are identical everywhere. Knowledge Graph entity emerges from consistent signals + Google Business Profile (still pending).</div></td>
         </tr>
       </tbody>
@@ -328,12 +329,12 @@
       <tbody>
         <tr>
           <td><div class="block-name">Build a meetings.html product page?</div><div class="block-note">Like vault.html — same look, same structure</div></td>
-          <td><span class="badge badge-done">Done 2026-07-10</span></td>
+          <td><span class="badge badge-done">Done</span></td>
           <td><div class="block-note">Built 2026-07-10. Full product page at /meetings.html — hero, features, 3 app screenshots, comparison table (SOW generation differentiator), FAQ with schema, Aurora Brief CTA. Matches vault.html look and feel with dusk/purple accent instead of glacial.</div></td>
         </tr>
         <tr>
           <td><div class="block-name">Nav: should MEETINGS appear on all pages?</div><div class="block-note">Currently inconsistent — present on some pages, absent on others</div></td>
-          <td><span class="badge badge-done">Done 2026-07-10</span></td>
+          <td><span class="badge badge-done">Done</span></td>
           <td><div class="block-note">Decided yes, added 2026-07-10. MEETINGS nav link added to all 27 pages, linking to /meetings.html. Also fixed in footer nav on index.html (was pointing to #vault anchor). E5 resolved.</div></td>
         </tr>
         <tr>
@@ -370,17 +371,17 @@
       <tbody>
         <tr>
           <td><div class="block-name">About page — authority profiles visible + schema</div><div class="block-note">sameAs schema + "Find us on" pill section · about.html</div></td>
-          <td><span class="badge badge-done">Done 2026-07-10</span></td>
+          <td><span class="badge badge-done">Done</span></td>
           <td><div class="block-note">Added Digital Reference, Clutch, Crunchbase to both Person and Organization sameAs arrays. Added visible "Find Northlight Advisory Services on" section (between FAQ and CTA band) with pill links to Digital Reference, Clutch, Crunchbase. Reddit (u/PassageGal) kept AI-only via llms.txt — not surfaced visibly.</div></td>
         </tr>
         <tr>
           <td><div class="block-name">Case studies / Work page — MCP Skills section</div><div class="block-note">New section below case study grid · case-studies/index.html</div></td>
-          <td><span class="badge badge-done">Done 2026-07-10</span></td>
+          <td><span class="badge badge-done">Done</span></td>
           <td><div class="block-note">Added 3-card MCP Skills section: Morning Briefing Pro ($19), Strategic Voice Framework ($29), MCP Market Publisher ($29). All link to mcpmarket.com/sellers/northlight-skills. Committed and pushed.</div></td>
         </tr>
         <tr>
           <td><div class="block-name">llms.txt — external profile entity signals</div><div class="block-note">Crunchbase (org + founder), Clutch, Digital Reference, Reddit u/PassageGal</div></td>
-          <td><span class="badge badge-done">Done 2026-07-10</span></td>
+          <td><span class="badge badge-done">Done</span></td>
           <td><div class="block-note">Added all four profile URLs under the About section. Reddit u/PassageGal included as AI entity signal only — not surfaced on visible site. This closes the gap between the visible about page profiles and the AI-readable entity file.</div></td>
         </tr>
       </tbody>
@@ -450,10 +451,10 @@
       </div>
     </div>
     <div class="issue-item">
-      <div class="issue-dot muted"></div>
+      <div class="issue-dot green"></div>
       <div>
-        <div class="issue-text">nav link for Skills Market</div>
-        <div class="issue-note">Add "Skills" to the site nav once the marketplace has traction. Phase 3 adds the homepage card; nav update deferred until the channel is proven.</div>
+        <div class="issue-text">nav link for Skills Market <span class="badge badge-done" style="margin-left:8px;">Done</span></div>
+        <div class="issue-note">Skills Market present on homepage "What We're Building" card and Work page MCP Skills section. Standalone nav link deferred until the channel has traction — current placement is sufficient.</div>
       </div>
     </div>
   </div>
