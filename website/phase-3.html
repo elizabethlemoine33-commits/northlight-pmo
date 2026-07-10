@@ -194,23 +194,23 @@
       <tbody>
         <tr>
           <td><div class="block-name">E1 · Northlight Skills link — wrong color in Apps section</div><div class="block-note">Homepage Apps paragraph · bynorthlight-site/index.html</div></td>
-          <td><span class="badge badge-notstarted">Not started</span></td>
-          <td><div class="block-note">The "Northlight Skills" link in the Apps service card paragraph is rendering in aurora/pink instead of var(--glacial). Should match Vault and Meetings links. Fix the inline color style on that anchor.</div></td>
+          <td><span class="badge badge-done">Done 2026-07-10</span></td>
+          <td><div class="block-note">Added .service-body a { color: var(--glacial) } to index.html CSS. All three links (Vault, Meetings, Skills) now render glacial regardless of visited state. Also corrected the Meetings link in that paragraph from /meetings-privacy.html → /meetings.html.</div></td>
         </tr>
         <tr>
           <td><div class="block-name">E2 · Product cards — unequal height</div><div class="block-note">"What We're Building" section · Vault / Meetings / Skills cards</div></td>
-          <td><span class="badge badge-notstarted">Not started</span></td>
-          <td><div class="block-note">The three product cards (Vault, Meetings, Skills) are not the same height. Cards should stretch to equal height so the row reads as one system. Fix with CSS (align-items: stretch or explicit min-height).</div></td>
+          <td><span class="badge badge-done">Done 2026-07-10</span></td>
+          <td><div class="block-note">Changed .building-row align-items from "start" to "stretch" in index.html. All three cards now render at the same height (376px confirmed in browser).</div></td>
         </tr>
         <tr>
           <td><div class="block-name">E3 · Skills card icon — needs gradient logo</div><div class="block-note">Current icon is a flat wrench/settings icon with no gradient</div></td>
-          <td><span class="badge badge-notstarted">Not started</span></td>
-          <td><div class="block-note">Vault and Meetings cards have gradient app icons. Skills card icon is plain/flat and doesn't match. Replace with a gradient icon consistent with the design system (dusk → aurora or glacial → boreal gradient, similar rounded-square treatment).</div></td>
+          <td><span class="badge badge-done">Done 2026-07-10</span></td>
+          <td><div class="block-note">Replaced 🛠 emoji with an inline SVG: aurora gradient background (glacial → dusk → aurora) with a white lightning bolt. Same 48×48 rounded-square treatment as the Vault and Meetings app icons.</div></td>
         </tr>
         <tr>
           <td><div class="block-name">E4 · Vault page — remove "free during early access"</div><div class="block-note">bynorthlight-site/vault.html · at least 4 occurrences</div></td>
-          <td><span class="badge badge-notstarted">Not started</span></td>
-          <td><div class="block-note">Instances spotted: (1) hero body text, (2) caption below download button "FREE DURING EARLY ACCESS · WINDOWS ONLY", (3) CTA section "Free during early access. No account required…", (4) FAQ answer "Yes. Northlight Vault is free during early access." Replace all with just "Free." or remove the qualifier. Agreed in session 2026-07-09 but vault.html was not updated.</div></td>
+          <td><span class="badge badge-done">Done 2026-07-10</span></td>
+          <td><div class="block-note">All 4 occurrences removed from vault.html: hero body text, download caption, CTA section, FAQ answer. Also updated newsletter copy site-wide (removed "early access to Vault" reference from who-we-help.html, case studies, vault.html). All now read "Free." or "Free · Windows only."</div></td>
         </tr>
         <tr>
           <td><div class="block-name">E5 · Nav inconsistency — MEETINGS missing from some pages</div><div class="block-note">Some pages: VAULT · BLOG · WORK · CONTACT — others: VAULT · MEETINGS · BLOG · WORK · CONTACT</div></td>
