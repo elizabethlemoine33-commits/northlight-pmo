@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Media — Phase 1 PMO Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --midnight: #0E0E14;
+    --surface:  #12121E;
+    --border:   #1E2035;
+    --border2:  #2A2A48;
+    --text:     #FFFFFF;
+    --cloud:    #C8CCE0;
+    --haze:     #B0B8D8;
+    --muted:    #8A92A8;
+    --glacial:  #4FC3C8;
+    --boreal:   #5B8DD9;
+    --dusk:     #8B6FD4;
+    --aurora:   #C46FAA;
+    --green:    #3BAA6E;
+    --yellow:   #D4A017;
+    --red:      #C44F4F;
+  }
+  body { background: var(--midnight); color: var(--cloud); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; padding: 32px; }
+  .top-bar { height: 3px; background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%); margin: -32px -32px 32px; }
+
+  .header { margin-bottom: 28px; }
+  .phase-label { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dusk); margin-bottom: 6px; }
+  .title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+  .subtitle { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+  .progress-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
+  .progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .progress-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .progress-pct { font-size: 24px; font-weight: 700; color: var(--text); }
+  .progress-bar-bg { background: var(--border); border-radius: 4px; height: 6px; }
+  .progress-bar-fill { background: linear-gradient(90deg, #4FC3C8, #8B6FD4); border-radius: 4px; height: 6px; }
+  .progress-counts { display: flex; gap: 20px; margin-top: 10px; flex-wrap: wrap; }
+  .progress-count { font-size: 11px; color: var(--muted); }
+  .progress-count strong { color: var(--cloud); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .grid-full { grid-column: 1 / -1; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .card-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+
+  /* Thermometer */
+  .thermo-row { display: flex; flex-direction: column; gap: 14px; }
+  .thermo-item { }
+  .thermo-meta { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+  .thermo-name { font-size: 12px; color: var(--cloud); font-weight: 500; }
+  .thermo-nums { font-size: 11px; color: var(--muted); }
+  .thermo-nums strong { color: var(--cloud); }
+  .thermo-bar-bg { background: var(--border); border-radius: 4px; height: 8px; }
+  .thermo-bar-fill { height: 8px; border-radius: 4px; }
+  .thermo-bar-li-personal { background: linear-gradient(90deg, #5B8DD9, #4FC3C8); }
+  .thermo-bar-li-page { background: linear-gradient(90deg, #8B6FD4, #C46FAA); }
+  .thermo-bar-threads { background: linear-gradient(90deg, #C46FAA, #D4A017); }
+  .thermo-note { font-size: 10px; color: var(--muted); margin-top: 4px; }
+
+  /* Tables */
+  .block-table { width: 100%; border-collapse: collapse; }
+  .block-table th { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 0 8px 8px 0; text-align: left; border-bottom: 1px solid var(--border); }
+  .block-table td { padding: 7px 8px 7px 0; border-bottom: 1px solid var(--border); vertical-align: middle; font-size: 12px; }
+  .block-table tr:last-child td { border-bottom: none; }
+
+  /* Badges */
+  .badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .badge-done       { background: rgba(59,170,110,0.15); color: #3BAA6E; border: 1px solid rgba(59,170,110,0.3); }
+  .badge-inprogress { background: rgba(91,141,217,0.15); color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
+  .badge-notstarted { background: rgba(138,146,168,0.10); color: var(--muted); border: 1px solid var(--border); }
+  .badge-blocked    { background: rgba(196,79,79,0.15); color: #C44F4F; border: 1px solid rgba(196,79,79,0.3); }
+  .badge-queued     { background: rgba(212,160,23,0.12); color: var(--yellow); border: 1px solid rgba(212,160,23,0.25); }
+  .badge-partial    { background: rgba(196,111,170,0.12); color: var(--aurora); border: 1px solid rgba(196,111,170,0.25); }
+  .badge-deferred   { background: rgba(138,146,168,0.10); color: var(--muted); border: 1px solid var(--border); }
+  .badge-buffer     { background: rgba(79,195,200,0.12); color: var(--glacial); border: 1px solid rgba(79,195,200,0.25); }
+  .badge-drive      { background: rgba(91,141,217,0.12); color: var(--boreal); border: 1px solid rgba(91,141,217,0.25); }
+  .badge-planned    { background: rgba(139,111,212,0.12); color: var(--dusk); border: 1px solid rgba(139,111,212,0.25); }
+  .badge-open       { background: rgba(212,160,23,0.10); color: var(--yellow); border: 1px solid rgba(212,160,23,0.2); }
+
+  /* Calendar */
+  .cal-table { width: 100%; border-collapse: collapse; }
+  .cal-table th { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 0 6px 8px 0; text-align: left; border-bottom: 1px solid var(--border); }
+  .cal-table td { padding: 6px 6px 6px 0; border-bottom: 1px solid var(--border); vertical-align: top; font-size: 11px; }
+  .cal-table tr:last-child td { border-bottom: none; }
+  .cal-date { color: var(--muted); font-size: 10px; white-space: nowrap; }
+  .cal-date strong { color: var(--cloud); }
+  .cal-post { margin-bottom: 3px; }
+  .cal-post:last-child { margin-bottom: 0; }
+  .cal-title { color: var(--cloud); }
+  .cal-empty { color: var(--border2); font-style: italic; }
+  .month-header td { background: rgba(91,141,217,0.06); color: var(--boreal); font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; padding: 8px 6px; border-bottom: 1px solid var(--border2); }
+
+  /* Post status dots */
+  .status-row { display: flex; gap: 4px; margin-top: 3px; flex-wrap: wrap; }
+  .status-dot { font-size: 9px; padding: 1px 5px; border-radius: 3px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  .sd { background: rgba(59,170,110,0.12); color: var(--green); }   /* drafted */
+  .sc { background: rgba(79,195,200,0.10); color: var(--glacial); } /* card */
+  .sb { background: rgba(79,195,200,0.14); color: var(--glacial); border: 1px solid rgba(79,195,200,0.3); } /* buffer */
+  .sk { background: rgba(91,141,217,0.12); color: var(--boreal); } /* drive queue */
+  .sp { background: rgba(59,170,110,0.2); color: var(--green); border: 1px solid rgba(59,170,110,0.3); }  /* posted */
+  .sn { background: rgba(138,146,168,0.08); color: var(--muted); } /* not yet */
+
+  /* Decision */
+  .decision-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .decision-item:last-child { border-bottom: none; }
+  .decision-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .decision-rationale { color: var(--muted); font-size: 11px; margin-top: 2px; line-height: 1.5; }
+
+  /* Open items */
+  .issue-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .issue-item:last-child { border-bottom: none; }
+  .issue-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--yellow); margin-top: 4px; flex-shrink: 0; }
+  .issue-dot.red { background: var(--red); }
+  .issue-dot.muted { background: var(--muted); }
+  .issue-dot.green { background: var(--green); }
+  .issue-text { color: var(--cloud); font-size: 12px; }
+  .issue-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  /* Activity */
+  .activity-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-date { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+  .activity-text { color: var(--cloud); font-size: 12px; line-height: 1.5; }
+
+  /* Callout */
+  .callout { background: rgba(91,141,217,0.07); border: 1px solid rgba(91,141,217,0.2); border-radius: 8px; padding: 12px 14px; margin-bottom: 24px; }
+  .callout-label { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--boreal); margin-bottom: 6px; }
+  .callout-text { color: var(--haze); font-size: 12px; line-height: 1.6; }
+
+  /* Legend */
+  .legend { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+  .legend-item { display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--muted); }
+
+  /* Footer */
+  .footer { color: var(--muted); font-size: 11px; border-top: 1px solid var(--border); padding-top: 16px; display: flex; justify-content: space-between; margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<div class="header">
+  <div class="phase-label">Social Media · Phase 1</div>
+  <div class="title">Founder Campaign — Content Calendar &amp; Publishing Pipeline</div>
+  <div class="subtitle">LinkedIn Personal · LinkedIn Page · Threads · July 11 → August 31, 2026 · Status: In Progress</div>
+</div>
+
+<!-- Objective callout -->
+<div class="callout">
+  <div class="callout-label">Campaign Objective</div>
+  <div class="callout-text">Drive founders to <strong>bynorthlight.ca/who-we-help</strong> to self-identify against three personas (Isolated Founder, Leader with a Team, Self-Sufficient Founder) — the product of the AEO work completed the week of July 7. This is Phase 1 of a sustained social presence across three channels, with daily Threads output and structured LinkedIn cadence Mon–Fri. New blogs will be layered in as they're drafted.</div>
+</div>
+
+<!-- Progress -->
+<div class="progress-section">
+  <div class="progress-header">
+    <div class="progress-label">Phase Progress</div>
+    <div class="progress-pct">20%</div>
+  </div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:20%"></div></div>
+  <div class="progress-counts">
+    <div class="progress-count"><strong>5</strong> posts live in Buffer</div>
+    <div class="progress-count"><strong>2</strong> posts in Drive queue</div>
+    <div class="progress-count"><strong>~50</strong> posts remaining (Jul 15 → Aug 31)</div>
+    <div class="progress-count"><strong>51</strong> days in campaign (Jul 11 → Aug 31)</div>
+  </div>
+</div>
+
+<!-- Follower thermometers -->
+<div class="grid-3">
+
+  <div class="card">
+    <div class="card-label">LinkedIn Personal</div>
+    <div class="thermo-row">
+      <div class="thermo-item">
+        <div class="thermo-meta">
+          <div class="thermo-name">elizabethannelemoine</div>
+          <div class="thermo-nums"><strong>1,394</strong> → <strong>1,600</strong></div>
+        </div>
+        <div class="thermo-bar-bg">
+          <div class="thermo-bar-fill thermo-bar-li-personal" style="width:calc(1394/1600 * 100%)"></div>
+        </div>
+        <div class="thermo-note">206 to go · 87% of goal · Mon–Fri cadence · 9am ADT (12:00 UTC)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">LinkedIn Page</div>
+    <div class="thermo-row">
+      <div class="thermo-item">
+        <div class="thermo-meta">
+          <div class="thermo-name">Northlight Advisory Services</div>
+          <div class="thermo-nums"><strong>2</strong> → <strong>25</strong></div>
+        </div>
+        <div class="thermo-bar-bg">
+          <div class="thermo-bar-fill thermo-bar-li-page" style="width:8%"></div>
+        </div>
+        <div class="thermo-note">23 to go · 8% of goal · Mon–Fri · 14:00 UTC when same day as personal</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Threads</div>
+    <div class="thermo-row">
+      <div class="thermo-item">
+        <div class="thermo-meta">
+          <div class="thermo-name">northlightcomms</div>
+          <div class="thermo-nums"><strong>6</strong> → <strong>200</strong></div>
+        </div>
+        <div class="thermo-bar-bg">
+          <div class="thermo-bar-fill thermo-bar-threads" style="width:3%"></div>
+        </div>
+        <div class="thermo-note">194 to go · 3% of goal · Daily, all hours — volume is the lever</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Buffer pipeline status -->
+<div class="grid">
+
+  <div class="card">
+    <div class="card-label">Publishing Pipeline</div>
+    <table class="block-table">
+      <thead>
+        <tr>
+          <th>Layer</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color:var(--cloud)">Buffer queue</td>
+          <td><span class="badge badge-done">Live</span></td>
+          <td style="color:var(--muted)">3 channels connected · 10-post cap · org 6a3ffa51846d1c57a9dfe75b</td>
+        </tr>
+        <tr>
+          <td style="color:var(--cloud)">Drive queue</td>
+          <td><span class="badge badge-done">Live</span></td>
+          <td style="color:var(--muted)">social-scheduled JSON in Drive · dispatcher checks due dates</td>
+        </tr>
+        <tr>
+          <td style="color:var(--cloud)">batch-schedule.js</td>
+          <td><span class="badge badge-done">Live</span></td>
+          <td style="color:var(--muted)">pending-posts.json → API · Schedule Social Posts.bat on desktop</td>
+        </tr>
+        <tr>
+          <td style="color:var(--cloud)">Auth bypass</td>
+          <td><span class="badge badge-done">Fixed</span></td>
+          <td style="color:var(--muted)">SCHEDULE_SOCIAL_KEY quoted in .env to prevent # comment parse</td>
+        </tr>
+        <tr>
+          <td style="color:var(--cloud)">Social cards</td>
+          <td><span class="badge badge-partial">Partial</span></td>
+          <td style="color:var(--muted)">4 of ~10 needed cards exist in assets/marketing/</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Buffer Channel IDs</div>
+    <table class="block-table">
+      <thead>
+        <tr><th>Channel</th><th>ID</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color:var(--cloud)">LI Personal</td>
+          <td style="color:var(--muted);font-family:monospace;font-size:10px">6a40009a5ab6d2f1067b9d1e</td>
+        </tr>
+        <tr>
+          <td style="color:var(--cloud)">LI Page</td>
+          <td style="color:var(--muted);font-family:monospace;font-size:10px">6a40009a5ab6d2f1067b9d1d</td>
+        </tr>
+        <tr>
+          <td style="color:var(--cloud)">Threads</td>
+          <td style="color:var(--muted);font-family:monospace;font-size:10px">6a3ffab45ab6d2f1067b8b37</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:14px">
+      <div class="card-label">Social Card Images</div>
+      <table class="block-table">
+        <thead><tr><th>File</th><th>Used on</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr>
+            <td style="color:var(--cloud);font-size:11px">linkedin_card_working-blind.png</td>
+            <td style="color:var(--muted);font-size:11px">AI Working Blind (LI Personal)</td>
+            <td><span class="badge badge-done">Done</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--cloud);font-size:11px">linkedin_card_bottleneck-multiplied.png</td>
+            <td style="color:var(--muted);font-size:11px">You Hired Them (LI Personal)</td>
+            <td><span class="badge badge-done">Done</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--cloud);font-size:11px">linkedin_card_wall-day-200.png</td>
+            <td style="color:var(--muted);font-size:11px">Wall on Day 200 (LI Personal)</td>
+            <td><span class="badge badge-done">Done</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--cloud);font-size:11px">linkedin_card_shadow-ai-not-knowing.png</td>
+            <td style="color:var(--muted);font-size:11px">Shadow AI (LI Personal)</td>
+            <td><span class="badge badge-done">Done</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--cloud);font-size:11px">linkedin_card_built-them.png</td>
+            <td style="color:var(--muted);font-size:11px">Northlight OS Case Study (LI Page)</td>
+            <td><span class="badge badge-done">Done</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted);font-size:11px">[FC-1 Isolated Founder card]</td>
+            <td style="color:var(--muted);font-size:11px">FC-1 (LI Personal)</td>
+            <td><span class="badge badge-notstarted">Needed</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted);font-size:11px">[FC-3 Three Personas card]</td>
+            <td style="color:var(--muted);font-size:11px">FC-3 (LI Personal)</td>
+            <td><span class="badge badge-notstarted">Needed</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted);font-size:11px">[FC-7 AI Advisor card]</td>
+            <td style="color:var(--muted);font-size:11px">FC-7 (LI Personal)</td>
+            <td><span class="badge badge-notstarted">Needed</span></td>
+          </tr>
+          <tr>
+            <td style="color:var(--muted);font-size:11px">[Fractional COO card]</td>
+            <td style="color:var(--muted);font-size:11px">Fractional COO (LI Personal)</td>
+            <td><span class="badge badge-notstarted">Needed</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- Marketing Calendar -->
+<div class="card grid-full" style="margin-bottom:24px">
+  <div class="card-label">Marketing Calendar — July &amp; August 2026</div>
+
+  <div class="legend" style="margin-bottom:14px">
+    <div class="legend-item"><span class="status-dot sd">D</span> Drafted</div>
+    <div class="legend-item"><span class="status-dot sc">C</span> Card ready</div>
+    <div class="legend-item"><span class="status-dot sb">BUF</span> In Buffer</div>
+    <div class="legend-item"><span class="status-dot sk">DQ</span> Drive queue</div>
+    <div class="legend-item"><span class="status-dot sp">LIVE</span> Posted</div>
+    <div class="legend-item"><span class="status-dot sn">—</span> Not yet</div>
+  </div>
+
+  <table class="cal-table">
+    <thead>
+      <tr>
+        <th style="width:110px">Date</th>
+        <th style="width:80px">Platform</th>
+        <th>Post</th>
+        <th style="width:160px">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="month-header"><td colspan="4">July 2026</td></tr>
+
+      <tr>
+        <td class="cal-date"><strong>Sat Jul 11</strong><br>Today</td>
+        <td>—</td>
+        <td class="cal-title" style="color:var(--muted);font-style:italic">Campaign launch — calendar built, pipeline tested</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="cal-date"><strong>Sun Jul 12</strong></td>
+        <td><span class="badge badge-partial">Threads</span></td>
+        <td class="cal-title">Wall on Day 200 angle — authentic founder struggle hook</td>
+        <td><div class="status-row"><span class="status-dot sd">D</span><span class="status-dot sb">BUF</span></div></td>
+      </tr>
+      <tr>
+        <td class="cal-date"><strong>Mon Jul 13</strong></td>
+        <td><span class="badge badge-partial">Threads</span></td>
+        <td class="cal-title">Bottleneck multiplied — the hire that didn't fix the problem</td>
+        <td><div class="status-row"><span class="status-dot sd">D</span><span class="status-dot sb">BUF</span></div></td>
+      </tr>
+      <tr>
+        <td class="cal-date"><strong>Tue Jul 14</strong></td>
+        <td><span class="badge badge-partial">Threads</span><br><span class="badge badge-inprogress" style="margin-top:3px;display:inline-block">LI Personal</span></td>
+        <td class="cal-title">Threads: Northlight stack — how we built this<br><span style="color:var(--muted);font-size:11px">LI Personal: AI Working Blind (LP-3) · 12:00 UTC</span></td>
+        <td><div class="status-row"><span class="status-dot sd">D</span><span class="status-dot sc">C</span><span class="status-dot sb">BUF</span></div><div class="status-row" style="margin-top:4px"><span class="status-dot sd">D</span><span class="status-dot sc">C</span><span class="status-dot sk">DQ</span></div></td>
+      </tr>
+      <tr>
+        <td class="cal-date"><strong>Wed Jul 15</strong></td>
+        <td><span class="badge badge-partial">Threads</span></td>
+        <td class="cal-title cal-empty">Threads TBD</td>
+        <td><div class="status-row"><span class="status-dot sn">—</span></div></td>
+      </tr>
+      <tr>
+        <td class="cal-date"><strong>Thu Jul 16</strong></td>
+        <td><span class="badge badge-partial">Threads</span><br><span class="badge badge-inprogress" style="margin-top:3px;display:inline-block">LI Personal</span></td>
+        <td class="cal-title">Threads TBD<br><span style="color:var(--muted);font-size:11px">LI Personal: Shadow AI — keep it personal only · 12:00 UTC</span></td>
+        <td><div class="status-row"><span class="status-dot sn">—</span></div><div class="status-row" style="margin-top:4px"><span class="status-dot sd">D</span><span class="status-dot sc">C</span><span class="status-dot sn">—</span></div></td>
+      </tr>
+      <tr>
+        <td class="cal-date"><strong>Fri Jul 17</strong></td>
+        <td><span class="badge badge-partial">Threads</span><br><span class="badge badge-inprogress" style="margin-top:3px;display:inline-block">LI Personal</span></td>
+        <td class="cal-title">Threads TBD<br><span style="color:var(--muted);font-size:11px">LI Personal: FC-4 You Hired Them (Isolated Founder) · 12:00 UTC</span></td>
+        <td><div class="status-row"><span class="status-dot sn">—</span></div><div class="status-row" style="margin-top:4px"><span class="status-dot sd">D</span><span class="status-dot sc">C</span><span class="status-dot sk">DQ</span></div></td>
+      </tr>
+      <tr>
+        <td class="cal-date"><strong>Sat Jul 18</strong></td>
+        <td><span class="badge badge-partial">Threads</span><br><span class="badge" style="background:rgba(196,111,170,0.12);color:var(--aurora);border:1px solid rgba(196,111,170,0.25);margin-top:3px;display:inline-block;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:4px">LI Page</span></td>
+        <td class="cal-title">Threads TBD<br><span style="color:var(--muted);font-size:11px">LI Page: Northlight OS Case Study (built-them card) · 14:00 UTC</span></td>
+        <td><div class="status-row"><span class="status-dot sn">—</span></div><div class="status-row" style="margin-top:4px"><span class="status-dot sd">D</span><span class="status-dot sc">C</span><span class="status-dot sb">BUF</span></div></td>
+      </tr>
+      <tr>
+        <td class="cal-date"><strong>Sun Jul 19</strong></td>
+        <td><span class="badge badge-partial">Threads</span></td>
+        <td class="cal-title cal-empty">Threads TBD</td>
+        <td><div class="status-row"><span class="status-dot sn">—</span></div></td>
+      </tr>
+      <tr>
+        <td class="cal-date"><strong>Mon Jul 20</strong></td>
+        <td><span class="badge badge-partial">Threads</span><br><span class="badge badge-inprogress" style="margin-top:3px;display:inline-block">LI Personal</span></td>
+        <td class="cal-title">Threads TBD<br><span style="color:var(--yellow);font-size:11px">LI Personal: OPEN — reserved for new blog drafts (4 incoming)</span></td>
+        <td><div class="status-row"><span class="status-dot sn">—</span></div><div class="status-row" style="margin-top:4px"><span class="status-dot sn">—</span></div></td>
+      </tr>
+      <tr>
+        <td class="cal-date"><strong>Tue Jul 21</strong></td>
+        <td><span class="badge badge-partial">Threads</span></td>
+        <td class="cal-title cal-empty">Threads TBD</td>
+        <td><div class="status-row"><span class="status-dot sn">—</span></div></td>
+      </tr>
+      <tr>
+        <td class="cal-date"><strong>Wed Jul 22</strong></td>
+        <td><span class="badge badge-partial">Threads</span><br><span class="badge badge-inprogress" style="margin-top:3px;display:inline-block">LI Personal</span></td>
+        <td class="cal-title">Threads TBD<br><span style="color:var(--muted);font-size:11px">LI Personal: Fractional COO vs. Hiring Full-Time · 12:00 UTC</span></td>
+        <td><div class="status-row"><span class="status-dot sn">—</span></div><div class="status-row" style="margin-top:4px"><span class="status-dot sd">D</span><span class="status-dot sn">—</span><span class="status-dot sn">—</span></div></td>
+      </tr>
+      <tr>
+        <td class="cal-date"><strong>Thu Jul 23</strong></td>
+        <td><span class="badge badge-partial">Threads</span></td>
+        <td class="cal-title cal-empty">Threads TBD</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="cal-date"><strong>Fri Jul 24</strong></td>
+        <td><span class="badge badge-partial">Threads</span><br><span class="badge badge-inprogress" style="margin-top:3px;display:inline-block">LI Personal</span></td>
+        <td class="cal-title">Threads TBD<br><span style="color:var(--muted);font-size:11px">LI Personal: TBD (new blog or founder campaign)</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="cal-date"><strong>Sat Jul 25</strong></td>
+        <td><span class="badge badge-partial">Threads</span></td>
+        <td class="cal-title cal-empty">Threads TBD · optional LI surprise</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="cal-date"><strong>Sun Jul 26</strong></td>
+        <td><span class="badge badge-partial">Threads</span></td>
+        <td class="cal-title cal-empty">Threads TBD</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="cal-date"><strong>Mon Jul 27</strong></td>
+        <td><span class="badge badge-partial">Threads</span><br><span class="badge badge-inprogress" style="margin-top:3px;display:inline-block">LI Personal</span></td>
+        <td class="cal-title">Threads TBD<br><span style="color:var(--muted);font-size:11px">LI Personal: Growth Is No Longer the Hard Part</span></td>
+        <td><div class="status-row"><span class="status-dot sd">D</span><span class="status-dot sn">—</span><span class="status-dot sn">—</span></div></td>
+      </tr>
+      <tr>
+        <td class="cal-date"><strong>Tue Jul 28</strong></td>
+        <td><span class="badge badge-partial">Threads</span></td>
+        <td class="cal-title cal-empty">Threads TBD</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="cal-date"><strong>Wed Jul 29</strong></td>
+        <td><span class="badge badge-partial">Threads</span><br><span class="badge badge-inprogress" style="margin-top:3px;display:inline-block">LI Personal</span></td>
+        <td class="cal-title">Threads TBD<br><span style="color:var(--muted);font-size:11px">LI Personal: TBD (AI Strategy Wrong Clock or new blog)</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="cal-date"><strong>Thu Jul 30</strong></td>
+        <td><span class="badge badge-partial">Threads</span></td>
+        <td class="cal-title cal-empty">Threads TBD</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="cal-date"><strong>Fri Jul 31</strong></td>
+        <td><span class="badge badge-partial">Threads</span><br><span class="badge badge-inprogress" style="margin-top:3px;display:inline-block">LI Personal</span></td>
+        <td class="cal-title">Threads TBD<br><span style="color:var(--muted);font-size:11px">LI Personal: TBD</span></td>
+        <td></td>
+      </tr>
+
+      <tr class="month-header"><td colspan="4">August 2026</td></tr>
+
+      <tr>
+        <td class="cal-date"><strong>Mon Aug 3</strong></td>
+        <td><span class="badge badge-partial">Threads</span><br><span class="badge badge-inprogress" style="margin-top:3px;display:inline-block">LI Personal</span></td>
+        <td class="cal-title">Threads TBD<br><span style="color:var(--muted);font-size:11px">LI Personal: TBD</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="cal-date"><strong>Mon Aug 4</strong></td>
+        <td><span class="badge badge-inprogress">LI Personal</span></td>
+        <td class="cal-title">Wall on Day 200 — the constraints only reveal themselves once the thing is real</td>
+        <td><div class="status-row"><span class="status-dot sd">D</span><span class="status-dot sc">C</span><span class="status-dot sb">BUF</span></div></td>
+      </tr>
+      <tr>
+        <td class="cal-date">Aug 5–31</td>
+        <td>—</td>
+        <td class="cal-title" style="color:var(--muted)">~19 LI Personal slots · ~4 LI Page slots · ~27 Threads posts · Canada AI Strategy (1 post) · 4 new blogs when drafted</td>
+        <td><div class="status-row"><span class="status-dot sn">—</span></div></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Decisions log -->
+<div class="grid">
+  <div class="card">
+    <div class="card-label">Key Decisions</div>
+    <div class="decision-item">
+      <div class="decision-title">1. LI Page — no duplicate posts with Personal</div>
+      <div class="decision-rationale">Same founder audience follows both. Shadow AI and Fractional COO moved to Personal only. LI Page reserved for case studies and new blog content.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">2. Threads: one post per day minimum, standard sentence capitalization</div>
+      <div class="decision-rationale">Dry/casual voice, not all-lowercase. Personal founder content, learnings, vibe coding, and campaign hooks mixed in. Volume is the growth lever.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">3. Canada AI Strategy — moved to August as 1 post</div>
+      <div class="decision-rationale">3 posts were in Buffer (Jul 15, 22, 29). Deleted to free queue space. Saved copy preserved for August reuse. Best post selected when the time comes.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">4. Wall on Day 200 — moved from Jul 17 to Aug 4</div>
+      <div class="decision-rationale">Would have conflicted with You Hired Them (Isolated Founder) running alone on Jul 17 from Drive queue. Aug 4 (Mon) is cleaner.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">5. You Hired Them — deleted Jul 14 Buffer post, Jul 17 Drive queue runs instead</div>
+      <div class="decision-rationale">Buffer post used wrong ID on first delete attempt. Freed Jul 14 for AI Working Blind. Jul 17 runs cleanly with the Isolated Founder angle.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">6. Jul 20 LI Personal — held open for new blogs</div>
+      <div class="decision-rationale">4 blogs being drafted by another agent: MCP Skills, Gen AI ROI, AI Implementation Partner + RFP, PIPEDA. Slot reserved until drafts arrive.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">7. FC-7 on Saturday Jul 18 LI Page — kept as-is</div>
+      <div class="decision-rationale">Elizabeth approved. Weekend LI Page post is fine. Northlight OS case study content.</div>
+    </div>
+  </div>
+
+  <!-- Open items / Phase 2 -->
+  <div class="card">
+    <div class="card-label">Open Items → Carry Forward</div>
+    <div class="issue-item">
+      <div class="issue-dot red"></div>
+      <div>
+        <div class="issue-text">5 social card images still needed</div>
+        <div class="issue-note">FC-1 Isolated Founder, FC-3 Three Personas, FC-7 AI Advisor, Fractional COO, Canada AI Strategy (Aug)</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot"></div>
+      <div>
+        <div class="issue-text">~44 Threads posts needed (Jul 15 → Aug 31)</div>
+        <div class="issue-note">Mix of founder campaign, personal learnings, vibe coding, and blog-derived posts. Build in batches.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot"></div>
+      <div>
+        <div class="issue-text">~16 LI Personal posts needed (Jul 20 → Aug 31)</div>
+        <div class="issue-note">Several slots already have planned posts; need drafting and scheduling</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot"></div>
+      <div>
+        <div class="issue-text">~4 LI Page posts needed (Aug)</div>
+        <div class="issue-note">Waiting on new blog drafts from another agent to fill these</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot"></div>
+      <div>
+        <div class="issue-text">4 new blog posts inbound</div>
+        <div class="issue-note">MCP Skills, Gen AI ROI, AI Implementation Partner + RFP, PIPEDA — assign to Jul 20 + Aug slots on arrival</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">Canada AI Strategy August post — select best of 3 saved</div>
+        <div class="issue-note">Saved copy at scratchpad/canada-ai-strategy-saved-copy.md. Post 1 or Post 3 likely strongest.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">Follower tracking — manual update required</div>
+        <div class="issue-note">Buffer API doesn't expose follower counts. Update this dashboard manually with LinkedIn analytics + Threads app data points.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Activity log -->
+<div class="card" style="margin-bottom:24px">
+  <div class="card-label">Activity Timeline</div>
+
+  <div class="activity-item">
+    <div class="activity-date">Jul 11, 2026 — Campaign Launch</div>
+    <div class="activity-text">Social content calendar kicked off. Targets set: LI Personal 1,394→1,600; LI Page 2→25; Threads 6→200 by Aug 31. Three founder personas identified for who-we-help campaign. Buffer cleanup completed: deleted 3 Canada AI Strategy posts (copy saved), deleted Shadow AI LI Page, deleted You Hired Them Jul 14 Buffer post. Wall on Day 200 moved from Jul 17 to Aug 4. Drive queue auth bypass fixed (.env key quoting). First batch of posts loaded: 5 in Buffer, 2 in Drive queue.</div>
+  </div>
+</div>
+
+<!-- Deferred -->
+<div class="card" style="margin-bottom:24px">
+  <div class="card-label">Deferred This Phase</div>
+  <table class="block-table">
+    <thead>
+      <tr><th>Item</th><th>Why deferred</th><th>When</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="color:var(--cloud)">Canada AI Strategy — 3-post series</td>
+        <td style="color:var(--muted)">Deleted from July; will run as 1 post in August using saved best-of copy</td>
+        <td><span class="badge badge-deferred">August</span></td>
+      </tr>
+      <tr>
+        <td style="color:var(--cloud)">Shadow AI on LI Page</td>
+        <td style="color:var(--muted)">Same audience as personal; consolidating to avoid duplication</td>
+        <td><span class="badge badge-deferred">Dropped</span></td>
+      </tr>
+      <tr>
+        <td style="color:var(--cloud)">Fractional COO on LI Page</td>
+        <td style="color:var(--muted)">Same audience duplication concern; Personal only</td>
+        <td><span class="badge badge-deferred">Dropped</span></td>
+      </tr>
+      <tr>
+        <td style="color:var(--cloud)">4 new blog posts (MCP Skills, Gen AI ROI, AI Impl. Partner, PIPEDA)</td>
+        <td style="color:var(--muted)">Being drafted by another agent; slots reserved in calendar</td>
+        <td><span class="badge badge-queued">Incoming</span></td>
+      </tr>
+      <tr>
+        <td style="color:var(--cloud)">July 20 LI Personal slot</td>
+        <td style="color:var(--muted)">Held for incoming blog drafts — don't fill until they arrive</td>
+        <td><span class="badge badge-queued">Hold</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="footer">
+  <span>Social Media · Phase 1 · Built 2026-07-11</span>
+  <span>Update follower counts manually in this file as data becomes available</span>
+</div>
+
+</body>
+</html>

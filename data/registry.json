@@ -106,6 +106,19 @@
       "last_refreshed": "2026-07-03"
     },
     {
+      "id": "social-media",
+      "name": "Social Media",
+      "slug": "social-media",
+      "status": "in-progress",
+      "github": null,
+      "local": null,
+      "drive_brief": null,
+      "pmo_folder": "social-media/",
+      "clickup_list_id": null,
+      "registered": "2026-07-11",
+      "last_refreshed": "2026-07-11"
+    },
+    {
       "id": "standing-pmo",
       "name": "Standing PMO System",
       "slug": "standing-pmo",
