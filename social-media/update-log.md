@@ -2,6 +2,7 @@
 
 | Date | Event | Summary | Phase |
 |---|---|---|---|
+| 2026-07-12 | July Threads amended | 4 campaign echo posts replaced + 2 blog links stripped; Drive + ClickUp updated; manual Buffer actions flagged | Phase 1 |
 | 2026-07-12 | August Threads scheduled | 31 Threads posts queued Aug 1–31; strategy pivot to personal/builder content based on Buffer analytics; progress 90% | Phase 1 |
 | 2026-07-12 | August fully scheduled | LP-12–LP-19 LI Personal queued (Aug 7–31); LI Page Aug 12 + Aug 14 queued; August Threads TBD; progress 75% | Phase 1 |
 | 2026-07-11 | August calendar laid out | LI Personal slots planned Aug 7–31; FC-1/FC-3/FC-7/end-of-campaign drafts pending; LI Page + Threads TBD | Phase 1 |
