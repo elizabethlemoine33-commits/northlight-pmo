@@ -1,5 +1,5 @@
 {
-  "last_run": "2026-07-08T11:00:59.824Z",
+  "last_run": "2026-07-12T22:01:01.565Z",
   "triggered_by": "schedule",
   "sources_swept": [
     "clickup",
@@ -13,6 +13,7 @@
     "skills-market",
     "tableready",
     "advisory-board",
+    "social-media",
     "standing-pmo"
   ],
   "next_scheduled": "See schedule config"
