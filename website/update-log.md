@@ -6,6 +6,7 @@
 
 | Date | Session | What Shipped | Phase |
 |---|---|---|---|
+| 2026-07-10 | Phase 3 session 3 (close) | gofractional.com application submitted (pending review) · Manifest constraint documented (mirrors Clutch, Eastern Passage unfixable) · Wikipedia deferred (no qualifying third-party sources) · Phase 3 closed at 100% · Phase 4 kickoff prompt written | Phase 3 |
 | 2026-07-10 | Phase 3 session 2 | outsourceaccelerator.com self-registered (live) · About page authority profiles (Digital Reference, Clutch, Crunchbase) added to sameAs schema + visible pill section · MCP Skills section added to Work page · llms.txt updated with all external profiles + Reddit u/PassageGal (AI-only) · 4 open decisions resolved · Matt Ward scratched · Capterra blocked/parked · GBP video verification not doing · Phase 4 blog posts identified from P/I/P analysis (AI implementation partner, Gen AI ROI, PIPEDA/PPC) | Phase 3 |
 | 2026-07-09 | Phase 3 start | Phase 3 scoped and dashboard written — AEO Citation Building, Content & Entity Clarity · 4 new blog posts planned (listicle, advisory guide, entity disambiguation, AEO learnings) · Gemini NSG entity collision identified · Skills Market linkage + portfolio footer fix queued | Phase 3 |
 | 2026-07-09 | Phase 2 session 7 | Phase 2 complete — HubSpot AEO course done, robots.txt false alarm resolved (all AI crawlers confirmed allowed), 36-row P/I/P prompt chart completed (Gemini 100% RED/NSG collision, ChatGPT GREEN, Perplexity mostly accurate with 7 AMBER gaps), Phase 3 scoped | Phase 2 |
