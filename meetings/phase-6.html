@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northlight Meetings — Phase 6 Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --midnight:  #0E0E14;
+    --deep-night:#08080F;
+    --surface:   #12121E;
+    --surface-2: #10101C;
+    --border:    #1E2035;
+    --border-2:  #2A2A48;
+    --text:      #FFFFFF;
+    --cloud:     #C8CCE0;
+    --haze:      #BCC2DC;
+    --muted:     #99A1B6;
+    --structural:#6C7295;
+    --glacial:   #4FC3C8;
+    --boreal:    #5B8DD9;
+    --dusk:      #8B6FD4;
+    --aurora:    #C46FAA;
+    --green:     #3BAA6E;
+    --yellow:    #D4A017;
+    --red:       #C44F4F;
+  }
+  body {
+    background: var(--midnight);
+    color: var(--cloud);
+    font-family: 'Outfit', system-ui, sans-serif;
+    font-size: 13px;
+    padding: 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .top-bar {
+    height: 3px;
+    background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%);
+    margin: -32px -32px 32px;
+  }
+  .header { margin-bottom: 28px; }
+  .phase-eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--dusk); margin-bottom: 6px;
+  }
+  .title {
+    font-family: 'Jost', sans-serif;
+    font-size: 24px; font-weight: 700;
+    color: var(--text); letter-spacing: -0.01em;
+  }
+  .subtitle { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  .status-pill {
+    display: inline-block;
+    background: rgba(59,170,110,0.12);
+    color: var(--green);
+    border: 1px solid rgba(59,170,110,0.3);
+    border-radius: 20px;
+    font-family: 'Jost', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 3px 10px; margin-top: 8px;
+  }
+  .callout {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--dusk);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .callout strong { color: var(--cloud); }
+  .section { margin-bottom: 32px; }
+  .section-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--structural);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .progress-wrap { margin-bottom: 10px; }
+  .progress-bar-bg {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    height: 8px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--glacial), var(--boreal));
+  }
+  .progress-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px; font-weight: 600;
+    color: var(--glacial);
+    margin-top: 6px;
+  }
+  .progress-outcome { font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .card-eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--structural); margin-bottom: 6px;
+  }
+  .card-title {
+    font-family: 'Jost', sans-serif;
+    font-size: 14px; font-weight: 600;
+    color: var(--text); margin-bottom: 6px;
+  }
+  .card-body { font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .badge {
+    display: inline-block;
+    font-family: 'Jost', sans-serif;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    border-radius: 4px;
+    padding: 2px 7px;
+    margin-bottom: 8px;
+  }
+  .badge-green  { background: rgba(59,170,110,0.12); color: var(--green); border: 1px solid rgba(59,170,110,0.25); }
+  .badge-blue   { background: rgba(91,141,217,0.12); color: var(--boreal); border: 1px solid rgba(91,141,217,0.25); }
+  .badge-purple { background: rgba(139,111,212,0.12); color: var(--dusk); border: 1px solid rgba(139,111,212,0.25); }
+  .badge-yellow { background: rgba(212,160,23,0.12); color: var(--yellow); border: 1px solid rgba(212,160,23,0.25); }
+  .table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th {
+    font-family: 'Jost', sans-serif;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--structural);
+    text-align: left; padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 9px 10px;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted); line-height: 1.5; vertical-align: top;
+  }
+  td:first-child { color: var(--cloud); font-weight: 500; }
+  tr:last-child td { border-bottom: none; }
+  .open-list { list-style: none; }
+  .open-list li {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px; color: var(--muted); line-height: 1.5;
+  }
+  .open-list li:last-child { border-bottom: none; }
+  .open-list li strong { color: var(--cloud); }
+  .timeline-row { display: flex; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 12px; }
+  .timeline-row:last-child { border-bottom: none; }
+  .timeline-date { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 600; color: var(--structural); white-space: nowrap; padding-top: 1px; min-width: 72px; }
+  .timeline-text { color: var(--muted); line-height: 1.5; }
+  .timeline-text strong { color: var(--cloud); }
+</style>
+</head>
+<body>
+
+<div class="top-bar"></div>
+
+<div class="header">
+  <div class="phase-eyebrow">Northlight Meetings · Phase 6</div>
+  <div class="title">Audio Reliability</div>
+  <div class="subtitle">2026-07-13 → 2026-07-13 · Audio setup fixed, in-app check shipped, GCP OAuth unblocked</div>
+  <div class="status-pill">Complete</div>
+</div>
+
+<div class="callout">
+  <strong>Phases 1–5 recap:</strong> Phases 1–3 built the core app (recording, analysis, Google/ClickUp integrations). Phase 4 launched (privacy policy, packaging, Replit retired). Phase 5 polished (ZDR privacy language, consent banner, case study rewrite, PMI entry, positioning doc).
+</div>
+
+<div class="section">
+  <div class="section-label">Phase Progress</div>
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%"></div></div>
+    <div class="progress-label">100% — Complete</div>
+    <div class="progress-outcome">Phase 6 complete — audio routing diagnosed and permanently fixed, in-app audio check strip shipped so the app self-validates before every recording, and GCP OAuth approval unblocked the Gumroad storefront.</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">What Shipped</div>
+  <div class="cards">
+
+    <div class="card">
+      <div class="badge badge-green">App Feature</div>
+      <div class="card-title">Audio Setup Check Strip</div>
+      <div class="card-body">Pre-call screen now runs an audio check on every New Session open. Verifies: (1) Realtek is the default Windows playback device, (2) VB-Audio CABLE Output is available as a recording input. Shows green tick when ready. Yellow warning + <strong>Fix</strong> button when wrong device is active — one click switches back to Realtek via PowerShell. Recheck button for manual re-run. ClickUp 86e297zfx — closed.</div>
+    </div>
+
+    <div class="card">
+      <div class="badge badge-blue">Infrastructure</div>
+      <div class="card-title">Audio Routing Diagnosed + Fixed</div>
+      <div class="card-body">Root cause found: CABLE Input (VB-Audio Virtual Cable) was set as the Windows default playback device, which silenced all Chrome audio between calls. Fixed via <code>AudioDeviceCmdlets</code> PowerShell module — Realtek Speakers set as default playback, Realtek Mic confirmed as default recording. Permanent fix: Google Meet speaker set to CABLE Input in Meet's own settings (per-profile, persists), leaving system default untouched.</div>
+    </div>
+
+    <div class="card">
+      <div class="badge badge-green">Blocker Resolved</div>
+      <div class="card-title">GCP OAuth Consent Screen — Approved</div>
+      <div class="card-body">Google approved the OAuth consent screen verification (ClickUp 86e297zg1 — closed). The Gumroad storefront task (86e262uad) is now unblocked — distribution can proceed without waiting on Google.</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Decisions Log</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Decision</th><th>Why</th><th>Date</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Audio check on pre-call open, not as a Settings page item</td>
+          <td>The check is most useful immediately before a recording, not buried in Settings. Surfacing it on the New Session screen means it runs exactly when it matters and doesn't require the user to remember to check.</td>
+          <td>2026-07-13</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Fix button calls PowerShell (AudioDeviceCmdlets) rather than opening Settings</td>
+          <td>Opening Windows Settings requires the user to navigate three levels and make the change manually. The PowerShell call fixes it in one click with no navigation — faster and less error-prone.</td>
+          <td>2026-07-13</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Hardcode AudioDeviceCmdlets DLL path rather than module name</td>
+          <td>Electron spawns PowerShell without the user profile, so the CurrentUser module path isn't in PSModulePath. Importing by full DLL path bypasses the profile entirely and works reliably in headless sessions.</td>
+          <td>2026-07-13</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Meet speaker → CABLE Input (in Meet settings) rather than system default</td>
+          <td>Setting system default to CABLE Input breaks all Chrome audio between calls. Google Meet persists the speaker setting per Chrome profile — routing only Meet through the cable leaves everything else on Realtek with no toggling needed.</td>
+          <td>2026-07-13</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Activity Timeline</div>
+  <div class="table-wrap" style="padding: 4px 16px;">
+    <div class="timeline-row">
+      <div class="timeline-date">2026-07-13</div>
+      <div class="timeline-text"><strong>Audio routing root cause found</strong> — CABLE Input was Windows default playback. Diagnosed via AudioDeviceCmdlets. Realtek set as default.</div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-date">2026-07-13</div>
+      <div class="timeline-text"><strong>Audio check strip built and shipped</strong> — pre-call screen, PowerShell-backed, green tick / yellow Fix button. Committed to northlight-meetings-desktop.</div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-date">2026-07-13</div>
+      <div class="timeline-text"><strong>GCP OAuth approval confirmed</strong> — ClickUp 86e297zg1 closed. Gumroad storefront now unblocked.</div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-date">2026-07-13</div>
+      <div class="timeline-text"><strong>AudioDeviceCmdlets module path fix</strong> — hardcoded DLL path in main.js so Electron's non-interactive PowerShell sessions can find it.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Open Items → Phase 7</div>
+  <div class="table-wrap">
+    <ul class="open-list" style="padding: 4px 16px;">
+      <li>
+        <span class="badge badge-yellow" style="flex-shrink:0;margin-top:2px">Next</span>
+        <span><strong>Gumroad storefront (ClickUp 86e262uad)</strong> — GCP OAuth now approved. Set up Vault + Meetings listings on Gumroad and link from bynorthlight.ca.</span>
+      </li>
+      <li>
+        <span class="badge badge-blue" style="flex-shrink:0;margin-top:2px">UX</span>
+        <span><strong>"Listen to this device" — one-time manual step</strong> — CABLE Output → Realtek Speakers via Windows Sound settings Recording tab. Not automatable via PowerShell without admin rights. Do before first real recording.</span>
+      </li>
+      <li>
+        <span class="badge badge-blue" style="flex-shrink:0;margin-top:2px">UX</span>
+        <span><strong>VB-Audio Cable install guidance for new users (ClickUp 86e297zg0)</strong> — document or automate VB-Cable + "Listen to this device" setup for anyone installing the app fresh.</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>
