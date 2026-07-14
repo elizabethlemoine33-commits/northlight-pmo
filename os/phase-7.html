@@ -110,14 +110,14 @@
 
 <div class="progress-section">
   <div class="progress-header">
-    <div class="progress-label">Planning &amp; Cleanup Done · Implementation In Progress</div>
-    <div class="progress-pct">10%</div>
+    <div class="progress-label">Block 1 Complete · 6 Blocks Remaining</div>
+    <div class="progress-pct">25%</div>
   </div>
-  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:10%"></div></div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:25%"></div></div>
   <div class="progress-counts">
-    <div class="progress-count"><strong>0 / 7</strong> build blocks complete</div>
+    <div class="progress-count"><strong>1 / 7</strong> build blocks complete</div>
     <div class="progress-count"><strong>6</strong> ClickUp tasks closed or repurposed</div>
-    <div class="progress-count"><strong>4</strong> new doctrine files written (not yet wired)</div>
+    <div class="progress-count"><strong>7 personas</strong> wired and pushed to Railway</div>
   </div>
 </div>
 
@@ -129,7 +129,7 @@
       <tr>
         <td><div class="block-name">Block 1 — Advisory Board Persona Wiring</div></td>
         <td><div class="block-note">Copy 4 new doctrine files (Founder Coach, Secretary, Strategy, Tech/Product) + updated CMO + refreshed CPO to OKF structure. Update context-loader.js (register Sam, Casey, Avery, Morgan alongside Reese, Quinn, Jordan). Update orchestrator/session router for 7 personas + Secretary convening function (routing matrix + three-tier complexity read). Enable ambient flag mode: Casey on #northlight-build-log + PMO-updates; Sam on Slack generally + finance channel. Build post-commit hook → #northlight-build-log (feeds Casey's ambient review). Verify live: all 7 personas respond in character, CMO/CPO/CFO regression clean.</div></td>
-        <td><span class="badge badge-notstarted">Not Started</span></td>
+        <td><span class="badge badge-done">Done</span></td>
       </tr>
       <tr>
         <td><div class="block-name">Block 2 — skill:blog-polish Markdown Fix</div></td>
@@ -168,10 +168,11 @@
 <div class="grid">
   <div class="card">
     <div class="card-label">Advisory Board — New Personas</div>
-    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Doctrine files written — July 14, 2026</div><div class="issue-note">FOUNDER-COACH-DOCTRINE.md (Sam) · SECRETARY-DOCTRINE.md (Morgan) · STRATEGY-DOCTRINE.md (Avery) · TECH-PRODUCT-DOCTRINE.md (Casey). All in C:\Users\erand\Desktop\Cowork\. Not yet copied to OKF structure or wired into context-loader.</div></div></div>
-    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">CMO-DOCTRINE.md updated — July 14, 2026</div><div class="issue-note">Addition: "Test whether this would land the same way for someone outside Elizabeth's own default assumptions" added to Core Beliefs.</div></div></div>
-    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">ADVISORY-BOARD-PERSONAS.md updated — July 14, 2026</div><div class="issue-note">All 7 personas now named and defined: Reese (CFO), Quinn (CPO), Jordan (CMO), Sam (Founder Coach), Casey (Technical &amp; Product), Avery (Strategy), Morgan (Secretary/Chief of Staff). Morgan is Haiku model; all others Sonnet.</div></div></div>
-    <div class="issue-item"><div class="issue-dot blue"></div><div><div class="issue-text">Block 1 wiring — not yet started</div><div class="issue-note">context-loader.js, orchestrator.js, session router, ambient flag modes, post-commit hook all pending.</div></div></div>
+    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">4 new doctrine files written + deployed — July 14, 2026</div><div class="issue-note">FOUNDER-COACH-DOCTRINE.md (Sam) · SECRETARY-DOCTRINE.md (Morgan) · STRATEGY-DOCTRINE.md (Avery) · TECH-PRODUCT-DOCTRINE.md (Casey). Written in Cowork, copied to dashboard/specs/, committed f319d69.</div></div></div>
+    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">CMO-DOCTRINE.md updated + deployed — July 14, 2026</div><div class="issue-note">"Outside default assumptions" check added to Core Beliefs and Final self-check. Deployed to dashboard/specs/.</div></div></div>
+    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">ADVISORY-BOARD-PERSONAS.md replaced — July 14, 2026</div><div class="issue-note">Full 7-persona version live: Reese (CFO), Quinn (CPO), Jordan (CMO), Sam (Founder Coach), Casey (Technical &amp; Product), Avery (Strategy), Morgan (Secretary/Chief of Staff). Operating Modes section added. Morgan is Haiku; all others Sonnet.</div></div></div>
+    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">personas.js + orchestrator.js updated — July 14, 2026</div><div class="issue-note">Sam, Casey, Avery registered as presenter personas. All 4 new doctrine files in the optional load array. Injected into buildPresentationSystemPrompt and buildThreadSystemPrompt with labelled ═══ headers. Commit f319d69, pushed to Railway.</div></div></div>
+    <div class="issue-item"><div class="issue-dot"></div><div><div class="issue-text">Ambient flag modes + post-commit hook — Block 1 deferred item</div><div class="issue-note">Casey on #northlight-build-log + PMO-updates; Sam on Slack + finance channel. Requires post-commit hook (ClickUp 86e2b4w98) and finance channel cleanup (86e2b4wc8) first. Carried to Block 7.</div></div></div>
   </div>
 
   <div class="card">
@@ -255,6 +256,10 @@
   <div class="card">
     <div class="card-label">Activity Timeline</div>
     <div class="activity-item">
+      <div class="activity-date">July 14, 2026 — Block 1 Complete</div>
+      <div class="activity-text">All 7 Advisory Board personas wired: 4 new doctrine files deployed to dashboard/specs/, CMO-DOCTRINE.md updated, ADVISORY-BOARD-PERSONAS.md replaced with 7-persona version, Sam/Casey/Avery registered in personas.js, all doctrine files loaded and injected into both system prompt builders in orchestrator.js. Commit f319d69, pushed to Railway.</div>
+    </div>
+    <div class="activity-item">
       <div class="activity-date">July 14, 2026 — Phase 7 Planning Session</div>
       <div class="activity-text">Full backlog review across OS Backlog and Advisory Board ClickUp lists plus all prior phase dashboards. Priorities set for next couple of days. 7-block plan approved. Advisory Board doctrine files for 4 new personas reviewed and finalized in Cowork folder. Slack @-mentionable consult mode logged to parking lot. ClickUp Advisory Board list cleanup executed: 6 tasks closed, 1 repurposed.</div>
     </div>
@@ -289,7 +294,7 @@
     <div class="issue-item"><div class="issue-dot red"></div><div><div class="issue-text">Revenue Tracking — Finance sheet has no revenue data (URGENT)</div><div class="issue-note">Three pieces missing: northlight-revenue Gmail label, Prompt 2 (revenue extraction), P&L formula mapping. Block 3.</div></div></div>
     <div class="issue-item"><div class="issue-dot red"></div><div><div class="issue-text">form-data CRLF injection CVE — high severity, unpatched</div><div class="issue-note">One npm audit fix command in the dispatcher directory. googleapis chain CVEs (4 moderate) separately parked as low practical risk. Block 7.</div></div></div>
     <div class="issue-item"><div class="issue-dot"></div><div><div class="issue-text">skill:blog-polish markdown-to-HTML conversion failures — HIGH, frequent</div><div class="issue-note">Specific patterns not yet diagnosed. Block 2.</div></div></div>
-    <div class="issue-item"><div class="issue-dot blue"></div><div><div class="issue-text">Advisory Board: 4 new personas wired in doctrine only, not in code</div><div class="issue-note">context-loader.js, orchestrator.js, session router, ambient flag modes, post-commit hook all pending. Block 1. Two tasks (86e1bmanc, 86e1bmaf1) to close once wiring confirmed working.</div></div></div>
+    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Advisory Board: 7 personas wired and live (Block 1 done)</div><div class="issue-note">Ambient flag modes + post-commit hook still pending (Block 7 / ClickUp 86e2b4w98 + 86e2b4wc8). Close tasks 86e1bmanc + 86e1bmaf1 once verified working in a live session.</div></div></div>
     <div class="issue-item"><div class="issue-dot blue"></div><div><div class="issue-text">Marketing tab split into 4 subtabs — not yet built</div><div class="issue-note">Dashboard / Studio / Operations / Analytics. Required before GEO module can be wired. Block 5.</div></div></div>
     <div class="issue-item"><div class="issue-dot blue"></div><div><div class="issue-text">GEO Analytics Module — awaiting Marketing tab restructure</div><div class="issue-note">geo_audit.py --json flag + routes/marketing.js + views/marketing/geo.html. 3 runs of history ready (65→74→81). Block 6.</div></div></div>
     <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">OS Navigation Rework — requires debate session before any code</div><div class="issue-note">Not just a menu change. Proposed nav: Home / Focus / Marketing / Finance / Compass / Capture / System. Block 4.</div></div></div>
