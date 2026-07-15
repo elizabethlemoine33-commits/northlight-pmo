@@ -7,7 +7,7 @@ completed: 2026-07-15
 
 - **Block 1** — Fixed OAuth premature-close error: token fetch was returning an invalid response on session resume; resolved race condition in the auth middleware.
 - **Block 2** — Railway blog auto-publish: scheduled July 10 publish ran successfully; confirmed via Railway logs.
-- **Block 3** — Advisory Board retests: CMO Doctrine, CFO finance, CPO Doctrine, and session-expiry modal all re-tested and passing.
+- **Block 3** — Advisory Board retests: CMO Doctrine, CFO finance, CPO Doctrine, and session-expiry modal all re-tested and passing. GEO Analytics module shipped in Marketing tab. Advisory Board: X-ray contrarian pushback capability added; auto-generate markdown documentation from bot recommendations shipped.
 - **Block 4** — OS Navigation Rework: collapsed 11 top-level tabs → 7 (`Home`, `Focus`, `Marketing`, `Finance`, `Compass`, `Capture`, `System`). Added sticky two-row nav (primary tabs + subtabs). Subtab state lifted to App.jsx and persisted via `sessionStorage`. MarketingPanel refactored to accept `subTab`/`onSubTabChange` props. Commit `4e010e9`.
 - **Block 5** — GEO Audit History migrated from ephemeral JSON file to Google Sheets ("GEO Audit History" tab on Finance sheet). Resolved Railway container reset data loss.
 - **Block 6** — Background job + polling pattern to replace SSE (Railway nginx proxy kills long-lived SSE connections).
