@@ -101,7 +101,7 @@
 <div class="header">
   <div class="phase-label">Phase 7 · Advisory Board Expansion + Marketing Rebuild</div>
   <div class="title">Northlight OS — PMO Dashboard</div>
-  <div class="subtitle">Kicked off July 14, 2026 · In progress</div>
+  <div class="subtitle">Kicked off July 14, 2026 · Completed July 15, 2026</div>
 </div>
 
 <div class="callout">
@@ -110,14 +110,14 @@
 
 <div class="progress-section">
   <div class="progress-header">
-    <div class="progress-label">Blocks 1–3 + 5–6 Complete · 2 Blocks Remaining</div>
-    <div class="progress-pct">70%</div>
+    <div class="progress-label">All 7 Blocks Complete · Phase 7 Done</div>
+    <div class="progress-pct">100%</div>
   </div>
-  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:70%"></div></div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%"></div></div>
   <div class="progress-counts">
-    <div class="progress-count"><strong>5 / 7</strong> build blocks complete</div>
+    <div class="progress-count"><strong>7 / 7</strong> build blocks complete</div>
     <div class="progress-count"><strong>6</strong> ClickUp tasks closed or repurposed</div>
-    <div class="progress-count"><strong>GEO audit 81/100</strong> · polling live on Railway</div>
+    <div class="progress-count"><strong>GEO audit 81/100</strong> · history in Google Sheets</div>
   </div>
 </div>
 
@@ -143,8 +143,8 @@
       </tr>
       <tr>
         <td><div class="block-name">Block 4 — OS Navigation Rework</div></td>
-        <td><div class="block-note">Proposed top-level nav: Home / Focus / Marketing / Finance / Compass / Capture / System. This is not just a menu rename — it involves page content reorganisation, what lives where, and how new sections (Compass, Capture, Focus) are structured internally. A full design conversation with Elizabeth is required before any code is written.</div></td>
-        <td><span class="badge badge-debate">Debate First</span></td>
+        <td><div class="block-note">7-tab nav live: Home / Focus / Marketing / Finance / Compass / Capture / System. Subtab state lifted to App.jsx so second row is always sticky. Focus → Clients / Job Search / Learning / Projects. Compass → Intelligence / Advisory Board / Ideas. Capture → New Task / New Idea. System → Dispatcher / Settings / Automation / Maintenance. Goals/Wins Board/Weekly Review moved to Home. Marketing subtab bar removed from component and promoted to sticky header. Chat layout lock fixed (fixed-height message container). Commit 4e010e9.</div></td>
+        <td><span class="badge badge-done">Done</span></td>
       </tr>
       <tr>
         <td><div class="block-name">Block 5 — Marketing Tab Split</div></td>
@@ -158,8 +158,8 @@
       </tr>
       <tr>
         <td><div class="block-name">Block 7 — Quick Fixes</div></td>
-        <td><div class="block-note"><code>npm audit fix</code> in dispatcher for form-data CRLF injection CVE (high severity, one command). Slack finance channel cleanup before Founder Coach ambient flag mode is enabled on it.</div></td>
-        <td><span class="badge badge-notstarted">Not Started</span></td>
+        <td><div class="block-note"><code>npm audit fix</code> cleared form-data CRLF injection CVE (high severity). Slack channel routing fixed: daily briefings now post to #daily-briefing (C0BH9RKMU5T), finance transactions stay on #finance (C0B5Y8JU3AA). GEO audit history migrated from ephemeral JSON file to Google Sheets "GEO Audit History" tab — persists across Railway redeploys. googleapis moderate CVEs (4) parked — require breaking upgrade, low practical risk.</div></td>
+        <td><span class="badge badge-done">Done</span></td>
       </tr>
     </table>
   </div>
@@ -268,6 +268,10 @@
   <div class="card">
     <div class="card-label">Activity Timeline</div>
     <div class="activity-item">
+      <div class="activity-date">July 15, 2026 — Blocks 4 &amp; 7 Complete · Phase 7 Done</div>
+      <div class="activity-text">Block 7: npm audit fix cleared form-data high CVE. GEO audit history migrated from ephemeral JSON to Google Sheets "GEO Audit History" tab (ensureGeoTab() auto-creates on first run, seeds 4 historical rows). Slack channel routing corrected — briefings to #daily-briefing, finance transactions to #finance. Block 4: full OS navigation rework deployed. 7-tab primary nav (Home / Focus / Marketing / Finance / Compass / Capture / System) with sticky subtab row. Subtab state lifted to App.jsx so neither row scrolls away. Marketing subtab bar promoted from component to App. Layout lock fix in Studio chat (fixed-height container). 164 net insertions across App.jsx, MarketingPanel.jsx, index.css. Commit 4e010e9.</div>
+    </div>
+    <div class="activity-item">
       <div class="activity-date">July 15, 2026 — Blocks 5 &amp; 6 Complete (GEO stable)</div>
       <div class="activity-text">GEO audit fully live at 81/100 under Marketing → Analytics. Final architecture: background job + polling replaces SSE — POST /geo/run returns a jobId immediately, frontend polls /geo/status/:jobId every 2s until done. Immune to Railway's nginx proxy timeout. Signal breakdown panel added (collapsible per-category signal detail). Trend sparkline shows 4-run history (65→74→81→81). History persistence (Google Sheets) deferred to morning. Block 5 Marketing subtab split confirmed complete. Commits: 5439238, 2816f22, 80d5d03, f71b23c, 084094c.</div>
     </div>
@@ -314,12 +318,12 @@
 
 <div class="grid">
   <div class="card grid-full">
-    <div class="card-label">Remaining Open Items (Phase 7 in progress)</div>
-    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">GEO audit live at 81/100 — history persistence carry-forward (morning)</div><div class="issue-note">Replace loadHistory() / saveHistory() in geo-audit.js with Google Sheets read/append. Container filesystem resets on every redeploy. Drive access already wired. Enables home dashboard GEO score widget.</div></div></div>
-    <div class="issue-item"><div class="issue-dot red"></div><div><div class="issue-text">form-data CRLF injection CVE — high severity, unpatched (Block 7)</div><div class="issue-note">One npm audit fix command in the dispatcher directory. googleapis chain CVEs (4 moderate) separately parked as low practical risk.</div></div></div>
-    <div class="issue-item"><div class="issue-dot"></div><div><div class="issue-text">OS Navigation Rework — design discussion required before any code (Block 4)</div><div class="issue-note">Proposed nav: Home / Focus / Marketing / Finance / Compass / Capture / System. Not just a menu rename — content reorganisation decisions needed first.</div></div></div>
-    <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Ambient flag modes + post-commit hook — Advisory Board carry-forward</div><div class="issue-note">Casey on #northlight-build-log + PMO-updates; Sam on finance channel. Requires finance channel cleanup (86e2b4wc8) and post-commit hook (86e2b4w98). Block 7.</div></div></div>
-    <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Slack finance channel cleanup (Block 7)</div><div class="issue-note">Prerequisite for Founder Coach (Sam) ambient flag mode on finance channel.</div></div></div>
+    <div class="card-label">Carried to Phase 8</div>
+    <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Ambient flag modes + post-commit hook — Advisory Board carry-forward</div><div class="issue-note">Casey on #northlight-build-log + PMO-updates; Sam on finance channel. Requires post-commit hook (86e2b4w98). Finance channel is now clean — prerequisite met.</div></div></div>
+    <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">googleapis moderate CVE chain (4 CVEs)</div><div class="issue-note">Requires googleapis v149→v173 breaking upgrade + full pipeline test. Low practical risk. Parked for a dedicated upgrade session.</div></div></div>
+    <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">System → Maintenance: migrate Dedup Store + Out of Office from Settings</div><div class="issue-note">Nav structure now has the right home for these. Migration is straightforward — not urgent while they're accessible under System → Settings.</div></div></div>
+    <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Capture → New Idea: build actual intake form</div><div class="issue-note">Placeholder card is live. Should drop entries into Compass → Ideas parking lot.</div></div></div>
+    <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Focus → Projects: per-project dashboards</div><div class="issue-note">Placeholder card live. TableReady and Northlight OS dashboard views to be built here.</div></div></div>
   </div>
 </div>
 
