@@ -111,9 +111,9 @@
 <div class="progress-section">
   <div class="progress-header">
     <div class="progress-label">Block 1 Complete · 6 Blocks Remaining</div>
-    <div class="progress-pct">25%</div>
+    <div class="progress-pct">40%</div>
   </div>
-  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:25%"></div></div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:40%"></div></div>
   <div class="progress-counts">
     <div class="progress-count"><strong>1 / 7</strong> build blocks complete</div>
     <div class="progress-count"><strong>6</strong> ClickUp tasks closed or repurposed</div>
@@ -134,12 +134,12 @@
       <tr>
         <td><div class="block-name">Block 2 — skill:blog-polish Markdown Fix</div></td>
         <td><div class="block-note">Markdown-to-HTML conversion failures confirmed HIGH, happening "way too often." Diagnose specific patterns breaking (headers, code blocks, lists, special chars). Fix and test end-to-end with content that previously failed.</div></td>
-        <td><span class="badge badge-notstarted">Not Started</span></td>
+        <td><span class="badge badge-done">Done</span></td>
       </tr>
       <tr>
-        <td><div class="block-name">Block 3 — Revenue Tracking</div><div class="block-note" style="margin-top:3px; color:var(--red)">URGENT</div></td>
-        <td><div class="block-note">Three missing pieces: (1) Create <code>northlight-revenue</code> Gmail label so revenue emails get picked up. (2) Build and wire Prompt 2 — revenue extraction reads labelled emails, extracts revenue data. (3) Map P&L formula in Finance sheet so revenue flows in alongside existing expense data. Finance sheet is currently expense-only without this.</div></td>
-        <td><span class="badge badge-urgent">Urgent — Not Started</span></td>
+        <td><div class="block-name">Block 3 — Revenue Tracking</div></td>
+        <td><div class="block-note">Pipeline was already fully built. Confirmed: <code>northlight-revenue</code> Gmail label exists, revenue extraction and approval route wired, <code>ensureRevenueSetup()</code> creates Revenue Log sheet and writes P&L SUMIFS on first call. Verified end-to-end with $1,500 test transaction — logged to Revenue Log, appeared in Finance overview.</div></td>
+        <td><span class="badge badge-done">Done</span></td>
       </tr>
       <tr>
         <td><div class="block-name">Block 4 — OS Navigation Rework</div></td>
@@ -256,6 +256,10 @@
   <div class="card">
     <div class="card-label">Activity Timeline</div>
     <div class="activity-item">
+      <div class="activity-date">July 14, 2026 — Blocks 2 &amp; 3 Complete</div>
+      <div class="activity-text">Block 2: Fixed markdown-to-HTML conversion in skill:blog-polish publish pipeline — added inline link conversion <code>[text](url)</code> → <code>&lt;a href&gt;</code> (main failure cause), multi-line blockquote handling, ordered list support, h4 headings. Commit ddf35fc. Block 3: Revenue pipeline confirmed fully built and wired — <code>northlight-revenue</code> Gmail label exists, route registered, <code>ensureRevenueSetup()</code> auto-creates Revenue Log sheet and P&amp;L SUMIFS. Verified end-to-end with $1,500 test transaction.</div>
+    </div>
+    <div class="activity-item">
       <div class="activity-date">July 14, 2026 — Block 1 Complete</div>
       <div class="activity-text">All 7 Advisory Board personas wired: 4 new doctrine files deployed to dashboard/specs/, CMO-DOCTRINE.md updated, ADVISORY-BOARD-PERSONAS.md replaced with 7-persona version, Sam/Casey/Avery registered in personas.js, all doctrine files loaded and injected into both system prompt builders in orchestrator.js. Commit f319d69, pushed to Railway.</div>
     </div>
@@ -291,9 +295,8 @@
 <div class="grid">
   <div class="card grid-full">
     <div class="card-label">Open Items Going Into Phase 7 Build</div>
-    <div class="issue-item"><div class="issue-dot red"></div><div><div class="issue-text">Revenue Tracking — Finance sheet has no revenue data (URGENT)</div><div class="issue-note">Three pieces missing: northlight-revenue Gmail label, Prompt 2 (revenue extraction), P&L formula mapping. Block 3.</div></div></div>
     <div class="issue-item"><div class="issue-dot red"></div><div><div class="issue-text">form-data CRLF injection CVE — high severity, unpatched</div><div class="issue-note">One npm audit fix command in the dispatcher directory. googleapis chain CVEs (4 moderate) separately parked as low practical risk. Block 7.</div></div></div>
-    <div class="issue-item"><div class="issue-dot"></div><div><div class="issue-text">skill:blog-polish markdown-to-HTML conversion failures — HIGH, frequent</div><div class="issue-note">Specific patterns not yet diagnosed. Block 2.</div></div></div>
+    <div class="issue-item"><div class="issue-dot"></div><div><div class="issue-text">OS Navigation Rework — design discussion required before any code (Block 4)</div><div class="issue-note">Proposed nav: Home / Focus / Marketing / Finance / Compass / Capture / System. Content reorganisation decisions needed first.</div></div></div>
     <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Advisory Board: 7 personas wired and live (Block 1 done)</div><div class="issue-note">Ambient flag modes + post-commit hook still pending (Block 7 / ClickUp 86e2b4w98 + 86e2b4wc8). Close tasks 86e1bmanc + 86e1bmaf1 once verified working in a live session.</div></div></div>
     <div class="issue-item"><div class="issue-dot blue"></div><div><div class="issue-text">Marketing tab split into 4 subtabs — not yet built</div><div class="issue-note">Dashboard / Studio / Operations / Analytics. Required before GEO module can be wired. Block 5.</div></div></div>
     <div class="issue-item"><div class="issue-dot blue"></div><div><div class="issue-text">GEO Analytics Module — awaiting Marketing tab restructure</div><div class="issue-note">geo_audit.py --json flag + routes/marketing.js + views/marketing/geo.html. 3 runs of history ready (65→74→81). Block 6.</div></div></div>
