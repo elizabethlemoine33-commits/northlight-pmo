@@ -110,14 +110,14 @@
 
 <div class="progress-section">
   <div class="progress-header">
-    <div class="progress-label">Block 1 Complete · 6 Blocks Remaining</div>
-    <div class="progress-pct">40%</div>
+    <div class="progress-label">Blocks 1–3 + 5–6 Complete · 2 Blocks Remaining</div>
+    <div class="progress-pct">70%</div>
   </div>
-  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:40%"></div></div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:70%"></div></div>
   <div class="progress-counts">
-    <div class="progress-count"><strong>1 / 7</strong> build blocks complete</div>
+    <div class="progress-count"><strong>5 / 7</strong> build blocks complete</div>
     <div class="progress-count"><strong>6</strong> ClickUp tasks closed or repurposed</div>
-    <div class="progress-count"><strong>7 personas</strong> wired and pushed to Railway</div>
+    <div class="progress-count"><strong>GEO audit 81/100</strong> · polling live on Railway</div>
   </div>
 </div>
 
@@ -149,12 +149,12 @@
       <tr>
         <td><div class="block-name">Block 5 — Marketing Tab Split</div></td>
         <td><div class="block-note">Marketing splits into 4 internal subtabs: Dashboard (upcoming content, pipeline summary), Studio (content intake, AI interviews, briefs), Operations (calendar, pipeline, workflow stages, publishing queue), Analytics (newsletter + social + website analytics including GEO module). Prerequisite for Block 6.</div></td>
-        <td><span class="badge badge-notstarted">Not Started</span></td>
+        <td><span class="badge badge-done">Done</span></td>
       </tr>
       <tr>
         <td><div class="block-name">Block 6 — GEO Analytics Module</div></td>
-        <td><div class="block-note">geo_audit.py has 3 runs of history (65→74→81). Three changes: add <code>--json</code> flag to geo_audit.py (JSON to stdout, skip browser-open); create <code>dashboard/routes/marketing.js</code> (GET /marketing/geo, POST /marketing/geo/run via SSE, GET /marketing/geo/history); create <code>dashboard/views/marketing/geo.html</code> (score + category bars + trend chart + signal breakdown). Lives under Marketing → Analytics. Blocked until Block 5 is done.</div></td>
-        <td><span class="badge badge-blocked">Blocked on Block 5</span></td>
+        <td><div class="block-note">geo_audit ported to Node.js (geo-audit.js) using axios + cheerio — eliminates Python dependency on Railway entirely. Panel live under Marketing → Analytics with composite score, 5 category bars, 4-run trend sparkline, and collapsible signal breakdown. Audit runs as a background job; frontend polls every 2s. Current score: 81/100. History persistence via Google Sheets is morning carry-forward.</div></td>
+        <td><span class="badge badge-done">Done</span></td>
       </tr>
       <tr>
         <td><div class="block-name">Block 7 — Quick Fixes</div></td>
@@ -196,6 +196,18 @@
     <div class="decision-item">
       <div class="decision-title">Marketing tab split is this phase, not deferred</div>
       <div class="decision-rationale">Elizabeth's explicit correction. Dashboard / Studio / Operations / Analytics subtab split is Block 5, this phase.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">SSE is not reliable for long-running operations on Railway — use polling</div>
+      <div class="decision-rationale">Railway's nginx proxy has its own connection timeout independent of SSE heartbeats. Any audit running >60s risks a silent stream drop. Pattern established: POST fires the job and returns immediately; frontend polls a status endpoint every 2s. Applied to GEO audit; should be the default pattern for any future long-running operation.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Python on Railway requires Dockerfile; Dockerfile breaks Railway's delta snapshot</div>
+      <div class="decision-rationale">Railway's Railpack v0.31.0 ignores nixpacks.toml entirely. Adding a Dockerfile works in theory but Railway's snapshot only sends changed files — if dashboard/ has no changed files, it's absent from the Docker build context and COPY . . gets nothing. Decision: port any Python scripts to Node.js rather than fight the build system. geo_audit.py → geo-audit.js is the precedent.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">GEO audit history goes in Google Sheets, not the container filesystem</div>
+      <div class="decision-rationale">Railway containers are ephemeral — filesystem resets on every redeploy. Elizabeth closes the OS daily. History must live in a durable store. Google Sheets chosen: native charting, Drive access already wired in the dispatcher, sets up the home dashboard GEO score widget naturally. Morning task.</div>
     </div>
     <div class="decision-item">
       <div class="decision-title">Worker bot concept identified — separate tier from C-suite, not in scope now</div>
@@ -256,6 +268,14 @@
   <div class="card">
     <div class="card-label">Activity Timeline</div>
     <div class="activity-item">
+      <div class="activity-date">July 15, 2026 — Blocks 5 &amp; 6 Complete (GEO stable)</div>
+      <div class="activity-text">GEO audit fully live at 81/100 under Marketing → Analytics. Final architecture: background job + polling replaces SSE — POST /geo/run returns a jobId immediately, frontend polls /geo/status/:jobId every 2s until done. Immune to Railway's nginx proxy timeout. Signal breakdown panel added (collapsible per-category signal detail). Trend sparkline shows 4-run history (65→74→81→81). History persistence (Google Sheets) deferred to morning. Block 5 Marketing subtab split confirmed complete. Commits: 5439238, 2816f22, 80d5d03, f71b23c, 084094c.</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">July 14–15, 2026 — GEO Railway Debugging (Block 6 journey)</div>
+      <div class="activity-text">Original plan used Python child_process on Railway. Railway had switched to Railpack v0.31.0 which ignores nixpacks.toml — Python never installed. Dockerfile approach attempted: Railway's delta snapshot excluded dashboard/ directory because no files had changed there across commits, so COPY . . in Docker never got the dashboard. Spent multiple deploys diagnosing. Resolution: ported geo_audit.py to Node.js (geo-audit.js, ~570 lines, axios + cheerio) — eliminated Python dependency entirely, Railpack resumed clean. SSE streaming worked initially but Railway's nginx proxy would silently kill long-lived connections — audit ran for 1–2 min and the stream dropped. Heartbeat added, page fetching parallelised (5 concurrent, limit reduced 30→20→30), shared fetches deduplicated. Still failing intermittently. Root cause confirmed: Railway's proxy timeout is independent of SSE heartbeats and audit speed. Switched to background job + polling pattern — problem class eliminated.</div>
+    </div>
+    <div class="activity-item">
       <div class="activity-date">July 14, 2026 — Blocks 2 &amp; 3 Complete</div>
       <div class="activity-text">Block 2: Fixed markdown-to-HTML conversion in skill:blog-polish publish pipeline — added inline link conversion <code>[text](url)</code> → <code>&lt;a href&gt;</code> (main failure cause), multi-line blockquote handling, ordered list support, h4 headings. Commit ddf35fc. Block 3: Revenue pipeline confirmed fully built and wired — <code>northlight-revenue</code> Gmail label exists, route registered, <code>ensureRevenueSetup()</code> auto-creates Revenue Log sheet and P&amp;L SUMIFS. Verified end-to-end with $1,500 test transaction.</div>
     </div>
@@ -294,14 +314,12 @@
 
 <div class="grid">
   <div class="card grid-full">
-    <div class="card-label">Open Items Going Into Phase 7 Build</div>
-    <div class="issue-item"><div class="issue-dot red"></div><div><div class="issue-text">form-data CRLF injection CVE — high severity, unpatched</div><div class="issue-note">One npm audit fix command in the dispatcher directory. googleapis chain CVEs (4 moderate) separately parked as low practical risk. Block 7.</div></div></div>
-    <div class="issue-item"><div class="issue-dot"></div><div><div class="issue-text">OS Navigation Rework — design discussion required before any code (Block 4)</div><div class="issue-note">Proposed nav: Home / Focus / Marketing / Finance / Compass / Capture / System. Content reorganisation decisions needed first.</div></div></div>
-    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Advisory Board: 7 personas wired and live (Block 1 done)</div><div class="issue-note">Ambient flag modes + post-commit hook still pending (Block 7 / ClickUp 86e2b4w98 + 86e2b4wc8). Close tasks 86e1bmanc + 86e1bmaf1 once verified working in a live session.</div></div></div>
-    <div class="issue-item"><div class="issue-dot blue"></div><div><div class="issue-text">Marketing tab split into 4 subtabs — not yet built</div><div class="issue-note">Dashboard / Studio / Operations / Analytics. Required before GEO module can be wired. Block 5.</div></div></div>
-    <div class="issue-item"><div class="issue-dot blue"></div><div><div class="issue-text">GEO Analytics Module — awaiting Marketing tab restructure</div><div class="issue-note">geo_audit.py --json flag + routes/marketing.js + views/marketing/geo.html. 3 runs of history ready (65→74→81). Block 6.</div></div></div>
-    <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">OS Navigation Rework — requires debate session before any code</div><div class="issue-note">Not just a menu change. Proposed nav: Home / Focus / Marketing / Finance / Compass / Capture / System. Block 4.</div></div></div>
-    <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Slack finance channel cleanup</div><div class="issue-note">Prerequisite for Founder Coach (Sam) ambient flag mode on finance channel. Block 7.</div></div></div>
+    <div class="card-label">Remaining Open Items (Phase 7 in progress)</div>
+    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">GEO audit live at 81/100 — history persistence carry-forward (morning)</div><div class="issue-note">Replace loadHistory() / saveHistory() in geo-audit.js with Google Sheets read/append. Container filesystem resets on every redeploy. Drive access already wired. Enables home dashboard GEO score widget.</div></div></div>
+    <div class="issue-item"><div class="issue-dot red"></div><div><div class="issue-text">form-data CRLF injection CVE — high severity, unpatched (Block 7)</div><div class="issue-note">One npm audit fix command in the dispatcher directory. googleapis chain CVEs (4 moderate) separately parked as low practical risk.</div></div></div>
+    <div class="issue-item"><div class="issue-dot"></div><div><div class="issue-text">OS Navigation Rework — design discussion required before any code (Block 4)</div><div class="issue-note">Proposed nav: Home / Focus / Marketing / Finance / Compass / Capture / System. Not just a menu rename — content reorganisation decisions needed first.</div></div></div>
+    <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Ambient flag modes + post-commit hook — Advisory Board carry-forward</div><div class="issue-note">Casey on #northlight-build-log + PMO-updates; Sam on finance channel. Requires finance channel cleanup (86e2b4wc8) and post-commit hook (86e2b4w98). Block 7.</div></div></div>
+    <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Slack finance channel cleanup (Block 7)</div><div class="issue-note">Prerequisite for Founder Coach (Sam) ambient flag mode on finance channel.</div></div></div>
   </div>
 </div>
 
