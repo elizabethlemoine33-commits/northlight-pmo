@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-15T03:35:10.565Z",
-  "triggered_by": "manual-slack",
+  "last_run": "2026-07-15T11:00:40.364Z",
+  "triggered_by": "schedule",
   "sources_swept": [
     "clickup",
     "slack"
