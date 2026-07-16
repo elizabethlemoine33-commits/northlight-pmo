@@ -1,0 +1,210 @@
+{
+  "refreshed_at": "2026-07-16T21:57:40.654Z",
+  "triggered_by": "manual-slack",
+  "open_total": 58,
+  "projects": [
+    {
+      "id": "northlight-os",
+      "name": "Northlight OS",
+      "slug": "os",
+      "status": "live",
+      "github": "https://github.com/elizabethlemoine33-commits/northlight-dispatcher",
+      "pmo_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/os/",
+      "open_count": 23,
+      "top_items": [
+        {
+          "name": "Focus → Projects: per-project dashboards (TableReady, Northlight OS)",
+          "priority": "normal"
+        },
+        {
+          "name": "Capture → New Idea: build intake form (drops to Compass → Ideas)",
+          "priority": "normal"
+        },
+        {
+          "name": "System → Maintenance: migrate DedupCard + OutOfOfficeCard out of Settings",
+          "priority": "normal"
+        },
+        {
+          "name": "googleapis CVE chain upgrade — 4 moderate CVEs (breaking change)",
+          "priority": "high"
+        }
+      ],
+      "decisions": [],
+      "blockers": []
+    },
+    {
+      "id": "northlight-meetings",
+      "name": "Northlight Meetings",
+      "slug": "meetings",
+      "status": "building",
+      "github": "https://github.com/elizabethlemoine33-commits/northlight-meetings-desktop",
+      "pmo_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/meetings/",
+      "open_count": 2,
+      "top_items": [
+        {
+          "name": "VB-Audio Cable: handle installation for new users at packaging/distribution",
+          "priority": "high"
+        },
+        {
+          "name": "Set up Gumroad storefront — Vault + Meetings distribution",
+          "priority": "normal"
+        }
+      ],
+      "decisions": [],
+      "blockers": []
+    },
+    {
+      "id": "northlight-vault",
+      "name": "Northlight Vault",
+      "slug": "vault",
+      "status": "live",
+      "github": "https://github.com/elizabethlemoine33-commits/northlight-vault",
+      "pmo_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/vault/",
+      "open_count": 9,
+      "top_items": [
+        {
+          "name": "Fix Vault LinkedIn messaging — posts underperforming (May: 230 impressions, June: 97)",
+          "priority": "normal"
+        },
+        {
+          "name": "Add Settings page with Connected Accounts management",
+          "priority": "low"
+        },
+        {
+          "name": "Add storage space indicator (remaining capacity)",
+          "priority": "normal"
+        },
+        {
+          "name": "Research Google Play test mode and beta testing setup",
+          "priority": "normal"
+        }
+      ],
+      "decisions": [],
+      "blockers": []
+    },
+    {
+      "id": "northlight-website",
+      "name": "Northlight Website",
+      "slug": "website",
+      "status": "live",
+      "github": "https://github.com/elizabethlemoine33-commits/bynorthlight-site",
+      "pmo_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/website/",
+      "open_count": 0,
+      "top_items": [],
+      "decisions": [],
+      "blockers": []
+    },
+    {
+      "id": "skills-market",
+      "name": "Northlight Skills Market",
+      "slug": "skills-market",
+      "status": "pre-build",
+      "github": "https://github.com/elizabethlemoine33-commits/northlight-skills-market",
+      "pmo_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/skills-market/",
+      "open_count": 2,
+      "top_items": [
+        {
+          "name": "De-personalize Task Creator skill for MCP marketplace listing",
+          "priority": "normal"
+        },
+        {
+          "name": "De-personalize ClickUp Operations Agent for MCP marketplace listing",
+          "priority": "normal"
+        }
+      ],
+      "decisions": [],
+      "blockers": []
+    },
+    {
+      "id": "tableready",
+      "name": "TableReady",
+      "slug": "tableready",
+      "status": "pre-build",
+      "github": null,
+      "pmo_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/tableready/",
+      "open_count": 16,
+      "top_items": [
+        {
+          "name": "🧭 NORTH STAR: TableReady Positioning & Strategy Document",
+          "priority": "high"
+        },
+        {
+          "name": "Searchable recipe database - personal and online recipes",
+          "priority": "high"
+        },
+        {
+          "name": "Recipe Notebook - personal family recipe storage",
+          "priority": "high"
+        },
+        {
+          "name": "Create standardized recipe template for uploads",
+          "priority": "high"
+        }
+      ],
+      "decisions": [],
+      "blockers": []
+    },
+    {
+      "id": "advisory-board",
+      "name": "Advisory Board Bot System",
+      "slug": "advisory-board",
+      "status": "building",
+      "github": null,
+      "pmo_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/advisory-board/",
+      "open_count": 2,
+      "top_items": [
+        {
+          "name": "Idea (parked): Slack one-off consult mode for advisory board personas",
+          "priority": "normal"
+        },
+        {
+          "name": "Worker bot interview mode — capture voice and purpose for task-doer bots",
+          "priority": "high"
+        }
+      ],
+      "decisions": [],
+      "blockers": []
+    },
+    {
+      "id": "social-media",
+      "name": "Social Media",
+      "slug": "social-media",
+      "status": "in-progress",
+      "github": null,
+      "pmo_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/social-media/",
+      "open_count": null,
+      "top_items": [],
+      "decisions": [],
+      "blockers": []
+    },
+    {
+      "id": "standing-pmo",
+      "name": "Standing PMO System",
+      "slug": "standing-pmo",
+      "status": "building",
+      "github": "https://github.com/elizabethlemoine33-commits/northlight-pmo",
+      "pmo_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/standing-pmo/",
+      "open_count": 4,
+      "top_items": [
+        {
+          "name": "Phase 5 — Log architecture: enforce consistent update-log + learnings structure across all projects",
+          "priority": "low"
+        },
+        {
+          "name": "Phase 4 — Build live /projects route in OS Focused Hub (reads ClickUp on load)",
+          "priority": "normal"
+        },
+        {
+          "name": "Phase 3 — Retire HTML master dashboard; make STANDING-PMO-TRIGGER write structured data instead",
+          "priority": "normal"
+        },
+        {
+          "name": "Test: commit a phase dashboard → verify STANDING-PMO-TRIGGER fires and refreshes portfolio",
+          "priority": "high"
+        }
+      ],
+      "decisions": [],
+      "blockers": []
+    }
+  ]
+}
