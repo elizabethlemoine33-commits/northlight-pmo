@@ -11,7 +11,8 @@
     "pmo_channel_id": "C0BELQQR6ET",
     "brand_skill": "northlight-brand-skill",
     "brand_theme": "dark",
-    "schedule": ["Sunday 19:00", "Wednesday 08:00"]
+    "schedule": ["Sunday 19:00", "Wednesday 08:00"],
+    "clickup_project_backlogs_folder_id": "90179891206"
   },
   "projects": [
     {
@@ -23,9 +24,9 @@
       "local": "C:/Users/erand/Desktop/northlight-dispatcher",
       "drive_brief": null,
       "pmo_folder": "os/",
-      "clickup_list_id": "901714945531",
+      "clickup_list_id": "901715263627",
       "registered": "2026-05-24",
-      "last_refreshed": "2026-07-03"
+      "last_refreshed": "2026-07-16"
     },
     {
       "id": "northlight-meetings",
@@ -49,9 +50,9 @@
       "local": null,
       "drive_brief": null,
       "pmo_folder": "vault/",
-      "clickup_list_id": ["901713647819", "901713782135", "901713831117", "901713905175"],
+      "clickup_list_id": "901715263639",
       "registered": "2026-05-24",
-      "last_refreshed": "2026-07-03"
+      "last_refreshed": "2026-07-16"
     },
     {
       "id": "northlight-website",
@@ -62,9 +63,9 @@
       "local": "C:/Users/erand/Desktop/bynorthlight-site",
       "drive_brief": null,
       "pmo_folder": "website/",
-      "clickup_list_id": "901713710677",
+      "clickup_list_id": "901715263634",
       "registered": "2026-05-24",
-      "last_refreshed": "2026-07-03"
+      "last_refreshed": "2026-07-16"
     },
     {
       "id": "skills-market",
@@ -75,9 +76,9 @@
       "local": null,
       "drive_brief": null,
       "pmo_folder": "skills-market/",
-      "clickup_list_id": "901714945533",
+      "clickup_list_id": "901715263636",
       "registered": "2026-07-03",
-      "last_refreshed": "2026-07-03"
+      "last_refreshed": "2026-07-16"
     },
     {
       "id": "tableready",
@@ -88,9 +89,9 @@
       "local": null,
       "drive_brief": null,
       "pmo_folder": "tableready/",
-      "clickup_list_id": "901713706238",
+      "clickup_list_id": "901715263638",
       "registered": "2026-07-03",
-      "last_refreshed": "2026-07-03"
+      "last_refreshed": "2026-07-16"
     },
     {
       "id": "advisory-board",
@@ -101,9 +102,9 @@
       "local": null,
       "drive_brief": null,
       "pmo_folder": "advisory-board/",
-      "clickup_list_id": "901713706243",
+      "clickup_list_id": "901715263629",
       "registered": "2026-07-03",
-      "last_refreshed": "2026-07-03"
+      "last_refreshed": "2026-07-16"
     },
     {
       "id": "social-media",
@@ -127,9 +128,9 @@
       "local": "C:/Users/erand/Desktop/northlight-pmo",
       "drive_brief": null,
       "pmo_folder": "standing-pmo/",
-      "clickup_list_id": "901715261795",
+      "clickup_list_id": "901715263633",
       "registered": "2026-07-03",
-      "last_refreshed": "2026-07-03"
+      "last_refreshed": "2026-07-16"
     }
   ]
 }
