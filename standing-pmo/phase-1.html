@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Standing PMO System — Phase 1 Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --midnight: #0E0E14;
+    --surface:  #12121E;
+    --border:   #1E2035;
+    --border2:  #2A2A48;
+    --text:     #FFFFFF;
+    --cloud:    #C8CCE0;
+    --haze:     #B0B8D8;
+    --muted:    #8A92A8;
+    --glacial:  #4FC3C8;
+    --boreal:   #5B8DD9;
+    --dusk:     #8B6FD4;
+    --aurora:   #C46FAA;
+    --green:    #3BAA6E;
+    --yellow:   #D4A017;
+    --red:      #C44F4F;
+  }
+  body { background: var(--midnight); color: var(--cloud); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; padding: 32px; }
+  .top-bar { height: 3px; background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%); margin: -32px -32px 32px; }
+
+  .header { margin-bottom: 28px; }
+  .phase-label { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dusk); margin-bottom: 6px; }
+  .title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+  .subtitle { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+  .progress-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
+  .progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .progress-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .progress-pct { font-size: 24px; font-weight: 700; color: var(--text); }
+  .progress-bar-bg { background: var(--border); border-radius: 4px; height: 6px; }
+  .progress-bar-fill { background: linear-gradient(90deg, #4FC3C8, #8B6FD4); border-radius: 4px; height: 6px; }
+  .progress-counts { display: flex; gap: 20px; margin-top: 10px; }
+  .progress-count { font-size: 11px; color: var(--muted); }
+  .progress-count strong { color: var(--cloud); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .grid-full { grid-column: 1 / -1; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .card-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+
+  .block-table { width: 100%; border-collapse: collapse; }
+  .block-table th { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 0 0 8px; text-align: left; border-bottom: 1px solid var(--border); }
+  .block-table td { padding: 8px 0; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .block-table tr:last-child td { border-bottom: none; }
+  .block-name { color: var(--cloud); font-size: 12px; }
+  .block-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .badge-done       { background: rgba(59,170,110,0.15); color: var(--green); border: 1px solid rgba(59,170,110,0.3); }
+  .badge-inprogress { background: rgba(91,141,217,0.15); color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
+  .badge-notstarted { background: rgba(138,146,168,0.10); color: var(--muted); border: 1px solid var(--border); }
+  .badge-queued     { background: rgba(212,160,23,0.12); color: var(--yellow); border: 1px solid rgba(212,160,23,0.25); }
+  .badge-deferred   { background: rgba(138,146,168,0.10); color: var(--muted); border: 1px solid var(--border); }
+
+  .decision-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .decision-item:last-child { border-bottom: none; }
+  .decision-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .decision-rationale { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .issue-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .issue-item:last-child { border-bottom: none; }
+  .issue-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
+  .dot-yellow { background: var(--yellow); }
+  .dot-blue   { background: var(--boreal); }
+  .dot-muted  { background: var(--muted); }
+  .issue-text { color: var(--cloud); font-size: 12px; }
+  .issue-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .activity-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-date { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+  .activity-text { color: var(--cloud); font-size: 12px; }
+
+  .callout { background: rgba(91,141,217,0.07); border: 1px solid rgba(91,141,217,0.2); border-radius: 8px; padding: 12px 14px; margin-bottom: 24px; }
+  .callout-label { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--boreal); margin-bottom: 6px; }
+  .callout-text { color: var(--haze); font-size: 12px; line-height: 1.6; }
+
+  .footer { color: var(--muted); font-size: 11px; border-top: 1px solid var(--border); padding-top: 16px; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<div class="header">
+  <div class="phase-label">Standing PMO System · Phase 1</div>
+  <div class="title">Data Loop Fix</div>
+  <div class="subtitle">ClickUp write-back · trigger bug fix · standing instructions · July 16, 2026 · Status: Complete</div>
+</div>
+
+<div class="progress-section">
+  <div class="progress-header">
+    <div class="progress-label">Phase 1 Progress</div>
+    <div class="progress-pct">100%</div>
+  </div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" style="width: 100%;"></div>
+  </div>
+  <div class="progress-counts">
+    <div class="progress-count"><strong>3</strong> tasks shipped</div>
+    <div class="progress-count"><strong>2</strong> tests pending → Phase 2</div>
+    <div class="progress-count"><strong>4</strong> phases remaining in plan</div>
+  </div>
+</div>
+
+<div class="callout">
+  <div class="callout-label">Context</div>
+  <div class="callout-text">The Standing PMO system was built July 3, 2026 — repo, GitHub Pages, dispatcher skill, scheduler, and Slack listener all wired. But three problems compounded: Claude never wrote back to ClickUp after completing tasks; the PMO master dashboard stopped updating after July 3; and there was no live project view in the OS. Phase 1 tackles the data loop — making sure completed work actually lands in ClickUp and the portfolio auto-refresh actually fires.</div>
+</div>
+
+<div class="grid">
+  <div class="card grid-full">
+    <div class="card-label">What Shipped — Phase 1</div>
+    <table class="block-table">
+      <thead>
+        <tr>
+          <th style="width: 40%">Task</th>
+          <th style="width: 40%">What it does</th>
+          <th style="width: 20%">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="block-name">1a — CLAUDE.md in northlight-pmo</div>
+            <div class="block-note">Standing instruction for any session working in PMO context</div>
+          </td>
+          <td>
+            <div class="block-name">Mark tasks complete in ClickUp after each session. Push session plan tasks to ClickUp at plan approval. Append to update-log per task.</div>
+          </td>
+          <td><span class="badge badge-done">Complete</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="block-name">1b — ClickUp write-back in phase-dashboard skill</div>
+            <div class="block-note">New Step 2b in ~/.claude/commands/phase-dashboard.md</div>
+          </td>
+          <td>
+            <div class="block-name">Marks confirmed-complete tasks done in ClickUp before sweeping. Pushes missing open next-phase items to ClickUp after sweeping.</div>
+          </td>
+          <td><span class="badge badge-done">Complete</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="block-name">1c — Fix STANDING-PMO-TRIGGER bot filter bug</div>
+            <div class="block-note">dashboard/routes/slack-events.js · deployed to Railway</div>
+          </td>
+          <td>
+            <div class="block-name">Trigger check was inside the Elizabeth-only message guard. Bot-posted messages (from the phase-dashboard skill) were filtered before the check ran — silently broken since July 3. Moved check before the guard.</div>
+          </td>
+          <td><span class="badge badge-done">Deployed</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="block-name">registry.json — standing-pmo clickup_list_id added</div>
+            <div class="block-note">northlight-pmo/data/registry.json</div>
+          </td>
+          <td>
+            <div class="block-name">ClickUp list 901715261795 mapped to standing-pmo project. All 9 plan tasks (3 complete + 6 open) pushed to ClickUp.</div>
+          </td>
+          <td><span class="badge badge-done">Complete</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-label">Decisions Log</div>
+    <div class="decision-item">
+      <div class="decision-title">1. STANDING-PMO-TRIGGER check moves before the message guard</div>
+      <div class="decision-rationale">The trigger is posted by the bot (phase-dashboard skill), not Elizabeth — it can never pass an Elizabeth-only filter. Moving it before the guard is the minimal correct fix. · 2026-07-16</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">2. ClickUp write-back belongs in the skill, not a manual step</div>
+      <div class="decision-rationale">By the time a phase dashboard is generated, ClickUp is already stale. Embedding write-back in the phase-dashboard skill (Step 2b) ensures it runs automatically. · 2026-07-16</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">3. CLAUDE.md in northlight-pmo repo for standing PMO behaviour</div>
+      <div class="decision-rationale">Applies automatically to any session working in PMO context — no need to be in the session prompt. Cleaner than memory for repo-scoped standing instructions. · 2026-07-16</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">4. PMO Architecture tracked under Standing PMO System project</div>
+      <div class="decision-rationale">No separate project registration needed — this is the work of evolving the standing PMO, not a new project. · 2026-07-16</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Activity Timeline</div>
+    <div class="activity-item">
+      <div class="activity-date">Jul 16, 2026 — Session 2</div>
+      <div class="activity-text">Phase 1 executed: CLAUDE.md written, phase-dashboard skill updated, trigger bug diagnosed and fixed, deployed to Railway. ClickUp list created and all plan tasks pushed. Phase 1 dashboard committed.</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">Jul 15–16, 2026 — Brainstorm</div>
+      <div class="activity-text">5-phase PMO architecture plan written. Problems identified: no ClickUp write-back, stale master dashboard, no live OS view. Phases sequenced by dependency.</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">Jul 3, 2026 — Foundation</div>
+      <div class="activity-text">northlight-pmo repo built. GitHub Pages enabled. registry.json bootstrapped with 8 projects. phase-dashboard, new-project skills written. Dispatcher standing-pmo skill built. Scheduler wired (Sun 19:00 + Wed 08:00 Halifax). STANDING-PMO-TRIGGER listener wired (but silently broken at this point).</div>
+    </div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card grid-full">
+    <div class="card-label">Open Items → Phase 2 &amp; Beyond</div>
+    <div class="issue-item">
+      <div class="issue-dot dot-yellow"></div>
+      <div>
+        <div class="issue-text">Test: post skill:standing-pmo in Slack → verify portfolio updated + Slack summary posted</div>
+        <div class="issue-note">High priority — validates the trigger fix end-to-end</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot dot-yellow"></div>
+      <div>
+        <div class="issue-text">Test: commit a phase dashboard → verify STANDING-PMO-TRIGGER fires automatically (bot-posted path)</div>
+        <div class="issue-note">High priority — this is the path that was broken since July 3</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot dot-blue"></div>
+      <div>
+        <div class="issue-text">Phase 2 — Consolidate ClickUp: one folder, one list per project</div>
+        <div class="issue-note">Prerequisite for Phase 3 and 4</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot dot-blue"></div>
+      <div>
+        <div class="issue-text">Phase 3 — Retire HTML master dashboard; STANDING-PMO-TRIGGER writes structured data instead</div>
+        <div class="issue-note">Depends on Phase 2</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot dot-muted"></div>
+      <div>
+        <div class="issue-text">Phase 4 — Live /projects route in OS Focused Hub (reads ClickUp on load)</div>
+        <div class="issue-note">Depends on Phase 2 + 3</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot dot-muted"></div>
+      <div>
+        <div class="issue-text">Phase 5 — Log architecture: enforce consistent update-log + learnings structure across all projects</div>
+        <div class="issue-note">Low dependency — can run alongside Phase 2</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>Standing PMO System · Phase 1 — Data Loop Fix · Complete</span>
+  <span>2026-07-16 · northlight-pmo/standing-pmo/phase-1.html</span>
+</div>
+
+</body>
+</html>
