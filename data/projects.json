@@ -1,5 +1,5 @@
 {
-  "refreshed_at": "2026-07-16T22:06:21.947Z",
+  "refreshed_at": "2026-07-16T22:07:02.107Z",
   "triggered_by": "manual-slack",
   "open_total": 58,
   "projects": [
@@ -9,7 +9,7 @@
       "slug": "os",
       "status": "live",
       "github": "https://github.com/elizabethlemoine33-commits/northlight-dispatcher",
-      "pmo_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/os/",
+      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/os/phase-7.html",
       "open_count": 23,
       "top_items": [
         {
@@ -38,7 +38,7 @@
       "slug": "meetings",
       "status": "building",
       "github": "https://github.com/elizabethlemoine33-commits/northlight-meetings-desktop",
-      "pmo_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/meetings/",
+      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/meetings/phase-6.html",
       "open_count": 2,
       "top_items": [
         {
@@ -59,7 +59,7 @@
       "slug": "vault",
       "status": "live",
       "github": "https://github.com/elizabethlemoine33-commits/northlight-vault",
-      "pmo_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/vault/",
+      "dashboard_url": null,
       "open_count": 9,
       "top_items": [
         {
@@ -88,7 +88,7 @@
       "slug": "website",
       "status": "live",
       "github": "https://github.com/elizabethlemoine33-commits/bynorthlight-site",
-      "pmo_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/website/",
+      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/website/phase-4.html",
       "open_count": 0,
       "top_items": [],
       "decisions": [],
@@ -100,7 +100,7 @@
       "slug": "skills-market",
       "status": "pre-build",
       "github": "https://github.com/elizabethlemoine33-commits/northlight-skills-market",
-      "pmo_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/skills-market/",
+      "dashboard_url": null,
       "open_count": 2,
       "top_items": [
         {
@@ -121,7 +121,7 @@
       "slug": "tableready",
       "status": "pre-build",
       "github": null,
-      "pmo_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/tableready/",
+      "dashboard_url": null,
       "open_count": 16,
       "top_items": [
         {
@@ -150,7 +150,7 @@
       "slug": "advisory-board",
       "status": "building",
       "github": null,
-      "pmo_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/advisory-board/",
+      "dashboard_url": null,
       "open_count": 2,
       "top_items": [
         {
@@ -171,7 +171,7 @@
       "slug": "social-media",
       "status": "in-progress",
       "github": null,
-      "pmo_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/social-media/",
+      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/social-media/phase-1.html",
       "open_count": null,
       "top_items": [],
       "decisions": [],
@@ -183,7 +183,7 @@
       "slug": "standing-pmo",
       "status": "building",
       "github": "https://github.com/elizabethlemoine33-commits/northlight-pmo",
-      "pmo_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/standing-pmo/",
+      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/standing-pmo/phase-1.html",
       "open_count": 4,
       "top_items": [
         {
