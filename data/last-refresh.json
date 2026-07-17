@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-17T00:29:56.153Z",
-  "triggered_by": "manual-slack",
+  "last_run": "2026-07-17T00:41:00.466Z",
+  "triggered_by": "phase-dashboard-commit",
   "sources_swept": [
     "clickup",
     "slack"
