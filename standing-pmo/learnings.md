@@ -2,6 +2,10 @@
 
 ---
 
+## Phase 5 — Health Status & Log Architecture (2026-07-16) — Closeout
+
+- ClickUp tasks can silently end up in two lists at once — this caused in-progress tasks to appear missing from the Standing PMO list filter even though they existed. Always verify list membership directly in ClickUp if task counts look wrong after a sweep. Resolution: tasks removed from the duplicate list manually.
+
 ## Phase 5 — Health Status & Log Architecture (2026-07-16)
 
 - Completion-based health rubrics always show red at phase start — momentum is the right signal instead. "Is something in flight? Is it blocked? Has nothing moved in 10 days?" covers the real failure modes without needing planned durations or scope baselines.
