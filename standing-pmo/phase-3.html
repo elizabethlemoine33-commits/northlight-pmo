@@ -101,21 +101,21 @@
 <div class="header">
   <div class="phase-label">Standing PMO System · Phase 5</div>
   <div class="title">Health Status &amp; Log Architecture</div>
-  <div class="subtitle">Cleanup · Observability · July 16, 2026 · Status: In Progress</div>
+  <div class="subtitle">Cleanup · Observability · July 16, 2026 · Status: Complete</div>
 </div>
 
 <div class="progress-section">
   <div class="progress-header">
     <div class="progress-label">Phase 5 Progress</div>
-    <div class="progress-pct">75%</div>
+    <div class="progress-pct">100%</div>
   </div>
   <div class="progress-bar-bg">
-    <div class="progress-bar-fill" style="width: 75%;"></div>
+    <div class="progress-bar-fill" style="width: 100%;"></div>
   </div>
   <div class="progress-counts">
-    <div class="progress-count"><strong>6</strong> items shipped</div>
-    <div class="progress-count"><strong>1</strong> item remaining (health status rubric)</div>
-    <div class="progress-count"><strong>5</strong> ClickUp tasks closed</div>
+    <div class="progress-count"><strong>7</strong> items shipped</div>
+    <div class="progress-count"><strong>6</strong> ClickUp tasks closed</div>
+    <div class="progress-count"><strong>0</strong> items remaining</div>
   </div>
 </div>
 
@@ -201,11 +201,11 @@
         </tr>
         <tr>
           <td>
-            <div class="block-name">Health status rubric</div>
-            <div class="block-note">ClickUp task 86e2cjp77 — definition + Projects panel indicator</div>
+            <div class="block-name">Health status rubric + indicator</div>
+            <div class="block-note">ProjectsPanel.jsx — HealthDot + PhaseDrawer signal · momentum-based</div>
           </td>
-          <td><div class="block-name">Define what "healthy" means per project state. Implement indicator on project cards. Deferred to end of phase — rubric must be defined before building.</div></td>
-          <td><span class="badge badge-inprogress">Open</span></td>
+          <td><div class="block-name">Green/yellow/red/grey dot on every card. Grey = pre-build or no active phase (parked, not sick). Red = phase open &gt;10 days, 0 in-progress, 0 done. Yellow = blocker detected OR &gt;10 days with 0 done. Green = something in progress, no blockers. Drawer shows the reason behind yellow/red.</div></td>
+          <td><span class="badge badge-done">Deployed</span></td>
         </tr>
       </tbody>
     </table>
@@ -252,26 +252,19 @@
 
 <div class="grid">
   <div class="card grid-full">
-    <div class="card-label">Open → Remaining in Phase 5</div>
+    <div class="card-label">Open → Phase 6</div>
     <div class="issue-item">
-      <div class="issue-dot dot-yellow"></div>
+      <div class="issue-dot dot-muted"></div>
       <div>
-        <div class="issue-text">Health status rubric: define what "healthy" means per project state</div>
-        <div class="issue-note">Pre-build dormant ≠ unhealthy · building with 0 in-progress = possibly stalled · live with blockers = unhealthy · ClickUp task 86e2cjp77</div>
-      </div>
-    </div>
-    <div class="issue-item">
-      <div class="issue-dot dot-blue"></div>
-      <div>
-        <div class="issue-text">Health status indicator on Projects panel cards (after rubric defined)</div>
-        <div class="issue-note">Coloured dot or badge on each card. Drawer shows the signal that drove it.</div>
+        <div class="issue-text">No open items — all Phase 5 tasks closed.</div>
+        <div class="issue-note">Phase 6 scope to be defined when next work begins on the Standing PMO System.</div>
       </div>
     </div>
   </div>
 </div>
 
 <div class="footer">
-  <span>Standing PMO System · Phase 5 — Health Status &amp; Log Architecture · In Progress</span>
+  <span>Standing PMO System · Phase 5 — Health Status &amp; Log Architecture · Complete</span>
   <span>2026-07-16 · northlight-pmo/standing-pmo/phase-3.html</span>
 </div>
 

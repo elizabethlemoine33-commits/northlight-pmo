@@ -2,6 +2,12 @@
 
 ---
 
+## Phase 5 — Health Status & Log Architecture (2026-07-16)
+
+- Completion-based health rubrics always show red at phase start — momentum is the right signal instead. "Is something in flight? Is it blocked? Has nothing moved in 10 days?" covers the real failure modes without needing planned durations or scope baselines.
+- Pre-build and idea projects should be explicitly grey (parked, not sick) — a health rubric that treats "not started" as unhealthy generates noise and erodes trust in the signal.
+- Showing the *reason* for a yellow or red signal in the drawer is as important as the dot on the card — without it, the indicator is a prompt to open the drawer and find out why, which is still useful, but explaining it directly is faster.
+
 ## Phase 3+4 — Live Dashboard (2026-07-16)
 
 - Status-based task filtering is the right default for phase-aware ClickUp sweeps — no naming convention or tag discipline required. Backlog = excluded; ready/in-progress = active this phase; complete after phase_started = done this phase. Simple, low-friction, and survives projects that don't follow any tagging convention.
