@@ -133,12 +133,12 @@
       "drive_brief": null,
       "pmo_folder": "advisory-board/",
       "clickup_list_id": "901715263629",
-      "current_phase": null,
-      "current_phase_title": null,
-      "phase_started": null,
+      "current_phase": "1",
+      "current_phase_title": "Board Expansion — All Roles + Interview Mode",
+      "phase_started": "2026-07-17",
       "phases": [],
       "registered": "2026-07-03",
-      "last_refreshed": "2026-07-16"
+      "last_refreshed": "2026-07-17"
     },
     {
       "id": "social-media",
