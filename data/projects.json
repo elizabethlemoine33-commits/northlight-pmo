@@ -1,6 +1,6 @@
 {
-  "refreshed_at": "2026-07-17T00:29:52.652Z",
-  "triggered_by": "manual-slack",
+  "refreshed_at": "2026-07-17T00:40:58.252Z",
+  "triggered_by": "phase-dashboard-commit",
   "open_total": 1,
   "projects": [
     {
@@ -200,19 +200,27 @@
       "slug": "standing-pmo",
       "status": "building",
       "github": "https://github.com/elizabethlemoine33-commits/northlight-pmo",
-      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/standing-pmo/phase-1.html",
+      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/standing-pmo/phase-2.html",
       "current_phase": "3+4",
       "current_phase_title": "Live Dashboard",
       "phase_started": "2026-07-16",
       "open_count": 0,
-      "backlog_count": 5,
+      "backlog_count": 3,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 1,
+      "done_count": 3,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
       "done_items": [
+        {
+          "name": "Phase 4 — Build live /projects route in OS Focused Hub (reads ClickUp on load)",
+          "priority": "normal"
+        },
+        {
+          "name": "Phase 3 — Retire HTML master dashboard; make STANDING-PMO-TRIGGER write structured data instead",
+          "priority": "normal"
+        },
         {
           "name": "Phase 2 — Consolidate ClickUp into one folder per project (one list per project)",
           "priority": "normal"
