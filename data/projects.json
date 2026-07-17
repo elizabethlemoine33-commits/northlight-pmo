@@ -1,5 +1,5 @@
 {
-  "refreshed_at": "2026-07-17T00:55:21.062Z",
+  "refreshed_at": "2026-07-17T00:58:36.312Z",
   "triggered_by": "phase-dashboard-commit",
   "open_total": 1,
   "projects": [
@@ -200,30 +200,38 @@
       "slug": "standing-pmo",
       "status": "building",
       "github": "https://github.com/elizabethlemoine33-commits/northlight-pmo",
-      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/standing-pmo/phase-2.html",
+      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/standing-pmo/phase-3.html",
       "current_phase": "5",
       "current_phase_title": "Health Status & Log Architecture",
       "phase_started": "2026-07-16",
       "open_count": 0,
-      "backlog_count": 4,
+      "backlog_count": 2,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 3,
+      "done_count": 8,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
       "done_items": [
         {
-          "name": "Phase 4 — Build live /projects route in OS Focused Hub (reads ClickUp on load)",
+          "name": "Phase 5 — Social Media card note (null ClickUp list) + filter/sort controls on Projects panel",
           "priority": "normal"
         },
         {
-          "name": "Phase 3 — Retire HTML master dashboard; make STANDING-PMO-TRIGGER write structured data instead",
+          "name": "Phase 5 — Add phases[] history array to registry.json; update /phase-dashboard skill to maintain it",
           "priority": "normal"
         },
         {
-          "name": "Phase 2 — Consolidate ClickUp into one folder per project (one list per project)",
+          "name": "Phase 5 — Retire index.html with branded \"dashboard moved\" page",
           "priority": "normal"
+        },
+        {
+          "name": "Phase 5 — Update Slack PMO refresh message: replace retired index.html link with OS URL",
+          "priority": "normal"
+        },
+        {
+          "name": "Phase 5 — Log architecture: enforce consistent update-log + learnings structure across all projects",
+          "priority": "low"
         }
       ],
       "decisions": [],
