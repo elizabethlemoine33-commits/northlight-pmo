@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Standing PMO System — Phase 5 Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --midnight: #0E0E14;
+    --surface:  #12121E;
+    --border:   #1E2035;
+    --border2:  #2A2A48;
+    --text:     #FFFFFF;
+    --cloud:    #C8CCE0;
+    --haze:     #B0B8D8;
+    --muted:    #8A92A8;
+    --glacial:  #4FC3C8;
+    --boreal:   #5B8DD9;
+    --dusk:     #8B6FD4;
+    --aurora:   #C46FAA;
+    --green:    #3BAA6E;
+    --yellow:   #D4A017;
+    --red:      #C44F4F;
+  }
+  body { background: var(--midnight); color: var(--cloud); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; padding: 32px; }
+  .top-bar { height: 3px; background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%); margin: -32px -32px 32px; }
+
+  .header { margin-bottom: 28px; }
+  .phase-label { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dusk); margin-bottom: 6px; }
+  .title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+  .subtitle { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+  .progress-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
+  .progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .progress-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .progress-pct { font-size: 24px; font-weight: 700; color: var(--text); }
+  .progress-bar-bg { background: var(--border); border-radius: 4px; height: 6px; }
+  .progress-bar-fill { background: linear-gradient(90deg, #4FC3C8, #8B6FD4); border-radius: 4px; height: 6px; }
+  .progress-counts { display: flex; gap: 20px; margin-top: 10px; }
+  .progress-count { font-size: 11px; color: var(--muted); }
+  .progress-count strong { color: var(--cloud); }
+
+  .phase-strip { display: flex; gap: 8px; margin-bottom: 24px; }
+  .phase-chip { flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; }
+  .phase-chip.done { border-color: rgba(59,170,110,0.3); background: rgba(59,170,110,0.06); }
+  .phase-chip.active { border-color: rgba(91,141,217,0.4); background: rgba(91,141,217,0.07); }
+  .phase-chip-label { font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .phase-chip.done .phase-chip-label { color: var(--green); }
+  .phase-chip.active .phase-chip-label { color: var(--boreal); }
+  .phase-chip-name { font-size: 12px; color: var(--cloud); font-weight: 500; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .grid-full { grid-column: 1 / -1; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .card-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .card-sublabel { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dusk); margin: 14px 0 8px; padding-top: 12px; border-top: 1px solid var(--border); }
+
+  .block-table { width: 100%; border-collapse: collapse; }
+  .block-table th { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 0 0 8px; text-align: left; border-bottom: 1px solid var(--border); }
+  .block-table td { padding: 8px 0; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .block-table tr:last-child td { border-bottom: none; }
+  .block-name { color: var(--cloud); font-size: 12px; }
+  .block-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .badge-done       { background: rgba(59,170,110,0.15); color: var(--green); border: 1px solid rgba(59,170,110,0.3); }
+  .badge-inprogress { background: rgba(91,141,217,0.15); color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
+  .badge-queued     { background: rgba(212,160,23,0.12); color: var(--yellow); border: 1px solid rgba(212,160,23,0.25); }
+
+  .decision-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .decision-item:last-child { border-bottom: none; }
+  .decision-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .decision-rationale { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .issue-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .issue-item:last-child { border-bottom: none; }
+  .issue-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
+  .dot-yellow { background: var(--yellow); }
+  .dot-blue   { background: var(--boreal); }
+  .dot-muted  { background: var(--muted); }
+  .issue-text { color: var(--cloud); font-size: 12px; }
+  .issue-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .activity-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-date { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+  .activity-text { color: var(--cloud); font-size: 12px; }
+
+  .callout { background: rgba(91,141,217,0.07); border: 1px solid rgba(91,141,217,0.2); border-radius: 8px; padding: 12px 14px; margin-bottom: 24px; }
+  .callout-label { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--boreal); margin-bottom: 6px; }
+  .callout-text { color: var(--haze); font-size: 12px; line-height: 1.6; }
+
+  .footer { color: var(--muted); font-size: 11px; border-top: 1px solid var(--border); padding-top: 16px; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<div class="header">
+  <div class="phase-label">Standing PMO System · Phase 5</div>
+  <div class="title">Health Status &amp; Log Architecture</div>
+  <div class="subtitle">Cleanup · Observability · July 16, 2026 · Status: In Progress</div>
+</div>
+
+<div class="progress-section">
+  <div class="progress-header">
+    <div class="progress-label">Phase 5 Progress</div>
+    <div class="progress-pct">75%</div>
+  </div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" style="width: 75%;"></div>
+  </div>
+  <div class="progress-counts">
+    <div class="progress-count"><strong>6</strong> items shipped</div>
+    <div class="progress-count"><strong>1</strong> item remaining (health status rubric)</div>
+    <div class="progress-count"><strong>5</strong> ClickUp tasks closed</div>
+  </div>
+</div>
+
+<div class="phase-strip">
+  <div class="phase-chip done">
+    <div class="phase-chip-label">Phase 1+2 — Complete</div>
+    <div class="phase-chip-name">Foundation &amp; Data Cleanup</div>
+  </div>
+  <div class="phase-chip done">
+    <div class="phase-chip-label">Phase 3+4 — Complete</div>
+    <div class="phase-chip-name">Live Dashboard</div>
+  </div>
+  <div class="phase-chip active">
+    <div class="phase-chip-label">Phase 5 — In Progress</div>
+    <div class="phase-chip-name">Health Status &amp; Log Architecture</div>
+  </div>
+</div>
+
+<div class="callout">
+  <div class="callout-label">Context</div>
+  <div class="callout-text">After retiring the static master dashboard and shipping the live OS Projects panel, several loose ends were identified: the Slack refresh message still linked to the old retired index.html; there was no phase history tracking in registry.json; the index.html was still live and misleading; the Social Media card showed blank data with no explanation; and the panel had no way to filter or sort projects. Phase 5 also defines what "healthy" means per project so a health status indicator can be added to the panel.</div>
+</div>
+
+<div class="grid">
+  <div class="card grid-full">
+    <div class="card-label">What Shipped</div>
+    <table class="block-table">
+      <thead>
+        <tr>
+          <th style="width: 38%">Item</th>
+          <th style="width: 42%">What it does</th>
+          <th style="width: 20%">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="block-name">Slack refresh message → links to Northlight OS</div>
+            <div class="block-note">standing-pmo.js — buildSlackSummary() · uses DASHBOARD_URL env var</div>
+          </td>
+          <td><div class="block-name">Every refresh and STANDING-PMO-TRIGGER message now links to https://dashboard-production-9db3.up.railway.app/ instead of the retired GitHub Pages root.</div></td>
+          <td><span class="badge badge-done">Deployed</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="block-name">index.html retired</div>
+            <div class="block-note">northlight-pmo/index.html · replaces the old static portfolio board</div>
+          </td>
+          <td><div class="block-name">Clean dark "this dashboard has been retired — view in Northlight OS" page. No dead link to the OS (it's internal). Points to the GitHub repo for individual phase HTML files.</div></td>
+          <td><span class="badge badge-done">Live</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="block-name">phases[] history array in registry.json</div>
+            <div class="block-note">data/registry.json — all 9 projects; /phase-dashboard skill updated</div>
+          </td>
+          <td><div class="block-name">Each project now has a phases[] array of closed phases with title, started, and closed dates. The /phase-dashboard skill's Step 7b now moves the old current phase into phases[] when a new phase opens — accumulates automatically from here.</div></td>
+          <td><span class="badge badge-done">Live</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="block-name">Social Media card note</div>
+            <div class="block-note">ProjectsPanel.jsx — ProjectCard component</div>
+          </td>
+          <td><div class="block-name">Projects with no clickup_list_id now show "Tasks tracked in Marketing pipeline" instead of blank or misleading "0 in backlog" data. Social Media is the only current project with a null list.</div></td>
+          <td><span class="badge badge-done">Deployed</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="block-name">Filter + sort controls on Projects panel</div>
+            <div class="block-note">ProjectsPanel.jsx — header control bar</div>
+          </td>
+          <td><div class="block-name">Filter chips: All / Live / Building / Pre-build. Sort buttons: Status (live first), Recent (by phase start date), A–Z. No data model change needed — pure client-side sort on the fetched projects.json.</div></td>
+          <td><span class="badge badge-done">Deployed</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="block-name">Learnings template updated</div>
+            <div class="block-note">_templates/learnings.md</div>
+          </td>
+          <td><div class="block-name">Template now matches the simpler bullet format actually in use across all projects (## Phase N — Title / bullet list). The previous over-structured template (What shipped / Decisions table / Learnings sections) didn't match reality.</div></td>
+          <td><span class="badge badge-done">Committed</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="block-name">Health status rubric</div>
+            <div class="block-note">ClickUp task 86e2cjp77 — definition + Projects panel indicator</div>
+          </td>
+          <td><div class="block-name">Define what "healthy" means per project state. Implement indicator on project cards. Deferred to end of phase — rubric must be defined before building.</div></td>
+          <td><span class="badge badge-inprogress">Open</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-label">Decisions Log</div>
+    <div class="decision-item">
+      <div class="decision-title">1. Slack OS link uses DASHBOARD_URL env var (not hardcoded)</div>
+      <div class="decision-rationale">Railway URL could change on redeploy if the service is recreated. Using the existing DASHBOARD_URL env var means no code change needed if the URL ever changes. · 2026-07-16</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">2. Retired index.html has no link to the OS</div>
+      <div class="decision-rationale">The OS is internal — linking to it from a public GitHub Pages URL would expose the Railway URL unnecessarily. The retired page just says the view moved internally. · 2026-07-16</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">3. phases[] is newest-first and tracks closed phases only</div>
+      <div class="decision-rationale">Current phase is already in current_phase fields. phases[] accumulates history — closed entries only, newest at front. This enables "how long in each phase" analysis without parsing markdown. · 2026-07-16</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">4. Filter/sort is client-side on projects.json — no server change</div>
+      <div class="decision-rationale">All project data is already in projects.json. Adding a sort order field to registry.json would require a dispatcher change and STANDING-PMO-TRIGGER run to update. Client-side sort is instant and requires no infrastructure. · 2026-07-16</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">5. Health status rubric deferred to end of Phase 5</div>
+      <div class="decision-rationale">A wrong rubric produces wrong health signals across all 9 projects. Pre-build dormant ≠ unhealthy; building with 0 in-progress may be stalled or just planned. The rubric decision must come before the implementation. · 2026-07-16</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Activity Timeline</div>
+    <div class="activity-item">
+      <div class="activity-date">Jul 16, 2026 — Phase 5 batch</div>
+      <div class="activity-text">6 items shipped in one session: Slack link fix, index.html retired, phases[] added to registry.json, /phase-dashboard skill updated, Social Media card note, filter/sort on ProjectsPanel.jsx, learnings template fixed. Both repos committed and pushed.</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">Jul 16, 2026 — Phase 5 scoped</div>
+      <div class="activity-text">Pre-phase review identified 5 gaps not in original scope: Slack link pointing to retired page, no phase history in registry.json, index.html still live, Social Media card unexplained, no project ordering. All added to Phase 5 scope alongside original health status + log architecture items.</div>
+    </div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card grid-full">
+    <div class="card-label">Open → Remaining in Phase 5</div>
+    <div class="issue-item">
+      <div class="issue-dot dot-yellow"></div>
+      <div>
+        <div class="issue-text">Health status rubric: define what "healthy" means per project state</div>
+        <div class="issue-note">Pre-build dormant ≠ unhealthy · building with 0 in-progress = possibly stalled · live with blockers = unhealthy · ClickUp task 86e2cjp77</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot dot-blue"></div>
+      <div>
+        <div class="issue-text">Health status indicator on Projects panel cards (after rubric defined)</div>
+        <div class="issue-note">Coloured dot or badge on each card. Drawer shows the signal that drove it.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>Standing PMO System · Phase 5 — Health Status &amp; Log Architecture · In Progress</span>
+  <span>2026-07-16 · northlight-pmo/standing-pmo/phase-3.html</span>
+</div>
+
+</body>
+</html>
