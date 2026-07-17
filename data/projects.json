@@ -1,5 +1,5 @@
 {
-  "refreshed_at": "2026-07-17T00:40:58.252Z",
+  "refreshed_at": "2026-07-17T00:55:21.062Z",
   "triggered_by": "phase-dashboard-commit",
   "open_total": 1,
   "projects": [
@@ -201,11 +201,11 @@
       "status": "building",
       "github": "https://github.com/elizabethlemoine33-commits/northlight-pmo",
       "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/standing-pmo/phase-2.html",
-      "current_phase": "3+4",
-      "current_phase_title": "Live Dashboard",
+      "current_phase": "5",
+      "current_phase_title": "Health Status & Log Architecture",
       "phase_started": "2026-07-16",
       "open_count": 0,
-      "backlog_count": 3,
+      "backlog_count": 4,
       "ready_count": 0,
       "in_progress_count": 0,
       "done_count": 3,
