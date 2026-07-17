@@ -28,6 +28,7 @@
       "current_phase": "7",
       "current_phase_title": "Advisory Board Expansion + Marketing Rebuild",
       "phase_started": "2026-07-14",
+      "phases": [],
       "registered": "2026-05-24",
       "last_refreshed": "2026-07-16"
     },
@@ -44,6 +45,13 @@
       "current_phase": "6",
       "current_phase_title": "Audio Reliability",
       "phase_started": "2026-07-13",
+      "phases": [
+        { "phase": "5", "title": "Post-Launch Polish", "started": null, "closed": "2026-07-06" },
+        { "phase": "4", "title": "Launch Prep", "started": "2026-07-05", "closed": "2026-07-05" },
+        { "phase": "3", "title": "Google Integrations", "started": "2026-07-04", "closed": "2026-07-04" },
+        { "phase": "2", "title": "Analysis + Review", "started": "2026-07-04", "closed": "2026-07-04" },
+        { "phase": "1", "title": "Recording + Transcription Foundation", "started": "2026-07-02", "closed": "2026-07-03" }
+      ],
       "registered": "2026-07-02",
       "last_refreshed": "2026-07-03"
     },
@@ -60,6 +68,7 @@
       "current_phase": null,
       "current_phase_title": null,
       "phase_started": null,
+      "phases": [],
       "registered": "2026-05-24",
       "last_refreshed": "2026-07-16"
     },
@@ -76,6 +85,7 @@
       "current_phase": "4",
       "current_phase_title": "Content Depth & Thought Leadership",
       "phase_started": "2026-07-11",
+      "phases": [],
       "registered": "2026-05-24",
       "last_refreshed": "2026-07-16"
     },
@@ -92,6 +102,7 @@
       "current_phase": null,
       "current_phase_title": null,
       "phase_started": null,
+      "phases": [],
       "registered": "2026-07-03",
       "last_refreshed": "2026-07-16"
     },
@@ -108,6 +119,7 @@
       "current_phase": null,
       "current_phase_title": null,
       "phase_started": null,
+      "phases": [],
       "registered": "2026-07-03",
       "last_refreshed": "2026-07-16"
     },
@@ -124,6 +136,7 @@
       "current_phase": null,
       "current_phase_title": null,
       "phase_started": null,
+      "phases": [],
       "registered": "2026-07-03",
       "last_refreshed": "2026-07-16"
     },
@@ -140,6 +153,7 @@
       "current_phase": "1",
       "current_phase_title": "Founder Campaign — Content Calendar & Publishing Pipeline",
       "phase_started": "2026-07-11",
+      "phases": [],
       "registered": "2026-07-11",
       "last_refreshed": "2026-07-11"
     },
@@ -153,9 +167,13 @@
       "drive_brief": null,
       "pmo_folder": "standing-pmo/",
       "clickup_list_id": "901715263633",
-      "current_phase": "3+4",
-      "current_phase_title": "Live Dashboard",
+      "current_phase": "5",
+      "current_phase_title": "Health Status & Log Architecture",
       "phase_started": "2026-07-16",
+      "phases": [
+        { "phase": "3+4", "title": "Live Dashboard", "started": "2026-07-16", "closed": "2026-07-16" },
+        { "phase": "1+2", "title": "Foundation & Data Cleanup", "started": "2026-07-16", "closed": "2026-07-16" }
+      ],
       "registered": "2026-07-03",
       "last_refreshed": "2026-07-16"
     }

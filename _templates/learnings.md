@@ -4,17 +4,10 @@
 
 ---
 
-## [Date] — [Phase Name]
+## Phase [N] — [Phase Title] ([YYYY-MM-DD])
 
-### What shipped
-- 
-
-### Decisions
-| Decision | Choice | Rationale |
-|---|---|---|
-| | | |
-
-### Learnings
-- 
+- [Learning 1 — the non-obvious thing]
+- [Learning 2 — what broke or surprised you]
+- [Learning 3 — what you'd do differently]
 
 ---
