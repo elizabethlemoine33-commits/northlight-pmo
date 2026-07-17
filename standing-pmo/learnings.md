@@ -2,6 +2,12 @@
 
 ---
 
+## Phase 3+4 — Live Dashboard (2026-07-16)
+
+- Status-based task filtering is the right default for phase-aware ClickUp sweeps — no naming convention or tag discipline required. Backlog = excluded; ready/in-progress = active this phase; complete after phase_started = done this phase. Simple, low-friction, and survives projects that don't follow any tagging convention.
+- Infrastructure outages (Railway US West) can look like code failures — repeated "Scheduling build on Metal" with no build logs is an infra signal, not an app error. Always check the provider's status page before debugging code. Fix: wait + empty-commit trigger.
+- Auto-updating registry.json inside the skills (phase-dashboard Step 7b, new-project Step 7) eliminates a whole class of "stale OS card" bugs. The rule: any skill that changes a project's phase must also update registry.json before posting STANDING-PMO-TRIGGER.
+
 ## Phase 2 — ClickUp Restructure (2026-07-16)
 
 - One folder + one list per project is the right ClickUp shape for this PMO. Previous state (multiple lists per project, tasks scattered) made it impossible to sweep a project cleanly by list ID. Registry-driven list IDs are now the single source of truth.
