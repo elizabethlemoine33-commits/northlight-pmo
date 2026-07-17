@@ -1,7 +1,7 @@
 {
-  "refreshed_at": "2026-07-17T01:11:20.476Z",
-  "triggered_by": "manual-slack",
-  "open_total": 1,
+  "refreshed_at": "2026-07-17T18:59:11.303Z",
+  "triggered_by": "phase-dashboard-commit",
+  "open_total": 2,
   "projects": [
     {
       "id": "northlight-os",
@@ -14,25 +14,24 @@
       "current_phase": "7",
       "current_phase_title": "Advisory Board Expansion + Marketing Rebuild",
       "phase_started": "2026-07-14",
-      "open_count": 1,
-      "backlog_count": 22,
+      "open_count": 0,
+      "backlog_count": 21,
       "ready_count": 0,
-      "in_progress_count": 1,
-      "done_count": 0,
-      "top_items": [
-        {
-          "name": "Look into PMO folders and dashboards.",
-          "priority": "normal"
-        }
-      ],
+      "in_progress_count": 0,
+      "done_count": 2,
+      "top_items": [],
       "ready_items": [],
-      "in_progress_items": [
+      "in_progress_items": [],
+      "done_items": [
+        {
+          "name": "Focus → Projects: per-project dashboards (TableReady, Northlight OS)",
+          "priority": "normal"
+        },
         {
           "name": "Look into PMO folders and dashboards.",
           "priority": "normal"
         }
       ],
-      "done_items": [],
       "decisions": [],
       "blockers": []
     },
@@ -47,14 +46,33 @@
       "current_phase": "6",
       "current_phase_title": "Audio Reliability",
       "phase_started": "2026-07-13",
-      "open_count": 0,
-      "backlog_count": 2,
-      "ready_count": 0,
-      "in_progress_count": 0,
+      "open_count": 2,
+      "backlog_count": 0,
+      "ready_count": 1,
+      "in_progress_count": 1,
       "done_count": 1,
-      "top_items": [],
-      "ready_items": [],
-      "in_progress_items": [],
+      "top_items": [
+        {
+          "name": "VB-Audio Cable: handle installation for new users at packaging/distribution",
+          "priority": "high"
+        },
+        {
+          "name": "Set up Gumroad storefront — Vault + Meetings distribution",
+          "priority": "normal"
+        }
+      ],
+      "ready_items": [
+        {
+          "name": "Set up Gumroad storefront — Vault + Meetings distribution",
+          "priority": "normal"
+        }
+      ],
+      "in_progress_items": [
+        {
+          "name": "VB-Audio Cable: handle installation for new users at packaging/distribution",
+          "priority": "high"
+        }
+      ],
       "done_items": [
         {
           "name": "VB-Audio: add in-app toggle for call recording mode",
@@ -99,7 +117,7 @@
       "current_phase_title": "Content Depth & Thought Leadership",
       "phase_started": "2026-07-11",
       "open_count": 0,
-      "backlog_count": 0,
+      "backlog_count": 1,
       "ready_count": 0,
       "in_progress_count": 0,
       "done_count": 0,
@@ -163,12 +181,12 @@
       "status": "building",
       "github": null,
       "clickup_list_id": "901715263629",
-      "dashboard_url": null,
-      "current_phase": null,
-      "current_phase_title": null,
-      "phase_started": null,
+      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/advisory-board/phase-1.html",
+      "current_phase": "1",
+      "current_phase_title": "Board Expansion — All Roles + Interview Mode",
+      "phase_started": "2026-07-17",
       "open_count": 0,
-      "backlog_count": 2,
+      "backlog_count": 3,
       "ready_count": 0,
       "in_progress_count": 0,
       "done_count": 0,
@@ -214,7 +232,7 @@
       "current_phase_title": null,
       "phase_started": null,
       "open_count": 0,
-      "backlog_count": 1,
+      "backlog_count": 0,
       "ready_count": 0,
       "in_progress_count": 0,
       "done_count": 0,
