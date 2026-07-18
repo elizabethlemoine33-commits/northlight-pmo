@@ -25,10 +25,12 @@
       "drive_brief": null,
       "pmo_folder": "os/",
       "clickup_list_id": "901715263627",
-      "current_phase": "7",
-      "current_phase_title": "Advisory Board Expansion + Marketing Rebuild",
-      "phase_started": "2026-07-14",
-      "phases": [],
+      "current_phase": "8",
+      "current_phase_title": "Security Hardening & System Observability",
+      "phase_started": "2026-07-18",
+      "phases": [
+        { "phase": "7", "title": "Advisory Board Expansion + Marketing Rebuild", "started": "2026-07-14", "closed": "2026-07-18" }
+      ],
       "registered": "2026-05-24",
       "last_refreshed": "2026-07-17"
     },

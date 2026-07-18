@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northlight OS — Phase 8 PMO Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --midnight: #0E0E14;
+    --surface:  #12121E;
+    --border:   #1E2035;
+    --border2:  #2A2A48;
+    --text:     #FFFFFF;
+    --cloud:    #C8CCE0;
+    --haze:     #B0B8D8;
+    --muted:    #8A92A8;
+    --glacial:  #4FC3C8;
+    --boreal:   #5B8DD9;
+    --dusk:     #8B6FD4;
+    --aurora:   #C46FAA;
+    --green:    #3BAA6E;
+    --yellow:   #D4A017;
+    --red:      #C44F4F;
+  }
+  body { background: var(--midnight); color: var(--cloud); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; padding: 32px; }
+  .top-bar { height: 3px; background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%); margin: -32px -32px 32px; }
+
+  .header { margin-bottom: 28px; }
+  .phase-label { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dusk); margin-bottom: 6px; }
+  .title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+  .subtitle { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+  .callout { background: rgba(91,141,217,0.08); border: 1px solid rgba(91,141,217,0.22); border-radius: 8px; padding: 12px 16px; margin-bottom: 24px; color: var(--haze); font-size: 12px; line-height: 1.5; }
+  .callout strong { color: var(--cloud); }
+
+  .progress-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
+  .progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .progress-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .progress-pct { font-size: 24px; font-weight: 700; color: var(--text); }
+  .progress-bar-bg { background: var(--border); border-radius: 4px; height: 6px; }
+  .progress-bar-fill { background: linear-gradient(90deg, #4FC3C8, #8B6FD4); border-radius: 4px; height: 6px; }
+  .progress-counts { display: flex; gap: 20px; margin-top: 10px; flex-wrap: wrap; }
+  .progress-count { font-size: 11px; color: var(--muted); }
+  .progress-count strong { color: var(--cloud); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .grid-full { grid-column: 1 / -1; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .card-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+
+  .block-table { width: 100%; border-collapse: collapse; }
+  .block-table th { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 0 0 8px; text-align: left; border-bottom: 1px solid var(--border); }
+  .block-table td { padding: 8px 0; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .block-table tr:last-child td { border-bottom: none; }
+  .block-name { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .block-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .block-id { font-size: 10px; color: var(--muted); font-family: monospace; opacity: 0.7; margin-top: 1px; }
+
+  .badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .badge-done       { background: rgba(59,170,110,0.15); color: #3BAA6E; border: 1px solid rgba(59,170,110,0.3); }
+  .badge-inprogress { background: rgba(91,141,217,0.15); color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
+  .badge-notstarted { background: rgba(138,146,168,0.10); color: var(--muted); border: 1px solid var(--border); }
+  .badge-blocked    { background: rgba(196,79,79,0.15); color: #C44F4F; border: 1px solid rgba(196,79,79,0.3); }
+  .badge-queued     { background: rgba(212,160,23,0.12); color: var(--yellow); border: 1px solid rgba(212,160,23,0.25); }
+  .badge-urgent     { background: rgba(196,79,79,0.15); color: #C44F4F; border: 1px solid rgba(196,79,79,0.3); }
+  .badge-partial    { background: rgba(196,111,170,0.12); color: var(--aurora); border: 1px solid rgba(196,111,170,0.25); }
+
+  .decision-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .decision-item:last-child { border-bottom: none; }
+  .decision-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .decision-rationale { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .issue-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .issue-item:last-child { border-bottom: none; }
+  .issue-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--yellow); margin-top: 4px; flex-shrink: 0; }
+  .issue-dot.red   { background: var(--red); }
+  .issue-dot.muted { background: var(--muted); }
+  .issue-dot.green { background: var(--green); }
+  .issue-dot.blue  { background: var(--boreal); }
+  .issue-text { color: var(--cloud); font-size: 12px; }
+  .issue-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .activity-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-date { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+  .activity-text { color: var(--cloud); font-size: 12px; line-height: 1.5; }
+
+  .deferred-item { padding: 7px 0; border-bottom: 1px solid var(--border); }
+  .deferred-item:last-child { border-bottom: none; }
+  .deferred-name { color: var(--cloud); font-size: 12px; }
+  .deferred-why { color: var(--muted); font-size: 11px; opacity: 0.7; margin-top: 1px; }
+
+  .pkg-row { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .pkg-row:last-child { border-bottom: none; }
+  .pkg-letter { width: 26px; height: 26px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+  .pkg-a { background: rgba(59,170,110,0.15); color: #3BAA6E; border: 1px solid rgba(59,170,110,0.3); }
+  .pkg-b { background: rgba(212,160,23,0.12); color: var(--yellow); border: 1px solid rgba(212,160,23,0.25); }
+  .pkg-c { background: rgba(212,160,23,0.12); color: var(--yellow); border: 1px solid rgba(212,160,23,0.25); }
+  .pkg-d { background: rgba(59,170,110,0.15); color: #3BAA6E; border: 1px solid rgba(59,170,110,0.3); }
+  .pkg-body { flex: 1; }
+  .pkg-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .pkg-desc { color: var(--muted); font-size: 11px; margin-top: 2px; line-height: 1.5; }
+  .pkg-tasks { margin-top: 5px; display: flex; flex-wrap: wrap; gap: 4px; }
+  .pkg-task-chip { font-size: 10px; color: var(--muted); background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 4px; padding: 2px 6px; font-family: monospace; }
+
+  .footer { color: var(--muted); font-size: 11px; border-top: 1px solid var(--border); padding-top: 16px; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<div class="header">
+  <div class="phase-label">Phase 8 · Security Hardening &amp; System Observability · In Progress</div>
+  <div class="title">Northlight OS — PMO Dashboard</div>
+  <div class="subtitle">Started July 18, 2026 · Packages A + D shipped · B + C queued</div>
+</div>
+
+<div class="callout">
+  <strong>Coming out of Phase 7:</strong> Advisory Board fully wired (7 personas, portrait grid, chat avatars), OS nav collapsed to 7 tabs with sticky subtab row, GEO audit history migrated to Google Sheets, SSE replaced with background job + polling. Carried into Phase 8: googleapis CVE (4 moderate, high priority), ambient flag modes (Casey → build-log, Sam → finance), New Idea intake form.
+</div>
+
+<div class="progress-section">
+  <div class="progress-header">
+    <div class="progress-label">Packages A + D Complete · B + C Queued · Security Baseline Done</div>
+    <div class="progress-pct">50%</div>
+  </div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:50%"></div></div>
+  <div class="progress-counts">
+    <div class="progress-count"><strong>2 / 4</strong> packages complete</div>
+    <div class="progress-count"><strong>5</strong> ClickUp tasks closed</div>
+    <div class="progress-count"><strong>3</strong> backlog tasks queued (B + C)</div>
+    <div class="progress-count"><strong>1</strong> high-priority CVE pending separate track</div>
+  </div>
+</div>
+
+<!-- Package Map -->
+<div class="grid">
+  <div class="card grid-full">
+    <div class="card-label">Phase 8 Work Packages</div>
+
+    <div class="pkg-row">
+      <div class="pkg-letter pkg-a">A</div>
+      <div class="pkg-body">
+        <div class="pkg-title">Dispatcher Tab Completion <span class="badge badge-done" style="margin-left:6px">Done</span></div>
+        <div class="pkg-desc">DispatcherPanel with status pill (idle/running/paused), last-ran timestamp, run history list (last 8 shown, 20 stored in Drive). Morning dispatcher now writes a run summary to <code>dispatcher-run-log</code> Drive key after each successful run. New <code>GET /api/dispatcher/history</code> route. Commit f054fd6.</div>
+        <div class="pkg-tasks"><span class="pkg-task-chip">86e2db1d3</span></div>
+      </div>
+    </div>
+
+    <div class="pkg-row">
+      <div class="pkg-letter pkg-b">B</div>
+      <div class="pkg-body">
+        <div class="pkg-title">Logging Infrastructure <span class="badge badge-queued" style="margin-left:6px">Queued</span></div>
+        <div class="pkg-desc">Standardize 268 console statements to a consistent <code>[MODULE] timestamp message</code> format. Write auth events (login, logout, blocked) to Drive JSON (<code>auth-event-log</code>) alongside Railway console. Prerequisite to surfacing any log viewer in the UI. Estimated ~3–4 hrs.</div>
+        <div class="pkg-tasks"><span class="pkg-task-chip">86e25ncph</span><span class="pkg-task-chip">86e2db1du</span></div>
+      </div>
+    </div>
+
+    <div class="pkg-row">
+      <div class="pkg-letter pkg-c">C</div>
+      <div class="pkg-body">
+        <div class="pkg-title">Error Visibility + Automation Completeness <span class="badge badge-queued" style="margin-left:6px">Queued</span></div>
+        <div class="pkg-desc">Wire error-translation into ~70 remaining catch blocks. Add 429 retry/backoff for Anthropic, Slack, and Google. Build Failed Processes card and Queue Monitoring panel (social-scheduled + blog-scheduled Drive queues) in Automation tab. Depends on Package B first. Estimated ~4–6 hrs.</div>
+        <div class="pkg-tasks"><span class="pkg-task-chip">86e25ncnr</span><span class="pkg-task-chip">86e25ncp5</span><span class="pkg-task-chip">86e2db1e4</span><span class="pkg-task-chip">86e2db1ec</span></div>
+      </div>
+    </div>
+
+    <div class="pkg-row">
+      <div class="pkg-letter pkg-d">D</div>
+      <div class="pkg-body">
+        <div class="pkg-title">Maintenance Tab Completion <span class="badge badge-done" style="margin-left:6px">Done</span></div>
+        <div class="pkg-desc">MaintenancePanel replaces bare DedupCard. Three cards: System Diagnostics (live Google/Slack/Finance Sheet/ClickUp status, calls <code>/api/health</code>), Dedup Store (unchanged), Data &amp; Retention (informational). Diagnostics kept in Settings too — deliberate duplicate per IA spec. Commit f054fd6.</div>
+        <div class="pkg-tasks"><span class="pkg-task-chip">86e2db1d4</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- What else shipped -->
+<div class="grid">
+  <div class="card">
+    <div class="card-label">Security Baseline — Also Shipped July 18</div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">Skeleton key bug fixed — auth.js</div>
+        <div class="issue-note"><code>SCHEDULE_SOCIAL_KEY</code> was bypassing ALL routes, not just schedule-social. Now requires both correct key AND path match on <code>/api/marketing/schedule-social</code>. Claude's ability to post via key is preserved — scoped correctly. ClickUp 86e2db1df.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">Auth logging with IP, user-agent, timestamp</div>
+        <div class="issue-note">All <code>[AUTH]</code> log lines now include ISO timestamp, IP (from <code>x-forwarded-for</code>), and user-agent. Covers login, logout, blocked attempts, and API key bypass usage. ClickUp 86e2db1df.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">AutomationPanel — Automation subtab live</div>
+        <div class="issue-note">New AutomationPanel.jsx: 4 workflow cards (Morning Dispatcher, Blog &amp; Social, GEO Audit, Revenue Extraction). Pause/resume controls, datetime picker, GEO audit manual trigger with 3s polling. Replaces placeholder. ClickUp 86e2db1dj.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">publish.js — AEO blocks + FAQ schema</div>
+        <div class="issue-note">AT_A_GLANCE, ANSWER_BLOCK, CALLOUT_BLOCK paragraph markers render AEO blocks. FAQ_QUESTION/FAQ_ANSWER markers → <code>.faq-section</code> HTML + FAQPage JSON-LD. Targeted index insert via <code>insertPostCard()</code> preserves hand-crafted blog index cards. ClickUp 86e2db1dm.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Decisions Made — July 18, 2026</div>
+    <div class="decision-item">
+      <div class="decision-title">Skeleton key scope: path-check required in requireAuth, not server.js pre-middleware</div>
+      <div class="decision-rationale">The dead pre-auth middleware in server.js (lines 87–96) called next() in both branches — useless. Real fix was in requireAuth: require both key match AND path match. server.js dead code left alone as harmless.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Integration diagnostics duplicated to Maintenance, not moved</div>
+      <div class="decision-rationale">Settings is for configuration; Maintenance is for health checks. They serve different mental models even though the data is the same. Both cards call /api/health — no extra backend work.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Dispatcher run log capped at 20 entries in Drive</div>
+      <div class="decision-rationale">Drive JSON is not a database — unbounded appends would bloat the key over time. 20 entries is enough for pattern detection without storage risk. UI shows 8.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Package B is a prerequisite for Package C</div>
+      <div class="decision-rationale">Building a Failed Processes panel on top of inconsistent log formats would surface garbage. Standardize first, then surface.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">googleapis CVE is a separate track — not a Package</div>
+      <div class="decision-rationale">It's a dependency upgrade, not a UI or observability task. HIGH priority but breaking change — warrants its own scoped session. ClickUp 86e2bp3gh.</div>
+    </div>
+  </div>
+</div>
+
+<!-- IA spec coverage -->
+<div class="grid">
+  <div class="card grid-full">
+    <div class="card-label">System Tab — IA Spec Coverage (from OS IA Proposal)</div>
+    <table class="block-table">
+      <tr><th style="width:22%">Tab</th><th style="width:35%">Spec Components</th><th>Status</th></tr>
+      <tr>
+        <td><div class="block-name">System → Dispatcher</div></td>
+        <td><div class="block-note">Manual run trigger · Run history · Status · Logs</div></td>
+        <td>
+          <span class="badge badge-done">Run trigger ✓</span>&nbsp;
+          <span class="badge badge-done">History ✓</span>&nbsp;
+          <span class="badge badge-done">Status ✓</span>&nbsp;
+          <span class="badge badge-queued">Logs → B</span>
+        </td>
+      </tr>
+      <tr>
+        <td><div class="block-name">System → Automation</div></td>
+        <td><div class="block-note">Workflow status · Failed processes · Queue monitoring · Automation health</div></td>
+        <td>
+          <span class="badge badge-done">Status ✓</span>&nbsp;
+          <span class="badge badge-done">Health ✓</span>&nbsp;
+          <span class="badge badge-queued">Failed → C</span>&nbsp;
+          <span class="badge badge-queued">Queues → C</span>
+        </td>
+      </tr>
+      <tr>
+        <td><div class="block-name">System → Maintenance</div></td>
+        <td><div class="block-note">Cache management · Deduplication · Data retention · Diagnostics</div></td>
+        <td>
+          <span class="badge badge-done">Dedup ✓</span>&nbsp;
+          <span class="badge badge-done">Diagnostics ✓</span>&nbsp;
+          <span class="badge badge-done">Retention ✓</span>&nbsp;
+          <span class="badge badge-notstarted">Cache → future</span>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- Activity log -->
+<div class="grid">
+  <div class="card grid-full">
+    <div class="card-label">Activity Timeline</div>
+    <div class="activity-item">
+      <div class="activity-date">July 18, 2026 — Phase 8 Open</div>
+      <div class="activity-text">Security baseline: skeleton key fixed, auth logging improved. AutomationPanel built and deployed. publish.js AEO blocks + FAQ schema committed. Package A (Dispatcher run history) and Package D (Maintenance panel) shipped in commit f054fd6. ClickUp write-back: 5 tasks created and closed, 3 backlog items created for B + C. Phase 8 dashboard created.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Open items -->
+<div class="grid">
+  <div class="card grid-full">
+    <div class="card-label">Open Items → Remainder of Phase 8</div>
+    <div class="issue-item">
+      <div class="issue-dot red"></div>
+      <div>
+        <div class="issue-text">googleapis CVE chain upgrade — 4 moderate CVEs, breaking change <span class="badge badge-urgent" style="margin-left:6px">High</span></div>
+        <div class="issue-note">Separate track from Packages A–D. Needs isolated session — breaking change risk. ClickUp 86e2bp3gh.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot"></div>
+      <div>
+        <div class="issue-text">Package B — Logging Infrastructure <span class="badge badge-queued" style="margin-left:6px">Next</span></div>
+        <div class="issue-note">Standardize 268 console statements + auth events → Drive. ~3–4 hrs. Prerequisite for C. Tasks: 86e25ncph, 86e2db1du.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot"></div>
+      <div>
+        <div class="issue-text">Package C — Error Visibility + Queue Monitoring <span class="badge badge-queued" style="margin-left:6px">Depends on B</span></div>
+        <div class="issue-note">70 catch blocks + 429 retry + Failed Processes panel + Queue viewer. ~4–6 hrs. Tasks: 86e25ncnr, 86e25ncp5, 86e2db1e4, 86e2db1ec.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">Ambient flag modes — Casey → #northlight-build-log, Sam → Slack/finance</div>
+        <div class="issue-note">Carried from Phase 7. Requires post-commit hook (ClickUp 86e2b4w98) as prerequisite.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">Post-commit hook → #northlight-build-log Slack channel</div>
+        <div class="issue-note">Unblocks ambient flag modes. ClickUp 86e2b4w98. Low priority until Casey ambient mode is prioritized.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>Northlight OS · Phase 8 · Security Hardening &amp; System Observability</span>
+  <span>Generated 2026-07-18 · In Progress</span>
+</div>
+</body>
+</html>
