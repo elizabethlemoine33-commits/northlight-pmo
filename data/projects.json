@@ -1,6 +1,6 @@
 {
-  "refreshed_at": "2026-07-18T20:28:17.960Z",
-  "triggered_by": "phase-dashboard-commit",
+  "refreshed_at": "2026-07-18T20:47:15.333Z",
+  "triggered_by": "manual-slack",
   "open_total": 2,
   "projects": [
     {
@@ -15,14 +15,18 @@
       "current_phase_title": "Security Hardening & System Observability",
       "phase_started": "2026-07-18",
       "open_count": 0,
-      "backlog_count": 12,
+      "backlog_count": 10,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 14,
+      "done_count": 16,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
       "done_items": [
+        {
+          "name": "Package B: Auth events → Drive storage (login/logout/blocked attempts)",
+          "priority": "normal"
+        },
         {
           "name": "publish.js: AEO blocks, FAQ schema, targeted blog index insert",
           "priority": "normal"
@@ -37,10 +41,6 @@
         },
         {
           "name": "Package D: Maintenance panel — System Diagnostics, Dedup Store, Data & Retention",
-          "priority": "normal"
-        },
-        {
-          "name": "Package A: Dispatcher run history, status pill, last-ran timestamp",
           "priority": "normal"
         }
       ],
