@@ -96,8 +96,8 @@
   .pkg-row:last-child { border-bottom: none; }
   .pkg-letter { width: 26px; height: 26px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
   .pkg-a { background: rgba(59,170,110,0.15); color: #3BAA6E; border: 1px solid rgba(59,170,110,0.3); }
-  .pkg-b { background: rgba(212,160,23,0.12); color: var(--yellow); border: 1px solid rgba(212,160,23,0.25); }
-  .pkg-c { background: rgba(212,160,23,0.12); color: var(--yellow); border: 1px solid rgba(212,160,23,0.25); }
+  .pkg-b { background: rgba(59,170,110,0.15); color: #3BAA6E; border: 1px solid rgba(59,170,110,0.3); }
+  .pkg-c { background: rgba(59,170,110,0.15); color: #3BAA6E; border: 1px solid rgba(59,170,110,0.3); }
   .pkg-d { background: rgba(59,170,110,0.15); color: #3BAA6E; border: 1px solid rgba(59,170,110,0.3); }
   .pkg-body { flex: 1; }
   .pkg-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
@@ -112,9 +112,9 @@
 <div class="top-bar"></div>
 
 <div class="header">
-  <div class="phase-label">Phase 8 · Security Hardening &amp; System Observability · In Progress</div>
+  <div class="phase-label">Phase 8 · Security Hardening &amp; System Observability · Complete</div>
   <div class="title">Northlight OS — PMO Dashboard</div>
-  <div class="subtitle">Started July 18, 2026 · Packages A + D shipped · B + C queued</div>
+  <div class="subtitle">July 18, 2026 · All 4 packages complete · 9 ClickUp tasks closed</div>
 </div>
 
 <div class="callout">
@@ -123,15 +123,15 @@
 
 <div class="progress-section">
   <div class="progress-header">
-    <div class="progress-label">Packages A + D Complete · B + C Queued · Security Baseline Done</div>
-    <div class="progress-pct">50%</div>
+    <div class="progress-label">All 4 Packages Complete · Security Baseline Done · Phase 8 Closed</div>
+    <div class="progress-pct">100%</div>
   </div>
-  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:50%"></div></div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%"></div></div>
   <div class="progress-counts">
-    <div class="progress-count"><strong>2 / 4</strong> packages complete</div>
-    <div class="progress-count"><strong>5</strong> ClickUp tasks closed</div>
-    <div class="progress-count"><strong>3</strong> backlog tasks queued (B + C)</div>
-    <div class="progress-count"><strong>1</strong> high-priority CVE pending separate track</div>
+    <div class="progress-count"><strong>4 / 4</strong> packages complete</div>
+    <div class="progress-count"><strong>9</strong> ClickUp tasks closed</div>
+    <div class="progress-count"><strong>0</strong> open Package items</div>
+    <div class="progress-count"><strong>1</strong> high-priority CVE on separate track</div>
   </div>
 </div>
 
@@ -152,8 +152,8 @@
     <div class="pkg-row">
       <div class="pkg-letter pkg-b">B</div>
       <div class="pkg-body">
-        <div class="pkg-title">Logging Infrastructure <span class="badge badge-queued" style="margin-left:6px">Queued</span></div>
-        <div class="pkg-desc">Standardize 268 console statements to a consistent <code>[MODULE] timestamp message</code> format. Write auth events (login, logout, blocked) to Drive JSON (<code>auth-event-log</code>) alongside Railway console. Prerequisite to surfacing any log viewer in the UI. Estimated ~3–4 hrs.</div>
+        <div class="pkg-title">Logging Infrastructure <span class="badge badge-done" style="margin-left:6px">Done</span></div>
+        <div class="pkg-desc">Auth events (login, logout, blocked, reconnect) now written to Drive key <code>auth-event-log</code> (capped 100) via <code>appendAuthEvent()</code> in auth.js. New <code>GET /auth/event-log</code> route (session-guarded). AuthEventLogCard in Maintenance tab shows last 20 events with type badge + IP. Console format investigation found 683 statements (not 268) — majority already had consistent <code>[MODULE]</code> prefixes; fixed the remaining timestamp inconsistencies in auth.js reconnect lines. Commit 184c695.</div>
         <div class="pkg-tasks"><span class="pkg-task-chip">86e25ncph</span><span class="pkg-task-chip">86e2db1du</span></div>
       </div>
     </div>
@@ -161,8 +161,8 @@
     <div class="pkg-row">
       <div class="pkg-letter pkg-c">C</div>
       <div class="pkg-body">
-        <div class="pkg-title">Error Visibility + Automation Completeness <span class="badge badge-queued" style="margin-left:6px">Queued</span></div>
-        <div class="pkg-desc">Wire error-translation into ~70 remaining catch blocks. Add 429 retry/backoff for Anthropic, Slack, and Google. Build Failed Processes card and Queue Monitoring panel (social-scheduled + blog-scheduled Drive queues) in Automation tab. Depends on Package B first. Estimated ~4–6 hrs.</div>
+        <div class="pkg-title">Error Visibility + Automation Completeness <span class="badge badge-done" style="margin-left:6px">Done</span></div>
+        <div class="pkg-desc">Queue monitoring: <code>GET /api/dispatcher/queues</code> reads both Drive queues; QueueMonitorCard in Automation tab shows social-scheduled (by status) and blog-scheduled items. Failed social posts surface inline via existing <code>status: 'failed'</code> field. 429 retry: <code>slackApi()</code> retries up to 3× on HTTP 429 with <code>Retry-After</code> header; Anthropic SDK <code>maxRetries: 3</code> added to 5 heaviest skill files. Error translation: confirmed <code>pipeline-utils.firePipelineSkill</code> already wraps all auto-fired skills with <code>formatErrorForSlack</code> — remaining catch blocks are internal debug logs not user-facing. Commit a6068f9.</div>
         <div class="pkg-tasks"><span class="pkg-task-chip">86e25ncnr</span><span class="pkg-task-chip">86e25ncp5</span><span class="pkg-task-chip">86e2db1e4</span><span class="pkg-task-chip">86e2db1ec</span></div>
       </div>
     </div>
@@ -227,8 +227,16 @@
       <div class="decision-rationale">Drive JSON is not a database — unbounded appends would bloat the key over time. 20 entries is enough for pattern detection without storage risk. UI shows 8.</div>
     </div>
     <div class="decision-item">
-      <div class="decision-title">Package B is a prerequisite for Package C</div>
-      <div class="decision-rationale">Building a Failed Processes panel on top of inconsistent log formats would surface garbage. Standardize first, then surface.</div>
+      <div class="decision-title">Console format standardization: 683 statements, most already prefixed</div>
+      <div class="decision-rationale">Package B estimated 268 statements; actual count was 683. Investigation showed all major files (dispatcher, auth, slack-events, analytics, archive, dedup, revenue) already use consistent <code>[MODULE]</code> prefixes. Only auth.js reconnect lines were missing timestamps — fixed in place. No broad sweep needed.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Error translation: pipeline-utils already covers user-facing errors</div>
+      <div class="decision-rationale"><code>firePipelineSkill</code> wraps every auto-fired skill with <code>formatErrorForSlack</code>. The remaining ~70 catch blocks are internal debug logs — wiring translateError into them would add noise without user benefit. Closed the ClickUp task as resolved-by-design.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Failed processes surfaced via existing social queue <code>status: 'failed'</code> field</div>
+      <div class="decision-rationale">Social posts already write <code>status: 'failed'</code> + <code>error</code> + <code>failedAt</code> back to the Drive queue on publish failure. No separate failure log needed — QueueMonitorCard reads and surfaces these inline.</div>
     </div>
     <div class="decision-item">
       <div class="decision-title">googleapis CVE is a separate track — not a Package</div>
@@ -250,7 +258,7 @@
           <span class="badge badge-done">Run trigger ✓</span>&nbsp;
           <span class="badge badge-done">History ✓</span>&nbsp;
           <span class="badge badge-done">Status ✓</span>&nbsp;
-          <span class="badge badge-queued">Logs → B</span>
+          <span class="badge badge-done">Auth Log ✓</span>
         </td>
       </tr>
       <tr>
@@ -259,8 +267,8 @@
         <td>
           <span class="badge badge-done">Status ✓</span>&nbsp;
           <span class="badge badge-done">Health ✓</span>&nbsp;
-          <span class="badge badge-queued">Failed → C</span>&nbsp;
-          <span class="badge badge-queued">Queues → C</span>
+          <span class="badge badge-done">Failed ✓</span>&nbsp;
+          <span class="badge badge-done">Queues ✓</span>
         </td>
       </tr>
       <tr>
@@ -269,6 +277,7 @@
         <td>
           <span class="badge badge-done">Dedup ✓</span>&nbsp;
           <span class="badge badge-done">Diagnostics ✓</span>&nbsp;
+          <span class="badge badge-done">Auth Log ✓</span>&nbsp;
           <span class="badge badge-done">Retention ✓</span>&nbsp;
           <span class="badge badge-notstarted">Cache → future</span>
         </td>
@@ -282,8 +291,16 @@
   <div class="card grid-full">
     <div class="card-label">Activity Timeline</div>
     <div class="activity-item">
-      <div class="activity-date">July 18, 2026 — Phase 8 Open</div>
-      <div class="activity-text">Security baseline: skeleton key fixed, auth logging improved. AutomationPanel built and deployed. publish.js AEO blocks + FAQ schema committed. Package A (Dispatcher run history) and Package D (Maintenance panel) shipped in commit f054fd6. ClickUp write-back: 5 tasks created and closed, 3 backlog items created for B + C. Phase 8 dashboard created.</div>
+      <div class="activity-date">July 18, 2026 — Package C + Phase 8 Closed</div>
+      <div class="activity-text">Package C complete: queue monitoring endpoint + QueueMonitorCard (Automation tab), Slack 429 retry in slackApi(), Anthropic maxRetries:3 in 5 skill files, error translation confirmed covered by pipeline-utils. All 4 ClickUp Package C tasks closed. Commit a6068f9. Phase 8 dashboard updated to 100%.</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">July 18, 2026 — Package B Complete</div>
+      <div class="activity-text">Auth event logging: appendAuthEvent() writes login/logout/blocked/reconnect to Drive key auth-event-log (capped 100). Fixed timestamp inconsistency in auth.js reconnect logs. New GET /auth/event-log route. AuthEventLogCard in Maintenance tab. Console format investigation: 683 statements found, majority already properly prefixed — closed standardization task as resolved. Commit 184c695.</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">July 18, 2026 — Phase 8 Open · Packages A + D</div>
+      <div class="activity-text">Security baseline: skeleton key fixed, auth logging improved. AutomationPanel built and deployed. publish.js AEO blocks + FAQ schema committed. Package A (Dispatcher run history + status pill) and Package D (Maintenance panel: Diagnostics, Dedup, Retention) shipped in commit f054fd6. ClickUp write-back: 5 tasks created and closed, 3 backlog items created for B + C. Phase 8 dashboard created.</div>
     </div>
   </div>
 </div>
@@ -291,40 +308,26 @@
 <!-- Open items -->
 <div class="grid">
   <div class="card grid-full">
-    <div class="card-label">Open Items → Remainder of Phase 8</div>
+    <div class="card-label">Carried Forward → Phase 9</div>
     <div class="issue-item">
       <div class="issue-dot red"></div>
       <div>
         <div class="issue-text">googleapis CVE chain upgrade — 4 moderate CVEs, breaking change <span class="badge badge-urgent" style="margin-left:6px">High</span></div>
-        <div class="issue-note">Separate track from Packages A–D. Needs isolated session — breaking change risk. ClickUp 86e2bp3gh.</div>
-      </div>
-    </div>
-    <div class="issue-item">
-      <div class="issue-dot"></div>
-      <div>
-        <div class="issue-text">Package B — Logging Infrastructure <span class="badge badge-queued" style="margin-left:6px">Next</span></div>
-        <div class="issue-note">Standardize 268 console statements + auth events → Drive. ~3–4 hrs. Prerequisite for C. Tasks: 86e25ncph, 86e2db1du.</div>
-      </div>
-    </div>
-    <div class="issue-item">
-      <div class="issue-dot"></div>
-      <div>
-        <div class="issue-text">Package C — Error Visibility + Queue Monitoring <span class="badge badge-queued" style="margin-left:6px">Depends on B</span></div>
-        <div class="issue-note">70 catch blocks + 429 retry + Failed Processes panel + Queue viewer. ~4–6 hrs. Tasks: 86e25ncnr, 86e25ncp5, 86e2db1e4, 86e2db1ec.</div>
-      </div>
-    </div>
-    <div class="issue-item">
-      <div class="issue-dot muted"></div>
-      <div>
-        <div class="issue-text">Ambient flag modes — Casey → #northlight-build-log, Sam → Slack/finance</div>
-        <div class="issue-note">Carried from Phase 7. Requires post-commit hook (ClickUp 86e2b4w98) as prerequisite.</div>
+        <div class="issue-note">Separate track throughout Phase 8. Needs isolated session — breaking change risk. ClickUp 86e2bp3gh.</div>
       </div>
     </div>
     <div class="issue-item">
       <div class="issue-dot muted"></div>
       <div>
         <div class="issue-text">Post-commit hook → #northlight-build-log Slack channel</div>
-        <div class="issue-note">Unblocks ambient flag modes. ClickUp 86e2b4w98. Low priority until Casey ambient mode is prioritized.</div>
+        <div class="issue-note">Unblocks Casey + Sam ambient flag modes. ClickUp 86e2b4w98.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div>
+        <div class="issue-text">Ambient flag modes — Casey → #northlight-build-log, Sam → Slack/finance</div>
+        <div class="issue-note">Carried from Phase 7 and 8. Requires post-commit hook first.</div>
       </div>
     </div>
   </div>
@@ -332,7 +335,7 @@
 
 <div class="footer">
   <span>Northlight OS · Phase 8 · Security Hardening &amp; System Observability</span>
-  <span>Generated 2026-07-18 · In Progress</span>
+  <span>Completed 2026-07-18 · All 4 packages shipped</span>
 </div>
 </body>
 </html>
