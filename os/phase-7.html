@@ -101,7 +101,7 @@
 <div class="header">
   <div class="phase-label">Phase 7 · Advisory Board Expansion + Marketing Rebuild</div>
   <div class="title">Northlight OS — PMO Dashboard</div>
-  <div class="subtitle">Kicked off July 14, 2026 · Completed July 15, 2026</div>
+  <div class="subtitle">Kicked off July 14, 2026 · Core complete July 15, 2026 · Advisory Board Phase 1 UI landed July 18</div>
 </div>
 
 <div class="callout">
@@ -110,7 +110,7 @@
 
 <div class="progress-section">
   <div class="progress-header">
-    <div class="progress-label">All 7 Blocks Complete · Phase 7 Done</div>
+    <div class="progress-label">All 7 Blocks Complete + Post-Phase Carry Items Resolved</div>
     <div class="progress-pct">100%</div>
   </div>
   <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%"></div></div>
@@ -125,40 +125,40 @@
   <div class="card grid-full">
     <div class="card-label">Phase 7 Build Blocks</div>
     <table class="block-table">
-      <tr><th style="width:38%">Block</th><th>What's in scope</th><th style="width:120px">Status</th></tr>
+      <tr><th style="width:38%">Block</th><th>What shipped</th><th style="width:120px">Status</th></tr>
       <tr>
         <td><div class="block-name">Block 1 — Advisory Board Persona Wiring</div></td>
-        <td><div class="block-note">Copy 4 new doctrine files (Founder Coach, Secretary, Strategy, Tech/Product) + updated CMO + refreshed CPO to OKF structure. Update context-loader.js (register Sam, Casey, Avery, Morgan alongside Reese, Quinn, Jordan). Update orchestrator/session router for 7 personas + Secretary convening function (routing matrix + three-tier complexity read). Enable ambient flag mode: Casey on #northlight-build-log + PMO-updates; Sam on Slack generally + finance channel. Build post-commit hook → #northlight-build-log (feeds Casey's ambient review). Verify live: all 7 personas respond in character, CMO/CPO/CFO regression clean.</div></td>
+        <td><div class="block-note">4 new doctrine files (Founder Coach, Secretary, Strategy, Tech/Product) + updated CMO + refreshed CPO. context-loader.js updated (Sam, Casey, Avery, Morgan). orchestrator/session router for 7 personas + Secretary convening function. Ambient flag mode + post-commit hook carried forward. All 7 personas respond in character, CMO/CPO/CFO regression clean.</div></td>
         <td><span class="badge badge-done">Done</span></td>
       </tr>
       <tr>
         <td><div class="block-name">Block 2 — skill:blog-polish Markdown Fix</div></td>
-        <td><div class="block-note">Markdown-to-HTML conversion failures confirmed HIGH, happening "way too often." Diagnose specific patterns breaking (headers, code blocks, lists, special chars). Fix and test end-to-end with content that previously failed.</div></td>
+        <td><div class="block-note">Inline link conversion, multi-line blockquote handling, ordered list support, h4 headings. Commit ddf35fc.</div></td>
         <td><span class="badge badge-done">Done</span></td>
       </tr>
       <tr>
         <td><div class="block-name">Block 3 — Revenue Tracking</div></td>
-        <td><div class="block-note">Pipeline was already fully built. Confirmed: <code>northlight-revenue</code> Gmail label exists, revenue extraction and approval route wired, <code>ensureRevenueSetup()</code> creates Revenue Log sheet and writes P&L SUMIFS on first call. Verified end-to-end with $1,500 test transaction — logged to Revenue Log, appeared in Finance overview.</div></td>
+        <td><div class="block-note">Pipeline confirmed fully built. <code>northlight-revenue</code> Gmail label exists, revenue extraction and approval route wired, <code>ensureRevenueSetup()</code> auto-creates Revenue Log sheet and P&amp;L SUMIFS. Verified end-to-end with $1,500 test transaction.</div></td>
         <td><span class="badge badge-done">Done</span></td>
       </tr>
       <tr>
         <td><div class="block-name">Block 4 — OS Navigation Rework</div></td>
-        <td><div class="block-note">7-tab nav live: Home / Focus / Marketing / Finance / Compass / Capture / System. Subtab state lifted to App.jsx so second row is always sticky. Focus → Clients / Job Search / Learning / Projects. Compass → Intelligence / Advisory Board / Ideas. Capture → New Task / New Idea. System → Dispatcher / Settings / Automation / Maintenance. Goals/Wins Board/Weekly Review moved to Home. Marketing subtab bar removed from component and promoted to sticky header. Chat layout lock fixed (fixed-height message container). Commit 4e010e9.</div></td>
+        <td><div class="block-note">7-tab nav live: Home / Focus / Marketing / Finance / Compass / Capture / System. Subtab state lifted to App.jsx — sticky two-row nav. Focus → Clients / Job Search / Learning / Projects. Compass → Intelligence / Advisory Board / Ideas. System → Dispatcher / Settings / Automation / Maintenance. Chat layout lock fixed. Commit 4e010e9.</div></td>
         <td><span class="badge badge-done">Done</span></td>
       </tr>
       <tr>
         <td><div class="block-name">Block 5 — Marketing Tab Split</div></td>
-        <td><div class="block-note">Marketing splits into 4 internal subtabs: Dashboard (upcoming content, pipeline summary), Studio (content intake, AI interviews, briefs), Operations (calendar, pipeline, workflow stages, publishing queue), Analytics (newsletter + social + website analytics including GEO module). Prerequisite for Block 6.</div></td>
+        <td><div class="block-note">Marketing splits into 4 internal subtabs: Dashboard, Studio, Operations, Analytics (including GEO module). Prerequisite for Block 6.</div></td>
         <td><span class="badge badge-done">Done</span></td>
       </tr>
       <tr>
         <td><div class="block-name">Block 6 — GEO Analytics Module</div></td>
-        <td><div class="block-note">geo_audit ported to Node.js (geo-audit.js) using axios + cheerio — eliminates Python dependency on Railway entirely. Panel live under Marketing → Analytics with composite score, 5 category bars, 4-run trend sparkline, and collapsible signal breakdown. Audit runs as a background job; frontend polls every 2s. Current score: 81/100. History persistence via Google Sheets is morning carry-forward.</div></td>
+        <td><div class="block-note">geo_audit ported to Node.js (geo-audit.js) using axios + cheerio — eliminates Python dependency on Railway entirely. Panel live under Marketing → Analytics with composite score, 5 category bars, 4-run trend sparkline, collapsible signal breakdown. Audit runs as background job + polling. Current score: 81/100. History in Google Sheets.</div></td>
         <td><span class="badge badge-done">Done</span></td>
       </tr>
       <tr>
         <td><div class="block-name">Block 7 — Quick Fixes</div></td>
-        <td><div class="block-note"><code>npm audit fix</code> cleared form-data CRLF injection CVE (high severity). Slack channel routing fixed: daily briefings now post to #daily-briefing (C0BH9RKMU5T), finance transactions stay on #finance (C0B5Y8JU3AA). GEO audit history migrated from ephemeral JSON file to Google Sheets "GEO Audit History" tab — persists across Railway redeploys. googleapis moderate CVEs (4) parked — require breaking upgrade, low practical risk.</div></td>
+        <td><div class="block-note"><code>npm audit fix</code> cleared form-data CRLF injection CVE (high severity). Slack channel routing fixed (briefings → #daily-briefing, finance → #finance). GEO audit history migrated to Google Sheets. googleapis moderate CVEs (4) parked.</div></td>
         <td><span class="badge badge-done">Done</span></td>
       </tr>
     </table>
@@ -169,10 +169,11 @@
   <div class="card">
     <div class="card-label">Advisory Board — New Personas</div>
     <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">4 new doctrine files written + deployed — July 14, 2026</div><div class="issue-note">FOUNDER-COACH-DOCTRINE.md (Sam) · SECRETARY-DOCTRINE.md (Morgan) · STRATEGY-DOCTRINE.md (Avery) · TECH-PRODUCT-DOCTRINE.md (Casey). Written in Cowork, copied to dashboard/specs/, committed f319d69.</div></div></div>
-    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">CMO-DOCTRINE.md updated + deployed — July 14, 2026</div><div class="issue-note">"Outside default assumptions" check added to Core Beliefs and Final self-check. Deployed to dashboard/specs/.</div></div></div>
-    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">ADVISORY-BOARD-PERSONAS.md replaced — July 14, 2026</div><div class="issue-note">Full 7-persona version live: Reese (CFO), Quinn (CPO), Jordan (CMO), Sam (Founder Coach), Casey (Technical &amp; Product), Avery (Strategy), Morgan (Secretary/Chief of Staff). Operating Modes section added. Morgan is Haiku; all others Sonnet.</div></div></div>
-    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">personas.js + orchestrator.js updated — July 14, 2026</div><div class="issue-note">Sam, Casey, Avery registered as presenter personas. All 4 new doctrine files in the optional load array. Injected into buildPresentationSystemPrompt and buildThreadSystemPrompt with labelled ═══ headers. Commit f319d69, pushed to Railway.</div></div></div>
-    <div class="issue-item"><div class="issue-dot"></div><div><div class="issue-text">Ambient flag modes + post-commit hook — Block 1 deferred item</div><div class="issue-note">Casey on #northlight-build-log + PMO-updates; Sam on Slack + finance channel. Requires post-commit hook (ClickUp 86e2b4w98) and finance channel cleanup (86e2b4wc8) first. Carried to Block 7.</div></div></div>
+    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">CMO-DOCTRINE.md updated + deployed — July 14, 2026</div><div class="issue-note">"Outside default assumptions" check added. Deployed to dashboard/specs/.</div></div></div>
+    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">ADVISORY-BOARD-PERSONAS.md replaced — July 14, 2026</div><div class="issue-note">Full 7-persona version live: Reese (CFO), Quinn (CPO), Jordan (CMO), Sam (Founder Coach), Casey (Technical &amp; Product), Avery (Strategy), Morgan (Secretary/Chief of Staff). Morgan is Haiku; all others Sonnet.</div></div></div>
+    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">personas.js + orchestrator.js updated — July 14, 2026</div><div class="issue-note">Sam, Casey, Avery registered as presenter personas. All 4 new doctrine files injected into both system prompt builders. Commit f319d69, pushed to Railway.</div></div></div>
+    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Portrait grid + chat avatars — July 18, 2026</div><div class="issue-note">7 board member portrait photos added to dashboard/public/. AdvisoryBoardPanel: toggle row → portrait card grid (sm:grid-cols-7), all 6 personas default active, Morgan non-toggleable with teal ring. Chat avatars wired to 1:1 thread messages. Commits ddaf808, ba91ea5, 37f348d. Advisory Board Phase 1 work — tracked in advisory-board/phase-1.html.</div></div></div>
+    <div class="issue-item"><div class="issue-dot"></div><div><div class="issue-text">Ambient flag modes + post-commit hook — carried to Phase 8</div><div class="issue-note">Casey on #northlight-build-log + PMO-updates; Sam on Slack + finance channel. Requires post-commit hook (ClickUp 86e2b4w98).</div></div></div>
   </div>
 
   <div class="card">
@@ -180,10 +181,6 @@
     <div class="decision-item">
       <div class="decision-title">OAuth/premature close task closed — already fixed</div>
       <div class="decision-rationale">Elizabeth confirmed no issues in some time; Google approval in place. Task 86e25q9dy closed.</div>
-    </div>
-    <div class="decision-item">
-      <div class="decision-title">Social media pipeline needs no action — working</div>
-      <div class="decision-rationale">Buffer pipeline working; posts in ClickUp picked up daily. No work scoped this phase.</div>
     </div>
     <div class="decision-item">
       <div class="decision-title">form-data CVE and Revenue Tracking were documented — not unknowns</div>
@@ -194,28 +191,20 @@
       <div class="decision-rationale">Not just a menu rename — involves page content, structure, and new section definitions. Debate-first, code-second.</div>
     </div>
     <div class="decision-item">
-      <div class="decision-title">Marketing tab split is this phase, not deferred</div>
-      <div class="decision-rationale">Elizabeth's explicit correction. Dashboard / Studio / Operations / Analytics subtab split is Block 5, this phase.</div>
-    </div>
-    <div class="decision-item">
       <div class="decision-title">SSE is not reliable for long-running operations on Railway — use polling</div>
-      <div class="decision-rationale">Railway's nginx proxy has its own connection timeout independent of SSE heartbeats. Any audit running >60s risks a silent stream drop. Pattern established: POST fires the job and returns immediately; frontend polls a status endpoint every 2s. Applied to GEO audit; should be the default pattern for any future long-running operation.</div>
+      <div class="decision-rationale">Railway's nginx proxy has its own connection timeout independent of SSE heartbeats. Pattern established: POST fires the job and returns immediately; frontend polls a status endpoint every 2s. Applied to GEO audit; default pattern going forward.</div>
     </div>
     <div class="decision-item">
       <div class="decision-title">Python on Railway requires Dockerfile; Dockerfile breaks Railway's delta snapshot</div>
-      <div class="decision-rationale">Railway's Railpack v0.31.0 ignores nixpacks.toml entirely. Adding a Dockerfile works in theory but Railway's snapshot only sends changed files — if dashboard/ has no changed files, it's absent from the Docker build context and COPY . . gets nothing. Decision: port any Python scripts to Node.js rather than fight the build system. geo_audit.py → geo-audit.js is the precedent.</div>
+      <div class="decision-rationale">Port any Python scripts to Node.js rather than fight the build system. geo_audit.py → geo-audit.js is the precedent.</div>
     </div>
     <div class="decision-item">
       <div class="decision-title">GEO audit history goes in Google Sheets, not the container filesystem</div>
-      <div class="decision-rationale">Railway containers are ephemeral — filesystem resets on every redeploy. Elizabeth closes the OS daily. History must live in a durable store. Google Sheets chosen: native charting, Drive access already wired in the dispatcher, sets up the home dashboard GEO score widget naturally. Morning task.</div>
+      <div class="decision-rationale">Railway containers are ephemeral — filesystem resets on every redeploy. Google Sheets: durable, Drive already wired, native charting.</div>
     </div>
     <div class="decision-item">
       <div class="decision-title">Worker bot concept identified — separate tier from C-suite, not in scope now</div>
-      <div class="decision-rationale">Second tier of task-doer bots ("work crew") distinct from advisory board. Parked task 86e1bma28 repurposed as the seed for this concept. Not worked on this phase.</div>
-    </div>
-    <div class="decision-item">
-      <div class="decision-title">Slack @-mentionable consult mode parked in parking lot</div>
-      <div class="decision-rationale">Interesting but redundant while the Advisory Board tab covers 1:1 persona access. No Slack Events infrastructure yet. Revisit if the tab doesn't cover the "quick one-off" need in practice.</div>
+      <div class="decision-rationale">Second tier of task-doer bots ("work crew"). Parked task 86e1bma28 repurposed as the seed. Scoping in Advisory Board Phase 1.</div>
     </div>
   </div>
 </div>
@@ -228,7 +217,7 @@
       <tr>
         <td><div class="block-name">86e25q9dy — Premature close / OAuth error</div></td>
         <td><span class="badge badge-done">Closed</span></td>
-        <td><div class="block-note">Elizabeth confirmed fixed; Google app approval in place. No recurrence.</div></td>
+        <td><div class="block-note">Elizabeth confirmed fixed; Google app approval in place.</div></td>
       </tr>
       <tr>
         <td><div class="block-name">86e25q9f7 — Watch Railway logs July 10</div></td>
@@ -248,17 +237,22 @@
       <tr>
         <td><div class="block-name">86e1bmaw2 — Strategic prompt generation from user input</div></td>
         <td><span class="badge badge-done">Closed</span></td>
-        <td><div class="block-note">Done — Secretary handles routing and convening; per-persona doctine drives strategic reasoning.</div></td>
+        <td><div class="block-note">Done — Secretary handles routing and convening; per-persona doctrine drives strategic reasoning.</div></td>
       </tr>
       <tr>
         <td><div class="block-name">86e1bma94 — "You But Better" voice transformation</div></td>
         <td><span class="badge badge-done">Closed</span></td>
-        <td><div class="block-note">Stale — likely was for marketing intake; no longer relevant as a standalone item.</div></td>
+        <td><div class="block-note">Stale — no longer relevant as a standalone item.</div></td>
       </tr>
       <tr>
         <td><div class="block-name">86e1bma28 — Interview mode for bots</div></td>
         <td><span class="badge badge-partial">Repurposed</span></td>
-        <td><div class="block-note">Renamed to "Worker bot interview mode — capture voice and purpose for task-doer bots." Parked for a future work-group phase, not worked on now.</div></td>
+        <td><div class="block-note">Renamed to "Worker bot interview mode — capture voice and purpose for task-doer bots." In Advisory Board Phase 1 scope.</div></td>
+      </tr>
+      <tr>
+        <td><div class="block-name">86e2ckhf8 — All roles on Advisory Board screen</div></td>
+        <td><span class="badge badge-done">Closed</span></td>
+        <td><div class="block-note">Done July 18 — portrait grid + chat avatars. All 7 board members visible on screen. Commits ddaf808, ba91ea5, 37f348d.</div></td>
       </tr>
     </table>
   </div>
@@ -268,72 +262,51 @@
   <div class="card">
     <div class="card-label">Activity Timeline</div>
     <div class="activity-item">
-      <div class="activity-date">July 17, 2026 — Advisory Board Spun Off + ClickUp Sweep</div>
-      <div class="activity-text">Advisory Board graduated to its own PMO project. Advisory Board Phase 1 "Board Expansion — All Roles + Interview Mode" kicked off; dashboard committed as northlight-pmo/advisory-board/phase-1.html (commit 2c40671, pushed to GitHub Pages). Revenue tracking ClickUp task 86e25q9ek closed with evidence — Block 3 confirmed complete July 14 per this dashboard. ClickUp sweep: OS backlog audit running, Company Setup docs and analytics check-ins complete.</div>
+      <div class="activity-date">July 18, 2026 — Advisory Board Phase 1 UI Ships in Dispatcher</div>
+      <div class="activity-text">Portrait grid + board images + chat avatars delivered. 7 board member portrait photos committed to dashboard/public/. AdvisoryBoardPanel.jsx overhauled — PERSONA_NAMES, PERSONA_IMAGES, LABEL_TO_PERSONA_ID maps added; toggle row replaced with portrait card grid; Morgan added as non-toggleable "Always present" card. All 6 presenter personas default active. Circular 28px chat avatars wired to 1:1 thread messages. Commits: ddaf808, ba91ea5, 37f348d. Advisory Board phase dashboard refreshed. Also: Capture → New Idea placeholder removed (tab is now New Task only).</div>
     </div>
     <div class="activity-item">
-      <div class="activity-date">July 15, 2026 — Blocks 4 &amp; 7 Complete · Phase 7 Done</div>
-      <div class="activity-text">Block 7: npm audit fix cleared form-data high CVE. GEO audit history migrated from ephemeral JSON to Google Sheets "GEO Audit History" tab (ensureGeoTab() auto-creates on first run, seeds 4 historical rows). Slack channel routing corrected — briefings to #daily-briefing, finance transactions to #finance. Block 4: full OS navigation rework deployed. 7-tab primary nav (Home / Focus / Marketing / Finance / Compass / Capture / System) with sticky subtab row. Subtab state lifted to App.jsx so neither row scrolls away. Marketing subtab bar promoted from component to App. Layout lock fix in Studio chat (fixed-height container). 164 net insertions across App.jsx, MarketingPanel.jsx, index.css. Commit 4e010e9.</div>
+      <div class="activity-date">July 17, 2026 — Advisory Board Spun Off + ClickUp Sweep</div>
+      <div class="activity-text">Advisory Board graduated to its own PMO project. Advisory Board Phase 1 "Board Expansion — All Roles + Interview Mode" kicked off; dashboard committed as northlight-pmo/advisory-board/phase-1.html (commit 2c40671). Revenue tracking task 86e25q9ek closed with evidence. DedupCard migrated to System → Maintenance subtab; OutOfOfficeCard moved to System → Dispatcher (alongside DispatcherCard) — completes the "System → Maintenance" Phase 7 carry item. ClickUp OS backlog audit running.</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">July 15, 2026 — Blocks 4 &amp; 7 Complete · Phase 7 Core Done</div>
+      <div class="activity-text">Block 7: npm audit fix cleared form-data high CVE. GEO audit history migrated from ephemeral JSON to Google Sheets "GEO Audit History" tab. Slack channel routing corrected. Block 4: full OS navigation rework deployed. 7-tab primary nav with sticky subtab row. 164 net insertions across App.jsx, MarketingPanel.jsx, index.css. Commit 4e010e9.</div>
     </div>
     <div class="activity-item">
       <div class="activity-date">July 15, 2026 — Blocks 5 &amp; 6 Complete (GEO stable)</div>
-      <div class="activity-text">GEO audit fully live at 81/100 under Marketing → Analytics. Final architecture: background job + polling replaces SSE — POST /geo/run returns a jobId immediately, frontend polls /geo/status/:jobId every 2s until done. Immune to Railway's nginx proxy timeout. Signal breakdown panel added (collapsible per-category signal detail). Trend sparkline shows 4-run history (65→74→81→81). History persistence (Google Sheets) deferred to morning. Block 5 Marketing subtab split confirmed complete. Commits: 5439238, 2816f22, 80d5d03, f71b23c, 084094c.</div>
+      <div class="activity-text">GEO audit fully live at 81/100 under Marketing → Analytics. Final architecture: background job + polling. Trend sparkline shows 4-run history (65→74→81→81). Commits: 5439238, 2816f22, 80d5d03, f71b23c, 084094c.</div>
     </div>
     <div class="activity-item">
       <div class="activity-date">July 14–15, 2026 — GEO Railway Debugging (Block 6 journey)</div>
-      <div class="activity-text">Original plan used Python child_process on Railway. Railway had switched to Railpack v0.31.0 which ignores nixpacks.toml — Python never installed. Dockerfile approach attempted: Railway's delta snapshot excluded dashboard/ directory because no files had changed there across commits, so COPY . . in Docker never got the dashboard. Spent multiple deploys diagnosing. Resolution: ported geo_audit.py to Node.js (geo-audit.js, ~570 lines, axios + cheerio) — eliminated Python dependency entirely, Railpack resumed clean. SSE streaming worked initially but Railway's nginx proxy would silently kill long-lived connections — audit ran for 1–2 min and the stream dropped. Heartbeat added, page fetching parallelised (5 concurrent, limit reduced 30→20→30), shared fetches deduplicated. Still failing intermittently. Root cause confirmed: Railway's proxy timeout is independent of SSE heartbeats and audit speed. Switched to background job + polling pattern — problem class eliminated.</div>
+      <div class="activity-text">Railway Railpack v0.31.0 ignores nixpacks.toml — Python never installed. Dockerfile approach failed (delta snapshot excluded dashboard/). Ported geo_audit.py to Node.js. SSE dropped by Railway nginx proxy. Switched to background job + polling — problem class eliminated.</div>
     </div>
     <div class="activity-item">
-      <div class="activity-date">July 14, 2026 — Blocks 2 &amp; 3 Complete</div>
-      <div class="activity-text">Block 2: Fixed markdown-to-HTML conversion in skill:blog-polish publish pipeline — added inline link conversion <code>[text](url)</code> → <code>&lt;a href&gt;</code> (main failure cause), multi-line blockquote handling, ordered list support, h4 headings. Commit ddf35fc. Block 3: Revenue pipeline confirmed fully built and wired — <code>northlight-revenue</code> Gmail label exists, route registered, <code>ensureRevenueSetup()</code> auto-creates Revenue Log sheet and P&amp;L SUMIFS. Verified end-to-end with $1,500 test transaction.</div>
-    </div>
-    <div class="activity-item">
-      <div class="activity-date">July 14, 2026 — Block 1 Complete</div>
-      <div class="activity-text">All 7 Advisory Board personas wired: 4 new doctrine files deployed to dashboard/specs/, CMO-DOCTRINE.md updated, ADVISORY-BOARD-PERSONAS.md replaced with 7-persona version, Sam/Casey/Avery registered in personas.js, all doctrine files loaded and injected into both system prompt builders in orchestrator.js. Commit f319d69, pushed to Railway.</div>
+      <div class="activity-date">July 14, 2026 — Blocks 1, 2 &amp; 3 Complete</div>
+      <div class="activity-text">Block 1: All 7 Advisory Board personas wired, commit f319d69. Block 2: Markdown-to-HTML conversion fixed, commit ddf35fc. Block 3: Revenue pipeline confirmed fully built and verified end-to-end.</div>
     </div>
     <div class="activity-item">
       <div class="activity-date">July 14, 2026 — Phase 7 Planning Session</div>
-      <div class="activity-text">Full backlog review across OS Backlog and Advisory Board ClickUp lists plus all prior phase dashboards. Priorities set for next couple of days. 7-block plan approved. Advisory Board doctrine files for 4 new personas reviewed and finalized in Cowork folder. Slack @-mentionable consult mode logged to parking lot. ClickUp Advisory Board list cleanup executed: 6 tasks closed, 1 repurposed.</div>
-    </div>
-    <div class="activity-item">
-      <div class="activity-date">July 6, 2026 — Post-Phase-6 Maintenance</div>
-      <div class="activity-text">Advisory Board secretary fix: maxTokens raised 2800→6500 and synthesis 1800→3000 so notes never cut off mid-sentence. Debate section capped at 20 bullet points to reserve budget for Decision/Rationale/Open Questions. Subtask ghost prevention: subtasks whose parent task is complete/closed are now skipped entirely — fixes orphaned Claude subtasks running daily after parent marked done. Empty research brief guard in skill:research: if task has no description or [Topic] tag, throws EMPTY_BRIEF and sends Slack DM. Commit 01185ae.</div>
-    </div>
-    <div class="activity-item">
-      <div class="activity-date">July 2, 2026 — Phase 6 Follow-Ups Complete</div>
-      <div class="activity-text">Blog scheduling, ClickUp consolidation (24/24 files), A+ catch block cleanup, thinking-usage logs confirmed, prompt cache reads confirmed. All Phase 6 roadmap items closed or deliberately parked. Phase 6 marked complete.</div>
+      <div class="activity-text">Full backlog review. 7-block plan approved. ClickUp Advisory Board list cleanup: 6 tasks closed, 1 repurposed.</div>
     </div>
   </div>
 
   <div class="card">
-    <div class="card-label">Deferred to Phase 8</div>
-    <div class="deferred-item"><div class="deferred-name">Brainstorm-mode session type</div><div class="deferred-why">Not scoped — future Advisory Board session type</div></div>
-    <div class="deferred-item"><div class="deferred-name">Weekly Monday 10am standing session / scheduler hook</div><div class="deferred-why">Not prioritized this cycle</div></div>
-    <div class="deferred-item"><div class="deferred-name">Cross-session decision retrieval (item #14)</div><div class="deferred-why">Phase 3 advisory board work — larger infrastructure piece</div></div>
-    <div class="deferred-item"><div class="deferred-name">Worker bot interview mode / work-group concept</div><div class="deferred-why">Moved to Advisory Board Phase 1 scope — scoping in progress (ClickUp 86e1bma28)</div></div>
-    <div class="deferred-item"><div class="deferred-name">content-strategist.js main call Opus → review</div><div class="deferred-why">Origin unverified; needs git history check before changing</div></div>
-    <div class="deferred-item"><div class="deferred-name">The Roundtable multi-agent interface</div><div class="deferred-why">Future Advisory Board phase</div></div>
-    <div class="deferred-item"><div class="deferred-name">skill:content-repurpose</div><div class="deferred-why">Not prioritized this cycle</div></div>
-    <div class="deferred-item"><div class="deferred-name">Cross-skill prompt cache unification</div><div class="deferred-why">Stretch goal from Phase 6 — per-skill caching already live</div></div>
-    <div class="deferred-item"><div class="deferred-name">Reconsider 1:1 entry-point UX</div><div class="deferred-why">Flagged June 25; not urgent while tab works</div></div>
-    <div class="deferred-item"><div class="deferred-name">Compass → Knowledge (future capability)</div><div class="deferred-why">Depends on Block 4 nav rework being settled first</div></div>
-  </div>
-</div>
-
-<div class="grid">
-  <div class="card grid-full">
     <div class="card-label">Carried to Phase 8</div>
-    <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Ambient flag modes + post-commit hook — Advisory Board carry-forward</div><div class="issue-note">Casey on #northlight-build-log + PMO-updates; Sam on finance channel. Requires post-commit hook (86e2b4w98). Finance channel is now clean — prerequisite met.</div></div></div>
-    <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">googleapis moderate CVE chain (4 CVEs)</div><div class="issue-note">Requires googleapis v149→v173 breaking upgrade + full pipeline test. Low practical risk. Parked for a dedicated upgrade session.</div></div></div>
-    <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">System → Maintenance: migrate Dedup Store + Out of Office from Settings</div><div class="issue-note">Nav structure now has the right home for these. Migration is straightforward — not urgent while they're accessible under System → Settings.</div></div></div>
-    <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Capture → New Idea: build actual intake form</div><div class="issue-note">Placeholder card is live. Should drop entries into Compass → Ideas parking lot.</div></div></div>
-    <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Focus → Projects: per-project dashboards</div><div class="issue-note">Placeholder card live. TableReady and Northlight OS dashboard views to be built here.</div></div></div>
+    <div class="deferred-item"><div class="deferred-name">Ambient flag modes + post-commit hook</div><div class="deferred-why">Casey on #northlight-build-log; Sam on finance channel. Requires post-commit hook (86e2b4w98).</div></div>
+    <div class="deferred-item"><div class="deferred-name">googleapis moderate CVE chain (4 CVEs)</div><div class="deferred-why">Requires googleapis v149→v173 breaking upgrade + full pipeline test. Low practical risk.</div></div>
+    <div class="deferred-item"><div class="deferred-name">Capture → New Idea: build actual intake form</div><div class="deferred-why">New Idea placeholder removed July 18. Build the actual Compass → Ideas intake form in Phase 8.</div></div>
+    <div class="deferred-item"><div class="deferred-name">Focus → Projects: per-project dashboards</div><div class="deferred-why">Placeholder card live. TableReady and OS dashboard views to be built.</div></div>
+    <div class="deferred-item"><div class="deferred-name">Brainstorm-mode session type</div><div class="deferred-why">Future Advisory Board session type</div></div>
+    <div class="deferred-item"><div class="deferred-name">Weekly Monday 10am standing session / scheduler hook</div><div class="deferred-why">Not prioritized this cycle</div></div>
+    <div class="deferred-item"><div class="deferred-name">The Roundtable multi-agent interface</div><div class="deferred-why">Future Advisory Board phase</div></div>
+    <div class="deferred-item"><div class="deferred-name">Cross-skill prompt cache unification</div><div class="deferred-why">Stretch goal from Phase 6 — per-skill caching already live</div></div>
   </div>
 </div>
 
 <div class="footer">
   <div>Northlight OS · Phase 7 · Advisory Board Expansion + Marketing Rebuild</div>
-  <div>Dashboard created July 14, 2026 · Refreshed July 17, 2026</div>
+  <div>Dashboard created July 14, 2026 · Refreshed July 18, 2026</div>
 </div>
 </body>
 </html>

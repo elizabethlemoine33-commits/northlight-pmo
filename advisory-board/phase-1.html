@@ -94,21 +94,21 @@
 <div class="header">
   <div class="phase-label">Phase 1 · Board Expansion — All Roles + Interview Mode</div>
   <div class="title">Advisory Board Bot — PMO Dashboard</div>
-  <div class="subtitle">Kicked off July 17, 2026 · Status: In Progress</div>
+  <div class="subtitle">Kicked off July 17, 2026 · Status: In Progress · Refreshed July 18, 2026</div>
 </div>
 
 <div class="callout">
-  <strong>Where this project comes from:</strong> The advisory board itself was built inside Northlight OS (Phase 7, July 14–15) — all 7 personas are live in the dispatcher: Reese (CFO), Quinn (CPO), Jordan (CMO), Sam (Founder Coach), Casey (Technical &amp; Product), Avery (Strategy), Morgan (Secretary/Chief of Staff). This project now tracks the Advisory Board as its own workstream. Phase 1 closes the gap between what's wired (7 personas) and what's usable on screen (3).
+  <strong>Where this project comes from:</strong> The advisory board itself was built inside Northlight OS (Phase 7, July 14–15) — all 7 personas are live in the dispatcher: Reese (CFO), Quinn (CPO), Jordan (CMO), Sam (Founder Coach), Casey (Technical &amp; Product), Avery (Strategy), Morgan (Secretary/Chief of Staff). This project now tracks the Advisory Board as its own workstream. Phase 1 closes the gap between what was wired (7 personas) and what's visible on screen (previously 3). The portrait grid shipped July 18 — all 7 board members are now on screen.
 </div>
 
 <div class="progress-section">
   <div class="progress-header">
-    <div class="progress-label">Phase 1 In Progress · Kickoff July 17</div>
-    <div class="progress-pct">10%</div>
+    <div class="progress-label">Phase 1 In Progress · Board UI Shipped July 18</div>
+    <div class="progress-pct">60%</div>
   </div>
-  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:10%"></div></div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:60%"></div></div>
   <div class="progress-counts">
-    <div class="progress-count"><strong>0 / 2</strong> build items complete</div>
+    <div class="progress-count"><strong>1 / 2</strong> build items complete</div>
     <div class="progress-count"><strong>1</strong> decision open (1:1 UX)</div>
     <div class="progress-count"><strong>3</strong> ClickUp tasks in scope</div>
   </div>
@@ -118,15 +118,15 @@
   <div class="card grid-full">
     <div class="card-label">Phase 1 Scope</div>
     <table class="block-table">
-      <tr><th style="width:38%">Item</th><th>What's in scope</th><th style="width:120px">Status</th></tr>
+      <tr><th style="width:38%">Item</th><th>What shipped</th><th style="width:120px">Status</th></tr>
       <tr>
         <td><div class="block-name">1 — All roles on the Advisory Board screen</div></td>
-        <td><div class="block-note">Compass → Advisory Board currently exposes direct 1:1 chat with CFO, CPO, and CMO only. Wire the remaining live personas (Sam, Casey, Avery, Morgan) onto the screen so every board member is directly reachable. ClickUp 86e2ckhf8.</div></td>
-        <td><span class="badge badge-inprogress">In Progress</span></td>
+        <td><div class="block-note">Delivered July 18. Seven board member portrait photos (board-reece.jpg, board-quinn.jpg, board-jordan.jpg, board-sam.jpg, board-casey.jpg, board-avery.jpg, board-morgan.jpg) committed to dashboard/public/. Toggle button row replaced with a 7-column portrait card grid — clicking a card activates the persona (violet ring + tinted bg). All 6 presenter personas default active. Morgan appears as a non-toggleable "Always present" card with teal ring. Chat avatars added to 1:1 thread messages: circular 28px photo for each persona, aurora-gradient "E" for Elizabeth. Commits: ddaf808, ba91ea5, 37f348d. ClickUp 86e2ckhf8.</div></td>
+        <td><span class="badge badge-done">Done</span></td>
       </tr>
       <tr>
         <td><div class="block-name">2 — Worker bot interview mode</div></td>
-        <td><div class="block-note">Interview mode that captures voice and purpose for task-doer bots — the second tier ("work crew") distinct from the C-suite board, seeded from parked concept in OS Phase 7. Scope against the dispatcher repo first; build if it fits the day, otherwise deliver a build spec. ClickUp 86e1bma28.</div></td>
+        <td><div class="block-note">Interview mode that captures voice and purpose for task-doer bots — the second tier ("work crew") distinct from the C-suite board. Scoping against the dispatcher repo; build if it fits, otherwise deliver a build spec. ClickUp 86e1bma28.</div></td>
         <td><span class="badge badge-inprogress">Scoping</span></td>
       </tr>
       <tr>
@@ -140,14 +140,18 @@
 
 <div class="grid">
   <div class="card">
-    <div class="card-label">Related Items Living in Other Backlogs</div>
+    <div class="card-label">Related Items in Other Backlogs</div>
     <div class="issue-item"><div class="issue-dot blue"></div><div><div class="issue-text">Post-commit hook → #northlight-build-log</div><div class="issue-note">Feeds Casey's ambient review mode. ClickUp 86e2b4w98 — sits in the Northlight OS backlog, tagged advisory-board.</div></div></div>
     <div class="issue-item"><div class="issue-dot blue"></div><div><div class="issue-text">Slack finance channel cleanup before Sam's ambient flag mode</div><div class="issue-note">ClickUp 86e2b4wc8 — Northlight OS backlog, tagged advisory-board. Prerequisite for enabling Founder Coach ambient monitoring.</div></div></div>
-    <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Slack one-off consult mode — parked</div><div class="issue-note">ClickUp 86e2b50b2. Deliberately parked in OS Phase 7: redundant while the Advisory Board tab covers 1:1 access. The Phase 1 UX decision may revisit this.</div></div></div>
+    <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Slack one-off consult mode — parked</div><div class="issue-note">ClickUp 86e2b50b2. Deliberately parked: redundant while the Advisory Board tab covers 1:1 access. The Phase 1 UX decision may revisit this.</div></div></div>
   </div>
 
   <div class="card">
     <div class="card-label">Decisions Log</div>
+    <div class="decision-item">
+      <div class="decision-title">All 6 presenter personas default active — July 18, 2026</div>
+      <div class="decision-rationale">Initial default was CFO/Privacy/CMO only, creating a visual inconsistency where the first three cards looked different from the last three. Elizabeth noted the difference — all 6 are now active by default since all are available for consultation. Morgan remains non-toggleable (always present as scribe).</div>
+    </div>
     <div class="decision-item">
       <div class="decision-title">Advisory Board becomes its own PMO project — July 17, 2026</div>
       <div class="decision-rationale">Board work was previously tracked inside OS phases. It now has its own phase history, starting from the expansion that OS Phase 7 shipped.</div>
@@ -163,19 +167,23 @@
   <div class="card grid-full">
     <div class="card-label">Activity Timeline</div>
     <div class="activity-item">
-      <div class="activity-date">July 14–15, 2026 (pre-phase, in OS Phase 7)</div>
-      <div class="activity-text">4 new doctrine files deployed (Founder Coach, Secretary, Strategy, Tech/Product), CMO doctrine updated, ADVISORY-BOARD-PERSONAS.md replaced with the 7-persona version, personas.js + orchestrator.js registered all presenters. Commit f319d69, live on Railway.</div>
+      <div class="activity-date">July 18, 2026 — Portrait Grid + Chat Avatars Shipped</div>
+      <div class="activity-text">Seven board member portrait photos added to dashboard/public/ (board-reece.jpg, board-quinn.jpg, board-jordan.jpg, board-sam.jpg, board-casey.jpg, board-avery.jpg, board-morgan.jpg). AdvisoryBoardPanel.jsx overhauled: PERSONA_NAMES and PERSONA_IMAGES maps added, LABEL_TO_PERSONA_ID reverse lookup built, toggle button flex row replaced with sm:grid-cols-7 portrait card grid. Active cards get violet ring + tinted background. Morgan added as a non-toggleable "Always present" card with teal ring (she appears in PERSONA_IMAGES but not PERSONA_LABELS). All 6 presenter personas set as default active (was CFO/Privacy/CMO only — fixed after Elizabeth noted the visual inconsistency). Chat avatars added: each 1:1 thread message now has a circular 28px photo (persona portrait or aurora-gradient "E" for Elizabeth). Commits: ddaf808 (images + grid), ba91ea5 (all 6 default active), 37f348d (chat avatars). Live on Railway.</div>
     </div>
     <div class="activity-item">
-      <div class="activity-date">July 17, 2026</div>
+      <div class="activity-date">July 17, 2026 — Phase 1 Kickoff</div>
       <div class="activity-text">Phase 1 kicked off as part of the full Northlight ClickUp sweep. Scope: roles screen build, interview-mode scoping, 1:1 UX decision brief. This dashboard created.</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">July 14–15, 2026 (pre-phase, in OS Phase 7)</div>
+      <div class="activity-text">4 new doctrine files deployed (Founder Coach, Secretary, Strategy, Tech/Product), CMO doctrine updated, ADVISORY-BOARD-PERSONAS.md replaced with the 7-persona version, personas.js + orchestrator.js registered all presenters. Commit f319d69, live on Railway.</div>
     </div>
   </div>
 </div>
 
 <div class="footer">
   <div>Advisory Board Bot · Phase 1 — Board Expansion — All Roles + Interview Mode</div>
-  <div>Northlight PMO · Kickoff dashboard, will be updated as Phase 1 closes</div>
+  <div>Northlight PMO · Kicked off July 17 · Refreshed July 18, 2026</div>
 </div>
 </body>
 </html>
