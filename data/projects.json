@@ -1,6 +1,6 @@
 {
-  "refreshed_at": "2026-07-18T20:47:15.333Z",
-  "triggered_by": "manual-slack",
+  "refreshed_at": "2026-07-18T20:58:49.166Z",
+  "triggered_by": "phase-dashboard-commit",
   "open_total": 2,
   "projects": [
     {
@@ -15,14 +15,22 @@
       "current_phase_title": "Security Hardening & System Observability",
       "phase_started": "2026-07-18",
       "open_count": 0,
-      "backlog_count": 10,
+      "backlog_count": 6,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 16,
+      "done_count": 20,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
       "done_items": [
+        {
+          "name": "Package C: Queue monitoring — social-scheduled + blog-scheduled Drive queues",
+          "priority": "normal"
+        },
+        {
+          "name": "Package C: Failed processes panel in Automation tab",
+          "priority": "normal"
+        },
         {
           "name": "Package B: Auth events → Drive storage (login/logout/blocked attempts)",
           "priority": "normal"
@@ -33,14 +41,6 @@
         },
         {
           "name": "AutomationPanel: Automation subtab with 4 workflow cards, pause/resume, GEO trigger",
-          "priority": "normal"
-        },
-        {
-          "name": "Security: Skeleton key scoped to /schedule-social + auth logging with IP/UA/timestamp",
-          "priority": "high"
-        },
-        {
-          "name": "Package D: Maintenance panel — System Diagnostics, Dedup Store, Data & Retention",
           "priority": "normal"
         }
       ],
