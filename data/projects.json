@@ -1,5 +1,5 @@
 {
-  "refreshed_at": "2026-07-18T05:33:52.995Z",
+  "refreshed_at": "2026-07-18T20:28:17.960Z",
   "triggered_by": "phase-dashboard-commit",
   "open_total": 2,
   "projects": [
@@ -10,12 +10,12 @@
       "status": "live",
       "github": "https://github.com/elizabethlemoine33-commits/northlight-dispatcher",
       "clickup_list_id": "901715263627",
-      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/os/phase-7.html",
-      "current_phase": "7",
-      "current_phase_title": "Advisory Board Expansion + Marketing Rebuild",
-      "phase_started": "2026-07-14",
+      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/os/phase-8.html",
+      "current_phase": "8",
+      "current_phase_title": "Security Hardening & System Observability",
+      "phase_started": "2026-07-18",
       "open_count": 0,
-      "backlog_count": 9,
+      "backlog_count": 12,
       "ready_count": 0,
       "in_progress_count": 0,
       "done_count": 14,
@@ -24,23 +24,23 @@
       "in_progress_items": [],
       "done_items": [
         {
-          "name": "Focus → Projects: per-project dashboards (TableReady, Northlight OS)",
+          "name": "publish.js: AEO blocks, FAQ schema, targeted blog index insert",
           "priority": "normal"
         },
         {
-          "name": "Capture → New Idea: build intake form (drops to Compass → Ideas)",
+          "name": "AutomationPanel: Automation subtab with 4 workflow cards, pause/resume, GEO trigger",
           "priority": "normal"
         },
         {
-          "name": "System → Maintenance: migrate DedupCard + OutOfOfficeCard out of Settings",
+          "name": "Security: Skeleton key scoped to /schedule-social + auth logging with IP/UA/timestamp",
+          "priority": "high"
+        },
+        {
+          "name": "Package D: Maintenance panel — System Diagnostics, Dedup Store, Data & Retention",
           "priority": "normal"
         },
         {
-          "name": "Look into PMO folders and dashboards.",
-          "priority": "normal"
-        },
-        {
-          "name": "Clean up Slack finance channel before enabling Founder Coach ambient flag mode",
+          "name": "Package A: Dispatcher run history, status pill, last-ran timestamp",
           "priority": "normal"
         }
       ],
