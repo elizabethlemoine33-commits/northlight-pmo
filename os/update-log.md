@@ -4,6 +4,7 @@ project: Northlight OS
 
 | Date | Session | What Shipped | Phase |
 |---|---|---|---|
+| 2026-07-18 | Package B complete | Auth event logging: appendAuthEvent() writes login/logout/blocked/reconnect to Drive key 'auth-event-log'. Fixed timestamp consistency in auth.js reconnect logs. New /auth/event-log route. AuthEventLogCard in Maintenance tab shows last 20 events with type badge + IP. Commit 184c695. | Phase 8 |
 | 2026-07-18 | Phase 8 kickoff | Security hardening (skeleton key scoped, auth logging with IP/UA), AutomationPanel, publish.js AEO+FAQ, Package A (Dispatcher run history + status), Package D (Maintenance panel with Diagnostics). 5 ClickUp tasks closed, 3 queued for B+C. | Phase 8 |
 | 2026-07-18 | Evening OS session | Advisory Board Phase 1 UI landed in dispatcher: portrait grid, board images (7 portraits), chat avatars. Capture → New Idea placeholder removed (tab simplified to New Task only). DedupCard/OutOfOfficeCard migration confirmed done (Maintenance/Dispatcher subtabs). Commits ddaf808, ba91ea5, 37f348d. | Phase 7 |
 | 2026-07-15 | Afternoon | Block 4: OS navigation rework — 11 tabs → 7, sticky two-row nav (primary + subtabs), subtab state lifted to App.jsx, sessionStorage persistence, MarketingPanel refactored to accept props. Commit 4e010e9. | Phase 7 |
