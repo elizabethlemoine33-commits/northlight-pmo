@@ -1,5 +1,5 @@
 {
-  "refreshed_at": "2026-07-17T18:59:11.303Z",
+  "refreshed_at": "2026-07-18T05:33:52.995Z",
   "triggered_by": "phase-dashboard-commit",
   "open_total": 2,
   "projects": [
@@ -15,10 +15,10 @@
       "current_phase_title": "Advisory Board Expansion + Marketing Rebuild",
       "phase_started": "2026-07-14",
       "open_count": 0,
-      "backlog_count": 21,
+      "backlog_count": 9,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 2,
+      "done_count": 14,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
@@ -28,7 +28,19 @@
           "priority": "normal"
         },
         {
+          "name": "Capture → New Idea: build intake form (drops to Compass → Ideas)",
+          "priority": "normal"
+        },
+        {
+          "name": "System → Maintenance: migrate DedupCard + OutOfOfficeCard out of Settings",
+          "priority": "normal"
+        },
+        {
           "name": "Look into PMO folders and dashboards.",
+          "priority": "normal"
+        },
+        {
+          "name": "Clean up Slack finance channel before enabling Founder Coach ambient flag mode",
           "priority": "normal"
         }
       ],
@@ -117,14 +129,19 @@
       "current_phase_title": "Content Depth & Thought Leadership",
       "phase_started": "2026-07-11",
       "open_count": 0,
-      "backlog_count": 1,
+      "backlog_count": 0,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 0,
+      "done_count": 1,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
-      "done_items": [],
+      "done_items": [
+        {
+          "name": "Update website - Digital Reference ",
+          "priority": "normal"
+        }
+      ],
       "decisions": [],
       "blockers": []
     },
@@ -186,14 +203,23 @@
       "current_phase_title": "Board Expansion — All Roles + Interview Mode",
       "phase_started": "2026-07-17",
       "open_count": 0,
-      "backlog_count": 3,
+      "backlog_count": 2,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 0,
+      "done_count": 2,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
-      "done_items": [],
+      "done_items": [
+        {
+          "name": "Images for the board",
+          "priority": "normal"
+        },
+        {
+          "name": "All roles of the Advisory Board need to show on the Advisory Board screen.",
+          "priority": "normal"
+        }
+      ],
       "decisions": [],
       "blockers": []
     },
