@@ -1,6 +1,6 @@
 {
-  "refreshed_at": "2026-07-18T20:58:49.166Z",
-  "triggered_by": "phase-dashboard-commit",
+  "refreshed_at": "2026-07-19T22:00:38.360Z",
+  "triggered_by": "schedule",
   "open_total": 2,
   "projects": [
     {
@@ -15,14 +15,18 @@
       "current_phase_title": "Security Hardening & System Observability",
       "phase_started": "2026-07-18",
       "open_count": 0,
-      "backlog_count": 6,
+      "backlog_count": 5,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 20,
+      "done_count": 22,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
       "done_items": [
+        {
+          "name": "Build Founder Coach (Sam) ambient flag mode — weekly avoidance scan",
+          "priority": "normal"
+        },
         {
           "name": "Package C: Queue monitoring — social-scheduled + blog-scheduled Drive queues",
           "priority": "normal"
@@ -37,10 +41,6 @@
         },
         {
           "name": "publish.js: AEO blocks, FAQ schema, targeted blog index insert",
-          "priority": "normal"
-        },
-        {
-          "name": "AutomationPanel: Automation subtab with 4 workflow cards, pause/resume, GEO trigger",
           "priority": "normal"
         }
       ],
@@ -206,18 +206,30 @@
       "backlog_count": 2,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 2,
+      "done_count": 10,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
       "done_items": [
         {
-          "name": "Images for the board",
-          "priority": "normal"
+          "name": "Casey debate: ClickUp Northlight Space + PMO dashboards + Drive folders context",
+          "priority": "low"
         },
         {
-          "name": "All roles of the Advisory Board need to show on the Advisory Board screen.",
-          "priority": "normal"
+          "name": "Sam debate: ClickUp workspace + calendar + email + goals/wins tracker context",
+          "priority": "low"
+        },
+        {
+          "name": "Sam: Ambient flag mode on Slack generally",
+          "priority": "low"
+        },
+        {
+          "name": "Casey: Ambient flag mode on PMO-updates channel",
+          "priority": "low"
+        },
+        {
+          "name": "CMO: Inject content-strategist / content-critic outputs where relevant",
+          "priority": "low"
         }
       ],
       "decisions": [],
