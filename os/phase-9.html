@@ -199,14 +199,16 @@
     <div class="pkg-row">
       <div class="pkg-letter pkg-done">S4</div>
       <div class="pkg-body">
-        <div class="pkg-title">Knowledge Base Integration + Housekeeping <span class="badge badge-done" style="margin-left:6px">Done · July 22</span></div>
-        <div class="pkg-desc">Built <code>knowledge-context.js</code> — fetches Elizabeth's <code>northlight-knowledge</code> public GitHub repo at session time; per-persona scope: Harper (worldview + core-principles + topic-matched frameworks), Wren (full: all frameworks + all 2026 observations), Sage (worldview + core-principles only), Devon (framework names/IDs listing only); 30-min in-process cache; non-fatal fallback on fetch failure. Wired into <code>orchestrator.js</code> — both <code>runPresentationRound</code> and <code>runDebateRound</code> now call <code>buildSessionKnowledgeContext</code> in parallel with all other context loads; injected as labeled per-persona block in <code>buildSystemPrompt</code>. Upgraded <code>seo-context.js</code> from stub to live Drive doc reader — <code>readDriveDoc(fileId)</code> added to <code>drive-store.js</code>; KNOWN-DIRECTORIES loaded from Drive on first call (30-min cache). Removed <code>KNOWN-DIRECTORIES.md</code> from <code>validateContext</code> optional list and deleted spec file. Updated ClickUp task <code>86e1p1kaw</code> with full Phase 9 scope description. Marked S4 task complete. Campaign entity (ClickUp parent task / Option A) deferred to Phase 10.</div>
+        <div class="pkg-title">Knowledge Base + Campaign Entity + Roadmap Close <span class="badge badge-done" style="margin-left:6px">Done · July 22</span></div>
+        <div class="pkg-desc">Built <code>knowledge-context.js</code> — fetches Elizabeth's <code>northlight-knowledge</code> public GitHub repo at session time; per-persona scope: Harper (worldview + core-principles + topic-matched frameworks), Wren (full: all frameworks + all 2026 observations), Sage (worldview + core-principles only), Devon (framework names/IDs listing only); 30-min in-process cache; non-fatal fallback. Wired into <code>orchestrator.js</code> in parallel with all other context loads; injected as labeled per-persona block. Upgraded <code>seo-context.js</code> from stub to live Drive doc reader; <code>readDriveDoc(fileId)</code> added to <code>drive-store.js</code>; KNOWN-DIRECTORIES from Drive. Removed <code>KNOWN-DIRECTORIES.md</code> from <code>validateContext</code> + deleted spec file. Campaign entity (Option A) built: <code>session/start</code> accepts optional <code>campaignTaskId</code>; <code>session/finalize</code> posts Morgan's decision record link as a <code>[ROUND TABLE DECISION]</code> comment on the campaign ClickUp parent task; optional "Campaign task ID" input added to setup screen in panel (full-meeting mode only). Closed COMPLETE-BUILD-ROADMAP Feature 11: analytics auto-pull (<code>GET /api/analytics/buffer/weekly</code> and <code>/buffer/posts</code>) confirmed live since Phase 9. Updated ClickUp task <code>86e1p1kaw</code> description.</div>
         <div class="pkg-tasks">
           <span class="pkg-task-chip">knowledge-context.js</span>
           <span class="pkg-task-chip">orchestrator.js wired</span>
           <span class="pkg-task-chip">seo-context.js Drive read</span>
           <span class="pkg-task-chip">drive-store.js readDriveDoc</span>
           <span class="pkg-task-chip">KNOWN-DIRECTORIES.md deleted</span>
+          <span class="pkg-task-chip">campaign entity (Option A)</span>
+          <span class="pkg-task-chip">Feature 11 roadmap closed</span>
           <span class="pkg-task-chip">86e1p1kaw description updated</span>
         </div>
       </div>
@@ -471,18 +473,18 @@
   <div class="card grid-full">
     <div class="card-label">Carried Forward → Phase 10</div>
     <table class="block-table">
-      <tr><th style="width:40%">Item</th><th style="width:14%">Deferred From</th><th style="width:13%">Priority</th><th>Notes</th></tr>
+      <tr><th style="width:40%">Item</th><th style="width:14%">Status</th><th style="width:13%">Priority</th><th>Notes</th></tr>
       <tr>
         <td><div class="block-name">Campaign entity — ClickUp parent task (Option A)</div></td>
-        <td><span class="badge badge-notstarted">S4</span></td>
-        <td><span class="badge badge-queued">Phase 10</span></td>
-        <td><div class="block-note">Campaigns as ClickUp parent tasks; content posts as subtasks. Morgan's round table decision record links to parent task ID. Extends existing comment-scraping pattern. Core Round Table fully functional without this — this adds cross-session campaign memory.</div></td>
+        <td><span class="badge badge-done">Done S4</span></td>
+        <td><span class="badge badge-done">Closed</span></td>
+        <td><div class="block-note">session/start accepts campaignTaskId; session/finalize posts decision record link as [ROUND TABLE DECISION] comment on campaign task. Setup screen has optional input field.</div></td>
       </tr>
       <tr>
-        <td><div class="block-name">Verify analytics auto-pull is live (close roadmap stale note)</div></td>
-        <td><span class="badge badge-notstarted">S4</span></td>
-        <td><span class="badge badge-notstarted">Lower</span></td>
-        <td><div class="block-note">COMPLETE-BUILD-ROADMAP Feature 11 still says "not yet built." Analytics confirmed live June 30, 2026. Task: confirm endpoint health + update roadmap.</div></td>
+        <td><div class="block-name">Analytics auto-pull (Feature 11 roadmap close)</div></td>
+        <td><span class="badge badge-done">Done S4</span></td>
+        <td><span class="badge badge-done">Closed</span></td>
+        <td><div class="block-note">GET /api/analytics/buffer/weekly and /buffer/posts confirmed live. COMPLETE-BUILD-ROADMAP Feature 11 stale note removed.</div></td>
       </tr>
       <tr>
         <tr>

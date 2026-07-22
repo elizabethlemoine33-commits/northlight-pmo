@@ -1,6 +1,6 @@
 ---
-phase: Phase 9 — Marketing Round Table (in progress)
-updated: 2026-07-22
+phase: Phase 9 — Marketing Round Table
+completed: 2026-07-22
 ---
 
 ## Phase 9 Learnings (Sessions 1–4)
@@ -9,6 +9,7 @@ updated: 2026-07-22
 - **Per-persona injection scope matters as much as the content itself** — Wren needs the full corpus (frameworks + observations) because she's drafting to a standard; Sage only needs the worldview and principles to verify authenticity; Devon only needs framework names for named-entity awareness. Over-injecting leads to blended voices; under-injecting leaves value on the table.
 - **Topic-scoring frameworks to select relevant content is good enough for Harper** — a simple keyword-count score against the scenario text picks the right 1–2 frameworks for Harper's context without requiring a vector database. For a 4-framework corpus, it's exact enough.
 - **Drive doc export (`files.export`) reads Google Docs without parsing complexity** — exporting as `text/plain` via the Drive API is simpler than downloading and parsing the binary format. The `readDriveDoc(fileId)` pattern is now reusable anywhere a Drive doc needs to be injected as context.
+- **Scope and deferral decisions require alignment, not unilateral calls** — do not defer committed session items to the next phase without a conversation with Elizabeth first. Elizabeth is product manager; Claude is project executor. When scope is unclear or seems large, surface the tradeoff and ask — don't decide and announce.
 
 ## Phase 9 Learnings (Sessions 1–3)
 
