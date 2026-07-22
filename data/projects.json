@@ -1,6 +1,6 @@
 {
-  "refreshed_at": "2026-07-19T22:00:38.360Z",
-  "triggered_by": "schedule",
+  "refreshed_at": "2026-07-22T03:45:20.679Z",
+  "triggered_by": "phase-dashboard-commit",
   "open_total": 2,
   "projects": [
     {
@@ -10,40 +10,19 @@
       "status": "live",
       "github": "https://github.com/elizabethlemoine33-commits/northlight-dispatcher",
       "clickup_list_id": "901715263627",
-      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/os/phase-8.html",
-      "current_phase": "8",
-      "current_phase_title": "Security Hardening & System Observability",
-      "phase_started": "2026-07-18",
+      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/os/phase-9.html",
+      "current_phase": "9",
+      "current_phase_title": "Marketing Round Table",
+      "phase_started": "2026-07-21",
       "open_count": 0,
-      "backlog_count": 5,
+      "backlog_count": 8,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 22,
+      "done_count": 0,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
-      "done_items": [
-        {
-          "name": "Build Founder Coach (Sam) ambient flag mode — weekly avoidance scan",
-          "priority": "normal"
-        },
-        {
-          "name": "Package C: Queue monitoring — social-scheduled + blog-scheduled Drive queues",
-          "priority": "normal"
-        },
-        {
-          "name": "Package C: Failed processes panel in Automation tab",
-          "priority": "normal"
-        },
-        {
-          "name": "Package B: Auth events → Drive storage (login/logout/blocked attempts)",
-          "priority": "normal"
-        },
-        {
-          "name": "publish.js: AEO blocks, FAQ schema, targeted blog index insert",
-          "priority": "normal"
-        }
-      ],
+      "done_items": [],
       "decisions": [],
       "blockers": []
     },
