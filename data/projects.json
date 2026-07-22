@@ -1,5 +1,5 @@
 {
-  "refreshed_at": "2026-07-22T17:11:59.359Z",
+  "refreshed_at": "2026-07-22T17:34:52.420Z",
   "triggered_by": "phase-dashboard-commit",
   "open_total": 2,
   "projects": [
@@ -15,14 +15,18 @@
       "current_phase_title": "Marketing Round Table",
       "phase_started": "2026-07-21",
       "open_count": 0,
-      "backlog_count": 6,
+      "backlog_count": 5,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 2,
+      "done_count": 3,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
       "done_items": [
+        {
+          "name": "Session 4: Campaign entity + ClickUp housekeeping + analytics auto-pull verification",
+          "priority": "low"
+        },
         {
           "name": "Session 3: Post-failure modal — RoundTableModal + task-reset UI",
           "priority": "normal"
