@@ -128,25 +128,25 @@
 <div class="header">
   <div class="phase-label">Phase 9 · Marketing Round Table · In Progress</div>
   <div class="title">Northlight OS — PMO Dashboard</div>
-  <div class="subtitle">Started July 21, 2026 · Session 1 of 4 complete · Back-end skeleton shipped</div>
+  <div class="subtitle">Started July 21, 2026 · Sessions 1–3 of 4 complete · Full UI shipped — post-failure modal live</div>
 </div>
 
 <div class="callout">
-  <strong>Coming out of Phase 8:</strong> Security baseline complete — skeleton key scoped, auth event logging, AutomationPanel, AEO/FAQ schema in publish.js, 4 observability packages done. Carried forward: googleapis CVE (4 moderate, separate track), Roundtable spec written in ClickUp backlog since June 2026. Phase 9 picks up that spec and builds it out into a full 7-persona multi-agent system.
+  <strong>Coming out of Phase 8:</strong> Security baseline complete — skeleton key scoped, auth event logging, AutomationPanel, AEO/FAQ schema in publish.js, 4 observability packages done. Carried forward: googleapis CVE (4 moderate, separate track), Round Table spec written in ClickUp backlog since June 2026. Phase 9 picks up that spec and builds it out into a full 7-persona multi-agent system with two entry modes: full team meeting subtab and post-failure task card modal.
 </div>
 
 <div class="progress-section">
   <div class="progress-header">
-    <div class="progress-label">Session 1 Complete · Back-End Skeleton + Persona Layer Shipped</div>
-    <div class="progress-pct">25%</div>
+    <div class="progress-label">Sessions 1–3 Complete · Back-End Skeleton + Full UI + Post-Failure Modal Shipped</div>
+    <div class="progress-pct">75%</div>
   </div>
-  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:25%"></div></div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:75%"></div></div>
   <div class="progress-counts">
-    <div class="progress-count"><strong>1 / 4</strong> build sessions complete</div>
+    <div class="progress-count"><strong>3 / 4</strong> build sessions complete</div>
     <div class="progress-count"><strong>7</strong> doctrine files authored / updated</div>
-    <div class="progress-count"><strong>3</strong> new back-end modules</div>
-    <div class="progress-count"><strong>7</strong> API endpoints live</div>
-    <div class="progress-count"><strong>0</strong> front-end work started</div>
+    <div class="progress-count"><strong>3</strong> back-end modules + 8 endpoints</div>
+    <div class="progress-count"><strong>3</strong> new front-end components</div>
+    <div class="progress-count"><strong>1</strong> session remaining (campaign entity)</div>
   </div>
 </div>
 
@@ -159,7 +159,7 @@
       <div class="pkg-letter pkg-done">S1</div>
       <div class="pkg-body">
         <div class="pkg-title">Persona Layer + Back-End Skeleton <span class="badge badge-done" style="margin-left:6px">Done · July 21–22</span></div>
-        <div class="pkg-desc">Plan approved. 5 new doctrine files (STRATEGIST, DRAFTER, CRITIC, SEO, ANALYTICS-GEO). CMO-DOCTRINE.md updated with LinkedIn citation dynamics. <code>lib/marketing-round-table/personas.js</code> (7 personas), <code>seo-context.js</code> (stub), <code>orchestrator.js</code> (full — session storage, self-check, synthesis, Secretary record with resetTarget extraction). <code>routes/marketing-round-table.js</code> (7 endpoints incl. task-reset). Mounted at <code>/api/round-table</code> in server.js. Q6 citation-readiness check added to <code>content-critic.js</code> for LinkedIn posts.</div>
+        <div class="pkg-desc">Plan approved. 5 new doctrine files (STRATEGIST, DRAFTER, CRITIC, SEO, ANALYTICS-GEO). CMO-DOCTRINE.md updated with LinkedIn citation dynamics. <code>lib/marketing-round-table/personas.js</code> (7 personas), <code>seo-context.js</code> (stub), <code>orchestrator.js</code> (full — session storage, self-check, synthesis, Secretary record with resetTarget). <code>routes/marketing-round-table.js</code> (7 endpoints incl. task-reset). Mounted at <code>/api/round-table</code> in server.js. Q6 citation-readiness check added to <code>content-critic.js</code> for LinkedIn posts.</div>
         <div class="pkg-tasks">
           <span class="pkg-task-chip">personas.js</span>
           <span class="pkg-task-chip">orchestrator.js</span>
@@ -170,44 +170,79 @@
     </div>
 
     <div class="pkg-row">
-      <div class="pkg-letter pkg-queued">S2</div>
+      <div class="pkg-letter pkg-done">S2</div>
       <div class="pkg-body">
-        <div class="pkg-title">Full Team Meeting UI <span class="badge badge-queued" style="margin-left:6px">Queued</span></div>
-        <div class="pkg-desc">Build <code>MarketingRoundTablePanel.jsx</code> — clone AdvisoryBoardPanel, strip 1:1 mode and routing step. Morgan always present (teal outline, not toggleable). Add 5 persona images to <code>dashboard/public/</code> (Harper, Wren, Sage, Devon, Rowan). Wire new "Round Table" subtab into <code>App.jsx</code> <code>SUBTABS.marketing</code>. Update <code>MarketingPanel.jsx</code> to render the new subtab.</div>
+        <div class="pkg-title">Full Team Meeting UI <span class="badge badge-done" style="margin-left:6px">Done · July 22</span></div>
+        <div class="pkg-desc">Built <code>MarketingRoundTablePanel.jsx</code> (390+ lines) — 6 toggleable persona buttons (Harper/Wren/Sage/Jordan/Devon/Rowan), Morgan fixed with teal outline and "Always present" label (never toggleable). Operating notes accordion (Drive-backed). Setup screen with persona grid + scenario textarea + max-rounds field. Session flow: transcript view, debate/interjection controls, synthesize, finalize. Decision record with execute-reset buttons per <code>resetTarget</code>. Accepts optional <code>taskContext</code> prop for post-failure mode pre-loading. Wired <code>{ id: 'round-table', label: 'Round Table' }</code> into <code>SUBTABS.marketing</code> in <code>App.jsx</code>. <code>MarketingPanel.jsx</code> standalone subtab branch renders the panel outside the dashboard block.</div>
         <div class="pkg-tasks">
           <span class="pkg-task-chip">MarketingRoundTablePanel.jsx</span>
-          <span class="pkg-task-chip">5 persona images</span>
-          <span class="pkg-task-chip">App.jsx subtab</span>
-          <span class="pkg-task-chip">MarketingPanel.jsx branch</span>
+          <span class="pkg-task-chip">App.jsx SUBTABS.marketing</span>
+          <span class="pkg-task-chip">MarketingPanel.jsx subtab branch</span>
         </div>
       </div>
     </div>
 
     <div class="pkg-row">
-      <div class="pkg-letter pkg-pending">S3</div>
+      <div class="pkg-letter pkg-done">S3</div>
       <div class="pkg-body">
-        <div class="pkg-title">Post-Failure Modal <span class="badge badge-notstarted" style="margin-left:6px">Not Started</span></div>
-        <div class="pkg-desc">Build <code>RoundTableModal.jsx</code> — wraps <code>MarketingRoundTablePanel</code> in the Advisory Board overlay pattern. Add 4th button to <code>MarketingTaskCard</code> — "⊛ Round Table" visible only when <code>rejectionCount &gt; 0</code>. Pre-seeds Harper/Wren/Sage/Morgan and passes task context into the session. Build <code>POST /api/round-table/session/task-reset</code> UI flow from finalize result.</div>
+        <div class="pkg-title">Post-Failure Modal <span class="badge badge-done" style="margin-left:6px">Done · July 22</span></div>
+        <div class="pkg-desc">Built <code>RoundTableModal.jsx</code> — fixed overlay (Escape closes, backdrop click closes, sticky header with task name and ✕ button, scrollable body). Added 4th ⊛ button to <code>MarketingTaskCard</code> visible only when <code>task.status === 'REJECTED'</code>; button lazy-fetches rejection comments on click via new <code>GET /api/tasks/:id/rejection-comments</code> endpoint (filters ClickUp comments for "CRITIC REVIEW — REJECTED" tag, returns text + date). <code>MarketingKanban</code> owns <code>modalTaskContext</code> state and renders the modal above the pipeline card. <code>MarketingRoundTablePanel.jsx</code> decision record section updated: STRATEGIST/DRAFTER → gradient "⊛ Execute reset → TARGET" button; NONE → purple "⊛ Post Critic calibration note" button; success state shown after reset completes. Compile error resolved — all files compiling clean, verified in browser.</div>
         <div class="pkg-tasks">
           <span class="pkg-task-chip">RoundTableModal.jsx</span>
-          <span class="pkg-task-chip">MarketingTaskCard 4th button</span>
-          <span class="pkg-task-chip">task-reset UI flow</span>
+          <span class="pkg-task-chip">MarketingTaskCard ⊛ button</span>
+          <span class="pkg-task-chip">GET /api/tasks/:id/rejection-comments</span>
+          <span class="pkg-task-chip">execute-reset UI in panel</span>
         </div>
       </div>
     </div>
 
     <div class="pkg-row">
-      <div class="pkg-letter pkg-pending">S4</div>
+      <div class="pkg-letter pkg-queued">S4</div>
       <div class="pkg-body">
-        <div class="pkg-title">Campaign Entity + ClickUp Housekeeping <span class="badge badge-notstarted" style="margin-left:6px">Not Started</span></div>
-        <div class="pkg-desc">Implement campaign entity as ClickUp parent task (Option A — content posts as subtasks; Morgan's record links to parent task ID). Update ClickUp task <code>86e1p1kaw</code> description to reflect Phase 9 expanded scope. Create "Verify Analytics Auto-Pull is live" task (COMPLETE-BUILD-ROADMAP stale note resolved). Devon's live SEO data feed — deferred to future phase pending Elizabeth's SEO reference research.</div>
+        <div class="pkg-title">Campaign Entity + ClickUp Housekeeping <span class="badge badge-queued" style="margin-left:6px">Queued</span></div>
+        <div class="pkg-desc">Implement campaign entity as ClickUp parent task (Option A — content posts as subtasks; Morgan's record links to parent task ID). Update ClickUp task <code>86e1p1kaw</code> description to reflect Phase 9 expanded scope. Create "Verify Analytics Auto-Pull is live" task (COMPLETE-BUILD-ROADMAP stale note resolved). Wire KNOWN-DIRECTORIES to Drive doc in Devon's SEO context. Devon's live SEO data feed — deferred to future phase pending Elizabeth's SEO reference research.</div>
         <div class="pkg-tasks">
           <span class="pkg-task-chip">Campaign entity (Option A)</span>
           <span class="pkg-task-chip">86e1p1kaw description</span>
           <span class="pkg-task-chip">analytics auto-pull task</span>
+          <span class="pkg-task-chip">Devon KNOWN-DIRECTORIES</span>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- What shipped in Sessions 2+3 -->
+<div class="grid">
+  <div class="card grid-full">
+    <div class="card-label">Front-End Components — Sessions 2 &amp; 3</div>
+    <table class="block-table">
+      <tr><th style="width:28%">Component</th><th style="width:12%">Session</th><th style="width:12%">Status</th><th>Key Details</th></tr>
+      <tr>
+        <td><div class="block-name">MarketingRoundTablePanel.jsx</div><div class="block-id">src/components/</div></td>
+        <td><span class="badge badge-done">S2</span></td>
+        <td><span class="badge badge-done">Shipped</span></td>
+        <td><div class="block-note">390+ lines. Persona grid (6 toggle + Morgan fixed). Operating notes accordion (Drive-backed, same pattern as Advisory Board). Setup screen → transcript → debate/synthesize/finalize flow. Decision record with execute-reset buttons keyed to <code>resetTarget</code>. Accepts optional <code>taskContext</code> prop (pre-fills scenario + persona context for post-failure mode). Session stored under <code>nl_round_table_session_id</code> localStorage key.</div></td>
+      </tr>
+      <tr>
+        <td><div class="block-name">RoundTableModal.jsx</div><div class="block-id">src/components/</div></td>
+        <td><span class="badge badge-done">S3</span></td>
+        <td><span class="badge badge-done">Shipped</span></td>
+        <td><div class="block-note">Fixed overlay with <code>z-50</code>, <code>bg-black/60 backdrop-blur-sm</code>. Escape key + backdrop click close. Sticky header: project name micro-label, task name truncated, ✕ button. Scrollable body to 95vh. Wraps <code>MarketingRoundTablePanel</code> with <code>taskContext</code> and <code>onClose</code> props.</div></td>
+      </tr>
+      <tr>
+        <td><div class="block-name">MarketingTaskCard — 4th button</div><div class="block-id">MarketingPanel.jsx</div></td>
+        <td><span class="badge badge-done">S3</span></td>
+        <td><span class="badge badge-done">Shipped</span></td>
+        <td><div class="block-note">⊛ button visible only when <code>task.status.toUpperCase() === 'REJECTED'</code>. On click: shows <code>…</code> spinner, hits <code>GET /api/tasks/:id/rejection-comments</code>, passes result as <code>rejectionFeedback</code> in context. Falls back gracefully on fetch error. <code>modalTaskContext</code> state lives in <code>MarketingKanban</code> — modal renders above the pipeline card.</div></td>
+      </tr>
+      <tr>
+        <td><div class="block-name">App.jsx + MarketingPanel.jsx wiring</div><div class="block-id">src/</div></td>
+        <td><span class="badge badge-done">S2</span></td>
+        <td><span class="badge badge-done">Shipped</span></td>
+        <td><div class="block-note"><code>SUBTABS.marketing</code> extended with <code>{ id: 'round-table', label: 'Round Table' }</code>. <code>MarketingPanel.jsx</code>: standalone <code>{subTab === 'round-table' &amp;&amp; &lt;MarketingRoundTablePanel /&gt;}</code> branch outside the dashboard block. Verified in browser — Round Table subtab renders the full panel with all 6 persona toggles, Morgan fixed, scenario input, Convene button.</div></td>
+      </tr>
+    </table>
   </div>
 </div>
 
@@ -258,51 +293,6 @@
   </div>
 </div>
 
-<!-- AI Citation integration -->
-<div class="grid">
-  <div class="card grid-full">
-    <div class="card-label">AI Citation Integration — Meltwater Research (July 2026)</div>
-    <div style="color: var(--muted); font-size: 11px; line-height: 1.5; margin-bottom: 12px;">
-      LinkedIn is the #2 most-cited source in AI-generated answers (behind YouTube). Individual profiles generate ~75% of LinkedIn AI citations vs. ~25% from Company Pages. Structure drives citability — bullets, named entities, and quantitative data outside pure prose. This research was embedded as standing knowledge flowing through all relevant pipeline layers.
-    </div>
-    <div class="citation-row">
-      <div class="citation-num">1</div>
-      <div>
-        <div class="citation-text">Harper (Strategist) — citation priority signal in strategy brief</div>
-        <div class="citation-note">On LinkedIn posts where AI discoverability is a strategic objective, Harper flags <code>citationPriority: yes</code> in the brief. This tells Wren to weight citation-readiness in drafting. Not required on every post — Harper's call.</div>
-      </div>
-    </div>
-    <div class="citation-row">
-      <div class="citation-num">2</div>
-      <div>
-        <div class="citation-text">Wren (Drafter) — citation-readiness requirements baked into DRAFTER-DOCTRINE.md</div>
-        <div class="citation-note">LinkedIn posts must include: (a) at least one structured element (bullet list, numbered list, or bolded subheading), (b) at least one named entity or quantitative data point outside pure prose, (c) a deliberate personal-vs-page channel assignment (individual profiles cited ~3× more). Wren drafts to these standards; they apply to LinkedIn Personal and LinkedIn Page only.</div>
-      </div>
-    </div>
-    <div class="citation-row">
-      <div class="citation-num">3</div>
-      <div>
-        <div class="citation-text">Sage (Critic) — Q6 citation-readiness added to content-critic.js (LinkedIn only)</div>
-        <div class="citation-note">New Q6 checks all three citation conditions. Q6 failure is never an automatic rejection — surfaces as <code>APPROVED WITH FLAGS</code> → <code>FLAGS FOR POLISH</code>. Q1–Q5 determine the verdict. Code change: <code>lib/skills/content-critic.js</code> uses spread operator to conditionally include Q6 block when <code>platform.toLowerCase().includes('linkedin')</code>.</div>
-      </div>
-    </div>
-    <div class="citation-row">
-      <div class="citation-num">4</div>
-      <div>
-        <div class="citation-text">Devon (SEO Agent) — Meltwater findings as core doctrine; citation-readiness scoring in Round Table</div>
-        <div class="citation-note">Devon evaluates structural citability (0–4 score), channel fit (personal vs. page), and query alignment. Devon does not evaluate voice or brand fit — that's Harper/Wren/Sage/Jordan. Live data feed (competitor keywords, GEO score trends) deferred until Elizabeth's SEO research is complete.</div>
-      </div>
-    </div>
-    <div class="citation-row">
-      <div class="citation-num">5</div>
-      <div>
-        <div class="citation-text">Jordan (CMO) — LinkedIn citation dynamics as standing channel principle in CMO-DOCTRINE.md</div>
-        <div class="citation-note">Jordan weighs citation dynamics as a platform distribution reality — not a reason to override voice or brand fit, but one variable in the platform mix. Jordan does not run the citation analysis alone; Devon scores it specifically.</div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- Post-failure flow + Decisions -->
 <div class="grid">
   <div class="card">
@@ -310,69 +300,69 @@
     <div class="issue-item">
       <div class="issue-dot aurora"></div>
       <div>
-        <div class="issue-text">Trigger: rejectionCount &gt; 0 on a task card</div>
-        <div class="issue-note">A 4th button "⊛ Round Table" appears on the marketing task card. Opens <code>RoundTableModal</code> with Harper/Wren/Sage/Morgan pre-seated and full task context loaded (brief, draft, rejection history).</div>
+        <div class="issue-text">Trigger: task card with <code>status === REJECTED</code></div>
+        <div class="issue-note">4th button "⊛" appears on marketing task card alongside ✓/↺/▶. Lazy-fetches rejection comments from ClickUp on click via <code>GET /api/tasks/:id/rejection-comments</code>. Opens <code>RoundTableModal</code> with pre-loaded task context (name, platform, rejection count, full rejection feedback).</div>
       </div>
     </div>
     <div class="issue-item">
       <div class="issue-dot aurora"></div>
       <div>
-        <div class="issue-text">Session runs in post-failure mode (isPostFailure: true)</div>
-        <div class="issue-note">Persona context includes task context (rejection comments). Morgan's finalize prompt adds <code>resetTarget</code> field to OKF YAML frontmatter.</div>
+        <div class="issue-text">Session runs with Harper/Wren/Sage/Morgan pre-seated</div>
+        <div class="issue-note">Post-failure default roster. Persona context injected with full task context (brief, draft history, rejection comments). Morgan's finalize prompt outputs <code>resetTarget: STRATEGIST | DRAFTER | NONE</code> in YAML frontmatter.</div>
       </div>
     </div>
     <div class="issue-item">
       <div class="issue-dot green"></div>
       <div>
         <div class="issue-text">STRATEGIST reset</div>
-        <div class="issue-note">Strategy brief was wrong/vague. Subtasks 2–4 → BACKLOG. Strategy subtask → OPEN. Comment written to parent. Rejection count cleared.</div>
+        <div class="issue-note">Strategy brief was wrong/vague. Subtasks 2–4 → BACKLOG. Strategy subtask → OPEN. Rejection count cleared on parent. Pipeline restarts from top.</div>
       </div>
     </div>
     <div class="issue-item">
       <div class="issue-dot green"></div>
       <div>
         <div class="issue-text">DRAFTER reset</div>
-        <div class="issue-note">Brief was clear; draft failed execution. Draft subtask → OPEN. Critic + polish → BACKLOG. Rejection comments preserved as drafter context.</div>
+        <div class="issue-note">Brief was clear; draft failed execution. Draft subtask → OPEN. Critic + polish → BACKLOG. Prior rejection comments preserved as drafter context on next run.</div>
       </div>
     </div>
     <div class="issue-item">
       <div class="issue-dot blue"></div>
       <div>
         <div class="issue-text">NONE — Critic miscalibration</div>
-        <div class="issue-note">No subtask reset. Morgan's diagnosis written as <code>[ROUND TABLE NOTE — CRITIC CALIBRATION]</code> ClickUp comment. Sage picks it up via existing comment-scraping on next critic run.</div>
+        <div class="issue-note">No subtask reset. Morgan's diagnosis written as <code>[ROUND TABLE NOTE — CRITIC CALIBRATION]</code> ClickUp comment. Sage picks it up via existing comment-scraping on next critic run. "⊛ Post Critic calibration note" button in panel fires the write.</div>
       </div>
     </div>
   </div>
 
   <div class="card">
-    <div class="card-label">Decisions Made — July 21, 2026</div>
+    <div class="card-label">Decisions Made — July 21–22, 2026</div>
     <div class="decision-item">
-      <div class="decision-title">Persona names: Harper (Strategist), Wren (Drafter), Sage (Critic), Devon (SEO), Rowan (Analytics &amp; GEO)</div>
-      <div class="decision-rationale">No collision with Advisory Board names (Reese, Quinn, Jordan, Sam, Casey, Avery, Morgan). All confirmed from original spec.</div>
+      <div class="decision-title">Persona names confirmed: Harper / Wren / Sage / Devon / Rowan</div>
+      <div class="decision-rationale">No collision with Advisory Board names. All 5 new personas + Morgan (Secretary) + Jordan (reused from AB) = 7 total.</div>
     </div>
     <div class="decision-item">
       <div class="decision-title">Campaign entity: Option A — ClickUp parent task</div>
-      <div class="decision-rationale">Content posts are subtasks under a campaign parent. Morgan's round table decision record links to the parent task ID. Skills already scan parent task comments — this extends an existing pattern rather than creating a new data layer.</div>
+      <div class="decision-rationale">Content posts as subtasks; Morgan's record links to parent ID. Extends existing comment-scraping pattern rather than creating a new data layer. Session 4.</div>
     </div>
     <div class="decision-item">
-      <div class="decision-title">Post-failure button visible only when rejectionCount &gt; 0</div>
-      <div class="decision-rationale">Keeps the kanban clean. The Round Table diagnostic is meaningful precisely because there's a pattern of rejection — not for first-time reviews.</div>
+      <div class="decision-title">Post-failure button: visible only when status === REJECTED, not rejectionCount</div>
+      <div class="decision-rationale">Changed from rejectionCount (requires a fetch at kanban load) to status check (already in the task object). Prevents N+1 on every kanban render. Comments are lazy-fetched only when the button is clicked.</div>
     </div>
     <div class="decision-item">
       <div class="decision-title">Devon v1: doctrine only, no live data feed</div>
-      <div class="decision-rationale">Elizabeth is actively researching SEO reference material. Devon participates in sessions using doctrine knowledge and notes when a live data feed would sharpen a recommendation. Full implementation deferred until research is complete.</div>
+      <div class="decision-rationale">Elizabeth is actively researching SEO reference material. Devon participates from doctrine knowledge; notes when a live feed would sharpen a recommendation. Full implementation deferred until research is complete.</div>
     </div>
     <div class="decision-item">
-      <div class="decision-title">Citation knowledge is layered, not siloed to Devon</div>
-      <div class="decision-rationale">Harper flags priority → Wren drafts to template → Sage checks against it → Devon scores in Round Table. This was the correct architectural call: knowledge should inform execution at every layer, not sit in a single evaluation persona.</div>
+      <div class="decision-title">Citation knowledge is layered across all personas, not siloed to Devon</div>
+      <div class="decision-rationale">Harper flags priority → Wren drafts to citation template → Sage checks against it → Devon scores in Round Table. Ensures knowledge informs execution at every layer rather than sitting in a single evaluation persona.</div>
     </div>
     <div class="decision-item">
       <div class="decision-title">Morgan role stripped: no routing, no 1:1 threads</div>
-      <div class="decision-rationale">Advisory Board Morgan does three things (route, synthesize, record). Round Table Morgan does one: record. Elizabeth always picks who's in the room. <code>runSecretaryRouting()</code> is never called in the RT orchestrator.</div>
+      <div class="decision-rationale">Advisory Board Morgan does three things (route, synthesize, record). Round Table Morgan does one: record. <code>runSecretaryRouting()</code> is never called. Elizabeth always picks the room.</div>
     </div>
     <div class="decision-item">
       <div class="decision-title">Rowan reuses analytics-context.js directly — no new plumbing</div>
-      <div class="decision-rationale">The analytics build (Buffer metrics, Plausible, LinkedIn/Threads snapshots, content-learnings) was confirmed live as of June 30, 2026. COMPLETE-BUILD-ROADMAP had a stale "not yet built" note. Rowan reads the same feed Jordan reads; the difference is interpretation lens (backward analytics vs. forward strategy).</div>
+      <div class="decision-rationale">COMPLETE-BUILD-ROADMAP had a stale "not yet built" note. Analytics confirmed live June 30, 2026. Rowan reads the same feed as Jordan; difference is interpretation lens (backward diagnostics vs. forward strategy).</div>
     </div>
   </div>
 </div>
@@ -393,7 +383,7 @@
         <td><div class="block-name">DRAFTER-DOCTRINE.md</div><div class="block-id">specs/</div></td>
         <td><div class="block-note">Wren</div></td>
         <td><span class="badge badge-done">Written</span></td>
-        <td><div class="block-note">Voice-first standard (Canadian spellings, load-bearing periods, no buzzwords). Citation-readiness requirements for LinkedIn (structured element + named entity/number + channel choice). Applies to LinkedIn Personal and LinkedIn Page only — not Threads, Aurora Brief, blog.</div></td>
+        <td><div class="block-note">Voice-first standard (Canadian spellings, load-bearing periods, no buzzwords). Citation-readiness requirements for LinkedIn: structured element + named entity/number + deliberate channel choice. LinkedIn Personal and LinkedIn Page only — not Threads, Aurora Brief, blog.</div></td>
       </tr>
       <tr>
         <td><div class="block-name">CRITIC-DOCTRINE.md</div><div class="block-id">specs/</div></td>
@@ -405,7 +395,7 @@
         <td><div class="block-name">SEO-DOCTRINE.md</div><div class="block-id">specs/</div></td>
         <td><div class="block-note">Devon</div></td>
         <td><span class="badge badge-done">Written</span></td>
-        <td><div class="block-note">Meltwater research embedded as standing knowledge. Citation-readiness score 0–4. Three evaluation dimensions: structural citability, channel fit, query alignment. Devon does not evaluate voice/brand — that is Harper/Wren/Sage/Jordan.</div></td>
+        <td><div class="block-note">Meltwater research embedded as standing knowledge. Citation-readiness score 0–4. Three dimensions: structural citability, channel fit, query alignment. Devon does not evaluate voice/brand — that is Harper/Wren/Sage/Jordan.</div></td>
       </tr>
       <tr>
         <td><div class="block-name">ANALYTICS-GEO-DOCTRINE.md</div><div class="block-id">specs/</div></td>
@@ -423,71 +413,92 @@
         <td><div class="block-name">content-critic.js</div><div class="block-id">lib/skills/ (updated)</div></td>
         <td><div class="block-note">Pipeline (Sage proxy)</div></td>
         <td><span class="badge badge-done">Updated</span></td>
-        <td><div class="block-note">Q6 citation-readiness added via conditional spread. Active for LinkedIn platform posts only. Verdict block updated: Q6 WARN/FAIL → <code>FLAGS FOR POLISH</code>, not <code>REJECTED</code>. Response format now includes <code>Q6 CITATION: [PASS/WARN/FAIL]</code> line.</div></td>
+        <td><div class="block-note">Q6 citation-readiness added via conditional spread for LinkedIn platform posts only. Q6 WARN/FAIL → <code>FLAGS FOR POLISH</code>, not <code>REJECTED</code>. Response format includes <code>Q6 CITATION: [PASS/WARN/FAIL]</code> line.</div></td>
       </tr>
     </table>
   </div>
 </div>
 
-<!-- Open items going into remaining sessions -->
+<!-- AI Citation integration -->
 <div class="grid">
   <div class="card grid-full">
-    <div class="card-label">Open Items — Sessions 2–4</div>
+    <div class="card-label">AI Citation Integration — Meltwater Research (July 2026)</div>
+    <div style="color: var(--muted); font-size: 11px; line-height: 1.5; margin-bottom: 12px;">
+      LinkedIn is the #2 most-cited source in AI-generated answers (behind YouTube). Individual profiles generate ~75% of LinkedIn AI citations vs. ~25% from Company Pages. Structure drives citability — bullets, named entities, and quantitative data outside pure prose. This research was embedded as standing knowledge flowing through all relevant pipeline layers.
+    </div>
+    <div class="citation-row">
+      <div class="citation-num">1</div>
+      <div>
+        <div class="citation-text">Harper (Strategist) — citation priority signal in strategy brief</div>
+        <div class="citation-note">On LinkedIn posts where AI discoverability is a strategic objective, Harper flags <code>citationPriority: yes</code> in the brief. This tells Wren to weight citation-readiness in drafting. Not required on every post — Harper's call.</div>
+      </div>
+    </div>
+    <div class="citation-row">
+      <div class="citation-num">2</div>
+      <div>
+        <div class="citation-text">Wren (Drafter) — citation-readiness requirements baked into DRAFTER-DOCTRINE.md</div>
+        <div class="citation-note">LinkedIn posts must include: (a) at least one structured element (bullet list, numbered list, or bolded subheading), (b) at least one named entity or quantitative data point outside pure prose, (c) a deliberate personal-vs-page channel assignment (individual profiles cited ~3× more). Wren drafts to these standards.</div>
+      </div>
+    </div>
+    <div class="citation-row">
+      <div class="citation-num">3</div>
+      <div>
+        <div class="citation-text">Sage (Critic) — Q6 citation-readiness added to content-critic.js (LinkedIn only)</div>
+        <div class="citation-note">New Q6 checks all three citation conditions. Q6 failure is never an automatic rejection — surfaces as <code>APPROVED WITH FLAGS</code> → <code>FLAGS FOR POLISH</code>. Q1–Q5 determine the verdict.</div>
+      </div>
+    </div>
+    <div class="citation-row">
+      <div class="citation-num">4</div>
+      <div>
+        <div class="citation-text">Devon (SEO Agent) — Meltwater findings as core doctrine; citation-readiness scoring in Round Table</div>
+        <div class="citation-note">Devon evaluates structural citability (0–4 score), channel fit (personal vs. page), and query alignment. Devon does not evaluate voice or brand fit — that's Harper/Wren/Sage/Jordan. Live data feed deferred until Elizabeth's SEO research is complete.</div>
+      </div>
+    </div>
+    <div class="citation-row">
+      <div class="citation-num">5</div>
+      <div>
+        <div class="citation-text">Jordan (CMO) — LinkedIn citation dynamics as standing channel principle in CMO-DOCTRINE.md</div>
+        <div class="citation-note">Jordan weighs citation dynamics as a platform distribution reality — not a reason to override voice or brand fit, but one variable in the platform mix. Devon scores citation-readiness specifically in Round Table sessions.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Open items -->
+<div class="grid">
+  <div class="card grid-full">
+    <div class="card-label">Open Items — Session 4 Only</div>
     <table class="block-table">
       <tr><th style="width:40%">Item</th><th style="width:14%">Session</th><th style="width:13%">Priority</th><th>Notes</th></tr>
       <tr>
-        <td><div class="block-name">MarketingRoundTablePanel.jsx</div></td>
-        <td><span class="badge badge-queued">S2</span></td>
-        <td><span class="badge badge-done" style="background:rgba(196,111,170,0.12);color:var(--aurora);border-color:rgba(196,111,170,0.25)">High</span></td>
-        <td><div class="block-note">Clone AdvisoryBoardPanel; strip 1:1 and routing; Morgan fixed (not toggleable). Accepts optional <code>taskContext</code> prop for post-failure mode.</div></td>
-      </tr>
-      <tr>
-        <td><div class="block-name">5 persona portrait images</div></td>
-        <td><span class="badge badge-queued">S2</span></td>
-        <td><span class="badge badge-done" style="background:rgba(196,111,170,0.12);color:var(--aurora);border-color:rgba(196,111,170,0.25)">High</span></td>
-        <td><div class="block-note">board-harper.jpg, board-wren.jpg, board-sage.jpg, board-devon.jpg, board-rowan.jpg → <code>dashboard/public/</code>. Morgan + Jordan images already exist.</div></td>
-      </tr>
-      <tr>
-        <td><div class="block-name">App.jsx + MarketingPanel.jsx wiring</div></td>
-        <td><span class="badge badge-queued">S2</span></td>
-        <td><span class="badge badge-done" style="background:rgba(196,111,170,0.12);color:var(--aurora);border-color:rgba(196,111,170,0.25)">High</span></td>
-        <td><div class="block-note">Add <code>{ id: 'round-table', label: 'Round Table' }</code> to <code>SUBTABS.marketing</code>. Add render branch in MarketingPanel for the new subtab.</div></td>
-      </tr>
-      <tr>
-        <td><div class="block-name">RoundTableModal.jsx</div></td>
-        <td><span class="badge badge-notstarted">S3</span></td>
-        <td><span class="badge badge-queued">Med</span></td>
-        <td><div class="block-note">Advisory Board overlay pattern. Pre-seats Harper/Wren/Sage/Morgan. Passes task ID + rejection history. Closes on finalize or explicit dismiss.</div></td>
-      </tr>
-      <tr>
-        <td><div class="block-name">MarketingTaskCard 4th button</div></td>
-        <td><span class="badge badge-notstarted">S3</span></td>
-        <td><span class="badge badge-queued">Med</span></td>
-        <td><div class="block-note">"⊛ Round Table" visible only when <code>rejectionCount &gt; 0</code>. Sits alongside ✓, ↺, ▶ on task cards.</div></td>
-      </tr>
-      <tr>
         <td><div class="block-name">Campaign entity — ClickUp parent task (Option A)</div></td>
-        <td><span class="badge badge-notstarted">S4</span></td>
-        <td><span class="badge badge-notstarted">Lower</span></td>
-        <td><div class="block-note">Campaigns as ClickUp parent tasks; content posts as subtasks. Morgan's record links to parent ID. Extends existing comment-scraping pattern already used for context loading.</div></td>
+        <td><span class="badge badge-queued">S4</span></td>
+        <td><span class="badge badge-queued">Med</span></td>
+        <td><div class="block-note">Campaigns as ClickUp parent tasks; content posts as subtasks. Morgan's round table decision record links to parent task ID. Extends existing comment-scraping pattern already used for context loading.</div></td>
       </tr>
       <tr>
-        <td><div class="block-name">Devon live SEO data feed</div></td>
-        <td><span class="badge badge-notstarted">Future</span></td>
-        <td><span class="badge badge-notstarted">Deferred</span></td>
-        <td><div class="block-note">Waiting on Elizabeth's SEO reference research. Devon's doctrine and participation in sessions is fully live in v1 — only the live data feed (competitor keywords, citation tracking) is deferred.</div></td>
-      </tr>
-      <tr>
-        <td><div class="block-name">Update 86e1p1kaw description in ClickUp</div></td>
-        <td><span class="badge badge-notstarted">S4</span></td>
+        <td><div class="block-name">Update task 86e1p1kaw description in ClickUp</div></td>
+        <td><span class="badge badge-queued">S4</span></td>
         <td><span class="badge badge-notstarted">Lower</span></td>
         <td><div class="block-note">Original description is the June 2026 3-persona concept. Phase 9 scope is now 7 personas, two entry modes, citation integration, post-failure diagnosis flow.</div></td>
       </tr>
       <tr>
         <td><div class="block-name">Verify analytics auto-pull is live (close roadmap stale note)</div></td>
-        <td><span class="badge badge-notstarted">S4</span></td>
+        <td><span class="badge badge-queued">S4</span></td>
         <td><span class="badge badge-notstarted">Lower</span></td>
         <td><div class="block-note">COMPLETE-BUILD-ROADMAP Feature 11 still says "not yet built." Analytics confirmed live June 30, 2026. Task: confirm endpoint health + update roadmap.</div></td>
+      </tr>
+      <tr>
+        <td><div class="block-name">Wire KNOWN-DIRECTORIES to Drive doc in Devon's SEO context</div></td>
+        <td><span class="badge badge-queued">S4</span></td>
+        <td><span class="badge badge-notstarted">Lower</span></td>
+        <td><div class="block-note">Add <code>readDriveDoc(fileId)</code> to <code>drive-store.js</code>, update <code>seo-context.js</code> with doc ID, remove from orchestrator <code>validateContext</code> list, delete <code>KNOWN-DIRECTORIES.md</code> from specs.</div></td>
+      </tr>
+      <tr>
+        <td><div class="block-name">Devon live SEO data feed</div></td>
+        <td><span class="badge badge-notstarted">Future</span></td>
+        <td><span class="badge badge-notstarted">Deferred</span></td>
+        <td><div class="block-note">Waiting on Elizabeth's SEO reference research. Devon's doctrine and Round Table participation are fully live in v1 — only the live data feed (competitor keywords, citation tracking) is deferred.</div></td>
       </tr>
     </table>
   </div>
@@ -498,27 +509,23 @@
   <div class="card grid-full">
     <div class="card-label">Activity Timeline</div>
     <div class="activity-item">
-      <div class="activity-date">July 21, 2026 — Session 1 Start</div>
-      <div class="activity-text">Phase 9 kickoff. Reviewed <code>Marketing-Round-Table-Spec.md</code> and <code>code-handoff-ai-citation-integration.md</code>. Full codebase exploration (Advisory Board, content-pipeline, analytics). Plan approved after three rounds of refinement — citation integration scope expanded to layered architecture (Harper→Wren→Sage→Devon) rather than Devon-only.</div>
+      <div class="activity-date">July 22, 2026 — Session 3 Complete</div>
+      <div class="activity-text">Post-failure modal shipped. <code>RoundTableModal.jsx</code> built (fixed overlay, sticky header, Escape/backdrop close). <code>MarketingTaskCard</code> updated with 4th ⊛ button (REJECTED status only, lazy-fetch rejection comments on click). New <code>GET /api/tasks/:id/rejection-comments</code> endpoint added to <code>routes/clickup.js</code>. <code>MarketingKanban</code> owns modal state. Execute-reset buttons added to panel decision record section. Compile error resolved — all files compiling clean. Browser-verified: Round Table subtab renders, pipeline kanban mounts without errors.</div>
     </div>
     <div class="activity-item">
-      <div class="activity-date">July 21, 2026 — Doctrine Layer</div>
-      <div class="activity-text">Wrote STRATEGIST-DOCTRINE.md, DRAFTER-DOCTRINE.md, CRITIC-DOCTRINE.md, SEO-DOCTRINE.md, ANALYTICS-GEO-DOCTRINE.md. Updated CMO-DOCTRINE.md with LinkedIn citation dynamics standing principle. All five new doctrine files incorporate AI citation knowledge at their relevant layer.</div>
+      <div class="activity-date">July 22, 2026 — Session 2 Complete</div>
+      <div class="activity-text">Full team meeting UI shipped. <code>MarketingRoundTablePanel.jsx</code> built (390+ lines) — 6 toggleable personas, Morgan always fixed, operating notes accordion, setup screen, full session transcript flow (debate → synthesize → finalize), decision record with execute-reset. Round Table subtab wired in <code>App.jsx</code> and <code>MarketingPanel.jsx</code>.</div>
     </div>
     <div class="activity-item">
-      <div class="activity-date">July 21–22, 2026 — Back-End Skeleton</div>
-      <div class="activity-text">Built <code>lib/marketing-round-table/personas.js</code> (7-persona registry with needsAnalytics/needsContentPipeline/needsSEO flags), <code>seo-context.js</code> (stub), <code>orchestrator.js</code> (full round-runner: session storage, self-check, synthesis, Secretary record with resetTarget). Wrote <code>routes/marketing-round-table.js</code> (7 endpoints). Mounted in server.js. Added Q6 citation-readiness to content-critic.js.</div>
-    </div>
-    <div class="activity-item">
-      <div class="activity-date">July 22, 2026 — Phase 9 Dashboard</div>
-      <div class="activity-text">This document. Session 1 complete. Sessions 2–4 queued. Elizabeth working on SEO insights for Devon's live data feed.</div>
+      <div class="activity-date">July 21–22, 2026 — Session 1 + Back-End Skeleton</div>
+      <div class="activity-text">Phase 9 kickoff. Reviewed <code>Marketing-Round-Table-Spec.md</code> and <code>code-handoff-ai-citation-integration.md</code>. Plan approved (citation integration expanded to layered architecture). Wrote 5 doctrine files. Updated CMO-DOCTRINE.md. Built <code>lib/marketing-round-table/</code> (personas.js, orchestrator.js, seo-context.js). Wrote <code>routes/marketing-round-table.js</code> (7 endpoints). Mounted in server.js. Added Q6 citation-readiness to content-critic.js. Phase 9 dashboard first posted to #northlight-pmo.</div>
     </div>
   </div>
 </div>
 
 <div class="footer">
-  <span>Northlight OS · Phase 9 · Marketing Round Table · In Progress</span>
-  <span>Generated 2026-07-22 · Session 1 of 4</span>
+  <span>Northlight OS · Phase 9 · Marketing Round Table · In Progress — Session 4 queued</span>
+  <span>Updated 2026-07-22 · Sessions 1–3 of 4 complete</span>
 </div>
 </body>
 </html>
