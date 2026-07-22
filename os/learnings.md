@@ -3,6 +3,13 @@ phase: Phase 9 — Marketing Round Table (in progress)
 updated: 2026-07-22
 ---
 
+## Phase 9 Learnings (Sessions 1–4)
+
+- **Personal knowledge bases should be fetched at session time, not baked into specs** — pulling from a public GitHub repo at Round Table session start means the knowledge base stays current without any rebuild cycle. The 30-min TTL cache makes it fast across debate rounds without hammering the network on every call.
+- **Per-persona injection scope matters as much as the content itself** — Wren needs the full corpus (frameworks + observations) because she's drafting to a standard; Sage only needs the worldview and principles to verify authenticity; Devon only needs framework names for named-entity awareness. Over-injecting leads to blended voices; under-injecting leaves value on the table.
+- **Topic-scoring frameworks to select relevant content is good enough for Harper** — a simple keyword-count score against the scenario text picks the right 1–2 frameworks for Harper's context without requiring a vector database. For a 4-framework corpus, it's exact enough.
+- **Drive doc export (`files.export`) reads Google Docs without parsing complexity** — exporting as `text/plain` via the Drive API is simpler than downloading and parsing the binary format. The `readDriveDoc(fileId)` pattern is now reusable anywhere a Drive doc needs to be injected as context.
+
 ## Phase 9 Learnings (Sessions 1–3)
 
 - **Lazy-fetch beats eager-fetch for conditional UI** — fetching rejection comments only when the ⊛ button is clicked (not at kanban load) prevents N+1 requests on every pipeline render. Pattern: button visibility via cheap field already in the task object (`status`); expensive fetch deferred until user intent is confirmed.
