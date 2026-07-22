@@ -1,6 +1,6 @@
 {
-  "refreshed_at": "2026-07-22T11:00:43.707Z",
-  "triggered_by": "schedule",
+  "refreshed_at": "2026-07-22T17:11:59.359Z",
+  "triggered_by": "phase-dashboard-commit",
   "open_total": 2,
   "projects": [
     {
@@ -15,14 +15,23 @@
       "current_phase_title": "Marketing Round Table",
       "phase_started": "2026-07-21",
       "open_count": 0,
-      "backlog_count": 8,
+      "backlog_count": 6,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 0,
+      "done_count": 2,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
-      "done_items": [],
+      "done_items": [
+        {
+          "name": "Session 3: Post-failure modal — RoundTableModal + task-reset UI",
+          "priority": "normal"
+        },
+        {
+          "name": "Session 2: Front-end — MarketingRoundTablePanel + persona images + subtab wiring",
+          "priority": "high"
+        }
+      ],
       "decisions": [],
       "blockers": []
     },
