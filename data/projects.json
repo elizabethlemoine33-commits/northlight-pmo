@@ -1,6 +1,6 @@
 {
-  "refreshed_at": "2026-07-22T03:45:20.679Z",
-  "triggered_by": "phase-dashboard-commit",
+  "refreshed_at": "2026-07-22T11:00:43.707Z",
+  "triggered_by": "schedule",
   "open_total": 2,
   "projects": [
     {
