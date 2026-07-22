@@ -1,4 +1,33 @@
 ---
+phase: Phase 9 — Marketing Round Table (in progress)
+updated: 2026-07-22
+---
+
+## Phase 9 Learnings (Sessions 1–3)
+
+- **Lazy-fetch beats eager-fetch for conditional UI** — fetching rejection comments only when the ⊛ button is clicked (not at kanban load) prevents N+1 requests on every pipeline render. Pattern: button visibility via cheap field already in the task object (`status`); expensive fetch deferred until user intent is confirmed.
+- **`status === REJECTED` is better than `rejectionCount > 0` as a button gate** — rejectionCount requires a ClickUp comment fetch at kanban load time; status is already in the task data from the existing `/api/marketing/tasks` call. Same UX, zero extra requests.
+- **HMR errors persist across page refreshes if the module failed mid-update** — a `[hmr] Failed to reload` error can stick in the console even after the underlying syntax issue is fixed. Force a full browser navigate (not just reload) to confirm whether a compile error is real or stale.
+- **Optional catch binding `catch {}` (no variable) can silently break Babel transforms** — use `catch (e)` or `catch (err)` for safety even when the error isn't used. The ES2019 feature is in spec but not universally supported in all project Babel configs.
+- **Fragment `<>...</>` wrapping a return with a conditional modal + a main card is the correct pattern** — `modalTaskContext && <Modal />` at the top of the fragment renders the overlay without nesting it inside the card div. State lives in the parent component (`MarketingKanban`), not in the card itself.
+
+---
+
+---
+phase: Phase 8 — Security Hardening & System Observability
+completed: 2026-07-18
+---
+
+## Phase 8 Learnings
+
+- **Auth logging with IP/UA is cheap and immediately useful** — `appendAuthEvent()` adding login/logout/blocked to Drive on every auth event costs almost nothing and creates an audit trail that would have been opaque before. Ship it early, not as an afterthought.
+- **429 retry needs `Retry-After` header respect, not a fixed backoff** — Slack's API sends the actual wait time; ignoring it and using a fixed 1s retry causes cascading failures. Pattern: read `Retry-After`, `retry_after`, or `x-rate-limit-reset` headers; fall back to exponential only when the header is absent.
+- **Queue monitoring as a Drive-backed count is "good enough"** — reading the Drive JSON queue files to count pending items gives the dashboard a live number without a dedicated database. Works well for low-volume queues (< 100 items); revisit if queues grow.
+- **Skeleton key should be scoped to the minimum surface area it unlocks** — the key was originally middleware-wide; scoping it to `/schedule-social` only reduces blast radius without changing functionality. Always scope security bypasses to the exact route that needs them.
+
+---
+
+---
 phase: Phase 7 — Hardening + Navigation Rework
 completed: 2026-07-15
 ---
