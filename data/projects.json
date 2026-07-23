@@ -1,5 +1,5 @@
 {
-  "refreshed_at": "2026-07-22T17:46:51.889Z",
+  "refreshed_at": "2026-07-23T22:13:45.345Z",
   "triggered_by": "phase-dashboard-commit",
   "open_total": 2,
   "projects": [
@@ -190,38 +190,22 @@
       "status": "building",
       "github": null,
       "clickup_list_id": "901715263629",
-      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/advisory-board/phase-1.html",
-      "current_phase": "1",
-      "current_phase_title": "Board Expansion — All Roles + Interview Mode",
-      "phase_started": "2026-07-17",
+      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/advisory-board/phase-2.html",
+      "current_phase": "2",
+      "current_phase_title": "Chat Bubbles, Memory Upgrades & Casey Conversations",
+      "phase_started": "2026-07-23",
       "open_count": 0,
-      "backlog_count": 2,
+      "backlog_count": 3,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 10,
+      "done_count": 1,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
       "done_items": [
         {
-          "name": "Casey debate: ClickUp Northlight Space + PMO dashboards + Drive folders context",
-          "priority": "low"
-        },
-        {
-          "name": "Sam debate: ClickUp workspace + calendar + email + goals/wins tracker context",
-          "priority": "low"
-        },
-        {
-          "name": "Sam: Ambient flag mode on Slack generally",
-          "priority": "low"
-        },
-        {
-          "name": "Casey: Ambient flag mode on PMO-updates channel",
-          "priority": "low"
-        },
-        {
-          "name": "CMO: Inject content-strategist / content-critic outputs where relevant",
-          "priority": "low"
+          "name": "Scope: Two-Way Slack Conversations with Sam & Kasey",
+          "priority": "normal"
         }
       ],
       "decisions": [],
