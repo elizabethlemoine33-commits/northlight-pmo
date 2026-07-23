@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advisory Board Bot — Phase 2 PMO Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --midnight: #0E0E14;
+    --surface:  #12121E;
+    --border:   #1E2035;
+    --border2:  #2A2A48;
+    --text:     #FFFFFF;
+    --cloud:    #C8CCE0;
+    --haze:     #B0B8D8;
+    --muted:    #8A92A8;
+    --glacial:  #4FC3C8;
+    --boreal:   #5B8DD9;
+    --dusk:     #8B6FD4;
+    --aurora:   #C46FAA;
+    --green:    #3BAA6E;
+    --yellow:   #D4A017;
+    --red:      #C44F4F;
+  }
+  body { background: var(--midnight); color: var(--cloud); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; padding: 32px; }
+  .top-bar { height: 3px; background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%); margin: -32px -32px 32px; }
+
+  .header { margin-bottom: 28px; }
+  .phase-label { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dusk); margin-bottom: 6px; }
+  .title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+  .subtitle { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+  .callout { background: rgba(91,141,217,0.08); border: 1px solid rgba(91,141,217,0.22); border-radius: 8px; padding: 12px 16px; margin-bottom: 24px; color: var(--haze); font-size: 12px; line-height: 1.5; }
+  .callout strong { color: var(--cloud); }
+
+  .progress-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
+  .progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .progress-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .progress-pct { font-size: 24px; font-weight: 700; color: var(--text); }
+  .progress-bar-bg { background: var(--border); border-radius: 4px; height: 6px; }
+  .progress-bar-fill { background: linear-gradient(90deg, #4FC3C8, #8B6FD4); border-radius: 4px; height: 6px; }
+  .progress-counts { display: flex; gap: 20px; margin-top: 10px; }
+  .progress-count { font-size: 11px; color: var(--muted); }
+  .progress-count strong { color: var(--cloud); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .grid-full { grid-column: 1 / -1; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .card-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+
+  .block-table { width: 100%; border-collapse: collapse; }
+  .block-table th { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 0 0 8px; text-align: left; border-bottom: 1px solid var(--border); }
+  .block-table td { padding: 8px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .block-table tr:last-child td { border-bottom: none; }
+  .block-name { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .block-note { color: var(--muted); font-size: 11px; margin-top: 2px; line-height: 1.5; }
+
+  .badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .badge-done       { background: rgba(59,170,110,0.15); color: #3BAA6E; border: 1px solid rgba(59,170,110,0.3); }
+  .badge-inprogress { background: rgba(91,141,217,0.15); color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
+  .badge-notstarted { background: rgba(138,146,168,0.10); color: var(--muted); border: 1px solid var(--border); }
+  .badge-blocked    { background: rgba(196,79,79,0.15); color: #C44F4F; border: 1px solid rgba(196,79,79,0.3); }
+  .badge-queued     { background: rgba(212,160,23,0.12); color: var(--yellow); border: 1px solid rgba(212,160,23,0.25); }
+  .badge-debate     { background: rgba(139,111,212,0.15); color: var(--dusk); border: 1px solid rgba(139,111,212,0.3); }
+  .badge-backlog    { background: rgba(138,146,168,0.08); color: var(--muted); border: 1px solid var(--border); }
+
+  .decision-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .decision-item:last-child { border-bottom: none; }
+  .decision-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .decision-rationale { color: var(--muted); font-size: 11px; margin-top: 2px; line-height: 1.5; }
+
+  .issue-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .issue-item:last-child { border-bottom: none; }
+  .issue-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--yellow); margin-top: 4px; flex-shrink: 0; }
+  .issue-dot.red   { background: var(--red); }
+  .issue-dot.muted { background: var(--muted); }
+  .issue-dot.green { background: var(--green); }
+  .issue-dot.blue  { background: var(--boreal); }
+  .issue-text { color: var(--cloud); font-size: 12px; }
+  .issue-note { color: var(--muted); font-size: 11px; margin-top: 2px; line-height: 1.5; }
+
+  .activity-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-date { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+  .activity-text { color: var(--cloud); font-size: 12px; line-height: 1.5; }
+
+  .commit-tag { display: inline-block; font-size: 10px; font-family: monospace; background: rgba(79,195,200,0.1); color: var(--glacial); border: 1px solid rgba(79,195,200,0.2); border-radius: 3px; padding: 1px 5px; margin-left: 4px; }
+
+  .footer { color: var(--muted); font-size: 11px; border-top: 1px solid var(--border); padding-top: 16px; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<div class="header">
+  <div class="phase-label">Phase 2 · Chat Bubbles, Memory Upgrades &amp; Casey Conversations</div>
+  <div class="title">Advisory Board Bot — PMO Dashboard</div>
+  <div class="subtitle">July 18–23, 2026 · Status: Complete · Refreshed July 23, 2026</div>
+</div>
+
+<div class="callout">
+  <strong>Phase 1 recap (Board Expansion — All Roles + Interview Mode):</strong> All 7 board member portraits added to screen (portrait card grid shipped July 18). Morgan convening/routing function and next-review scan wired. CMO analytics flag and content-strategist/critic injection live. Sam and Casey ambient flag modes enabled. Casey and Sam context debates completed. Phase 1 closed July 18–19, 2026 with 9 ClickUp tasks marked done.
+</div>
+
+<div class="progress-section">
+  <div class="progress-header">
+    <div class="progress-label">Phase 2 Complete · All scope shipped · 9 ClickUp tasks closed</div>
+    <div class="progress-pct">100%</div>
+  </div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%"></div></div>
+  <div class="progress-counts">
+    <div class="progress-count"><strong>5 / 5</strong> build items complete</div>
+    <div class="progress-count"><strong>9</strong> ClickUp tasks closed this phase</div>
+    <div class="progress-count"><strong>2</strong> items → Phase 3 backlog</div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card grid-full">
+    <div class="card-label">Phase 2 Scope — What Shipped</div>
+    <table class="block-table">
+      <tr><th style="width:34%">Item</th><th>What shipped</th><th style="width:110px">Status</th></tr>
+      <tr>
+        <td><div class="block-name">1 — Advisory Board chat bubbles</div></td>
+        <td>
+          <div class="block-note">WhatsApp-style bubble rendering applied to AdvisoryBoardPanel.jsx — matching the Round Table implementation. Persona photos appear as circular avatars; Elizabeth's messages get an aurora-gradient "E" bubble. Required four parser fixes on top of the initial commit: (a) colon-inside-bold label format, (b) AB model's <code>**CFO (Reese):**</code> role-first label, (c) canonical <code>PERSONA_NAMES[personaId]</code> always used regardless of raw label, (d) self-name prefix stripped from bubble content ("Avery. I'll own…" → "I'll own…"), (e) wrong photo fix when label is "X responding to Y" — <code>identifyPersona</code> now strips "responding to" clause before role-keyword matching. Commits: <span class="commit-tag">ad1f071</span> + 4 follow-up fixes.</div>
+        </td>
+        <td><span class="badge badge-done">Done</span></td>
+      </tr>
+      <tr>
+        <td><div class="block-name">2 — Cross-table memory: Jordan &amp; Morgan</div></td>
+        <td>
+          <div class="block-note">Jordan (CMO) and Morgan (Secretary/Chief of Staff) are shared personas across both the Advisory Board and Marketing Round Table. Each system now loads the other's recent decision records for these two personas at session start. RT orchestrator: <code>formatAdvisoryBoardDecisionsContext()</code>. AB orchestrator: <code>formatRoundTableDecisionsContext()</code>. Gate is soft (instruction-based, not hard API separation) — all personas share one context window in a single API call. Commit: <span class="commit-tag">3c038ae</span>.</div>
+        </td>
+        <td><span class="badge badge-done">Done</span></td>
+      </tr>
+      <tr>
+        <td><div class="block-name">3 — Per-persona 1:1 thread memory</div></td>
+        <td>
+          <div class="block-note">Each persona now loads their own most-recent 1:1 thread on session entry, not the globally-most-recent 1:1 regardless of persona. <code>formatPersonaThreadContext(activePersonaIds)</code> filters the assignments index by <code>personaId</code> before selecting the most recent entry, truncated to 1500 chars. Aligns with Elizabeth's design philosophy: executives come into meetings carrying their own experiences and past 1:1s. Commit: <span class="commit-tag">b4373d6</span>.</div>
+        </td>
+        <td><span class="badge badge-done">Done</span></td>
+      </tr>
+      <tr>
+        <td><div class="block-name">4 — Casey two-way Slack conversations</div></td>
+        <td>
+          <div class="block-note">Full bidirectional conversation capability in #northlight-build-log. Casey posts build questions on commits (existing); Elizabeth now @mentions Casey in thread to reply; Casey responds with full context. Dedicated Casey Slack bot (own app, <code>CASEY_BOT_TOKEN</code>, <code>CASEY_SIGNING_SECRET</code> — not shared with Northlight Claude). New modules: <code>casey-reply.js</code> (conversation handler), <code>casey-events.js</code> (inbound <code>app_mention</code> router), <code>caseySlackApi()</code> in slack.js. Drive-backed thread context store (<code>casey-build-threads</code> JSON keyed by Slack <code>ts</code>) preserves commit ID, repo, branch, tier, question, and pending task state across turns. Slack thread history loaded via <code>conversations.replies</code> on each reply. Casey detects action items → proactively offers ClickUp task; detects closure language → writes Drive 1:1 record to <code>Northlight/Build Log Threads/</code> + appends to <code>casey-build-threads-index</code>. Build Log Actions list (ID: 901715506061) created for Casey follow-ups; ClickUp task includes short commit hash in title, Slack permalink, Drive record link, ~90-day due date. End-to-end pipeline confirmed live: commit <span class="commit-tag">d2176fa</span> → Casey post → @Casey reply → ClickUp task <code>86e2ftqhx</code> → Drive record. Commit: <span class="commit-tag">57dfe4a</span>.</div>
+        </td>
+        <td><span class="badge badge-done">Done</span></td>
+      </tr>
+      <tr>
+        <td><div class="block-name">5 — Casey scan scheduler + silent-failure alert</div></td>
+        <td>
+          <div class="block-note"><code>casey-scan.js</code> runs every Monday 8am Halifax (same setTimeout pattern as Sam's Monday 7am scan). Checks Build Log Actions for tasks overdue or due within 7 days; posts summary blocks to #northlight-build-log via <code>caseySlackApi</code>. Manual trigger: <code>skill:casey-scan</code> via Slack. Wired into <code>server.js</code> startup via <code>scheduleCaseyScan()</code>. Silent-failure alerting added (commit <span class="commit-tag">bbc8435</span>): on scan error, posts warning to #northlight-build-log with error message and retry instruction. Recovery: Railway → Restart (scan is stateless — no locks or transactions). Commits: <span class="commit-tag">208e94b</span> + <span class="commit-tag">bbc8435</span>.</div>
+        </td>
+        <td><span class="badge badge-done">Done</span></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-label">Decisions Log</div>
+    <div class="decision-item">
+      <div class="decision-title">1. Dedicated Slack bot per conversational agent — July 23, 2026</div>
+      <div class="decision-rationale">Casey gets its own Slack app, token, and signing secret rather than persona-switching on the shared Northlight Claude bot. Keeps each agent's identity and routing clean; avoids ambiguity when both are active in the same channel.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">2. <code>app_mention</code> (not <code>message.channels</code>) for Casey inbound — July 23, 2026</div>
+      <div class="decision-rationale"><code>message.channels</code> is not available in this workspace's Event Subscriptions UI. Switched to <code>app_mention</code> — architecturally cleaner anyway: Elizabeth explicitly @Casey to start a conversation rather than all channel messages being intercepted.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">3. Cross-table memory uses soft gate, not separate API calls — July 23, 2026</div>
+      <div class="decision-rationale">Separate API calls per persona would be architecturally expensive and incompatible with the current multi-voice single-call design. Instruction-based scoping ("Jordan and Morgan only — don't reference this if you're not Jordan or Morgan") works well in practice, with the acknowledged limitation that it's not technically enforced.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">4. Casey proactively offers ClickUp tasks, doesn't auto-create — July 23, 2026</div>
+      <div class="decision-rationale">Casey detects action items and asks "Want me to add this to Build Log Actions? Reply YES" — confirmation required before creating. Prevents unwanted task clutter; keeps Elizabeth in control of what gets tracked.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">5. Build Log Actions as standalone ClickUp list — July 23, 2026</div>
+      <div class="decision-rationale">Casey can't infer which project a commit belongs to, so a per-project list approach would require manual context Elizabeth didn't want to provide. Standalone list (901715506061) is simpler and Casey can scan it without project context.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">ClickUp Tasks Closed This Phase</div>
+    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Scope: Two-Way Slack Conversations with Sam &amp; Casey</div><div class="issue-note">86e2f46fx · Closed July 23, 2026. Full Casey pipeline shipped end-to-end.</div></div></div>
+    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Casey debate: ClickUp Northlight Space + PMO context</div><div class="issue-note">86e2dc1fn · Closed July 19, 2026.</div></div></div>
+    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Sam debate: ClickUp workspace + calendar + email context</div><div class="issue-note">86e2dc1ez · Closed July 19, 2026.</div></div></div>
+    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Sam: Ambient flag mode on Slack generally</div><div class="issue-note">86e2dc1e8 · Closed July 19, 2026.</div></div></div>
+    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Casey: Ambient flag mode on PMO-updates channel</div><div class="issue-note">86e2dc1e5 · Closed July 19, 2026.</div></div></div>
+    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">CMO: Inject content-strategist / content-critic outputs</div><div class="issue-note">86e2dc1e1 · Closed July 19, 2026.</div></div></div>
+    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">CMO: Wire needsAnalytics flag — Plausible/LinkedIn/Threads</div><div class="issue-note">86e2dc1du · Closed July 18, 2026.</div></div></div>
+    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Morgan: Next Review scan at session start</div><div class="issue-note">86e2dc1dh · Closed July 18, 2026.</div></div></div>
+    <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Morgan: Implement Secretary convening/routing function</div><div class="issue-note">86e2dc1cu · Closed July 18, 2026.</div></div></div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card grid-full">
+    <div class="card-label">Activity Timeline</div>
+    <div class="activity-item">
+      <div class="activity-date">July 23, 2026 — Chat Bubbles, Memory &amp; Casey Conversations</div>
+      <div class="activity-text">Five features shipped in a single session. <strong>Advisory Board chat bubbles:</strong> WhatsApp-style bubble rendering added to AdvisoryBoardPanel.jsx (initial commit <span class="commit-tag">ad1f071</span>) then hardened with four parser fixes — the AB model's <code>**Role (Name):**</code> label format required different parsing from the Round Table's <code>**Name:**</code> pattern; the "responding to X" stripping was the critical fix for correct avatar assignment. <strong>Cross-table memory</strong> (<span class="commit-tag">3c038ae</span>): Jordan and Morgan now carry context from both systems into each session. Casey flagged context-bleed risk; Elizabeth confirmed the soft gate is the right trade-off given the single-API-call architecture. <strong>Per-persona 1:1 thread memory</strong> (<span class="commit-tag">b4373d6</span>): assignments index now filtered by personaId — each persona loads their own history, not whoever had the most recent 1:1. <strong>Casey two-way conversations</strong> (<span class="commit-tag">57dfe4a</span>): dedicated bot created (app creation failed three times due to middle-dot character in app name — resolved by using "Casey Tech &amp; Product" with plain hyphen), <code>app_mention</code> used after <code>message.channels</code> was unavailable in workspace, URL verification required <code>CASEY_SIGNING_SECRET</code> in Railway before the challenge could fire. Full pipeline confirmed: push <span class="commit-tag">d2176fa</span> → Casey build log question → @Casey reply → Casey response with action item → ClickUp task <code>86e2ftqhx</code> created with commit ID, Slack permalink, Drive link → Drive record written. <strong>Casey scan + failure alert</strong> (<span class="commit-tag">208e94b</span>, <span class="commit-tag">bbc8435</span>): Monday 8am Halifax scheduler wired, silent-failure Slack alert added after Casey flagged the gap.</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">July 18–19, 2026 — Ambient Modes, Debates &amp; Context Wiring</div>
+      <div class="activity-text">Nine ClickUp tasks closed completing the ambient and context-wiring work that started in Phase 1. Morgan's convening/routing function and next-review scan shipped July 18. CMO's needsAnalytics flag (Plausible/LinkedIn/Threads) and content-strategist/critic injection completed same day. Casey and Sam ambient flag modes wired July 18–19. Context debate sessions for both Casey (ClickUp + PMO context) and Sam (workspace + calendar + email) completed and marked done July 19.</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">July 17–18, 2026 — Phase 1 Close (Board Expansion)</div>
+      <div class="activity-text">Seven board member portraits added to dashboard/public/; portrait card grid replaced toggle button row. All 6 presenter personas set to default active (was CFO/Privacy/CMO only). Morgan added as non-toggleable "Always present" card. Chat avatars added to 1:1 thread messages. Phase 1 dashboard written July 18. Commits ddaf808, ba91ea5, 37f348d.</div>
+    </div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-label">Open Items → Phase 3</div>
+    <div class="issue-item"><div class="issue-dot" style="background:var(--dusk)"></div><div><div class="issue-text">Worker bot interview mode</div><div class="issue-note">86e1bma28 · High priority · Backlog. Interview mode that captures voice and purpose for task-doer bots — the second tier ("work crew") distinct from the C-suite board. Build if it fits in the dispatcher; otherwise deliver a build spec.</div></div></div>
+    <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">90-day review: cross-table memory utility (October 2026)</div><div class="issue-note">Kill signal: can you point to a session where Jordan or Morgan explicitly referenced cross-context knowledge in a way that changed the outcome — traceable in decision records? If not after 90 days, remove the complexity. ClickUp task created in AB list.</div></div></div>
+    <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">90-day review: casey-scan performance (October 2026)</div><div class="issue-note">86e2ftqhx · Build Log Actions · Does the scan still complete in under 1–2 minutes as ClickUp task volume grows? Is the Slack failure alert firing when it should? ClickUp task created by Casey in Build Log Actions.</div></div></div>
+    <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Slack one-off consult mode (parked)</div><div class="issue-note">86e2b50b2 · Backlog. Redundant while the Advisory Board tab covers 1:1 access. Revisit after 1:1 UX decision (own screen vs Slack).</div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Technical Notes for Phase 3</div>
+    <div class="issue-item"><div class="issue-dot blue"></div><div><div class="issue-text">Cross-table memory is soft-gated</div><div class="issue-note">All personas share one context window in a single API call. The instruction "Jordan and Morgan only — don't reference this if you're not Jordan or Morgan" works in practice but has no technical enforcement. If context bleed becomes a real problem before the 90-day check, it's a signal to separate the calls.</div></div></div>
+    <div class="issue-item"><div class="issue-dot blue"></div><div><div class="issue-text">Casey's Slack bot requires CASEY_BOT_TOKEN + CASEY_SIGNING_SECRET in Railway</div><div class="issue-note">Both env vars are set. If the Railway service is redeployed from scratch, both must be re-added. The signing secret also needs to match what's in the Casey Slack App settings.</div></div></div>
+    <div class="issue-item"><div class="issue-dot blue"></div><div><div class="issue-text">Casey scan recovery: Railway restart, not skill:casey-scan if wedged</div><div class="issue-note">The scan is stateless (reads ClickUp, writes to Slack, no transactions/locks). skill:casey-scan won't help if the process is wedged — use Railway → Restart. It reschedules cleanly on startup.</div></div></div>
+  </div>
+</div>
+
+<div class="footer">
+  <div>Advisory Board Bot · Phase 2 — Chat Bubbles, Memory Upgrades &amp; Casey Conversations</div>
+  <div>Northlight PMO · July 18–23, 2026 · Complete</div>
+</div>
+</body>
+</html>
