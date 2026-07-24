@@ -4,6 +4,12 @@
 
 ---
 
+## Phase 4 — Content Depth & Thought Leadership (2026-07-24)
+
+- Publishing a batch of posts on the same day (July 20–21) made the related-reading cross-link pass far more efficient — touching all 21 posts in one sweep is easier than retroactively adding links each time a new post ships. Ship in batches, link in batches.
+- Tiered CTAs on the About page outperform a single ask: "Grab a virtual coffee" (free, low-commitment) + EveryExpert $99 session gives visitors two entry points at different trust levels rather than forcing a binary choice.
+- Social promotion lagged badly behind content production — 11 Phase 4 posts shipped with zero social queue set up. Schedule the social queue immediately after each publish batch, not as a separate "later" task.
+
 ## Phase 2 — HubSpot AEO + Prompt Testing (2026-07-09)
 
 - Gemini entity collision is real and systematic: Gemini conflated Northlight Advisory Services (Halifax, Elizabeth Lemoine, strategy/ops/AI) with Northlight Solutions Group (NSG, a Salesforce/Agentforce partner) across 100% of tested prompts, inventing a fictional methodology and training program. The fix is content-based — a dense entity-signal page + explicit llms.txt disambiguation naming NSG by name.

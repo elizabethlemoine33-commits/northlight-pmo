@@ -6,6 +6,9 @@
 
 | Date | Session | What Shipped | Phase |
 |---|---|---|---|
+| 2026-07-24 | Phase 4 close | About page CTA restructure (virtual coffee, credentials row, EveryExpert $99 card) · GEO freshness signals on 2 posts · Phase 4 closed at 100% — 11 posts + 1 case study + SEO/GEO sprint complete | Phase 4 |
+| 2026-07-21 | Content sprint | 5 additional blog posts committed (fractional COO Atlantic, AI policy template, AI tools guide, fractional exec guide, AI adoption checklist) · related reading cross-links on all 21 posts | Phase 4 |
+| 2026-07-20 | SEO sprint | SEO optimization pass: titles, OG tags, Twitter Cards, FAQPage schemas on 6 posts · all 21 posts cross-linked | Phase 4 |
 | 2026-07-18 | Evening OS session | B6 "Your Agents Need a Chain of Command" published — AEO structure, 9 external citations, FAQPage JSON-LD. Blog index updated. Phase 4 at 90% (B5 Digital Reference still queued). | Phase 4 |
 | 2026-07-10 | Phase 3 session 3 (close) | gofractional.com application submitted (pending review) · Manifest constraint documented (mirrors Clutch, Eastern Passage unfixable) · Wikipedia deferred (no qualifying third-party sources) · Phase 3 closed at 100% · Phase 4 kickoff prompt written | Phase 3 |
 | 2026-07-10 | Phase 3 session 2 | outsourceaccelerator.com self-registered (live) · About page authority profiles (Digital Reference, Clutch, Crunchbase) added to sameAs schema + visible pill section · MCP Skills section added to Work page · llms.txt updated with all external profiles + Reddit u/PassageGal (AI-only) · 4 open decisions resolved · Matt Ward scratched · Capterra blocked/parked · GBP video verification not doing · Phase 4 blog posts identified from P/I/P analysis (AI implementation partner, Gen AI ROI, PIPEDA/PPC) | Phase 3 |
