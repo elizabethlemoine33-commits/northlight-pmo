@@ -1,4 +1,17 @@
 ---
+phase: Phase 10 — Dispatcher Observability & Session Logging
+completed: 2026-07-24
+---
+
+## Phase 10 Learnings
+
+- **Railway "native Slack" = Incoming Webhook URL — not a direct connector** — Railway notifications accept a webhook URL and POST deploy events to it. For Slack, create an Incoming Webhook at api.slack.com/apps and paste that URL into Railway's notification config. The UI shows "Integrations" (Vercel only) and webhook config as separate sections — check both.
+- **Define activity log scope before instrumenting, not after** — without a clear boundary ("what question does this log answer?"), every new job becomes a candidate for logActivity(). The answer here: "did it run?" Reasoning lives in Drive docs; session decisions live in the 5 AM summary. Casey's 90-day review (2026-10-24) locks this in.
+- **Phase A (no-code) before Phase B (code) — worth keeping as sequencing practice** — Railway notification was live before the first Phase B push landed. The deploy confirmation appeared in #northlight-build-log without any manual check. Correct sequencing of prerequisites means the first real deploy is already observable.
+
+---
+
+---
 phase: Phase 9 — Marketing Round Table
 completed: 2026-07-22
 ---

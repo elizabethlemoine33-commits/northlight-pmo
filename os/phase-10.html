@@ -33,34 +33,25 @@
 
   .callout { background: rgba(91,141,217,0.08); border: 1px solid rgba(91,141,217,0.22); border-radius: 8px; padding: 12px 16px; margin-bottom: 24px; color: var(--haze); font-size: 12px; line-height: 1.5; }
   .callout strong { color: var(--cloud); }
-  .callout-amber { background: rgba(212,160,23,0.07); border: 1px solid rgba(212,160,23,0.22); color: var(--haze); }
-  .callout-green { background: rgba(59,170,110,0.07); border: 1px solid rgba(59,170,110,0.22); color: var(--haze); }
+  .callout-green { background: rgba(59,170,110,0.07); border: 1px solid rgba(59,170,110,0.22); }
 
   .progress-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
   .progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
   .progress-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
-  .progress-pct { font-size: 24px; font-weight: 700; color: var(--text); }
+  .progress-pct { font-size: 24px; font-weight: 700; color: var(--green); }
   .progress-bar-bg { background: var(--border); border-radius: 4px; height: 6px; }
-  .progress-bar-fill { background: linear-gradient(90deg, #4FC3C8, #8B6FD4); border-radius: 4px; height: 6px; }
+  .progress-bar-fill { background: linear-gradient(90deg, #3BAA6E, #4FC3C8); border-radius: 4px; height: 6px; }
   .progress-counts { display: flex; gap: 20px; margin-top: 10px; flex-wrap: wrap; }
   .progress-count { font-size: 11px; color: var(--muted); }
   .progress-count strong { color: var(--cloud); }
 
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
-  .grid-full { grid-column: 1 / -1; }
-  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 24px; }
-
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
   .card-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
 
   .badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
-  .badge-done       { background: rgba(59,170,110,0.15); color: #3BAA6E; border: 1px solid rgba(59,170,110,0.3); }
-  .badge-inprogress { background: rgba(91,141,217,0.15); color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
-  .badge-notstarted { background: rgba(138,146,168,0.10); color: var(--muted); border: 1px solid var(--border); }
-  .badge-blocked    { background: rgba(196,79,79,0.15); color: #C44F4F; border: 1px solid rgba(196,79,79,0.3); }
-  .badge-queued     { background: rgba(212,160,23,0.12); color: var(--yellow); border: 1px solid rgba(212,160,23,0.25); }
-  .badge-nocode     { background: rgba(79,195,200,0.10); color: var(--glacial); border: 1px solid rgba(79,195,200,0.25); }
-  .badge-process    { background: rgba(196,111,170,0.10); color: var(--aurora); border: 1px solid rgba(196,111,170,0.25); }
+  .badge-done    { background: rgba(59,170,110,0.15); color: #3BAA6E; border: 1px solid rgba(59,170,110,0.3); }
+  .badge-process { background: rgba(196,111,170,0.10); color: var(--aurora); border: 1px solid rgba(196,111,170,0.3); }
 
   .group-row { padding: 12px 0; border-bottom: 1px solid var(--border); }
   .group-row:last-child { border-bottom: none; }
@@ -71,11 +62,9 @@
   .gl-c { background: rgba(139,111,212,0.12); color: var(--dusk); border: 1px solid rgba(139,111,212,0.3); }
   .gl-d { background: rgba(196,111,170,0.12); color: var(--aurora); border: 1px solid rgba(196,111,170,0.3); }
   .group-title { color: var(--cloud); font-size: 12px; font-weight: 600; }
-  .group-desc { color: var(--muted); font-size: 11px; }
   .group-items { margin-left: 32px; display: flex; flex-direction: column; gap: 5px; }
   .group-item { display: flex; align-items: flex-start; gap: 8px; }
-  .item-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--border2); margin-top: 5px; flex-shrink: 0; }
-  .item-dot.done { background: var(--green); }
+  .item-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); margin-top: 5px; flex-shrink: 0; }
   .item-text { color: var(--haze); font-size: 11px; line-height: 1.5; }
   .item-file { color: var(--muted); font-size: 10px; font-family: monospace; margin-top: 1px; }
 
@@ -84,333 +73,188 @@
   .decision-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
   .decision-rationale { color: var(--muted); font-size: 11px; margin-top: 2px; line-height: 1.5; }
 
+  .learning-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .learning-item:last-child { border-bottom: none; }
+  .learning-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .learning-body { color: var(--muted); font-size: 11px; margin-top: 2px; line-height: 1.5; }
+
   .activity-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
   .activity-item:last-child { border-bottom: none; }
   .activity-date { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
   .activity-text { color: var(--cloud); font-size: 12px; line-height: 1.5; }
 
-  .issue-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
-  .issue-item:last-child { border-bottom: none; }
-  .issue-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--boreal); margin-top: 4px; flex-shrink: 0; }
-  .issue-dot.glacial { background: var(--glacial); }
-  .issue-dot.dusk    { background: var(--dusk); }
-  .issue-dot.aurora  { background: var(--aurora); }
-  .issue-dot.process { background: var(--yellow); }
-  .issue-text { color: var(--cloud); font-size: 12px; }
-  .issue-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
-
-  .context-row { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
-  .context-row:last-child { border-bottom: none; }
-  .context-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-  .context-body { flex: 1; }
-  .context-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
-  .context-detail { color: var(--muted); font-size: 11px; margin-top: 2px; line-height: 1.5; }
-
-  .stat-row { display: flex; gap: 16px; flex-wrap: wrap; }
-  .stat { flex: 1; min-width: 80px; }
-  .stat-num { font-size: 26px; font-weight: 700; color: var(--text); line-height: 1; }
-  .stat-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+  .casey-box { background: rgba(139,111,212,0.06); border: 1px solid rgba(139,111,212,0.2); border-radius: 8px; padding: 12px 14px; margin-bottom: 12px; }
+  .casey-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dusk); margin-bottom: 6px; }
+  .casey-text { color: var(--haze); font-size: 11px; line-height: 1.6; }
+  .casey-action { color: var(--muted); font-size: 10px; margin-top: 6px; }
 </style>
 </head>
 <body>
 <div class="top-bar"></div>
 
-<!-- Header -->
 <div class="header">
   <div class="phase-label">Northlight OS · Phase 10</div>
   <div class="title">Dispatcher Observability &amp; Session Logging</div>
-  <div class="subtitle">Started: 2026-07-24 &nbsp;·&nbsp; Status: <span style="color:var(--boreal)">In Progress</span> &nbsp;·&nbsp; Plan complete — implementation beginning</div>
+  <div class="subtitle">2026-07-24 → 2026-07-24 &nbsp;·&nbsp; <span style="color:var(--green)">Complete</span> &nbsp;·&nbsp; One-session phase — all 10 items shipped same day</div>
 </div>
 
-<!-- Historical callout -->
 <div class="callout callout-green">
-  <strong>Phase 9 — Marketing Round Table</strong> shipped fully (July 21–22, 4 sessions): persona layer, full team meeting UI, post-failure modal, knowledge base integration, campaign entity with ClickUp write-back, analytics auto-pull confirmed, and usage cap separated from Advisory Board. Phase 10 begins with no carry-over debt from Phase 9.
+  <strong>Phase 9 — Marketing Round Table</strong> closed July 24 (shipped July 21–22). Phase 10 started and closed the same day — planning and all implementation completed in a single session. No carry-over to Phase 11.
 </div>
 
-<!-- Progress -->
 <div class="progress-section">
   <div class="progress-header">
     <span class="progress-label">Phase Progress</span>
-    <span class="progress-pct">5%</span>
+    <span class="progress-pct">100%</span>
   </div>
-  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:5%"></div></div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%"></div></div>
   <div class="progress-counts">
-    <div class="progress-count"><strong>Plan</strong> complete</div>
-    <div class="progress-count"><strong>0 / 10</strong> items shipped</div>
-    <div class="progress-count"><strong>4</strong> implementation groups</div>
-    <div class="progress-count"><strong>1</strong> process change</div>
+    <div class="progress-count"><strong>10 / 10</strong> items shipped</div>
+    <div class="progress-count"><strong>1</strong> process change active</div>
+    <div class="progress-count"><strong>1</strong> 90-day review scheduled — 2026-10-24</div>
+    <div class="progress-count"><strong>2</strong> dispatcher commits · <strong>1</strong> PMO commit</div>
   </div>
 </div>
 
-<!-- What sparked this -->
-<div class="grid" style="margin-bottom:24px;">
-  <div class="card">
-    <div class="card-label">What Prompted This Phase</div>
-    <div class="context-row">
-      <div class="context-icon">🔍</div>
-      <div class="context-body">
-        <div class="context-title">FoxCommand AI accountability framework review</div>
-        <div class="context-detail">Reviewed the three-layer model: logs (what happened) → evals (was it good?) → decision records (why this decision, under whose authority). Applied the "autonomy boundary" concept — below it, logs and evals suffice; above it, decision records are required.</div>
-      </div>
-    </div>
-    <div class="context-row">
-      <div class="context-icon">📋</div>
-      <div class="context-body">
-        <div class="context-title">Northlight Slack channel audit</div>
-        <div class="context-detail">Full audit of 19 Slack channels revealed the system is generating good signal — but the dispatcher runs silently. Jobs complete with no runtime confirmation. Claude Code sessions produce decisions that never appear in any searchable record.</div>
-      </div>
-    </div>
-    <div class="context-row">
-      <div class="context-icon">⚙️</div>
-      <div class="context-body">
-        <div class="context-title">Three gaps identified</div>
-        <div class="context-detail">1. Dispatcher runtime is silent — jobs run but don't announce. 2. Claude session decisions aren't captured anywhere. 3. Minor channel cleanup needed (#daily_priorities dead, Railway notification missing).</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-label">Slack Channel Audit — What's Working</div>
-    <div class="issue-item">
-      <div class="issue-dot" style="background:var(--green)"></div>
-      <div><div class="issue-text">#daily-briefing — morning consolidated view (ClickUp + project health + expenses)</div></div>
-    </div>
-    <div class="issue-item">
-      <div class="issue-dot" style="background:var(--green)"></div>
-      <div><div class="issue-text">#northlight-build-log — every commit reviewed by Casey (⚠️/💬/👍)</div></div>
-    </div>
-    <div class="issue-item">
-      <div class="issue-dot" style="background:var(--green)"></div>
-      <div><div class="issue-text">#blog-website-ready — ✅ publish confirmations with URL</div></div>
-    </div>
-    <div class="issue-item">
-      <div class="issue-dot" style="background:var(--green)"></div>
-      <div><div class="issue-text">#linkedin-ready — content queue with copy + graphics</div></div>
-    </div>
-    <div class="issue-item">
-      <div class="issue-dot" style="background:var(--green)"></div>
-      <div><div class="issue-text">#northlight-pmo — phase dashboard updates on STANDING-PMO-TRIGGER</div></div>
-    </div>
-    <div class="issue-item">
-      <div class="issue-dot" style="background:var(--green)"></div>
-      <div><div class="issue-text">Status channels (#github-status, #buffer-status, etc.) — intentional dependency monitors, correct as-is</div></div>
-    </div>
-    <div class="issue-item">
-      <div class="issue-dot" style="background:var(--red)"></div>
-      <div><div class="issue-text">#daily_priorities — dead, superseded by #daily-briefing. Archive it.</div></div>
-    </div>
-  </div>
-</div>
-
-<!-- Implementation plan -->
-<div class="card grid-full" style="margin-bottom:24px;">
-  <div class="card-label">Implementation Plan — 4 Groups</div>
+<div class="card" style="margin-bottom:24px;">
+  <div class="card-label">What Shipped</div>
 
   <div class="group-row">
     <div class="group-header">
       <div class="group-letter gl-a">A</div>
-      <div>
-        <div class="group-title">No-Code Actions <span class="badge badge-nocode" style="margin-left:6px;">Config</span></div>
-        <div class="group-desc">Elizabeth does these — no dispatcher changes required</div>
-      </div>
-      <div style="margin-left:auto"><span class="badge badge-notstarted">0 / 2</span></div>
+      <div class="group-title">No-Code Actions <span class="badge badge-done" style="margin-left:6px;">2 / 2</span></div>
     </div>
     <div class="group-items">
-      <div class="group-item">
-        <div class="item-dot"></div>
-        <div>
-          <div class="item-text">Archive <strong>#daily_priorities</strong> in Slack — channel is dead, superseded by #daily-briefing</div>
-        </div>
-      </div>
-      <div class="group-item">
-        <div class="item-dot"></div>
-        <div>
-          <div class="item-text">Configure <strong>Railway native Slack notification</strong> → #northlight-build-log — deploy success and failure alerts</div>
-          <div class="item-file">Railway project settings → Notifications → Add Slack</div>
-        </div>
-      </div>
+      <div class="group-item"><div class="item-dot"></div><div class="item-text">Archived <strong>#daily_priorities</strong> — superseded by #daily-briefing</div></div>
+      <div class="group-item"><div class="item-dot"></div><div><div class="item-text"><strong>Railway deploy notifications</strong> → #northlight-build-log via Slack Incoming Webhook (Deployed + Crashed + OOM Killed)</div></div></div>
     </div>
   </div>
 
   <div class="group-row">
     <div class="group-header">
       <div class="group-letter gl-b">B</div>
-      <div>
-        <div class="group-title">Small Targeted Code Changes <span class="badge badge-inprogress" style="margin-left:6px;">Code</span></div>
-        <div class="group-desc">Four focused additions to existing files — one session</div>
-      </div>
-      <div style="margin-left:auto"><span class="badge badge-notstarted">0 / 4</span></div>
+      <div class="group-title">Targeted Code Changes <span class="badge badge-done" style="margin-left:6px;">4 / 4</span> <span style="color:var(--muted);font-size:10px;margin-left:6px;">commit f0f3b8d</span></div>
     </div>
     <div class="group-items">
-      <div class="group-item">
-        <div class="item-dot"></div>
-        <div>
-          <div class="item-text">Add <strong>PMO_CHANNEL</strong> constant to lib/slack.js and export it</div>
-          <div class="item-file">dashboard/lib/slack.js — C0BELQQR6ET (#northlight-pmo)</div>
-        </div>
-      </div>
-      <div class="group-item">
-        <div class="item-dot"></div>
-        <div>
-          <div class="item-text"><strong>Casey scan</strong>: post "ran clean — nothing flagged" to #northlight-build-log when 0 items found, so you can confirm it ran</div>
-          <div class="item-file">dashboard/lib/casey-scan.js — replace silent return with caseySlackApi post</div>
-        </div>
-      </div>
-      <div class="group-item">
-        <div class="item-dot"></div>
-        <div>
-          <div class="item-text"><strong>Advisory board finalize</strong>: post doc link + session title to #northlight-pmo after saveDecisionRecord() and saveAssignmentRecord() resolve</div>
-          <div class="item-file">dashboard/routes/advisory-board.js — lines ~293–308</div>
-        </div>
-      </div>
-      <div class="group-item">
-        <div class="item-dot"></div>
-        <div>
-          <div class="item-text"><strong>Round table finalize</strong>: same pattern — post doc link to #northlight-pmo after saveRoundTableRecord() resolves</div>
-          <div class="item-file">dashboard/routes/marketing-round-table.js — lines ~218–248</div>
-        </div>
-      </div>
+      <div class="group-item"><div class="item-dot"></div><div><div class="item-text"><strong>PMO_CHANNEL = 'C0BELQQR6ET'</strong> added and exported from lib/slack.js</div></div></div>
+      <div class="group-item"><div class="item-dot"></div><div><div class="item-text"><strong>Casey scan</strong>: posts "ran clean — nothing flagged" to #northlight-build-log when 0 items found</div></div></div>
+      <div class="group-item"><div class="item-dot"></div><div><div class="item-text"><strong>Advisory board finalize</strong>: posts doc link + title to #northlight-pmo (non-fatal)</div></div></div>
+      <div class="group-item"><div class="item-dot"></div><div><div class="item-text"><strong>Round table finalize</strong>: same pattern (non-fatal)</div></div></div>
     </div>
   </div>
 
   <div class="group-row">
     <div class="group-header">
       <div class="group-letter gl-c">C</div>
-      <div>
-        <div class="group-title">OS Activity Log Mechanism <span class="badge badge-inprogress" style="margin-left:6px;">Code</span></div>
-        <div class="group-desc">New utility + instrumentation + daily briefing section — one session</div>
-      </div>
-      <div style="margin-left:auto"><span class="badge badge-notstarted">0 / 3</span></div>
+      <div class="group-title">Activity Log Mechanism <span class="badge badge-done" style="margin-left:6px;">3 / 3</span> <span style="color:var(--muted);font-size:10px;margin-left:6px;">commit df58135 · 6 files · 67 insertions</span></div>
     </div>
     <div class="group-items">
-      <div class="group-item">
-        <div class="item-dot"></div>
-        <div>
-          <div class="item-text">Create <strong>lib/activity-log.js</strong> — logActivity({ job, status, details }) appends entry to Drive JSON; getYesterdayActivity() filters last 24h</div>
-          <div class="item-file">dashboard/lib/activity-log.js (new) — uses readDriveJson/writeDriveJson from lib/drive-store.js</div>
-        </div>
-      </div>
-      <div class="group-item">
-        <div class="item-dot"></div>
-        <div>
-          <div class="item-text"><strong>Instrument 4 jobs</strong>: casey-scan, standing-pmo, advisory-board finalize, round-table finalize — each calls logActivity() on completion</div>
-          <div class="item-file">dashboard/lib/casey-scan.js · lib/skills/standing-pmo.js · routes/advisory-board.js · routes/marketing-round-table.js</div>
-        </div>
-      </div>
-      <div class="group-item">
-        <div class="item-dot"></div>
-        <div>
-          <div class="item-text">Add <strong>OS activity section</strong> to morning briefing — reads yesterday's activity log; skips section if no entries</div>
-          <div class="item-file">dashboard/routes/dispatcher.js — runMorningDispatcher() step before final post</div>
-        </div>
-      </div>
+      <div class="group-item"><div class="item-dot"></div><div><div class="item-text"><strong>lib/activity-log.js</strong> (new) — logActivity() appends to Drive key 'os-activity-log'; getYesterdayActivity() filters last 24h; 500-entry rolling cap</div><div class="item-file">dashboard/lib/activity-log.js</div></div></div>
+      <div class="group-item"><div class="item-dot"></div><div class="item-text"><strong>4 jobs instrumented</strong>: casey-scan (clean + flagged paths), standing-pmo, advisory-board finalize, round-table finalize — all non-fatal</div></div>
+      <div class="group-item"><div class="item-dot"></div><div class="item-text"><strong>OS activity section</strong> in morning briefing — reads yesterday's log; skips section if no entries</div></div>
     </div>
   </div>
 
   <div class="group-row">
     <div class="group-header">
       <div class="group-letter gl-d">D</div>
-      <div>
-        <div class="group-title">Session Summary Skills &amp; Agent <span class="badge badge-process" style="margin-left:6px;">Skills</span></div>
-        <div class="group-desc">Claude Code skill + scheduled cloud agent — one session</div>
-      </div>
-      <div style="margin-left:auto"><span class="badge badge-notstarted">0 / 2</span></div>
+      <div class="group-title">Skills &amp; Agent <span class="badge badge-done" style="margin-left:6px;">2 / 2</span></div>
     </div>
     <div class="group-items">
-      <div class="group-item">
-        <div class="item-dot"></div>
-        <div>
-          <div class="item-text">Create <strong>/session-summary skill</strong> — reads current Claude Code session transcript, posts decisions/deferred/reasoning to #northlight-build-log. Manual override trigger.</div>
-          <div class="item-file">.claude/skills/session-summary.md (new)</div>
-        </div>
-      </div>
-      <div class="group-item">
-        <div class="item-dot"></div>
-        <div>
-          <div class="item-text">Set up <strong>5 AM daily session summary agent</strong> — reads Claude session transcripts from last 24h, extracts decisions, posts summary to #northlight-build-log. Covers late-night sessions (Elizabeth works to ~2 AM).</div>
-          <div class="item-file">Scheduled via schedule skill — daily 05:00 America/Halifax</div>
-        </div>
-      </div>
+      <div class="group-item"><div class="item-dot"></div><div><div class="item-text"><strong>/session-summary skill</strong> — reads current Claude Code session, extracts decisions/deferred/open, posts to #northlight-build-log. Manual trigger.</div><div class="item-file">C:\Users\erand\.claude\commands\session-summary.md</div></div></div>
+      <div class="group-item"><div class="item-dot"></div><div><div class="item-text"><strong>5 AM daily session summary agent</strong> — scheduled daily (0 5 * * *), reads all sessions from last 24h, posts to #northlight-build-log. Silent if no meaningful sessions.</div><div class="item-file">C:\Users\erand\.claude\scheduled-tasks\session-summary-daily\SKILL.md</div></div></div>
     </div>
   </div>
 
   <div class="group-row" style="border-bottom:none;">
     <div class="group-header">
       <div class="group-letter" style="background:rgba(212,160,23,0.12);color:var(--yellow);border:1px solid rgba(212,160,23,0.3);">P</div>
-      <div>
-        <div class="group-title">Process Change <span class="badge badge-queued" style="margin-left:6px;">Practice</span></div>
-        <div class="group-desc">No code — applied from next session forward</div>
-      </div>
+      <div class="group-title">Process Change <span class="badge badge-process" style="margin-left:6px;">Active</span></div>
     </div>
     <div class="group-items">
-      <div class="group-item">
-        <div class="item-dot" style="background:var(--yellow)"></div>
-        <div>
-          <div class="item-text"><strong>Commit message WHY discipline</strong> — every commit description includes what triggered the change, what was considered and rejected, and any known risks or deferred scope. Casey's code review already prompts for this; answer in the commit, not only in Slack threads.</div>
-        </div>
-      </div>
+      <div class="group-item"><div class="item-dot" style="background:var(--yellow)"></div><div class="item-text"><strong>Commit message WHY discipline</strong> — every description includes trigger, what was considered/rejected, and known risks. Active from this phase forward.</div></div>
     </div>
   </div>
 </div>
 
-<!-- Decisions log -->
-<div class="card" style="margin-bottom:24px;">
-  <div class="card-label">Planning Decisions — 2026-07-24</div>
-  <div class="decision-item">
-    <div class="decision-title">Railway native Slack integration over custom webhook</div>
-    <div class="decision-rationale">If the dispatcher is mid-deploy, it can't receive its own webhook — the notification would never fire during the exact moments that matter. Railway's native notification fires from Railway's side regardless of app state. Zero maintenance surface.</div>
+<div class="grid">
+  <div class="card">
+    <div class="card-label">Decisions Log</div>
+    <div class="decision-item">
+      <div class="decision-title">Railway notifications = Slack Incoming Webhook URL target</div>
+      <div class="decision-rationale">Railway has no native Slack connector. The correct flow: create a Slack Incoming Webhook (api.slack.com/apps) → paste that URL into Railway's notification config. Corrected mid-session when the UI showed only Vercel under Integrations.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Activity log scope: job completions only — not reasoning or data</div>
+      <div class="decision-rationale">Casey flagged drift risk: "prepare for audit" → "log everything just in case." Ruling: the log answers "did it run?" Reasoning lives in advisory/round table Drive docs. Session decisions live in the 5 AM summary. 90-day review: 2026-10-24.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Drive JSON over new infrastructure for activity log</div>
+      <div class="decision-rationale">Consistent with existing drive-store.js pattern. Persists across Railway deploys. No new dependencies.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">5 AM daily (not weekdays only)</div>
+      <div class="decision-rationale">Elizabeth works to ~2 AM. Daily run captures late-night sessions before the 6 AM briefing. Weekly batch would lose too much context.</div>
+    </div>
+    <div class="decision-item" style="border-bottom:none;">
+      <div class="decision-title">No new channels — narration folds into existing ones</div>
+      <div class="decision-rationale">Casey scan + session summaries → #northlight-build-log. Doc links → #northlight-pmo. OS activity → daily briefing. Channel routing was already logical.</div>
+    </div>
   </div>
-  <div class="decision-item">
-    <div class="decision-title">Drive JSON log for OS activity tracking</div>
-    <div class="decision-rationale">Consistent with existing drive-store.js pattern (readDriveJson/writeDriveJson). Persists across Railway deploys (no ephemeral filesystem). No new infrastructure required.</div>
-  </div>
-  <div class="decision-item">
-    <div class="decision-title">Session summary agent runs daily at 5 AM Halifax</div>
-    <div class="decision-rationale">Elizabeth works late (sessions to ~2 AM). A 5 AM run captures the previous day including late-night work, before the 6 AM daily briefing. Daily (not weekly) because decisions accumulate fast enough that a weekly batch would lose context.</div>
-  </div>
-  <div class="decision-item">
-    <div class="decision-title">Don't add new Slack channels — all narration folds into existing ones</div>
-    <div class="decision-rationale">The channel routing is already logical. New channels add to the reading load. Casey scan → #northlight-build-log. Advisory/Round Table doc links → #northlight-pmo. OS activity → daily briefing. Session summaries → #northlight-build-log.</div>
-  </div>
-  <div class="decision-item" style="border-bottom:none;">
-    <div class="decision-title">GitHub build log scope stays northlight-dispatcher only — correct as-is</div>
-    <div class="decision-rationale">All OS code lives in the dispatcher repo. Casey reviews every commit there. Other repos (website, Vault, Meetings) don't need Casey review or dispatcher notification. No change needed.</div>
+
+  <div class="card">
+    <div class="card-label">Casey's Question — On Record</div>
+    <div class="casey-box">
+      <div class="casey-label">Casey · Build Log Actions · Due 2026-10-24</div>
+      <div class="casey-text">What specifically gets logged and what doesn't? "Prepare for audit" can quietly become "log everything just in case," and you end up maintaining 50 logging statements with no clear signal for what was worth the overhead. What's the actual decision event — the choice, the reasoning, the data evaluated, or all three? What would tell you in 90 days whether this granularity is useful or noise?</div>
+      <div class="casey-action">Added to Build Log Actions · review due 2026-10-24 (Monday Casey scan)</div>
+    </div>
+    <div class="decision-item" style="padding-top:0;">
+      <div class="decision-title">Answer on record</div>
+      <div class="decision-rationale">Logging job completions only. Not choices, not reasoning, not evaluated data. Boundary guard: logActivity() stays scoped to the 4 jobs feeding the morning briefing. New jobs only get instrumented if "do I want this in tomorrow's briefing?" is yes.<br><br>90-day signal: if the OS activity section shows something Elizabeth would have had to dig for, it earns its keep. If she scrolls past it most mornings, the 4 call sites come out.</div>
+    </div>
+
+    <div class="card-label" style="margin-top:16px;">Phase 10 Learnings</div>
+    <div class="learning-item" style="padding-top:0;">
+      <div class="learning-title">Railway "native Slack" = Incoming Webhook URL — not a direct connector</div>
+      <div class="learning-body">Corrected mid-session. Create a Slack Incoming Webhook at api.slack.com/apps, paste URL into Railway notifications. Took ~2 minutes once the mechanism was clear.</div>
+    </div>
+    <div class="learning-item">
+      <div class="learning-title">Define log scope boundary before instrumenting, not after</div>
+      <div class="learning-body">Without a boundary, each new job feels like a candidate. Casey's question surfaced this before Phase C shipped — the answer is now documented and the 90-day review locks it in.</div>
+    </div>
+    <div class="learning-item" style="border-bottom:none;">
+      <div class="learning-title">Phase A (no-code) before Phase B (code) — sequence matters</div>
+      <div class="learning-body">Railway notification was live before the first Phase B push. The deploy confirmation appeared in #northlight-build-log without any manual check. Worth keeping as a sequencing practice.</div>
+    </div>
   </div>
 </div>
 
-<!-- Activity -->
-<div class="grid" style="margin-bottom:0;">
-  <div class="card">
-    <div class="card-label">Activity Timeline</div>
-    <div class="activity-item">
-      <div class="activity-date">Jul 24, 2026 — Phase 10 Kickoff</div>
-      <div class="activity-text">FoxCommand AI accountability framework reviewed. Three-layer model (logs → evals → decision records) and autonomy boundary concept applied to Northlight context. Full Slack channel audit conducted — 19 channels mapped, routing confirmed as logical. Three gaps identified. 10-item observability plan developed and committed. Phase 10 started.</div>
-    </div>
+<div class="card">
+  <div class="card-label">Activity Timeline</div>
+  <div class="activity-item">
+    <div class="activity-date">Jul 24 — Kickoff</div>
+    <div class="activity-text">FoxCommand AI accountability framework reviewed. Three-layer model (logs → evals → decision records) applied to Northlight. Full Slack channel audit (19 channels mapped). Three gaps identified. 10-item plan finalized. Phase 10 PMO dashboard written.</div>
   </div>
-
-  <div class="card">
-    <div class="card-label">Context — Why This Matters</div>
-    <div class="context-row" style="padding-top:0;">
-      <div class="context-icon">📊</div>
-      <div class="context-body">
-        <div class="context-title">The autonomy boundary</div>
-        <div class="context-detail">Below it (advisory/automated tasks), logs + evals are enough. Above it (decisions with consequences), decision records are required. Northlight OS sits at the boundary — it automates tasks AND surfaces decisions.</div>
-      </div>
-    </div>
-    <div class="context-row">
-      <div class="context-icon">🔇</div>
-      <div class="context-body">
-        <div class="context-title">Silent runtime is the core gap</div>
-        <div class="context-detail">Casey scan, standing PMO, advisory board finalize, round table finalize — all complete with no Slack confirmation. You only know they ran if you check Railway logs (which rotate after ~10 days).</div>
-      </div>
-    </div>
-    <div class="context-row" style="padding-bottom:0;">
-      <div class="context-icon">🧠</div>
-      <div class="context-body">
-        <div class="context-title">Session decisions are lost</div>
-        <div class="context-detail">Claude Code sessions produce real decisions — what to build, what to defer, why. None of this appears in any searchable record. The commit lands and Casey reviews the code, but the reasoning that shaped it lives only in the session.</div>
-      </div>
-    </div>
+  <div class="activity-item">
+    <div class="activity-date">Jul 24 — Phase A complete</div>
+    <div class="activity-text">#daily_priorities archived. Railway deploy notifications configured via Slack Incoming Webhook → #northlight-build-log (Deployed + Crashed + OOM Killed). No-code prerequisites in place before any code was pushed.</div>
+  </div>
+  <div class="activity-item">
+    <div class="activity-date">Jul 24 — Phase B shipped (commit f0f3b8d)</div>
+    <div class="activity-text">PMO_CHANNEL constant added to lib/slack.js. Casey scan "ran clean" post added. Advisory board and round table finalize endpoints now post doc links to #northlight-pmo. 4 files, non-fatal Slack calls throughout. Railway confirmed deploy via new notification.</div>
+  </div>
+  <div class="activity-item">
+    <div class="activity-date">Jul 24 — Phase C shipped (commit df58135)</div>
+    <div class="activity-text">lib/activity-log.js created. 4 jobs instrumented. OS activity section added to morning briefing (reads yesterday's log, skips if empty). 6 files changed, 67 insertions.</div>
+  </div>
+  <div class="activity-item">
+    <div class="activity-date">Jul 24 — Phase D shipped</div>
+    <div class="activity-text">/session-summary skill written and registered. 5 AM daily session summary agent scheduled. Casey flagged 90-day activity log review → added to Build Log Actions (due 2026-10-24). Answer on record in decisions log.</div>
+  </div>
+  <div class="activity-item" style="border-bottom:none;">
+    <div class="activity-date">Jul 24 — Phase 10 complete</div>
+    <div class="activity-text">All 10 items shipped. Commit message WHY discipline active from this phase forward. Dispatcher is no longer silent.</div>
   </div>
 </div>
 
