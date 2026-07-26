@@ -1,6 +1,6 @@
 {
-  "refreshed_at": "2026-07-24T21:58:37.288Z",
-  "triggered_by": "phase-dashboard-commit",
+  "refreshed_at": "2026-07-26T22:00:49.303Z",
+  "triggered_by": "schedule",
   "open_total": 2,
   "projects": [
     {
@@ -15,7 +15,7 @@
       "current_phase_title": null,
       "phase_started": null,
       "open_count": 0,
-      "backlog_count": 3,
+      "backlog_count": 4,
       "ready_count": 0,
       "in_progress_count": 0,
       "done_count": 0,
