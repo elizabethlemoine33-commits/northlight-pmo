@@ -1,4 +1,17 @@
 ---
+phase: Phase 12 — LinkedIn Wiring & Round Table Depth
+completed: 2026-08-04
+---
+
+## Phase 12 Learnings
+
+- **Advisory board outputs need OS anchors in the same session** — the LinkedIn strategy was finalized at an advisory board session on August 3 and required a full follow-on phase to wire into the OS. For future advisory board decisions that create execution obligations, create the OS wiring tasks immediately — don't wait for the next session to discover the gap.
+- **Task description as the pipeline's shared data layer** — writing Round Table direction back to the ClickUp task description lets the content-strategist read it without adding new storage dependencies. It leverages existing extractSection() infrastructure. Watch for description-length limits if more sections accumulate.
+- **npm audit exit code 1 ≠ failure when the remaining issues need --force** — npm audit fix exits with code 1 when outstanding vulnerabilities remain even if it successfully applied non-breaking fixes. The test is the output text ("found 0 vulnerabilities"), not the exit code.
+
+---
+
+---
 phase: Phase 11 — Round Table Memory & LinkedIn Foundation
 completed: 2026-08-04
 ---

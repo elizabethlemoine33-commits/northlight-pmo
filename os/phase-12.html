@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northlight OS — Phase 12 PMO Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --midnight: #0E0E14;
+    --surface:  #12121E;
+    --border:   #1E2035;
+    --border2:  #2A2A48;
+    --text:     #FFFFFF;
+    --cloud:    #C8CCE0;
+    --haze:     #B0B8D8;
+    --muted:    #8A92A8;
+    --glacial:  #4FC3C8;
+    --boreal:   #5B8DD9;
+    --dusk:     #8B6FD4;
+    --aurora:   #C46FAA;
+    --green:    #3BAA6E;
+    --yellow:   #D4A017;
+    --red:      #C44F4F;
+  }
+  body { background: var(--midnight); color: var(--cloud); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; padding: 32px; }
+  .top-bar { height: 3px; background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%); margin: -32px -32px 32px; }
+
+  .header { margin-bottom: 28px; }
+  .phase-label { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dusk); margin-bottom: 6px; }
+  .title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+  .subtitle { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+  .callout { background: rgba(91,141,217,0.08); border: 1px solid rgba(91,141,217,0.22); border-radius: 8px; padding: 12px 16px; margin-bottom: 24px; color: var(--haze); font-size: 12px; line-height: 1.5; }
+  .callout strong { color: var(--cloud); }
+  .callout-green { background: rgba(59,170,110,0.07); border: 1px solid rgba(59,170,110,0.22); }
+  .callout-aurora { background: rgba(196,111,170,0.07); border: 1px solid rgba(196,111,170,0.22); }
+
+  .progress-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
+  .progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .progress-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .progress-pct { font-size: 24px; font-weight: 700; color: var(--green); }
+  .progress-bar-bg { background: var(--border); border-radius: 4px; height: 6px; }
+  .progress-bar-fill { background: linear-gradient(90deg, #3BAA6E, #4FC3C8); border-radius: 4px; height: 6px; }
+  .progress-counts { display: flex; gap: 20px; margin-top: 10px; flex-wrap: wrap; }
+  .progress-count { font-size: 11px; color: var(--muted); }
+  .progress-count strong { color: var(--cloud); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .card-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+
+  .badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .badge-done    { background: rgba(59,170,110,0.15); color: #3BAA6E; border: 1px solid rgba(59,170,110,0.3); }
+  .badge-process { background: rgba(196,111,170,0.10); color: var(--aurora); border: 1px solid rgba(196,111,170,0.3); }
+  .badge-high    { background: rgba(196,80,80,0.12); color: var(--red); border: 1px solid rgba(196,80,80,0.3); }
+  .badge-normal  { background: rgba(91,141,217,0.10); color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
+  .badge-low     { background: rgba(138,146,168,0.10); color: var(--muted); border: 1px solid rgba(138,146,168,0.3); }
+
+  .group-row { padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .group-row:last-child { border-bottom: none; }
+  .group-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .group-letter { width: 22px; height: 22px; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; }
+  .gl-a { background: rgba(79,195,200,0.12); color: var(--glacial); border: 1px solid rgba(79,195,200,0.3); }
+  .gl-b { background: rgba(91,141,217,0.12); color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
+  .gl-c { background: rgba(139,111,212,0.12); color: var(--dusk); border: 1px solid rgba(139,111,212,0.3); }
+  .gl-d { background: rgba(196,111,170,0.12); color: var(--aurora); border: 1px solid rgba(196,111,170,0.3); }
+  .group-title { color: var(--cloud); font-size: 12px; font-weight: 600; }
+  .group-items { margin-left: 32px; display: flex; flex-direction: column; gap: 5px; }
+  .group-item { display: flex; align-items: flex-start; gap: 8px; }
+  .item-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); margin-top: 5px; flex-shrink: 0; }
+  .item-text { color: var(--haze); font-size: 11px; line-height: 1.5; }
+  .item-file { color: var(--muted); font-size: 10px; font-family: monospace; margin-top: 1px; }
+
+  .decision-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .decision-item:last-child { border-bottom: none; }
+  .decision-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .decision-rationale { color: var(--muted); font-size: 11px; margin-top: 2px; line-height: 1.5; }
+
+  .learning-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .learning-item:last-child { border-bottom: none; }
+  .learning-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .learning-body { color: var(--muted); font-size: 11px; margin-top: 2px; line-height: 1.5; }
+
+  .activity-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-date { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+  .activity-text { color: var(--cloud); font-size: 12px; line-height: 1.5; }
+
+  .open-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .open-item:last-child { border-bottom: none; }
+  .open-item-text { flex: 1; color: var(--haze); font-size: 11px; line-height: 1.5; }
+  .open-item-id { color: var(--muted); font-size: 10px; font-family: monospace; margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<div class="header">
+  <div class="phase-label">Northlight OS · Phase 12</div>
+  <div class="title">LinkedIn Wiring &amp; Round Table Depth</div>
+  <div class="subtitle">2026-08-04 &nbsp;·&nbsp; <span style="color:var(--green)">Complete</span> &nbsp;·&nbsp; Single-session phase — all 6 items shipped</div>
+</div>
+
+<div class="callout callout-green">
+  <strong>Phase 11 — Round Table Memory &amp; LinkedIn Foundation</strong> closed August 4 with Harper's Drive memory fix, Rowan's analytics feed, September LinkedIn tagging, and the stale approval cleanup. Phase 12 completed the second half of the same initiative: wiring the strategy decision into every system that needs to act on it.
+</div>
+
+<div class="callout callout-aurora">
+  <strong>Why this phase existed:</strong> The advisory board finalized the September LinkedIn strategy on August 3. But the OS had no knowledge of it — no doctrine, no orchestrator context, no pipeline wiring. Phase 12 closes that gap: the strategy is now in every agent that will execute it.
+</div>
+
+<!-- Progress -->
+<div class="progress-section">
+  <div class="progress-header">
+    <div class="progress-label">Phase Progress</div>
+    <div class="progress-pct">100%</div>
+  </div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%"></div></div>
+  <div class="progress-counts">
+    <div class="progress-count"><strong>6</strong> shipped</div>
+    <div class="progress-count"><strong>0</strong> deferred</div>
+    <div class="progress-count"><strong>2</strong> carried to Phase 13</div>
+    <div class="progress-count"><strong>1</strong> session</div>
+  </div>
+</div>
+
+<!-- What shipped -->
+<div class="card" style="margin-bottom:24px">
+  <div class="card-label">What Shipped</div>
+
+  <div class="group-row">
+    <div class="group-header">
+      <div class="group-letter gl-a">1</div>
+      <div class="group-title">Round Table maxTokens 2400 → 4000</div>
+      <span class="badge badge-done">Done</span>
+    </div>
+    <div class="group-items">
+      <div class="group-item"><div class="item-dot"></div><div class="item-text">Presentation and debate rounds now allow 4 000 tokens per response — room for all active personas to complete without truncation at the end of a debate.</div></div>
+      <div class="group-item"><div class="item-dot"></div><div class="item-file">orchestrator.js lines ~327 and ~375</div></div>
+    </div>
+  </div>
+
+  <div class="group-row">
+    <div class="group-header">
+      <div class="group-letter gl-b">2</div>
+      <div class="group-title">LinkedIn Strategy Spec — LINKEDIN-SEP26-STRATEGY.md</div>
+      <span class="badge badge-done">Done</span>
+    </div>
+    <div class="group-items">
+      <div class="group-item"><div class="item-dot"></div><div class="item-text">Condensed operational spec from the August 3 Advisory Board session — September objective, 2:1 post mix, WHO post schedule (Weeks 1–4), outcome framing rule, fixed CTA, outreach framework, go/no-go criteria.</div></div>
+      <div class="group-item"><div class="item-dot"></div><div class="item-file">dashboard/specs/LINKEDIN-SEP26-STRATEGY.md (new file)</div></div>
+    </div>
+  </div>
+
+  <div class="group-row">
+    <div class="group-header">
+      <div class="group-letter gl-c">3</div>
+      <div class="group-title">Orchestrator LinkedIn Context Load</div>
+      <span class="badge badge-done">Done</span>
+    </div>
+    <div class="group-items">
+      <div class="group-item"><div class="item-dot"></div><div class="item-text">LINKEDIN-SEP26-STRATEGY.md added to optional spec list in loadGroundingContext(). Injected in buildSystemPrompt() as ═══ LINKEDIN STRATEGY ═══ block, gated to sessions where Harper or Jordan is active.</div></div>
+      <div class="group-item"><div class="item-dot"></div><div class="item-file">orchestrator.js — loadGroundingContext() + buildSystemPrompt()</div></div>
+    </div>
+  </div>
+
+  <div class="group-row">
+    <div class="group-header">
+      <div class="group-letter gl-d">4</div>
+      <div class="group-title">CMO Doctrine — September LinkedIn Execution</div>
+      <span class="badge badge-done">Done</span>
+    </div>
+    <div class="group-items">
+      <div class="group-item"><div class="item-dot"></div><div class="item-text">New standing section for Jordan: WHO post ownership, fixed CTA rule, the conversion hypothesis (posts are infrastructure for follow-up messages, not lead gen on their own), what not to measure, October 1 go/no-go.</div></div>
+      <div class="group-item"><div class="item-dot"></div><div class="item-file">dashboard/specs/CMO-DOCTRINE.md</div></div>
+    </div>
+  </div>
+
+  <div class="group-row">
+    <div class="group-header">
+      <div class="group-letter gl-a">5</div>
+      <div class="group-title">Strategist Doctrine — Opener Rule + Research Flag</div>
+      <span class="badge badge-done">Done</span>
+    </div>
+    <div class="group-items">
+      <div class="group-item"><div class="item-dot"></div><div class="item-text">Opener style rule: Harper's brief must declare contrarian-reframe | direct-problem | outcome-first — Wren doesn't choose. Research flag protocol: [RESEARCH REQUIRED] blocks WHO posts where the claim is stated as fact; non-blocking for thought leadership framed as perspective.</div></div>
+      <div class="group-item"><div class="item-dot"></div><div class="item-file">dashboard/specs/STRATEGIST-DOCTRINE.md</div></div>
+    </div>
+  </div>
+
+  <div class="group-row">
+    <div class="group-header">
+      <div class="group-letter gl-b">6</div>
+      <div class="group-title">Round Table → Content Pipeline Wiring</div>
+      <span class="badge badge-done">Done</span>
+    </div>
+    <div class="group-items">
+      <div class="group-item"><div class="item-dot"></div><div class="item-text">Part A: /session/finalize now extracts the Decision section from Morgan's record and writes a "## Round Table Strategy Direction" block back to the campaign task description in ClickUp.</div></div>
+      <div class="group-item"><div class="item-dot"></div><div class="item-text">Part B: content-strategist.js reads Round Table Strategy Direction from the task description (using existing extractSection()) and injects it as authoritative direction ahead of fresh strategy generation — no second Drive fetch required.</div></div>
+      <div class="group-item"><div class="item-dot"></div><div class="item-file">routes/marketing-round-table.js + lib/skills/content-strategist.js</div></div>
+    </div>
+  </div>
+
+  <div class="group-row">
+    <div class="group-header">
+      <div class="group-letter gl-c">7</div>
+      <div class="group-title">googleapis CVE Chain Upgrade</div>
+      <span class="badge badge-done">Done</span>
+    </div>
+    <div class="group-items">
+      <div class="group-item"><div class="item-dot"></div><div class="item-text">googleapis@174 installed in root and dashboard packages — closes 4 moderate uuid CVEs (GHSA-w5hq-g745-h8pq) in the uuid → gaxios → googleapis-common → googleapis chain. Auth pattern (google.auth.OAuth2 + custom Gaxios transporter) verified stable across the upgrade. Root npm audit: 0 vulnerabilities.</div></div>
+      <div class="group-item"><div class="item-dot"></div><div class="item-file">package.json + dashboard/package.json (both upgraded)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Decisions -->
+<div class="grid">
+  <div class="card">
+    <div class="card-label">Key Decisions</div>
+    <div class="decision-item">
+      <div class="decision-title">LinkedIn spec in loadGroundingContext(), not a Promise.all fetch</div>
+      <div class="decision-rationale">The spec is a static file in specs/ — reading it synchronously with other doctrine files (no I/O gap) is simpler and cleaner than a separate async load. The persona gate (harper | jordan) lives in buildSystemPrompt() where it can check activePersonaIds.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Round Table writes to ClickUp description, not Drive</div>
+      <div class="decision-rationale">The content-strategist already reads the parent task description for all other context (platform, audience, raw idea). Writing the RT direction there too means the pipeline reads one source without a new dependency. ClickUp PUT is non-fatal — failure logs to Railway but doesn't block finalize.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">googleapis@174 upgrade verified safe</div>
+      <div class="decision-rationale">Breaking changes in v174 are TypeScript-only. The runtime auth pattern — google.auth.OAuth2 with transporter: googleTransporter (Gaxios + node-fetch, keepAlive: false) — is unchanged. Both root and dashboard packages upgraded.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Phase 12 Activity</div>
+    <div class="activity-item">
+      <div class="activity-date">2026-08-04</div>
+      <div class="activity-text">Phase 12 planned and approved in one session. All 6 items implemented and committed as commit 407db2d (includes Phase 11 files not previously committed). Railway deploy triggered automatically.</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">Context from Phase 11</div>
+      <div class="activity-text">Phase 11 files (knowledge-context.js, marketing.js, slack-events.js) were implemented but not committed in the previous session due to context compaction. Committed together with Phase 12 in a single clean commit.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Learnings -->
+<div class="card" style="margin-bottom:24px">
+  <div class="card-label">Phase 12 Learnings</div>
+  <div class="learning-item">
+    <div class="learning-title">Advisory board outputs need OS anchors within the same session</div>
+    <div class="learning-body">The LinkedIn strategy was finalized at an advisory board session on August 3 and required a full follow-on phase (Phase 12) to wire into the OS. For future advisory board decisions that create execution obligations, identify which OS components need updating and create those tasks immediately — don't wait for the next session to discover the gap.</div>
+  </div>
+  <div class="learning-item">
+    <div class="learning-title">Task description as the pipeline's shared data layer</div>
+    <div class="learning-body">The pattern of writing back to the ClickUp task description (Round Table direction → campaign task) makes the task description a shared data layer between tools that don't otherwise communicate. It leverages the existing extractSection() infrastructure without adding new storage dependencies. Watch for description-length limits if more sections accumulate.</div>
+  </div>
+  <div class="learning-item">
+    <div class="learning-title">npm audit exit code 1 ≠ failure when the remaining issues need --force</div>
+    <div class="learning-body">npm audit fix exits with code 1 when outstanding vulnerabilities remain (even if it successfully applied non-breaking fixes). The test is the audit output text ("found 0 vulnerabilities"), not the exit code. Checking the text before alarming prevents false failures in scripted contexts.</div>
+  </div>
+</div>
+
+<!-- Deferred -->
+<div class="card" style="margin-bottom:24px">
+  <div class="card-label">Carried to Phase 13 (not urgent before September 1)</div>
+  <div class="open-item">
+    <span class="badge badge-normal">P13</span>
+    <div>
+      <div class="open-item-text">New skill: content-repurpose — takes a published post and generates repurposing variants for other channels</div>
+      <div class="open-item-id">86e1p1k8e</div>
+    </div>
+  </div>
+  <div class="open-item">
+    <span class="badge badge-normal">P13</span>
+    <div>
+      <div class="open-item-text">Pre-intake trend-spotting — run a background scan before intake to surface relevant trending signals for Harper</div>
+      <div class="open-item-id">86e297yj8</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

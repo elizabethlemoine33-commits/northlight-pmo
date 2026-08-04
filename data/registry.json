@@ -26,10 +26,11 @@
       "drive_brief": null,
       "pmo_folder": "os/",
       "clickup_list_id": "901715263627",
-      "current_phase": "12",
-      "current_phase_title": "LinkedIn Wiring & Round Table Depth",
+      "current_phase": "13",
+      "current_phase_title": "Content Repurpose & Trend Spotting",
       "phase_started": "2026-08-04",
       "phases": [
+        { "phase": "12", "title": "LinkedIn Wiring & Round Table Depth", "started": "2026-08-04", "closed": "2026-08-04" },
         { "phase": "11", "title": "Round Table Memory & LinkedIn Foundation", "started": "2026-08-03", "closed": "2026-08-04" },
         { "phase": "10", "title": "Dispatcher Observability & Session Logging", "started": "2026-07-24", "closed": "2026-07-24" },
         { "phase": "9", "title": "Marketing Round Table", "started": "2026-07-21", "closed": "2026-07-24" },
