@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northlight OS — Phase 11 PMO Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --midnight: #0E0E14;
+    --surface:  #12121E;
+    --border:   #1E2035;
+    --border2:  #2A2A48;
+    --text:     #FFFFFF;
+    --cloud:    #C8CCE0;
+    --haze:     #B0B8D8;
+    --muted:    #8A92A8;
+    --glacial:  #4FC3C8;
+    --boreal:   #5B8DD9;
+    --dusk:     #8B6FD4;
+    --aurora:   #C46FAA;
+    --green:    #3BAA6E;
+    --yellow:   #D4A017;
+    --red:      #C44F4F;
+  }
+  body { background: var(--midnight); color: var(--cloud); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; padding: 32px; }
+  .top-bar { height: 3px; background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%); margin: -32px -32px 32px; }
+
+  .header { margin-bottom: 28px; }
+  .phase-label { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dusk); margin-bottom: 6px; }
+  .title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+  .subtitle { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+  .callout { background: rgba(91,141,217,0.08); border: 1px solid rgba(91,141,217,0.22); border-radius: 8px; padding: 12px 16px; margin-bottom: 24px; color: var(--haze); font-size: 12px; line-height: 1.5; }
+  .callout strong { color: var(--cloud); }
+  .callout-green { background: rgba(59,170,110,0.07); border: 1px solid rgba(59,170,110,0.22); }
+  .callout-aurora { background: rgba(196,111,170,0.07); border: 1px solid rgba(196,111,170,0.22); }
+
+  .progress-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
+  .progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .progress-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .progress-pct { font-size: 24px; font-weight: 700; color: var(--green); }
+  .progress-bar-bg { background: var(--border); border-radius: 4px; height: 6px; }
+  .progress-bar-fill { background: linear-gradient(90deg, #3BAA6E, #4FC3C8); border-radius: 4px; height: 6px; }
+  .progress-counts { display: flex; gap: 20px; margin-top: 10px; flex-wrap: wrap; }
+  .progress-count { font-size: 11px; color: var(--muted); }
+  .progress-count strong { color: var(--cloud); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .card-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+
+  .badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .badge-done    { background: rgba(59,170,110,0.15); color: #3BAA6E; border: 1px solid rgba(59,170,110,0.3); }
+  .badge-process { background: rgba(196,111,170,0.10); color: var(--aurora); border: 1px solid rgba(196,111,170,0.3); }
+  .badge-high    { background: rgba(196,80,80,0.12); color: var(--red); border: 1px solid rgba(196,80,80,0.3); }
+  .badge-normal  { background: rgba(91,141,217,0.10); color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
+  .badge-low     { background: rgba(138,146,168,0.10); color: var(--muted); border: 1px solid rgba(138,146,168,0.3); }
+
+  .group-row { padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .group-row:last-child { border-bottom: none; }
+  .group-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .group-letter { width: 22px; height: 22px; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; }
+  .gl-a { background: rgba(79,195,200,0.12); color: var(--glacial); border: 1px solid rgba(79,195,200,0.3); }
+  .gl-b { background: rgba(91,141,217,0.12); color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
+  .gl-c { background: rgba(139,111,212,0.12); color: var(--dusk); border: 1px solid rgba(139,111,212,0.3); }
+  .gl-d { background: rgba(196,111,170,0.12); color: var(--aurora); border: 1px solid rgba(196,111,170,0.3); }
+  .group-title { color: var(--cloud); font-size: 12px; font-weight: 600; }
+  .group-items { margin-left: 32px; display: flex; flex-direction: column; gap: 5px; }
+  .group-item { display: flex; align-items: flex-start; gap: 8px; }
+  .item-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); margin-top: 5px; flex-shrink: 0; }
+  .item-text { color: var(--haze); font-size: 11px; line-height: 1.5; }
+  .item-file { color: var(--muted); font-size: 10px; font-family: monospace; margin-top: 1px; }
+
+  .decision-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .decision-item:last-child { border-bottom: none; }
+  .decision-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .decision-rationale { color: var(--muted); font-size: 11px; margin-top: 2px; line-height: 1.5; }
+
+  .learning-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .learning-item:last-child { border-bottom: none; }
+  .learning-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .learning-body { color: var(--muted); font-size: 11px; margin-top: 2px; line-height: 1.5; }
+
+  .activity-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-date { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+  .activity-text { color: var(--cloud); font-size: 12px; line-height: 1.5; }
+
+  .open-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .open-item:last-child { border-bottom: none; }
+  .open-item-text { flex: 1; color: var(--haze); font-size: 11px; line-height: 1.5; }
+  .open-item-id { color: var(--muted); font-size: 10px; font-family: monospace; margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<div class="header">
+  <div class="phase-label">Northlight OS · Phase 11</div>
+  <div class="title">Round Table Memory &amp; LinkedIn Foundation</div>
+  <div class="subtitle">2026-08-03 → 2026-08-04 &nbsp;·&nbsp; <span style="color:var(--green)">Complete</span> &nbsp;·&nbsp; Two-day phase — advisory board session + targeted OS upgrades</div>
+</div>
+
+<div class="callout callout-green">
+  <strong>Phase 10 — Dispatcher Observability &amp; Session Logging</strong> closed July 24. Phase 11 opened August 3 with a finalized LinkedIn strategy from the advisory board and closed August 4 with three targeted OS upgrades: Rowan's live Buffer feed, Harper's persistent session memory, and the September content tagging infrastructure.
+</div>
+
+<div class="callout callout-aurora">
+  <strong>Strategic context:</strong> September 2026 LinkedIn execution begins September 2. All pipeline infrastructure (tagging, doctrine, orchestrator context) must be wired before September 1. Phase 11 lays the foundation; Phase 12 completes the wiring.
+</div>
+
+<div class="progress-section">
+  <div class="progress-header">
+    <span class="progress-label">Phase Progress</span>
+    <span class="progress-pct">100%</span>
+  </div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%"></div></div>
+  <div class="progress-counts">
+    <div class="progress-count"><strong>4 / 4</strong> shipped items</div>
+    <div class="progress-count"><strong>2</strong> new files · <strong>3</strong> files modified</div>
+    <div class="progress-count"><strong>1</strong> Drive key added (<code style="font-size:10px;">round-table-harper-standing-brief</code>)</div>
+    <div class="progress-count"><strong>8</strong> open items → Phase 12</div>
+  </div>
+</div>
+
+<div class="card" style="margin-bottom:24px;">
+  <div class="card-label">What Shipped</div>
+
+  <div class="group-row">
+    <div class="group-header">
+      <div class="group-letter gl-a">A</div>
+      <div class="group-title">Rowan's Buffer Analytics Feed <span class="badge badge-done" style="margin-left:6px;">Done</span></div>
+    </div>
+    <div class="group-items">
+      <div class="group-item"><div class="item-dot"></div><div><div class="item-text"><strong>buffer-analytics-context.js</strong> (new) — calls <code>getAggregatedPostMetrics</code> for all 3 channels (LinkedIn Personal, LinkedIn Page, Threads) over the last 30 days; 30-min in-process cache; non-fatal fallback stub if API is down</div><div class="item-file">dashboard/lib/marketing-round-table/buffer-analytics-context.js</div></div></div>
+      <div class="group-item"><div class="item-dot"></div><div><div class="item-text"><strong>orchestrator.js</strong> updated — fetches <code>getBufferAnalyticsContext</code> in parallel with other context loads in both <code>runPresentationRound</code> and <code>runDebateRound</code> when Rowan is in <code>activePersonaIds</code>; injects as labeled block <code>═══ BUFFER POST PERFORMANCE (live — for Rowan) ═══</code> in system prompt, separate from general analytics</div><div class="item-file">dashboard/lib/marketing-round-table/orchestrator.js</div></div></div>
+    </div>
+  </div>
+
+  <div class="group-row">
+    <div class="group-header">
+      <div class="group-letter gl-b">B</div>
+      <div class="group-title">Harper's Standing Brief Memory <span class="badge badge-done" style="margin-left:6px;">Done + Deploy Fix</span></div>
+    </div>
+    <div class="group-items">
+      <div class="group-item"><div class="item-dot"></div><div><div class="item-text"><strong>knowledge-context.js</strong> updated — <code>saveHarperStandingBrief()</code> extracts Decision/Rationale/Open Questions from the secretary record, appends to a rolling store (capped at 12 sessions); <code>loadHarperStandingBrief()</code> reads it back; <code>buildHarperContext()</code> now prepends standing brief as <code>#### Prior Session History</code> when the store exists</div><div class="item-file">dashboard/lib/marketing-round-table/knowledge-context.js</div></div></div>
+      <div class="group-item"><div class="item-dot"></div><div><div class="item-text"><strong>marketing-round-table.js</strong> updated — <code>/session/finalize</code> handler calls <code>saveHarperStandingBrief</code> immediately after <code>runSecretaryRecord</code>, non-fatally; skips write if Harper was not in the session</div><div class="item-file">dashboard/routes/marketing-round-table.js</div></div></div>
+      <div class="group-item"><div class="item-dot" style="background:var(--yellow)"></div><div><div class="item-text"><strong>Deploy fix (same session):</strong> initial implementation wrote to filesystem (<code>harper-standing-brief.md</code>); immediately switched to Drive key <code>round-table-harper-standing-brief</code> as <code>{ sessions: string[] }</code> — same pattern as <code>round-table-operating-notes</code> and <code>round-table-decisions-index</code>. Now survives Railway redeploys, instance restarts, and scaling events.</div></div></div>
+    </div>
+  </div>
+
+  <div class="group-row">
+    <div class="group-header">
+      <div class="group-letter gl-c">C</div>
+      <div class="group-title">LinkedIn September Tagging <span class="badge badge-done" style="margin-left:6px;">Done</span></div>
+    </div>
+    <div class="group-items">
+      <div class="group-item"><div class="item-dot"></div><div><div class="item-text"><strong>marketing.js</strong> updated — LinkedIn tasks created with September 2026 post dates now automatically receive the <code>linkedin-sep26</code> tag alongside <code>skill:content-intake</code>. Applies to both the standard pipeline path and the pre-approved (schedule-social) path. Scoped to September 2026 only — does not apply to other months or platforms.</div><div class="item-file">dashboard/routes/marketing.js</div></div></div>
+    </div>
+  </div>
+
+  <div class="group-row" style="border-bottom:none;">
+    <div class="group-header">
+      <div class="group-letter gl-d">D</div>
+      <div class="group-title">Stale Approval Message Silenced <span class="badge badge-done" style="margin-left:6px;">Done</span></div>
+    </div>
+    <div class="group-items">
+      <div class="group-item"><div class="item-dot"></div><div><div class="item-text"><strong>slack-events.js</strong> updated — stale strategy brief approval cleanup no longer posts a Slack notification. Previous behaviour: posted "Cleared a stale strategy brief approval…" to whatever channel Elizabeth was currently writing in (appeared in #northlight-pmo, #daily-briefing, and others). Now silently cleared with <code>console.log</code> only — the event is still captured in Railway logs.</div><div class="item-file">dashboard/routes/slack-events.js</div></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-label">Decisions Log</div>
+    <div class="decision-item">
+      <div class="decision-title">Harper standing brief → Drive, not filesystem</div>
+      <div class="decision-rationale">Railway filesystem is ephemeral — any redeploy or instance restart wipes it. The brief was written to the filesystem first, then immediately switched to Drive (<code>round-table-harper-standing-brief</code>) using <code>readDriveJson</code>/<code>writeDriveJson</code> — the same pattern as all other persisted Round Table state. No data was lost; the fix happened the same night.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">Stale approval notification removed entirely (not rerouted)</div>
+      <div class="decision-rationale">The message was echoing to whatever channel Elizabeth was writing in — a side-effect of the event handler using <code>event.channel</code> for every reply. Options considered: reroute to #northlight-build-log, or silence. Chosen: silence. The message was not actionable — the cleanup already happened. Railway logs capture the event. No information is lost.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">linkedin-sep26 tag scoped to September 2026 dates only</div>
+      <div class="decision-rationale">The tag is strategy-specific (September 2026 execution plan). Applying it to all LinkedIn posts would pollute the tag and break future strategy filtering. The date gate (<code>getUTCMonth() === 8 &amp;&amp; getUTCFullYear() === 2026</code>) is explicit and self-expiring — no maintenance required after September.</div>
+    </div>
+    <div class="decision-item" style="border-bottom:none;">
+      <div class="decision-title">LinkedIn strategy: September execution, organic only, $99 discovery entry point</div>
+      <div class="decision-rationale">Finalized at Aug 3 Advisory Board session (Jordan CMO, Avery Strategy, Morgan Secretary). 3x/week posting (Tue/Wed/Thu 9am Atlantic), 2:1 thought leadership to WHO-targeted ratio, warm outreach conversion target 30%+, go/no-go review October 1. Decision document in Drive.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Phase 11 Learnings</div>
+    <div class="learning-item" style="padding-top:0;">
+      <div class="learning-title">Railway filesystem = wrong store for any cross-session state</div>
+      <div class="learning-body">Harper's standing brief was written to the filesystem first. The deploy caveat was caught immediately and the fix was applied in the same session. Pattern: if a write is meant to persist beyond a single request, it goes to Drive. No exceptions for Round Table state.</div>
+    </div>
+    <div class="learning-item">
+      <div class="learning-title">Echo-back channel routing creates noise when the reply isn't for that channel</div>
+      <div class="learning-body">The stale approval message used <code>event.channel</code> — the correct pattern for command replies, but wrong for system cleanup messages. When a message is operational (not a response to a user action), it should either go to a fixed ops channel or be silenced. Not echoed back.</div>
+    </div>
+    <div class="learning-item" style="border-bottom:none;">
+      <div class="learning-title">Strategy decisions need an OS anchor before execution begins</div>
+      <div class="learning-body">The LinkedIn strategy was finalized at the advisory board level (Aug 3) but the OS had no knowledge of it — no doctrine update, no orchestrator context, no tag infrastructure. Phase 12 exists entirely because the strategy-to-OS handoff was missing. The gap: advisory board outputs a document; OS doesn't ingest it automatically.</div>
+    </div>
+
+    <div class="card-label" style="margin-top:16px;">Advisory Board — Aug 3</div>
+    <div class="decision-item" style="padding-top:0;">
+      <div class="decision-title">LinkedIn Content Strategy for September 2026 — recorded</div>
+      <div class="decision-rationale">Attended by: Jordan Haas (CMO), Avery (Strategy), Morgan Chen (Secretary). Outcome: 12-post calendar, outreach message framework, go/no-go metrics (30%+ conversion target), October 1 review point. Decision document posted to #northlight-pmo and recorded in Drive.</div>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="margin-bottom:24px;">
+  <div class="card-label">Activity Timeline</div>
+  <div class="activity-item">
+    <div class="activity-date">Aug 3 — Advisory Board Session</div>
+    <div class="activity-text">LinkedIn Content Strategy for September 2026 finalized. Jordan (CMO) led; Avery (Strategy) contributed positioning framework; Morgan (Secretary) recorded. Decision posted to #northlight-pmo. 12-post calendar confirmed: WHO-targeted posts Weeks 2–4, Northlight announcement Week 1, thought leadership 2x/week throughout. $99 discovery call as universal entry point confirmed. Outreach message framework revised (four-move structure replacing value-discounting disclaimers). Go/no-go: October 1.</div>
+  </div>
+  <div class="activity-item">
+    <div class="activity-date">Aug 4 — OS Gap-Fills</div>
+    <div class="activity-text">Gap 1 (Rowan Buffer): <code>buffer-analytics-context.js</code> created, <code>orchestrator.js</code> updated — Rowan now receives live 30-day Buffer performance data when active. Gap 2 (Harper Standing Brief): <code>knowledge-context.js</code> updated with save/load functions, <code>marketing-round-table.js</code> finalize handler wired. Initial filesystem write identified as Railway-unsafe and switched to Drive same session. Fix A: <code>linkedin-sep26</code> tag added to <code>marketing.js</code> (September 2026 LinkedIn intakes). Fix B: stale approval Slack notification silenced in <code>slack-events.js</code>.</div>
+  </div>
+  <div class="activity-item" style="border-bottom:none;">
+    <div class="activity-date">Aug 4 — Phase 11 Complete</div>
+    <div class="activity-text">Phase closed. Phase 12 opens with 8 open items — 4 high priority, all required before September 1 LinkedIn execution begins. Critical path: CMO-DOCTRINE update, dispatcher spec wiring, and orchestrator context load must ship before any WHO-targeted content enters the pipeline.</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-label">Open Items → Phase 12 &nbsp;<span style="color:var(--muted);font-size:10px;font-weight:400;">All required before September 1 LinkedIn execution</span></div>
+
+  <div class="open-item">
+    <span class="badge badge-high">High</span>
+    <div>
+      <div class="open-item-text">Move LinkedIn strategy into dispatcher spec + add orchestrator context load</div>
+      <div class="open-item-id">86e2mhq0n · Northlight OS</div>
+    </div>
+  </div>
+  <div class="open-item">
+    <span class="badge badge-high">High</span>
+    <div>
+      <div class="open-item-text">Round Table: increase maxTokens 2400 → 4000 in orchestrator.js</div>
+      <div class="open-item-id">86e2mhq0f · Northlight OS</div>
+    </div>
+  </div>
+  <div class="open-item">
+    <span class="badge badge-high">High</span>
+    <div>
+      <div class="open-item-text">Round Table output not fed back into content pipeline — agreed brief ignored at generation time</div>
+      <div class="open-item-id">86e2gc0tc · Northlight OS</div>
+    </div>
+  </div>
+  <div class="open-item">
+    <span class="badge badge-high">High</span>
+    <div>
+      <div class="open-item-text">googleapis CVE chain upgrade — 4 moderate CVEs (breaking change)</div>
+      <div class="open-item-id">86e2bp3gh · Northlight OS</div>
+    </div>
+  </div>
+  <div class="open-item">
+    <span class="badge badge-normal">Normal</span>
+    <div>
+      <div class="open-item-text">Update CMO-DOCTRINE.md with September LinkedIn strategy</div>
+      <div class="open-item-id">86e2mhq17 · Northlight OS</div>
+    </div>
+  </div>
+  <div class="open-item">
+    <span class="badge badge-normal">Normal</span>
+    <div>
+      <div class="open-item-text">Update STRATEGIST-DOCTRINE.md: opener variety rule + research flag protocol</div>
+      <div class="open-item-id">86e2mhq1b · Northlight OS</div>
+    </div>
+  </div>
+  <div class="open-item">
+    <span class="badge badge-normal">Normal</span>
+    <div>
+      <div class="open-item-text">New skill: content-repurpose — adapt completed content for different platforms</div>
+      <div class="open-item-id">86e1p1k8e · Northlight OS</div>
+    </div>
+  </div>
+  <div class="open-item">
+    <span class="badge badge-low">Low</span>
+    <div>
+      <div class="open-item-text">Concept: pre-intake trend-spotting / curation layer for content pipeline</div>
+      <div class="open-item-id">86e297yj8 · Northlight OS</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

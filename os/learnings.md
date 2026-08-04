@@ -1,4 +1,17 @@
 ---
+phase: Phase 11 — Round Table Memory & LinkedIn Foundation
+completed: 2026-08-04
+---
+
+## Phase 11 Learnings
+
+- **Railway filesystem = wrong store for any cross-session state** — Harper's standing brief was initially written to the filesystem, caught immediately, and switched to Drive in the same session. Rule: if a write must survive a redeploy, it goes to Drive. No exceptions for Round Table state.
+- **Echo-back channel routing creates noise when the reply isn't a response to user action** — the stale approval message used `event.channel` (correct for command replies, wrong for system cleanup). Operational messages should go to a fixed ops channel or be silenced — not echoed back to wherever Elizabeth happens to be writing.
+- **Strategy decisions need an OS anchor before execution begins** — the LinkedIn strategy was finalized at the advisory board level but the OS had no knowledge of it (no doctrine, no orchestrator context, no tag infrastructure). The gap: advisory board outputs a document; the OS doesn't ingest it automatically. Phase 12 exists to close this.
+
+---
+
+---
 phase: Phase 10 — Dispatcher Observability & Session Logging
 completed: 2026-07-24
 ---
