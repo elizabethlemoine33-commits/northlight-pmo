@@ -1,5 +1,5 @@
 {
-  "refreshed_at": "2026-08-04T22:54:23.625Z",
+  "refreshed_at": "2026-08-04T23:19:38.587Z",
   "triggered_by": "phase-dashboard-commit",
   "open_total": 2,
   "projects": [
@@ -10,19 +10,40 @@
       "status": "live",
       "github": "https://github.com/elizabethlemoine33-commits/northlight-dispatcher",
       "clickup_list_id": "901715263627",
-      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/os/phase-11.html",
-      "current_phase": "12",
-      "current_phase_title": "LinkedIn Wiring & Round Table Depth",
+      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/os/phase-12.html",
+      "current_phase": "13",
+      "current_phase_title": "Content Repurpose & Trend Spotting",
       "phase_started": "2026-08-04",
       "open_count": 0,
-      "backlog_count": 8,
+      "backlog_count": 2,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 0,
+      "done_count": 6,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
-      "done_items": [],
+      "done_items": [
+        {
+          "name": "Update STRATEGIST-DOCTRINE.md: opener variety rule + research flag protocol",
+          "priority": "normal"
+        },
+        {
+          "name": "Update CMO-DOCTRINE.md with September LinkedIn strategy",
+          "priority": "normal"
+        },
+        {
+          "name": "Move LinkedIn strategy into dispatcher spec + add orchestrator context load",
+          "priority": "high"
+        },
+        {
+          "name": "Round Table: increase maxTokens 2400 → 4000 in orchestrator.js",
+          "priority": "high"
+        },
+        {
+          "name": "Round Table output not fed back into content pipeline — agreed brief ignored at generation time",
+          "priority": "high"
+        }
+      ],
       "decisions": [],
       "blockers": []
     },
