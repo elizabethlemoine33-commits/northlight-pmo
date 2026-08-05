@@ -1,4 +1,17 @@
 ---
+phase: Phase 13 — Content Repurpose & Pre-Intake Trend Spotting
+completed: 2026-08-04
+---
+
+## Phase 13 Learnings
+
+- **Dual-purpose UI reduces friction better than a new trigger** — reusing the existing checkmark for both feed interest and intake flagging means Elizabeth's workflow is unchanged. Adding a second "flag for intake" button would have created a choice where the right answer was always both. When two signals mean the same thing at the point of action, merge them in the backend, not the UI.
+- **Auto-scheduling beats user-triggered for regular jobs** — the 5pm Atlantic news scorer fires whether or not Elizabeth remembers to trigger it. User-triggered scoring fails exactly when the backlog builds up (busy days). Reliable scheduled jobs should be the default pattern for anything that needs to run on a cadence.
+- **POST SOURCE as a mode signal is clean and extensible** — detecting repurpose mode from the existing POST SOURCE field requires one startsWith() check and no new routing infrastructure. The signal is visible to Elizabeth in ClickUp without any additional fields. Pattern applies: use existing descriptive fields as mode signals before adding new ones.
+
+---
+
+---
 phase: Phase 12 — LinkedIn Wiring & Round Table Depth
 completed: 2026-08-04
 ---
