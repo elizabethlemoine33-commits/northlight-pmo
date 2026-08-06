@@ -157,15 +157,16 @@
 <!-- Progress -->
 <div class="progress-section">
   <div class="progress-header">
-    <div class="progress-label">Phase Progress · Jekyll migration complete · 30 / 30 posts migrated · Last updated 2026-08-06</div>
-    <div class="progress-pct">100%</div>
+    <div class="progress-label">Phase Progress · Migration complete (30/30) · Citations in progress (6/14 resolved) · QR audits pending · Last updated 2026-08-06</div>
+    <div class="progress-pct">55%</div>
   </div>
-  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%;"></div></div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:55%;"></div></div>
   <div class="progress-counts">
     <div class="progress-count"><strong>20</strong> / 20 full-template posts migrated</div>
     <div class="progress-count"><strong>8</strong> / 8 template-upgrade posts done</div>
-    <div class="progress-count"><strong>0</strong> / 2 printable templates done</div>
+    <div class="progress-count"><strong>2</strong> / 2 printable templates done</div>
     <div class="progress-count"><strong>0</strong> / 30 QR audits run</div>
+    <div class="progress-count"><strong>6</strong> / 14 citation issues resolved</div>
   </div>
 </div>
 
@@ -183,8 +184,8 @@
     <tbody>
       <tr>
         <td><div class="block-name">AI for All: Nova Scotia Businesses</div><div class="block-url">ai-for-all-programmes-nova-scotia-businesses.html</div></td>
-        <td><span class="ci ci-y">CITE</span></td>
-        <td><div class="block-note">BDC LIFT — "$25,000 to $5M for AI adoption, available to businesses with $1M+ in annual sales" is mentioned in 3 places but has no source link. Need the official BDC LIFT programme URL (bdc.ca) to add hyperlink. Was unlinked in original HTML too.</div></td>
+        <td><span class="ci ci-g">CITE</span></td>
+        <td><div class="block-note">✓ Fixed 2026-08-06 — BDC LIFT linked to bdc.ca/en/solutions/lift in all 3 body occurrences (both answer-blocks and FAQ). HTML anchor tags used (markdown links don't render inside &lt;div class="answer-block"&gt;). URL confirmed by Elizabeth.</div></td>
       </tr>
       <tr>
         <td><div class="block-name">AI Strategy on the Wrong Clock</div><div class="block-url">ai-strategy-wrong-clock.html</div></td>
@@ -198,8 +199,8 @@
       </tr>
       <tr>
         <td><div class="block-name">Canada's AI Strategy: What It Means for Small Business</div><div class="block-url">canada-ai-strategy-small-business.html</div></td>
-        <td><span class="ci ci-y">CITE</span></td>
-        <td><div class="block-note">"Canada ranks 44th of 47 countries on AI literacy" — unlinked stat in body. Needs source URL added. (StatCan, OECD, or McKinsey likely source.)</div></td>
+        <td><span class="ci ci-g">CITE</span></td>
+        <td><div class="block-note">✓ Fixed 2026-08-06 — "44th of 47 countries on AI literacy" now linked to KPMG/University of Melbourne study (kpmg.com/ca/en/insights/2025/06/canada-lagging-global-peers-in-ai-trust-and-literacy.html). Source confirmed via web search — KPMG 2025 study of 47 countries, Canada 4th-lowest on AI literacy.</div></td>
       </tr>
       <tr>
         <td><div class="block-name">Fractional COO Atlantic Canada</div><div class="block-url">fractional-coo-atlantic-canada.html</div></td>
@@ -214,27 +215,27 @@
       <tr>
         <td><div class="block-name">How to Choose an AI Advisor or Consultant</div><div class="block-url">how-to-choose-ai-advisor-consultant.html</div></td>
         <td><span class="ci ci-y">CITE</span></td>
-        <td><div class="block-note">2 citation URLs need verification: (1) businesswire.com/news/home/20250924750126/en/AI-Adoption-Sees-Rapid-YoY-Growth-in-Canadian-Workplaces — "50% of office employees report using AI for work"; (2) hrreporter.com/focus-areas/automation-ai/canada-ranks-near-the-bottom-globally-for-ai-trust-closing-that-gap-is-hrs-job/394531 — "Canada ranks 42nd out of 47 countries on AI trust". StatCan link (www150.statcan.gc.ca/n1/pub/11-621-m/11-621-m2025008-eng.htm) is verified ✓ primary source.</div></td>
+        <td><div class="block-note">Partial fix 2026-08-06 — hrreporter citation replaced with KPMG source (kpmg.com/ca/en/insights/2025/06/...) — stat "42nd of 47 countries on AI trust" confirmed from KPMG 2025 study. STILL PENDING: businesswire.com/news/home/20250924750126/en/... — "50% of office employees report using AI for work" — URL repeatedly times out / ECONNRESET, unverifiable so far. StatCan ✓ confirmed.</div></td>
       </tr>
       <tr>
         <td><div class="block-name">AI Isn't Underperforming — You're Working Blind</div><div class="block-url">ai-isnt-underperforming-working-blind.html</div></td>
-        <td><span class="ci ci-y">CITE</span></td>
-        <td><div class="block-note">3 citation URLs need verification: (1) ibm.com/think/insights/ai-adoption-challenges — "fewer than 40% of automation initiatives deliver measurable value"; (2) cmr.berkeley.edu/2025/11/bridging-the-gaps-in-ai-transformation-an-evidence-based-framework-for-scalable-adoption/ — organisational AI context framework; (3) docs.slack.dev/ai/slack-mcp-server/ — Slack MCP reference (low risk, product docs). Also check "only 30% of AI pilots scale beyond initial team" — sourced from IBM link but stat should be verified on that page.</div></td>
+        <td><span class="ci ci-g">CITE</span></td>
+        <td><div class="block-note">✓ Fixed 2026-08-06 — IBM Think URL (403 Forbidden) replaced with Berkeley CMR, which confirms BOTH stats (fewer than 40% of automation initiatives deliver measurable value + 30% of AI pilots scale). Berkeley CMR ✓ verified. Slack docs ✓ verified. All citations resolved.</div></td>
       </tr>
       <tr>
         <td><div class="block-name">What Is a Fractional Executive? (Canada)</div><div class="block-url">what-is-a-fractional-executive-canada.html</div></td>
-        <td><span class="ci ci-y">CITE</span></td>
-        <td><div class="block-note">fractionus.com/blog/10-statistics-fractional-work-future — stat "fractional professionals in North America roughly doubled between 2022 and 2024, from about 60,000 to 120,000" and "LinkedIn profiles mentioning fractional roles grew by 5,400%". Need to confirm this URL is live and that both stats appear on the page.</div></td>
+        <td><span class="ci ci-g">CITE</span></td>
+        <td><div class="block-note">✓ Verified — fractionus.com/blog/10-statistics-fractional-work-future confirmed live. Both stats present: 60K→120K doubling and 5,400% LinkedIn growth. Citation is accurate.</div></td>
       </tr>
       <tr>
         <td><div class="block-name">What Is a Fractional Executive? Full Guide</div><div class="block-url">what-is-fractional-executive-guide-canadian-businesses.html</div></td>
-        <td><span class="ci ci-y">CITE</span></td>
-        <td><div class="block-note">interimexecs.com/what-is-a-fractional-executive/ — used as definition reference link for "fractional executive" in opening paragraph. Commercial site (not Wikipedia-equivalent). Confirm page exists and is an appropriate reference. fractionus.com stat also present in this post — see post #16 Deferred Fixes entry above.</div></td>
+        <td><span class="ci ci-g">CITE</span></td>
+        <td><div class="block-note">✓ Verified — interimexecs.com/what-is-a-fractional-executive/ confirmed live, appropriate definition reference. fractionus.com stats also confirmed (see entry above). All citations resolved.</div></td>
       </tr>
       <tr>
         <td><div class="block-name">You Hired Them — Now What?</div><div class="block-url">you-hired-them-now-what.html</div></td>
-        <td><span class="ci ci-y">CITE</span></td>
-        <td><div class="block-note">3 external citation links need verification: (1) hbr.org/2020/07/your-company-is-only-as-good-as-your-writing — "organisational systems you built when it was just you were never designed to transfer"; (2) review.firstround.com/give-away-your-legos-and-other-commandments-for-scaling-startups — "What worked at five people breaks at fifteen"; (3) joelonsoftware.com/2001/04/21/dont-let-architecture-astronauts-scare-you/ — "adding more people to a system without clear ownership adds coordination overhead". Confirm all 3 URLs are live and match the inline claims.</div></td>
+        <td><span class="ci ci-g">CITE</span></td>
+        <td><div class="block-note">✓ Fixed 2026-08-06 — (1) HBR URL corrected: 2020 slug was 404; correct URL is hbr.org/2013/07/your-company-is-only-as-good-a (Kyle Wiens, July 2013, confirmed live). (2) First Round Review ✓ confirmed live. (3) Joel on Software article was a misattribution — "Architecture Astronauts" is about software abstraction, not org overhead; link removed, claim left as plain text. All resolved.</div></td>
       </tr>
       <tr>
         <td><div class="block-name">Your Agents Need a Chain of Command</div><div class="block-url">your-agents-need-a-chain-of-command.html</div></td>
