@@ -1,5 +1,5 @@
 {
-  "refreshed_at": "2026-08-05T20:07:11.502Z",
+  "refreshed_at": "2026-08-07T15:38:08.394Z",
   "triggered_by": "phase-dashboard-commit",
   "open_total": 2,
   "projects": [
@@ -15,10 +15,10 @@
       "current_phase_title": "TBD",
       "phase_started": "2026-08-04",
       "open_count": 0,
-      "backlog_count": 2,
+      "backlog_count": 0,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 6,
+      "done_count": 8,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
@@ -129,14 +129,19 @@
       "current_phase_title": "Jekyll Migration & SEO/GEO/AEO Foundation",
       "phase_started": "2026-08-05",
       "open_count": 0,
-      "backlog_count": 1,
+      "backlog_count": 2,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 0,
+      "done_count": 1,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
-      "done_items": [],
+      "done_items": [
+        {
+          "name": "Content quality audit + fractional readiness tool — Aug 7",
+          "priority": "normal"
+        }
+      ],
       "decisions": [],
       "blockers": []
     },
