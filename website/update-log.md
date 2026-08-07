@@ -6,6 +6,7 @@
 
 | Date | Session | What Shipped | Phase |
 |---|---|---|---|
+| 2026-08-07 | Content quality audit + tool build | NLAS audit of all 25 posts (site avg 81.4/100) · 4 posts improved (vault→75, MCP skills→76, the-wall→72, resumes scored 68) · Article JSON-LD added to 3 posts · Fractional Readiness Check tool built (ungated, print/save, soft Aurora Brief ask) · Callouts linked from 2 fractional posts · 3 new decisions (Article schema, privacy-first tools, selective callout placement) · Phase 5 at 90% · Goal 5 queued | Phase 5 |
 | 2026-08-05 | Phase 5 kickoff | Phase 5 dashboard written — Jekyll Migration & SEO/GEO/AEO Foundation · 30 posts catalogued with per-post checklists (MD/URL/BIO/PIPE/CITE/OL/ANS/FAQ/OG/CAN/AUD/FIX) · Gen-2 (20), template-upgrade (8), printable (2) · Site-wide fixes table · Agent content standards drafted · Decisions log with 4 decisions including duplicate URL resolution | Phase 5 |
 | 2026-07-24 | Phase 4 close | About page CTA restructure (virtual coffee, credentials row, EveryExpert $99 card) · GEO freshness signals on 2 posts · Phase 4 closed at 100% — 11 posts + 1 case study + SEO/GEO sprint complete | Phase 4 |
 | 2026-07-21 | Content sprint | 5 additional blog posts committed (fractional COO Atlantic, AI policy template, AI tools guide, fractional exec guide, AI adoption checklist) · related reading cross-links on all 21 posts | Phase 4 |

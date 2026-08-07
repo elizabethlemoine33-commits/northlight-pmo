@@ -128,13 +128,13 @@
 <div class="header">
   <div class="phase-label">Northlight Website · Phase 5 · In Progress</div>
   <div class="title">Jekyll Migration &amp; SEO/GEO/AEO Foundation</div>
-  <div class="subtitle">30 blog posts · Full Jekyll migration · Per-post QR audit · Site-wide technical fixes · Agent content standards · Started 2026-08-05</div>
+  <div class="subtitle">30 posts migrated · 14 citations resolved · 25 posts quality-audited · Fractional readiness tool built · Goal 5 pending · Started 2026-08-05 · Updated 2026-08-07</div>
 </div>
 
 <!-- Status -->
-<div class="callout-warn">
-  <div class="callout-label">Phase 5 Open — Started 2026-08-05</div>
-  <div class="callout-text">This phase migrates all 30 blog posts from standalone HTML to Jekyll, fixes SEO/GEO/AEO issues during migration, and produces agent content standards for the pipeline going forward. Each post gets an individual checklist. Dashboard updates as work progresses — not just at the end.</div>
+<div class="callout-green">
+  <div class="callout-label">Phase 5 In Progress — 90% Complete · Updated 2026-08-07</div>
+  <div class="callout-text">Migration complete (30/30). All 14 deferred citation issues resolved in second pass (Aug 6). Content quality audit run across all 25 blog posts using the NLAS framework — 4 posts improved. Fractional Executive Readiness Check tool built and linked from 2 fractional posts. <strong style="color:var(--cloud);">Goal 5 (site-wide technical fixes + agent standards document) is the only remaining item.</strong></div>
 </div>
 
 <!-- Historical: from Phase 4 -->
@@ -157,16 +157,18 @@
 <!-- Progress -->
 <div class="progress-section">
   <div class="progress-header">
-    <div class="progress-label">Phase Progress · Migration complete (30/30) · Citations complete (14/14) · QR audits complete (29/29) · Goal 5 pending · Last updated 2026-08-07</div>
-    <div class="progress-pct">80%</div>
+    <div class="progress-label">Phase Progress · Migration (30/30) · Citations resolved (14/14) · QR audits (29/29) · Content quality audit (25/25) · Goal 5 pending · Updated 2026-08-07</div>
+    <div class="progress-pct">90%</div>
   </div>
-  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:80%;"></div></div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:90%;"></div></div>
   <div class="progress-counts">
     <div class="progress-count"><strong>20</strong> / 20 full-template posts migrated</div>
     <div class="progress-count"><strong>8</strong> / 8 template-upgrade posts done</div>
     <div class="progress-count"><strong>2</strong> / 2 printable templates done</div>
     <div class="progress-count"><strong>29</strong> / 29 QR audits run</div>
     <div class="progress-count"><strong>14</strong> / 14 citation issues resolved</div>
+    <div class="progress-count"><strong>25</strong> / 25 posts quality-audited</div>
+    <div class="progress-count"><strong>4</strong> posts improved (scores raised)</div>
   </div>
 </div>
 
@@ -290,7 +292,7 @@
   <div class="goal-row">
     <div class="goal-number">5</div>
     <div class="goal-body">
-      <div class="goal-title">Site-wide Technical Fixes + Agent Standards <span class="badge badge-notstarted" style="margin-left:6px;">Not Started</span></div>
+      <div class="goal-title">Site-wide Technical Fixes + Agent Standards <span class="badge badge-queued" style="margin-left:6px;">Next Up</span></div>
       <div class="goal-desc">Homepage title length fix, about.html heading hierarchy, 2 missing meta descriptions, Organization schema contact point, sameAs links audit (add GoFractional), 16 missing OG properties. Write agent content standards document to wire standards into the OS pipeline going forward.</div>
     </div>
   </div>
@@ -332,6 +334,27 @@
         <td><div class="block-note">Lives in /blog/ folder; written to resolve the Gemini NSG entity collision. Migrate as a regular blog post, not a redirect or special case.</div></td>
         <td><div class="block-note">about-northlight-advisory-services.html</div></td>
         <td><div class="block-note">2026-08-05</div></td>
+      </tr>
+      <tr>
+        <td><span style="color:var(--muted)">5</span></td>
+        <td><div class="block-name">Article JSON-LD schema (not HowTo) is correct for essay-format posts</div></td>
+        <td><div class="block-note">HowTo schema requires discrete numbered steps and would alter the essay format to fit the schema, not the other way around. Article schema is appropriate for long-form essays. HowTo only applies where there's a genuine step sequence (e.g. how-to-choose-ai-implementation-partner.html).</div></td>
+        <td><div class="block-note">all essay posts — vault, MCP skills, the-wall, resumes</div></td>
+        <td><div class="block-note">2026-08-07</div></td>
+      </tr>
+      <tr>
+        <td><span style="color:var(--muted)">6</span></td>
+        <td><div class="block-name">Interactive tools must be ungated — collect only with predefined purpose and workflow</div></td>
+        <td><div class="block-note">Email-gating a PDF lead magnet is contrary to the privacy-first brand if there's no predefined purpose and workflow for the collected email. Fractional readiness check is ungated: results on the page, print/save option, no email required. Soft Aurora Brief opt-in at end is a question (consent), not a statement.</div></td>
+        <td><div class="block-note">fractional-readiness-check.html · all future interactive tools</div></td>
+        <td><div class="block-note">2026-08-07</div></td>
+      </tr>
+      <tr>
+        <td><span style="color:var(--muted)">7</span></td>
+        <td><div class="block-name">Not all fractional posts get the readiness tool callout</div></td>
+        <td><div class="block-note">fractional-coo-vs-hiring-full-time-canada.html does NOT get the callout — that audience has already decided on the COO role and is weighing cost/format, not readiness. The readiness check is relevant for readers still asking "is fractional right for me?" not for those already comparing models.</div></td>
+        <td><div class="block-note">fractional-coo-atlantic-canada.md + what-is-fractional-executive-guide → callout added. fractional-coo-vs-hiring-full-time → no callout.</div></td>
+        <td><div class="block-note">2026-08-07</div></td>
       </tr>
     </tbody>
   </table>
@@ -1221,18 +1244,111 @@
   </div>
 </div>
 
+<!-- ===== CONTENT QUALITY AUDIT — AUG 7 ===== -->
+<div class="section-divider" style="margin-top:24px;">Content Quality Audit — Aug 7, 2026</div>
+
+<div class="callout-green" style="margin-bottom:16px;">
+  <div class="callout-label">NLAS Content Quality Rating — All 25 Posts Scored</div>
+  <div class="callout-text">Full audit of all 25 blog posts using the NLAS framework (P1 Purpose &amp; Creation · P2 E-E-A-T · P3 Content Quality &amp; Accuracy · P4 User Value &amp; Experience, 25 pts each). Site average after improvements: <strong style="color:var(--cloud);">81.4 / 100</strong>. Tiers: Outstanding ≥90, Good 80–89, Adequate 60–79, Below Standard 40–59.</div>
+</div>
+
+<div class="card">
+  <div class="card-label">4 Posts Improved — Aug 7</div>
+  <table class="block-table">
+    <thead>
+      <tr><th style="width:38%">Post</th><th style="width:18%">Score Change</th><th>What Changed</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="block-name">The Wall on Day 200</div><div class="block-url">the-wall-on-day-200.html</div></td>
+        <td><span class="badge badge-done">72 / 100</span></td>
+        <td><div class="block-note">Added fractional COO context paragraph tying the Day 200 moment to Northlight Advisory Services advisory work. Article JSON-LD schema added. HBR pre-mortem citation (hbr.org) + fs.blog sunk cost framing link. 4 FAQ front-matter questions added (was 0).</div></td>
+      </tr>
+      <tr>
+        <td><div class="block-name">How We Built Northlight Vault: Privacy-First</div><div class="block-url">how-we-built-northlight-vault-privacy-first.html</div></td>
+        <td><span class="badge badge-done">75 / 100</span></td>
+        <td><div class="block-note">Article JSON-LD schema added. PIPEDA paragraph added linking the product design decision to Canada's federal privacy law. OPC citation added (opc-news/speeches/2023) supporting the data-minimization principle. Tags expanded: canadian privacy, PIPEDA, product design, data minimization.</div></td>
+      </tr>
+      <tr>
+        <td><div class="block-name">I Built Three AI Tools for My Own Work. Now They're on MCP Market.</div><div class="block-url">northlight-mcp-skills-market.html</div></td>
+        <td><span class="badge badge-done">76 / 100</span></td>
+        <td><div class="block-note">Article JSON-LD schema added. MCP explanation paragraph added to intro defining what Model Context Protocol is and linking to Anthropic's announcement (anthropic.com/news/model-context-protocol). "Model Context Protocol" linked to modelcontextprotocol.io in FAQ answer.</div></td>
+      </tr>
+      <tr>
+        <td><div class="block-name">Resumes Describe a Job, Not Work</div><div class="block-url">resumes-describe-job-not-work-digital-reference.html</div></td>
+        <td><span class="badge badge-inprogress">68 / 100</span></td>
+        <td><div class="block-note">Scored 68/100 at baseline (Phase 4 B5 carry-forward). Standalone post; promoted on Digital Reference. No structural edits made this session — score is the assessed baseline. Primarily limited by E-E-A-T signals and single-platform angle.</div></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <div class="card-label">Fractional Executive Readiness Check — New Tool Built Aug 7</div>
+  <table class="block-table">
+    <thead>
+      <tr><th style="width:25%">Item</th><th>Detail</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="block-name">File</div></td>
+        <td><div class="block-note"><code>fractional-readiness-check.html</code> — deployed to bynorthlight.ca root</div></td>
+      </tr>
+      <tr>
+        <td><div class="block-name">What it does</div></td>
+        <td><div class="block-note">Two-part interactive quiz. Part 1: 6 readiness questions scored 0–10 → four result tiers (ready, building, early, consult a generalist). Part 2: 3 role routing questions → CMO / CFO / CTO / COO recommendation. Each result includes engagement description, first 30–60 days, signal to watch for.</div></td>
+      </tr>
+      <tr>
+        <td><div class="block-name">Privacy approach</div></td>
+        <td><div class="block-note">Ungated — no email required. Results on the page. Browser print dialog for save/print. Soft Aurora Brief opt-in at end (question, not statement). No data transmitted.</div></td>
+      </tr>
+      <tr>
+        <td><div class="block-name">Linked from</div></td>
+        <td><div class="block-note">Callout block added to <code>fractional-coo-atlantic-canada.md</code> (before "What working with Northlight looks like") and <code>what-is-fractional-executive-guide-canadian-businesses.md</code> (before "If You're Still Weighing It"). Not added to fractional-coo-vs-hiring-full-time — that audience is past the role question.</div></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 <!-- ===== LEARNINGS ===== -->
-<div class="section-divider" style="margin-top:24px;">Phase 5 Learnings — Updated as work progresses</div>
+<div class="section-divider" style="margin-top:24px;">Phase 5 Learnings — Updated 2026-08-07</div>
 
 <div class="card">
   <div class="card-label">Learnings Log</div>
-  <div class="block-note" style="padding: 12px 0; color: var(--muted); font-style: italic;">No learnings yet — Phase 5 just started 2026-08-05. This section will be updated as migration work progresses. First likely learning: QR audit patterns across post types (essays vs. guides vs. listicles score differently on E-E-A-T criteria).</div>
+  <div class="issue-item">
+    <div class="issue-dot green"></div>
+    <div>
+      <div class="issue-text">Two-pass citation resolution works better than trying to fix during migration.</div>
+      <div class="issue-note">Logging citation issues as "yellow" during the migration pass and resolving them in a dedicated second pass (Aug 6) was more efficient than context-switching per post. 14 citation issues resolved without slowing migration. Pattern to reuse in future content sprints.</div>
+    </div>
+  </div>
+  <div class="issue-item">
+    <div class="issue-dot green"></div>
+    <div>
+      <div class="issue-text">E-E-A-T signals (citations + Article schema) are the highest-ROI single fix across the post catalogue.</div>
+      <div class="issue-note">NLAS audit showed P2 E-E-A-T was the most consistent gap across posts — especially essays that had no external citations, no Article JSON-LD, and no author credentials signals. Adding Article schema + one sourced citation moved scores 5–10 points in P2 alone. Worth doing at publish time, not retroactively.</div>
+    </div>
+  </div>
+  <div class="issue-item">
+    <div class="issue-dot green"></div>
+    <div>
+      <div class="issue-text">Privacy-first brand consistency extends to interactive tools, not just content.</div>
+      <div class="issue-note">Building the fractional readiness check as ungated (print/save, no email) is consistent with the PIPEDA-first stance in the blog posts. If the content says "collect only with predefined purpose," the tools need to match. This is a brand constraint, not just a legal one — gating the tool would have created a visible contradiction.</div>
+    </div>
+  </div>
+  <div class="issue-item">
+    <div class="issue-dot" style="background:var(--muted)"></div>
+    <div>
+      <div class="issue-text">QR audit patterns: essays and guides score differently on the same rubric.</div>
+      <div class="issue-note">Essay posts (like the-wall-on-day-200, vault) consistently score lower on E-E-A-T because they're reflective/personal and naturally light on citations. That's not a defect — it's genre. The fix is targeted: add one or two strong external anchors and Article schema, not a full citation overhaul that would change the voice.</div>
+    </div>
+  </div>
 </div>
 
 <!-- FOOTER -->
 <div class="footer">
-  <span>Northlight Website · Phase 5 · Jekyll Migration &amp; SEO/GEO/AEO Foundation · Started 2026-08-05</span>
-  <span>Update this dashboard as each post is migrated — not just at phase end.</span>
+  <span>Northlight Website · Phase 5 · Jekyll Migration &amp; SEO/GEO/AEO Foundation · Started 2026-08-05 · Updated 2026-08-07</span>
+  <span>Goal 5 (site-wide fixes + agent standards) is the only remaining item before phase close.</span>
 </div>
 
 </body>

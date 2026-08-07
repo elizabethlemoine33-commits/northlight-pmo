@@ -4,6 +4,12 @@
 
 ---
 
+## Phase 5 — Jekyll Migration & SEO/GEO/AEO Foundation (2026-08-07)
+
+- Two-pass citation resolution is more efficient than fixing inline during migration — log issues as "yellow" during the pass, resolve in a dedicated second pass once all posts are migrated. 14 citations resolved without slowing migration speed.
+- E-E-A-T signals (Article JSON-LD + one strong external citation) are the highest-ROI single fix for essay-format posts — moves P2 scores 5–10 points and takes under 10 minutes per post. Worth enforcing at publish time, not retroactively.
+- Privacy-first brand consistency must extend to interactive tools, not just content — an ungated tool (print/save, no email) is the only approach consistent with a PIPEDA-first stance. Gating the fractional readiness check would have created a visible contradiction with the blog content.
+
 ## Phase 4 — Content Depth & Thought Leadership (2026-07-24)
 
 - Publishing a batch of posts on the same day (July 20–21) made the related-reading cross-link pass far more efficient — touching all 21 posts in one sweep is easier than retroactively adding links each time a new post ships. Ship in batches, link in batches.
