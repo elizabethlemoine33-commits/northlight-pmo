@@ -110,7 +110,7 @@
 <div class="header">
   <div class="phase-label">Northlight Website · Phase 6 · In Progress</div>
   <div class="title">Citation Authority &amp; Content Production</div>
-  <div class="subtitle">Started 2026-08-07 · 16-task full-backlog clearance · FAQ visibility · 2-line wordmark · 4 posts + 2 topic guides queued</div>
+  <div class="subtitle">Started 2026-08-07 · 16-task full-backlog clearance · FAQ visibility · 2-line wordmark · 4 posts + 2 topic guides queued · Last updated 2026-08-08</div>
 </div>
 
 <!-- Historical callout -->
@@ -123,14 +123,14 @@
 <div class="progress-section">
   <div class="progress-header">
     <span class="progress-label">Phase 6 Progress</span>
-    <span class="progress-pct">13%</span>
+    <span class="progress-pct">31%</span>
   </div>
-  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:13%"></div></div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:31%"></div></div>
   <div class="progress-counts">
-    <span class="progress-count"><strong>2</strong> tasks complete</span>
-    <span class="progress-count"><strong>14</strong> tasks open</span>
+    <span class="progress-count"><strong>5</strong> tasks complete</span>
+    <span class="progress-count"><strong>11</strong> tasks open</span>
     <span class="progress-count"><strong>16</strong> total</span>
-    <span class="progress-count"><strong>1</strong> session logged</span>
+    <span class="progress-count"><strong>2</strong> sessions logged</span>
   </div>
 </div>
 
@@ -169,7 +169,7 @@
   </div>
 </div>
 
-<!-- What shipped this session -->
+<!-- What shipped Session 1 -->
 <div class="section-divider">Shipped — Session 1 (2026-08-08)</div>
 <div class="grid">
   <div class="card">
@@ -192,8 +192,8 @@
     <div class="issue-item">
       <div class="issue-dot green"></div>
       <div>
-        <div class="issue-text">Comparison post already had 9 FAQs — now also visible to readers</div>
-        <div class="issue-note">fractional-coo-vs-hiring-full-time-canada.md</div>
+        <div class="issue-text">Aurora Brief sidebar gated to aurora_brief: true posts only (was rendering on all posts)</div>
+        <div class="issue-note">Conditional block in post layout — removes noise from posts not opted in</div>
       </div>
     </div>
   </div>
@@ -214,6 +214,74 @@
         <div class="issue-text">CSS override injected into each page head — no CSS rewrite needed, cascade handles it</div>
         <div class="issue-note">.wm-main + .wm-sub classes; zero !important usage</div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- What shipped Session 2 -->
+<div class="section-divider">Shipped — Session 2 (2026-08-08)</div>
+<div class="grid">
+  <div class="card">
+    <div class="card-label">Resources Page</div>
+    <div class="card-title">/resources.html — draft built, unpublished</div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">Ungated resources hub: 9 resource cards across 3 sections (Readiness tools, AI Tools &amp; Printables, Fractional Leadership)</div>
+        <div class="issue-note">Badge system: teal = interactive, gray = printable, blue = app download</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">Full site nav (7 links) + full footer (Powered by Northlight OS + social icons) — matches site standard</div>
+        <div class="issue-note">Who We Help card + Fractional Readiness Check in "Finding the Right Fit" section</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot"></div>
+      <div>
+        <div class="issue-text">Nav placement TBD — page is unlinked; 3 more printables to package before full publish</div>
+        <div class="issue-note">Pending: AI Implementation Partner RFP Template, AEO Audit Checklist, PIPEDA AI Compliance Checklist</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Knowledge Repo — EOS / OKR Integration</div>
+    <div class="card-title">6 new knowledge files committed to main</div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">Interview evidence: eos-rocks-okr-retrospective.md → evidence/northlight/ (source material, internal only)</div>
+        <div class="issue-note">Anonymization required before any external use</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">FRM-013-001: The Operating Spiral · PRI-013-001: Execution Cannot Create Strategy · PRI-013-002: Trust Is the Operating Handrail</div>
+        <div class="issue-note">operations/frameworks/ + operations/principles/</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot green"></div>
+      <div>
+        <div class="issue-text">PRI-020-004: If Everything Is Important, Nothing Is · OBS-EOS-001 + OBS-EOS-002 · 6 research questions added to open-questions</div>
+        <div class="issue-note">strategy/principles/ + operations/observations/ · branch/knowledge-repo-cleanup merged to main</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="margin-bottom:24px;">
+  <div class="card-label">Blog Post Layout — Table of Contents (confirmed complete this session)</div>
+  <div class="card-title">JS-generated sidebar TOC added to post template</div>
+  <div class="issue-item">
+    <div class="issue-dot green"></div>
+    <div>
+      <div class="issue-text">Sidebar TOC auto-generated from H2s in each post — active section highlighting as user scrolls</div>
+      <div class="issue-note">Task 86e2qbqn8 complete · OG/cosmetic tech fixes also confirmed complete (86e2qbqzf)</div>
     </div>
   </div>
 </div>
@@ -245,40 +313,46 @@
           <td><div class="block-note">Two-line centred treatment; 25 pages updated</div></td>
         </tr>
         <tr>
+          <td><div class="block-name">OG / cosmetic tech fixes — review and triage</div></td>
+          <td><span class="badge badge-normal">Normal</span></td>
+          <td><span class="badge badge-done">Complete</span></td>
+          <td><div class="block-note">Full OG audit; cosmetic issues from Phase 5 yellow list resolved</div></td>
+        </tr>
+        <tr>
+          <td><div class="block-name">Add Table of Contents to blog post template</div></td>
+          <td><span class="badge badge-normal">Normal</span></td>
+          <td><span class="badge badge-done">Complete</span></td>
+          <td><div class="block-note">JS-generated from H2s in post layout sidebar; active section highlighting</div></td>
+        </tr>
+        <tr>
+          <td><div class="block-name">Resources inventory + distribution strategy</div></td>
+          <td><span class="badge badge-normal">Normal</span></td>
+          <td><span class="badge badge-done">Complete</span></td>
+          <td><div class="block-note">/resources.html draft built (9 cards, badge system); 3 more printables to package before publish</div></td>
+        </tr>
+        <tr>
           <td><div class="block-name">Write Topic Guide: What Is a Fractional COO?</div></td>
           <td><span class="badge badge-high">High</span></td>
           <td><span class="badge badge-open">Open</span></td>
           <td><div class="block-note">2,500 words, Topic Guide format, FAQ at end — highest citation leverage</div></td>
         </tr>
         <tr>
-          <td><div class="block-name">Resources inventory + distribution strategy</div></td>
-          <td><span class="badge badge-normal">Normal</span></td>
-          <td><span class="badge badge-open">Open</span></td>
-          <td><div class="block-note">Decision needed: Simon Wakeman hub vs. LinkedIn series vs. group presentation</div></td>
-        </tr>
-        <tr>
           <td><div class="block-name">Re-run GEO audit (geo_audit.py)</div></td>
           <td><span class="badge badge-normal">Normal</span></td>
           <td><span class="badge badge-inprogress">Partial</span></td>
-          <td><div class="block-note">4/5 sections scored; Brand Authority needs interactive terminal run</div></td>
-        </tr>
-        <tr>
-          <td><div class="block-name">Add Table of Contents to blog post template</div></td>
-          <td><span class="badge badge-normal">Normal</span></td>
-          <td><span class="badge badge-open">Open</span></td>
-          <td><div class="block-note">JS-generated from H2s in post layout sidebar</div></td>
+          <td><div class="block-note">4/5 sections scored; Brand Authority needs interactive terminal run by Elizabeth</div></td>
         </tr>
         <tr>
           <td><div class="block-name">Add quantitative personal anchor to homepage + service pages</div></td>
           <td><span class="badge badge-normal">Normal</span></td>
           <td><span class="badge badge-open">Open</span></td>
-          <td><div class="block-note">E-E-A-T signal; specific numbers tied to Elizabeth's track record</div></td>
+          <td><div class="block-note">E-E-A-T signal; specific numbers tied to Elizabeth's track record — needs her input</div></td>
         </tr>
         <tr>
           <td><div class="block-name">Write Topic Guide: OKRs for Canadian Small Businesses</div></td>
           <td><span class="badge badge-normal">Normal</span></td>
           <td><span class="badge badge-open">Open</span></td>
-          <td><div class="block-note">Long-form; pairs with fractional COO topic guide for authority cluster</div></td>
+          <td><div class="block-note">Long-form; EOS source material now in knowledge repo; pairs with Fractional COO guide</div></td>
         </tr>
         <tr>
           <td><div class="block-name">Write comparison post: Project management tools for small business</div></td>
@@ -291,12 +365,6 @@
           <td><span class="badge badge-normal">Normal</span></td>
           <td><span class="badge badge-open">Open</span></td>
           <td><div class="block-note">SiteSpeak AI tool; closing remaining gaps from Phase 5 audit</div></td>
-        </tr>
-        <tr>
-          <td><div class="block-name">OG / cosmetic tech fixes — review and triage</div></td>
-          <td><span class="badge badge-low">Low</span></td>
-          <td><span class="badge badge-open">Open</span></td>
-          <td><div class="block-note">Full OG audit; cosmetic issues from Phase 5 yellow list</div></td>
         </tr>
         <tr>
           <td><div class="block-name">Social promotion backlog — 11 Phase 4 posts unqueued</div></td>
@@ -319,8 +387,8 @@
         <tr>
           <td><div class="block-name">Research: EOS framework content + Coursera certs in knowledge repo</div></td>
           <td><span class="badge badge-low">Low</span></td>
-          <td><span class="badge badge-open">Open</span></td>
-          <td><div class="block-note">Feeds OKR topic guide and operations content cluster</div></td>
+          <td><span class="badge badge-inprogress">Partial</span></td>
+          <td><div class="block-note">EOS done (6 files committed to main); Coursera certifications piece still TBD</div></td>
         </tr>
         <tr>
           <td><div class="block-name">Write post: The marketing-operations intersection in small business</div></td>
@@ -355,11 +423,11 @@
     <div class="card-label">Simon Wakeman — 19 citations</div>
     <div class="issue-item">
       <div class="issue-dot"></div>
-      <div><div class="issue-text">Resource hub with tools, templates, checklists</div><div class="issue-note">High citation rate from downloadable/linkable assets</div></div>
+      <div><div class="issue-text">Resource hub with tools, templates, checklists</div><div class="issue-note">High citation rate from downloadable/linkable assets — /resources.html mirrors this</div></div>
     </div>
     <div class="issue-item">
       <div class="issue-dot"></div>
-      <div><div class="issue-text">Topic cluster structure — guides linking to posts</div><div class="issue-note">Resources distribution strategy decision queued</div></div>
+      <div><div class="issue-text">Topic cluster structure — guides linking to posts</div><div class="issue-note">What Is a Fractional COO? topic guide is the anchor piece</div></div>
     </div>
   </div>
 </div>
@@ -396,6 +464,18 @@
           <td><div class="block-note">Explicit instruction: clear the full backlog this phase, defer nothing.</div></td>
           <td style="color:var(--muted);font-size:11px;white-space:nowrap;">2026-08-08</td>
         </tr>
+        <tr>
+          <td style="color:var(--muted);font-size:11px;">4</td>
+          <td><div class="block-name">Resources page built as ungated draft — nav placement TBD</div></td>
+          <td><div class="block-note">Mirrors Simon Wakeman resource hub strategy. Keeping as draft until 3 remaining printables are packaged and nav decision is made.</div></td>
+          <td style="color:var(--muted);font-size:11px;white-space:nowrap;">2026-08-08</td>
+        </tr>
+        <tr>
+          <td style="color:var(--muted);font-size:11px;">5</td>
+          <td><div class="block-name">EOS/OKR knowledge repo content: internal use only until anonymization pass</div></td>
+          <td><div class="block-note">Retrospective interview contains identifiable operational context. Evidence file flagged — requires anonymization before any external use or citation.</div></td>
+          <td style="color:var(--muted);font-size:11px;white-space:nowrap;">2026-08-08</td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -407,7 +487,13 @@
   <div class="issue-item">
     <div class="issue-dot green"></div>
     <div>
-      <div class="issue-text"><strong>2026-08-08</strong> — Session 1: FAQ layout fix + 2 new Q&As on Atlantic Canada post; two-line wordmark deployed across 25 pages; GEO audit run (partial, 4/5 sections). 2/16 tasks complete.</div>
+      <div class="issue-text"><strong>2026-08-08</strong> — Session 2: /resources.html draft built (9 resource cards, badge system); EOS/OKR knowledge repo integration (6 new files, merged to main); Table of Contents + OG/cosmetic fixes confirmed complete; Resources inventory marked complete. 5/16 tasks complete.</div>
+    </div>
+  </div>
+  <div class="issue-item">
+    <div class="issue-dot green"></div>
+    <div>
+      <div class="issue-text"><strong>2026-08-08</strong> — Session 1: FAQ layout fix + 2 new Q&amp;As on Atlantic Canada post; Aurora Brief sidebar gated to opted-in posts; two-line wordmark deployed across 25 pages; GEO audit run (partial, 4/5 sections). 2/16 tasks complete.</div>
     </div>
   </div>
   <div class="issue-item">
@@ -418,8 +504,85 @@
   </div>
 </div>
 
+<!-- What's next -->
+<div class="section-divider">Next Up — Priority Order</div>
+<div class="callout-green">
+  <div class="callout-label">11 Tasks Remaining</div>
+  <div class="callout-text">Writing tasks (4 posts + 2 topic guides) are the largest block. The What Is a Fractional COO? topic guide is the highest-leverage single item in the backlog — closes the citation gap directly. Quantitative anchor needs Elizabeth's specific numbers. GEO audit and Coursera research require Elizabeth at the terminal/keyboard. Resources page needs 3 more printables before publish decision.</div>
+</div>
+<div class="card">
+  <div class="scroll-table">
+    <table class="block-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Task</th>
+          <th>Blocker / Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color:var(--muted);font-size:11px;">1</td>
+          <td><div class="block-name">Write Topic Guide: What Is a Fractional COO?</div></td>
+          <td><div class="block-note">Highest citation leverage; 2,500 words; FAQ section at end. No blocker — ready to write.</div></td>
+        </tr>
+        <tr>
+          <td style="color:var(--muted);font-size:11px;">2</td>
+          <td><div class="block-name">Add quantitative personal anchor to homepage + service pages</div></td>
+          <td><div class="block-note">Needs Elizabeth's specific numbers (clients, savings, outcomes). Blocked on input.</div></td>
+        </tr>
+        <tr>
+          <td style="color:var(--muted);font-size:11px;">3</td>
+          <td><div class="block-name">Improve AI Score (currently 77/100)</div></td>
+          <td><div class="block-note">SiteSpeak AI audit — identify remaining gaps. Ready to run.</div></td>
+        </tr>
+        <tr>
+          <td style="color:var(--muted);font-size:11px;">4</td>
+          <td><div class="block-name">Re-run GEO audit — Brand Authority section</div></td>
+          <td><div class="block-note">Requires interactive terminal. Elizabeth runs this directly.</div></td>
+        </tr>
+        <tr>
+          <td style="color:var(--muted);font-size:11px;">5</td>
+          <td><div class="block-name">Review ScaleUpExec turnaround strategy post</div></td>
+          <td><div class="block-note">Unblocks marketing-operations intersection post. Ready to read + summarize.</div></td>
+        </tr>
+        <tr>
+          <td style="color:var(--muted);font-size:11px;">6</td>
+          <td><div class="block-name">Write Topic Guide: OKRs for Canadian Small Businesses</div></td>
+          <td><div class="block-note">EOS source material now in knowledge repo. Ready after Fractional COO guide.</div></td>
+        </tr>
+        <tr>
+          <td style="color:var(--muted);font-size:11px;">7</td>
+          <td><div class="block-name">Write comparison post: Project management tools</div></td>
+          <td><div class="block-note">Listicle format. No blocker.</div></td>
+        </tr>
+        <tr>
+          <td style="color:var(--muted);font-size:11px;">8</td>
+          <td><div class="block-name">Write post: Marketing-operations intersection</div></td>
+          <td><div class="block-note">Depends on ScaleUpExec review (#5 above).</div></td>
+        </tr>
+        <tr>
+          <td style="color:var(--muted);font-size:11px;">9</td>
+          <td><div class="block-name">Find HubSpot AEO replacement</div></td>
+          <td><div class="block-note">Chatbeat / SiteSpeak AI candidates. Research task — ready to run.</div></td>
+        </tr>
+        <tr>
+          <td style="color:var(--muted);font-size:11px;">10</td>
+          <td><div class="block-name">Social promotion backlog — 11 Phase 4 posts</div></td>
+          <td><div class="block-note">Buffer queue. Lower priority than content production.</div></td>
+        </tr>
+        <tr>
+          <td style="color:var(--muted);font-size:11px;">11</td>
+          <td><div class="block-name">Research: Coursera certifications in knowledge repo</div></td>
+          <td><div class="block-note">EOS portion done. Coursera portion needs Elizabeth's cert list.</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
 <div class="footer">
-  <span>Northlight Website · Phase 6 · In Progress · Generated 2026-08-08</span>
+  <span>Northlight Website · Phase 6 · In Progress · Updated 2026-08-08 · 5/16 complete</span>
   <span>northlight-pmo/website/phase-6.html</span>
 </div>
 </body>
