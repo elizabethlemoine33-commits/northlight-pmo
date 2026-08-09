@@ -4,6 +4,12 @@
 
 ---
 
+## Phase 6 — Citation Authority & Content Production (2026-08-09)
+
+- GEO score is a composite — Content Citability was the primary gap (59 at phase start), but the overall score was already at 65 before Phase 6 work. Publishing two FAQ-dense topic guides and adding 12 inline academic citations to the Market-Aware COO post moved overall from 65 to 82 in 3 days. The lever is content volume and structure, not technical tweaks.
+- Numbered lists (`<ol>`) are a disproportionately high-leverage GEO signal: 14 `<ol>` elements across 51 pages scores 1/10 — the easiest +7-point gain available for Phase 7 is converting bullet lists to numbered steps in guide-format posts.
+- GEO audit coverage must be checked against sitemap size before every run: the 30-page default was silently dropping 21 pages, making every audit result since launch misleading. Set the limit above the current page count and add headroom for growth.
+
 ## Phase 5 — Jekyll Migration & SEO/GEO/AEO Foundation (2026-08-07)
 
 - Two-pass citation resolution is more efficient than fixing inline during migration — log issues as "yellow" during the pass, resolve in a dedicated second pass once all posts are migrated. 14 citations resolved without slowing migration speed.
