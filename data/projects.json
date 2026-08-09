@@ -1,5 +1,5 @@
 {
-  "refreshed_at": "2026-08-08T17:52:57.992Z",
+  "refreshed_at": "2026-08-09T20:38:22.690Z",
   "triggered_by": "phase-dashboard-commit",
   "open_total": 2,
   "projects": [
@@ -129,10 +129,10 @@
       "current_phase_title": "Citation Authority & Content Production",
       "phase_started": "2026-08-07",
       "open_count": 0,
-      "backlog_count": 14,
+      "backlog_count": 5,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 4,
+      "done_count": 13,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
@@ -142,16 +142,20 @@
           "priority": "normal"
         },
         {
-          "name": "Add FAQ sections to existing fractional COO blog posts",
-          "priority": "high"
-        },
-        {
-          "name": "Goal 5: Site-wide technical fixes + agent content standards",
-          "priority": "high"
-        },
-        {
-          "name": "Content quality audit + fractional readiness tool — Aug 7",
+          "name": "Resources inventory + distribution strategy — tools, checklists, diagnostics",
           "priority": "normal"
+        },
+        {
+          "name": "OG / cosmetic tech fixes — review and triage",
+          "priority": "low"
+        },
+        {
+          "name": "Social promotion backlog — 11 Phase 4 blog posts have no social queue",
+          "priority": "low"
+        },
+        {
+          "name": "Find HubSpot AEO replacement (trial expired Aug 6)",
+          "priority": "low"
         }
       ],
       "decisions": [],
