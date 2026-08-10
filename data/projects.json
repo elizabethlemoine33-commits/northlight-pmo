@@ -1,6 +1,6 @@
 {
-  "refreshed_at": "2026-08-09T22:00:45.194Z",
-  "triggered_by": "schedule",
+  "refreshed_at": "2026-08-10T21:22:48.534Z",
+  "triggered_by": "phase-dashboard-commit",
   "open_total": 2,
   "projects": [
     {
@@ -129,10 +129,10 @@
       "current_phase_title": "Citation Authority & Content Production",
       "phase_started": "2026-08-07",
       "open_count": 0,
-      "backlog_count": 5,
+      "backlog_count": 2,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 13,
+      "done_count": 17,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
