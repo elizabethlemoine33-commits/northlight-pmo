@@ -4,6 +4,12 @@
 
 ---
 
+## Phase 6 — Citation Authority & Content Production (2026-08-11)
+
+- The `seo_title` front matter field cleanly separates title tag length from H1 length — when post titles are naturally long for readability, a shorter `seo_title` gives SEO control (60 char limit) without compromising the heading. Worth enforcing as a standard at publish time for any post whose title exceeds ~45 characters.
+- Sunday morning (low post volume, reading mindset) + Monday morning (start-of-week planning mindset) are effective off-schedule slots for long-form evergreen promotion when the regular Tues/Wed/Thu content calendar is full — the promotion timing doesn't need to match the content calendar for non-time-sensitive pieces.
+- Community ambassador / badge relationships with brands don't require FTC disclosure if there's no compensation, no free product, and no material benefit — a brief parenthetical in the post ("a community recognition badge, not a paid relationship") is transparent without triggering an obligation that doesn't exist.
+
 ## Phase 6 — Citation Authority & Content Production (2026-08-09)
 
 - GEO score is a composite — Content Citability was the primary gap (59 at phase start), but the overall score was already at 65 before Phase 6 work. Publishing two FAQ-dense topic guides and adding 12 inline academic citations to the Market-Aware COO post moved overall from 65 to 82 in 3 days. The lever is content volume and structure, not technical tweaks.
