@@ -1,4 +1,18 @@
 ---
+phase: Phase 14 — ClickUp Resilience & Advisory Board Automation
+completed: 2026-08-12
+---
+
+## Phase 14 Learnings
+
+- **Two separate ClickUp rate-limit systems — know which you're hitting** — the real ClickUp API (100 req/min, Business plan) and the MCP connector quota (50 calls/day, Free Forever) are independent systems with different error formats and cooldown durations. A "wait 1152 minutes" error from the MCP connector is NOT the ClickUp API rate limit. Treating them as the same problem wastes time on the wrong fix.
+- **Reconnecting a broken MCP connector makes things worse** — after the connector entered a "multiple workspaces" broken state, each reconnect attempt worsened the state (empty workspace list). Stop touching it; route around it with an alternative. The batch endpoint is that alternative.
+- **Assignee-based routing is an invisible dependency** — isAssignedToClaude() worked fine until it didn't. Closing or renaming the Claude ClickUp account would have silently broken the morning dispatcher with no error. Explicit skill:* tags are visible in ClickUp, survive account changes, and are the correct routing mechanism.
+- **CoWork proof-of-concept → OS production is the right sequencing** — the advisory board review was validated in CoWork first (logic proven, format confirmed by Elizabeth), then migrated to the dispatcher with proper infrastructure. Don't build production automation in CoWork; do use it for proving an idea before the build.
+
+---
+
+---
 phase: Phase 13 — Content Repurpose & Pre-Intake Trend Spotting
 completed: 2026-08-04
 ---

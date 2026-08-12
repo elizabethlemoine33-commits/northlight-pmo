@@ -26,10 +26,11 @@
       "drive_brief": null,
       "pmo_folder": "os/",
       "clickup_list_id": "901715263627",
-      "current_phase": "14",
+      "current_phase": "15",
       "current_phase_title": "TBD",
-      "phase_started": "2026-08-04",
+      "phase_started": "2026-08-12",
       "phases": [
+        { "phase": "14", "title": "ClickUp Resilience & Advisory Board Automation", "started": "2026-08-04", "closed": "2026-08-12" },
         { "phase": "13", "title": "Content Repurpose & Trend Spotting", "started": "2026-08-04", "closed": "2026-08-04" },
         { "phase": "12", "title": "LinkedIn Wiring & Round Table Depth", "started": "2026-08-04", "closed": "2026-08-04" },
         { "phase": "11", "title": "Round Table Memory & LinkedIn Foundation", "started": "2026-08-03", "closed": "2026-08-04" },
