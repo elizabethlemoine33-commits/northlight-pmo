@@ -299,6 +299,41 @@
   </div>
 </div>
 
+<!-- STRIPE FALLBACK -->
+<div class="section">
+  <div class="section-label">Stripe Managed Payments — Fallback Explored (Aug 14)</div>
+  <div class="card">
+    <div style="margin-bottom:16px;">
+      <div class="badge badge-green">Approved — No Rejection</div>
+      <div class="card-title" style="margin-top:6px;">Stripe Managed Payments account activated</div>
+      <div class="card-body">Explored Stripe Managed Payments as a Paddle fallback. Account created under "Northlight Software" org (same org will also hold MCP Marketplace / Every Expert). Product created as "Downloadable Software — Business use" (tax code txcd_10202003, confirmed Eligible for Managed Payments). No domain review rejection — account went live without friction.</div>
+    </div>
+    <div style="border-top: 1px solid var(--border); padding-top: 14px;">
+      <div class="card-label" style="margin-bottom:10px;">Fee Comparison — $299 CAD per sale</div>
+      <table>
+        <thead>
+          <tr><th>Provider</th><th>Fees per sale</th><th>Payout cost</th><th>Effective total</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Paddle</strong></td>
+            <td>~5% (~$14.95)</td>
+            <td>$15 CIBC wire, amortized at $1,000 threshold (~$3.74/sale)</td>
+            <td><strong>~$18.69</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Stripe Managed Payments</strong></td>
+            <td>3.5% MoR + 2.9% + $0.30 (~$19.20)</td>
+            <td>Free EFT direct to Canadian bank</td>
+            <td><strong>~$19.20</strong></td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="font-size:11px; color:var(--structural); margin-top:10px;">At $1,000 payout threshold (≈4 sales), Paddle's wire fee amortizes to ~$3.74/sale. Difference is &lt;$1/sale — effectively a coin flip. Stripe wins at low volume; Paddle edges ahead above ~15 sales/month.</div>
+    </div>
+  </div>
+</div>
+
 <!-- PADDLE APPEAL DETAIL -->
 <div class="section">
   <div class="section-label">Paddle Appeal — Detail</div>
@@ -452,8 +487,8 @@
     <div class="open-item">
       <span class="badge badge-blue">Ready</span>
       <div class="open-item-text">
-        <strong>Switch meetings.html to live mode</strong>
-        <span>meetings.html already has live token + price ID. One push to go live once Paddle approves.</span>
+        <strong>Switch meetings.html to live mode (Paddle) OR build Stripe integration</strong>
+        <span>If Paddle approved: meetings.html already has live token + price ID — one push. If denied: build Stripe Checkout integration in dispatcher (same webhook pattern, account already activated).</span>
       </div>
     </div>
     <div class="open-item">
