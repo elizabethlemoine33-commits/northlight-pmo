@@ -1,7 +1,7 @@
 {
-  "refreshed_at": "2026-08-12T16:00:44.050Z",
+  "refreshed_at": "2026-08-14T16:54:42.905Z",
   "triggered_by": "phase-dashboard-commit",
-  "open_total": 2,
+  "open_total": 1,
   "projects": [
     {
       "id": "northlight-os",
@@ -33,40 +33,31 @@
       "status": "building",
       "github": "https://github.com/elizabethlemoine33-commits/northlight-meetings-desktop",
       "clickup_list_id": "901714819070",
-      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/meetings/phase-6.html",
-      "current_phase": "6",
-      "current_phase_title": "Audio Reliability",
-      "phase_started": "2026-07-13",
-      "open_count": 2,
+      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/meetings/phase-7.html",
+      "current_phase": "7",
+      "current_phase_title": "Commerce & Distribution",
+      "phase_started": "2026-08-14",
+      "open_count": 1,
       "backlog_count": 0,
-      "ready_count": 1,
+      "ready_count": 0,
       "in_progress_count": 1,
       "done_count": 1,
       "top_items": [
         {
-          "name": "VB-Audio Cable: handle installation for new users at packaging/distribution",
-          "priority": "high"
-        },
-        {
-          "name": "Set up Gumroad storefront — Vault + Meetings distribution",
+          "name": "Set up Paddle storefront � Vault + Meetings distribution",
           "priority": "normal"
         }
       ],
-      "ready_items": [
-        {
-          "name": "Set up Gumroad storefront — Vault + Meetings distribution",
-          "priority": "normal"
-        }
-      ],
+      "ready_items": [],
       "in_progress_items": [
         {
-          "name": "VB-Audio Cable: handle installation for new users at packaging/distribution",
-          "priority": "high"
+          "name": "Set up Paddle storefront � Vault + Meetings distribution",
+          "priority": "normal"
         }
       ],
       "done_items": [
         {
-          "name": "VB-Audio: add in-app toggle for call recording mode",
+          "name": "VB-Audio Cable: handle installation for new users at packaging/distribution",
           "priority": "high"
         }
       ],
@@ -108,7 +99,7 @@
       "current_phase_title": "TBD",
       "phase_started": "2026-08-11",
       "open_count": 0,
-      "backlog_count": 3,
+      "backlog_count": 5,
       "ready_count": 0,
       "in_progress_count": 0,
       "done_count": 1,
