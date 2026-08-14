@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northlight Meetings — Phase 7 Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --midnight:  #0E0E14;
+    --deep-night:#08080F;
+    --surface:   #12121E;
+    --surface-2: #10101C;
+    --border:    #1E2035;
+    --border-2:  #2A2A48;
+    --text:      #FFFFFF;
+    --cloud:     #C8CCE0;
+    --haze:      #BCC2DC;
+    --muted:     #99A1B6;
+    --structural:#6C7295;
+    --glacial:   #4FC3C8;
+    --boreal:    #5B8DD9;
+    --dusk:      #8B6FD4;
+    --aurora:    #C46FAA;
+    --green:     #3BAA6E;
+    --yellow:    #D4A017;
+    --red:       #C44F4F;
+  }
+  body {
+    background: var(--midnight);
+    color: var(--cloud);
+    font-family: 'Outfit', system-ui, sans-serif;
+    font-size: 13px;
+    padding: 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .top-bar {
+    height: 3px;
+    background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%);
+    margin: -32px -32px 32px;
+  }
+  .header { margin-bottom: 28px; }
+  .phase-eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--dusk); margin-bottom: 6px;
+  }
+  .title {
+    font-family: 'Jost', sans-serif;
+    font-size: 24px; font-weight: 700;
+    color: var(--text); letter-spacing: -0.01em;
+  }
+  .subtitle { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  .status-pill {
+    display: inline-block;
+    border-radius: 20px;
+    font-family: 'Jost', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 3px 10px; margin-top: 8px;
+  }
+  .pill-yellow { background: rgba(212,160,23,0.12); color: var(--yellow); border: 1px solid rgba(212,160,23,0.3); }
+  .pill-green  { background: rgba(59,170,110,0.12); color: var(--green);  border: 1px solid rgba(59,170,110,0.3); }
+  .callout {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--dusk);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .callout strong { color: var(--cloud); }
+  .callout-warn {
+    border-left-color: var(--yellow);
+  }
+  .callout-warn strong { color: var(--yellow); }
+  .section { margin-bottom: 32px; }
+  .section-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--structural);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .progress-bar-wrap {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+  }
+  .progress-bar-track {
+    background: var(--border-2);
+    border-radius: 4px;
+    height: 6px;
+    margin: 10px 0 6px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #4FC3C8, #8B6FD4);
+  }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    color: var(--structural);
+    letter-spacing: 0.1em;
+  }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .card-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 9px; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--structural); margin-bottom: 8px;
+  }
+  .card-title {
+    font-family: 'Jost', sans-serif;
+    font-size: 13px; font-weight: 600;
+    color: var(--cloud); margin-bottom: 6px;
+  }
+  .card-body { font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .badge {
+    display: inline-block;
+    font-family: 'Jost', sans-serif;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 12px;
+    margin-bottom: 6px;
+  }
+  .badge-green  { background: rgba(59,170,110,0.12); color: var(--green);  border: 1px solid rgba(59,170,110,0.25); }
+  .badge-yellow { background: rgba(212,160,23,0.12); color: var(--yellow); border: 1px solid rgba(212,160,23,0.25); }
+  .badge-blue   { background: rgba(91,141,217,0.12); color: var(--boreal); border: 1px solid rgba(91,141,217,0.25); }
+  .badge-dusk   { background: rgba(139,111,212,0.12); color: var(--dusk); border: 1px solid rgba(139,111,212,0.25); }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th {
+    font-family: 'Jost', sans-serif;
+    font-size: 9px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--structural);
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    line-height: 1.5;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  td strong { color: var(--cloud); }
+  .timeline-item {
+    display: flex;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .timeline-item:last-child { border-bottom: none; }
+  .timeline-date {
+    font-family: 'Jost', sans-serif;
+    font-size: 10px; font-weight: 600;
+    color: var(--structural);
+    min-width: 80px;
+    letter-spacing: 0.06em;
+    padding-top: 2px;
+  }
+  .timeline-content { flex: 1; }
+  .timeline-title { font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 600; color: var(--cloud); margin-bottom: 3px; }
+  .timeline-body { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .open-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .open-item:last-child { border-bottom: none; }
+  .open-item-text { color: var(--haze); line-height: 1.5; flex: 1; }
+  .open-item-text span { color: var(--muted); font-size: 11px; display: block; margin-top: 2px; }
+  .learning-item {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .learning-item:last-child { border-bottom: none; }
+  .learning-title { font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 600; color: var(--cloud); margin-bottom: 4px; }
+  .learning-body { font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .appeal-box {
+    background: var(--surface-2);
+    border: 1px solid rgba(212,160,23,0.3);
+    border-left: 3px solid var(--yellow);
+    border-radius: 8px;
+    padding: 16px 20px;
+  }
+  .appeal-box-title {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--yellow); margin-bottom: 8px;
+  }
+  .appeal-box p { font-size: 12px; color: var(--muted); line-height: 1.6; margin-bottom: 6px; }
+  .appeal-box p:last-child { margin-bottom: 0; }
+  .appeal-box strong { color: var(--cloud); }
+  @media (max-width: 700px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    body { padding: 20px; }
+    .top-bar { margin: -20px -20px 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="phase-eyebrow">Northlight Meetings · Phase 7</div>
+  <div class="title">Commerce &amp; Distribution</div>
+  <div class="subtitle">2026-08-14 → In progress &nbsp;·&nbsp; Blocked: Paddle appeal pending</div>
+  <span class="status-pill pill-yellow">⏳ Blocked — Appeal Under Review</span>
+</div>
+
+<!-- HISTORICAL CALLOUT -->
+<div class="callout">
+  <strong>Coming into Phase 7:</strong> Phases 1–6 delivered a fully functional Windows desktop app — recording, transcription, LLM analysis, Google integrations, and audio reliability fixes. GCP OAuth was verified in Phase 6. Phase 7 is the first commerce phase: turning the app into something people can buy and receive automatically.
+</div>
+
+<!-- BLOCKER CALLOUT -->
+<div class="callout callout-warn" style="margin-bottom:24px;">
+  <strong>⚠ Active Blocker — Paddle Account Appeal</strong><br>
+  Paddle rejected the live account on 2026-08-14, citing bynorthlight.ca as a consulting/advisory services domain under their Acceptable Use Policy. Appeal submitted same day, arguing Northlight Meetings is standalone desktop software — not a consulting service. Decision expected within 3 business days (~2026-08-19). Page reverted to "Coming Soon" in the interim. Fallback: Lemon Squeezy (same MoR model).
+</div>
+
+<!-- PROGRESS -->
+<div class="section">
+  <div class="section-label">Phase Progress</div>
+  <div class="progress-bar-wrap">
+    <div style="font-family:'Jost',sans-serif; font-size:13px; font-weight:600; color:var(--cloud);">Commerce &amp; Distribution — 80% complete</div>
+    <div class="progress-bar-track"><div class="progress-bar-fill" style="width:80%"></div></div>
+    <div class="progress-label"><span>Full pipeline built &amp; sandbox-verified</span><span>80%</span></div>
+  </div>
+  <div style="font-size:12px; color:var(--muted); line-height:1.6;">
+    The entire purchase-to-delivery pipeline is built and tested end-to-end in sandbox: buyer pays → Paddle webhook fires → dispatcher fetches customer email via Paddle API → Resend delivers branded download email → buyer downloads installer. Remaining 20% = Paddle live account approval and flipping the live switch.
+  </div>
+</div>
+
+<!-- WHAT SHIPPED -->
+<div class="section">
+  <div class="section-label">What Shipped This Phase</div>
+  <div class="grid-3" style="margin-bottom:12px;">
+    <div class="card">
+      <div class="badge badge-green">Shipped</div>
+      <div class="card-title">Paddle Checkout Integration</div>
+      <div class="card-body">Paddle.js overlay checkout on meetings.html. Sandbox tested with 4242 test card. Sandbox → live token swap ready.</div>
+    </div>
+    <div class="card">
+      <div class="badge badge-green">Shipped</div>
+      <div class="card-title">Webhook Fulfillment Pipeline</div>
+      <div class="card-body">paddle-webhook.js on the dispatcher. HMAC signature verification, Paddle API customer lookup (3-retry), Resend email delivery with branded HTML installer link.</div>
+    </div>
+    <div class="card">
+      <div class="badge badge-green">Shipped</div>
+      <div class="card-title">GitHub Release v1.0.0</div>
+      <div class="card-body">Installer hosted as a public GitHub Release. Repo visibility changed from private to public to enable anonymous download (download URL 200s confirmed).</div>
+    </div>
+    <div class="card">
+      <div class="badge badge-green">Shipped</div>
+      <div class="card-title">Post-Purchase Thank-You Page</div>
+      <div class="card-body">meetings-thankyou.html — download button, 4-step installation guide, support email. noindex. Matches Northlight design system.</div>
+    </div>
+    <div class="card">
+      <div class="badge badge-green">Shipped</div>
+      <div class="card-title">Legal Pages</div>
+      <div class="card-body">Terms of Service (meetings-terms.html) and Refund Policy (meetings-refunds.html). Paddle Merchant of Record language, Nova Scotia governing law, Paddle-delegated refund handling.</div>
+    </div>
+    <div class="card">
+      <div class="badge badge-green">Shipped</div>
+      <div class="card-title">Webhook Security Hardening</div>
+      <div class="card-body">Replay protection (ts timestamp &lt;5min), in-memory idempotency store (prevents double email on Paddle retry), API lookup retry with backoff, Sentry alerts on silent failures.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PADDLE APPEAL DETAIL -->
+<div class="section">
+  <div class="section-label">Paddle Appeal — Detail</div>
+  <div class="appeal-box">
+    <div class="appeal-box-title">What Happened</div>
+    <p>Paddle's domain review flagged <strong>bynorthlight.ca</strong> under two categories: <em>Human Services / Consulting or Advisory Services</em> and <em>Human Services / IT Services or Software Development Services</em>. Both fall outside Paddle's Acceptable Use Policy for Merchant of Record accounts.</p>
+    <p><strong>Why:</strong> Paddle's risk team reviews the entire domain, not just the product. Because bynorthlight.ca primarily describes a consulting and advisory firm, the automated review flagged the whole account — even though Northlight Meetings is a standalone software product being sold independently.</p>
+    <p><strong>Appeal argument submitted:</strong> Northlight Meetings is a Windows desktop application sold as a one-time purchase at $299 CAD. It is software, not a consulting service. No consulting or advisory work would be transacted through Paddle. The consulting content on the domain relates to a separate business line not sold through Paddle.</p>
+    <p><strong>Expected decision:</strong> ~2026-08-19 (3 business days). <strong>Fallback if denied:</strong> Lemon Squeezy — same Merchant of Record model, less strict domain review, popular with indie software developers.</p>
+  </div>
+</div>
+
+<!-- DECISIONS LOG -->
+<div class="section">
+  <div class="section-label">Decisions Log</div>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Decision</th>
+        <th>Why</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1</strong></td>
+        <td><strong>Paddle as Merchant of Record</strong> over Kit, Gumroad, or Stripe</td>
+        <td>Paddle handles Canadian GST/HST remittance automatically — no HST registration required for Elizabeth. Stripe would require manual tax compliance setup.</td>
+        <td>2026-08-14</td>
+      </tr>
+      <tr>
+        <td><strong>2</strong></td>
+        <td><strong>Webhook + email fulfillment</strong> over Paddle success-URL redirect</td>
+        <td>More reliable — redirect can fail if buyer closes browser too early. Webhook is server-side and fires regardless of client behaviour.</td>
+        <td>2026-08-14</td>
+      </tr>
+      <tr>
+        <td><strong>3</strong></td>
+        <td><strong>Resend</strong> for transactional email delivery</td>
+        <td>Free tier, simple API, domain verification straightforward on bynorthlight.ca. No SMTP config needed.</td>
+        <td>2026-08-14</td>
+      </tr>
+      <tr>
+        <td><strong>4</strong></td>
+        <td><strong>GitHub Releases for installer hosting</strong> — repo made public</td>
+        <td>Simplest CDN option. Installer is a distributed binary (no secrets). Private repo caused anonymous download 404s — making it public was the right call.</td>
+        <td>2026-08-14</td>
+      </tr>
+      <tr>
+        <td><strong>5</strong></td>
+        <td><strong>Appeal Paddle rejection</strong> rather than immediately switching providers</td>
+        <td>All sandbox infrastructure is already built and tested. If the appeal succeeds, switching cost is one env-var swap. Worth 3 days to find out.</td>
+        <td>2026-08-14</td>
+      </tr>
+      <tr>
+        <td><strong>6</strong></td>
+        <td><strong>CAD $299 native currency</strong> — not USD converted</td>
+        <td>Target market is Canadian founders and operators. Displaying CAD avoids conversion confusion and feels more local.</td>
+        <td>2026-08-14</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ACTIVITY TIMELINE -->
+<div class="section">
+  <div class="section-label">Activity Timeline — Aug 14, 2026</div>
+  <div class="timeline-item">
+    <div class="timeline-date">Aug 14 AM</div>
+    <div class="timeline-content">
+      <div class="timeline-title">Paddle setup &amp; sandbox checkout</div>
+      <div class="timeline-body">Paddle account created, product and price built in sandbox (CAD $299 one-time). Paddle.js integrated into meetings.html. Resolved 3 checkout errors: missing default payment link, domain approval mismatch (apex vs www), and route path stripping in Express router.</div>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">Aug 14</div>
+    <div class="timeline-content">
+      <div class="timeline-title">Webhook pipeline built &amp; debugged</div>
+      <div class="timeline-body">paddle-webhook.js written and mounted in server.js before express.json() (raw body preservation). Resolved 401 auth error (route was behind requireAuth), invalid signature (middleware ordering), and silent skip (Paddle simulation payloads exclude customer.email — fixed with Paddle API lookup using customer_id).</div>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">Aug 14</div>
+    <div class="timeline-content">
+      <div class="timeline-title">End-to-end sandbox purchase confirmed</div>
+      <div class="timeline-body">Real sandbox purchase (not simulation) completed on bynorthlight.ca/meetings.html using test card. Webhook fired, customer email fetched via Paddle API, Resend delivered download email. Installer download confirmed (GitHub Release URL 200'd). Full flow working.</div>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">Aug 14</div>
+    <div class="timeline-content">
+      <div class="timeline-title">Security hardening pass</div>
+      <div class="timeline-body">Added ts timestamp validation (replay protection, reject &gt;5min), in-memory idempotency store, Paddle API lookup retry (3x with backoff), Sentry capture on missed fulfillments. Casey's review prompted the hardening pass.</div>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">Aug 14</div>
+    <div class="timeline-content">
+      <div class="timeline-title">Live account built — appeal filed</div>
+      <div class="timeline-body">Rebuilt all Paddle config in live environment (product, price CAD $299, webhook, client token, API key added to Railway). Paddle rejected live account: bynorthlight.ca flagged as consulting/advisory domain. Appeal submitted same session arguing software product distinction. Page reverted to "Coming Soon" pending decision.</div>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-date">Aug 14</div>
+    <div class="timeline-content">
+      <div class="timeline-title">Legal pages published</div>
+      <div class="timeline-body">Terms of Service and Refund Policy written and pushed to bynorthlight.ca. Both include Paddle Merchant of Record language. Required by Paddle for account verification.</div>
+    </div>
+  </div>
+</div>
+
+<!-- LEARNINGS -->
+<div class="section">
+  <div class="section-label">Key Learnings</div>
+  <div class="card">
+    <div class="learning-item">
+      <div class="learning-title">Paddle simulation payloads exclude customer.email — always will</div>
+      <div class="learning-body">Simulations send customer_id only. Real transactions also don't expand the customer object. The fix is a Paddle API GET /customers/{id} call — which requires a server-side API key (not the client token). Always test fulfillment with a real sandbox purchase, not a simulation.</div>
+    </div>
+    <div class="learning-item">
+      <div class="learning-title">Express middleware ordering is critical for HMAC webhook verification</div>
+      <div class="learning-body">express.raw() must be registered before express.json() globally. Once express.json() parses the body, req.body is an object — req.body.toString() returns "[object Object]", not the raw JSON string. HMAC verification fails silently. Unauthenticated webhooks must mount before any body-parsing middleware.</div>
+    </div>
+    <div class="learning-item">
+      <div class="learning-title">Express router path stripping catches you when mounting with app.use()</div>
+      <div class="learning-body">When mounting a router with app.use('/api/paddle/webhook', router), Express strips the prefix before the router sees the request. The handler inside the router must be router.post('/'), not router.post('/api/paddle/webhook') — otherwise the route never matches.</div>
+    </div>
+    <div class="learning-item">
+      <div class="learning-title">Private GitHub repos 404 for anonymous installer downloads</div>
+      <div class="learning-body">GitHub release asset URLs require authentication for private repos — buyers get a 404. The installer is a distributed binary with no secrets in it. Making the repo public is the correct and simplest solution. Alternative: S3/R2 with a public bucket policy.</div>
+    </div>
+    <div class="learning-item">
+      <div class="learning-title">Paddle domain review assesses the whole site, not just the product</div>
+      <div class="learning-body">Paddle's automated review flagged bynorthlight.ca as a consulting firm, not a software company — even though the product being sold is standalone software. If your main domain describes consulting services, a Paddle application for software sold on the same domain may be rejected. Appeal is viable; Lemon Squeezy is a clean fallback with the same MoR model.</div>
+    </div>
+  </div>
+</div>
+
+<!-- OPEN ITEMS → PHASE 8 -->
+<div class="section">
+  <div class="section-label">Open Items → Phase 8</div>
+  <div class="card">
+    <div class="open-item">
+      <span class="badge badge-yellow">Blocked</span>
+      <div class="open-item-text">
+        <strong>Await Paddle live account appeal decision</strong>
+        <span>Expected ~2026-08-19. If approved: flip live token and push. If denied: migrate to Lemon Squeezy.</span>
+      </div>
+    </div>
+    <div class="open-item">
+      <span class="badge badge-blue">Ready</span>
+      <div class="open-item-text">
+        <strong>Switch meetings.html to live mode</strong>
+        <span>meetings.html already has live token + price ID. One push to go live once Paddle approves.</span>
+      </div>
+    </div>
+    <div class="open-item">
+      <span class="badge badge-dusk">Next</span>
+      <div class="open-item-text">
+        <strong>Set Paddle success URL</strong>
+        <span>Point to bynorthlight.ca/meetings-thankyou.html in Checkout Settings so buyers land on the download page immediately post-purchase (in addition to the email).</span>
+      </div>
+    </div>
+    <div class="open-item">
+      <span class="badge badge-dusk">Next</span>
+      <div class="open-item-text">
+        <strong>Kit waitlist form for Meetings</strong>
+        <span>No waitlist exists — currently showing "Coming Soon" with no capture mechanism. Create a Kit landing page or form for interested buyers during the appeal window.</span>
+      </div>
+    </div>
+    <div class="open-item">
+      <span class="badge badge-dusk">Future</span>
+      <div class="open-item-text">
+        <strong>Squirrel auto-updater</strong>
+        <span>Buyers currently download v1.0.0 manually. Future updates require a Squirrel update server so the app can update itself silently.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="padding: 24px 0 8px; border-top: 1px solid var(--border); font-size: 11px; color: var(--structural); text-align: center;">
+  Northlight PMO · Northlight Meetings Phase 7 · Generated 2026-08-14
+</div>
+
+</body>
+</html>

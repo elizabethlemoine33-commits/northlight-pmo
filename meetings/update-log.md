@@ -4,6 +4,7 @@
 
 | Date | Phase | Summary | Status |
 |---|---|---|---|
+| 2026-08-14 | Phase 7 in progress | Commerce & Distribution — full purchase pipeline built and sandbox-verified (Paddle checkout → webhook → Resend email → GitHub installer download). Paddle live account rejected; appeal filed, decision expected ~2026-08-19. Page reverted to Coming Soon. | Phase 7 — 80% ⏳ Blocked |
 | 2026-07-13 | Phase 6 complete | Audio Reliability — audio routing fixed (Realtek set as default), in-app audio check strip shipped with one-click Fix, GCP OAuth approved unblocking Gumroad storefront. | Phase 6 — 100% ✓ |
 | 2026-07-06 | Phase 5 complete | Post-Launch Polish — ZDR privacy policy update, consent reminder toggle + banner shipped in-app, case study rewritten with Proposal Mode first, PMI project entry completed, positioning doc created for CMO agent. | Phase 5 — 100% ✓ |
 | 2026-07-05 | Phase 4 complete | Launch Prep — all 4 items done. Privacy policy live, Replit retired, app packaged (Windows installer), credentials baked in, first-launch banner, case study published, template polish done. GCP OAuth verification submitted (awaiting Google review). | Phase 4 — 100% ✓ |

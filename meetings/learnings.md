@@ -1,5 +1,13 @@
 # Northlight Meetings — Learnings
 
+## Phase 7 — Commerce & Distribution (2026-08-14)
+
+- **Paddle simulation payloads exclude customer.email — always will.** Simulations send only customer_id. Real transactions also don't expand the customer object in webhook payloads. The fix is a Paddle API GET /customers/{id} call using a server-side API key. Always test fulfillment with a real sandbox purchase, not a simulation.
+- **Express middleware ordering is critical for HMAC webhook verification.** express.raw() must be registered before express.json(). Once express.json() runs, req.body is an object — signature verification fails because the raw string is gone. Unauthenticated webhooks must mount before any body-parsing middleware.
+- **Express router path stripping:** when mounting with app.use('/api/paddle/webhook', router), Express strips the prefix before the router sees it. The handler must be router.post('/'), not the full path.
+- **Private GitHub repos 404 for anonymous installer downloads.** Release asset URLs require authentication for private repos. The installer is a distributed binary — making the repo public is correct and simplest. Alternative: S3/R2 with public bucket.
+- **Paddle domain review assesses the whole site, not just the product.** A consulting firm's domain can block a software product's Paddle account. If the main site describes advisory services, consider Lemon Squeezy (same MoR model, less strict review) as a fallback.
+
 ## Phase 3 — Google Integrations (2026-07-04)
 
 - **Drive API and Docs API are separate GCP enablements.** Enabling the Drive API does not enable the Docs API. The batchUpdate call (replaceAllText) requires the Docs API to be enabled independently — easy to miss since both are "Google" APIs in the same project.
