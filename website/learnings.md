@@ -4,6 +4,12 @@
 
 ---
 
+## Phase 7 — Jekyll Templating & Services Page (2026-08-17)
+
+- The GEO audit's /100 denominators are misleading at the section level: Crawler Access maxes at 81 pts and Content Citability maxes at 90 pts — both displayed as /100. The composite formula uses raw scores directly, so the theoretical ceiling is ~93, not 100. Set Phase 8 targets relative to the actual ceiling, not 100.
+- Jekyll layout migration temporarily regressed GEO score (82→79) because new main-site pages were added without existing answer blocks, diluting the per-page ratio. Every new page added to Jekyll templating needs 2 answer blocks before or at deploy — not retroactively.
+- Numbered list conversion is the single largest recoverable GEO signal (currently 2/10 pts, ~7 pts available): must be treated as a first-class Phase 8 task, not an optional cleanup. Guide-format posts should use `1.` markdown from the point of writing; retroactive conversion requires post-by-post judgment.
+
 ## Phase 6 — Citation Authority & Content Production (2026-08-11)
 
 - The `seo_title` front matter field cleanly separates title tag length from H1 length — when post titles are naturally long for readability, a shorter `seo_title` gives SEO control (60 char limit) without compromising the heading. Worth enforcing as a standard at publish time for any post whose title exceeds ~45 characters.

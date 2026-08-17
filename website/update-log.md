@@ -6,6 +6,7 @@
 
 | Date | Session | What Shipped | Phase |
 |---|---|---|---|
+| 2026-08-17 | Phase 7 complete | Jekyll Templating & Services Page — Jekyll layout system (default.html, page.html, 3 includes), /services.html (advisory + 3 products + FAQ + schema), hamburger nav, mobile responsive fixes, 5 answer blocks on main pages, heading hierarchy fix, sameAs expanded to 10 links · GEO 82→80 (migration regression partially recovered) | Phase 7 |
 | 2026-08-11 | Phase 6 complete | Citation Authority & Content Production — 30/30 tasks shipped · GEO 65→82 · blog 30→31 posts · /resources.html live (12 cards) · PM tools guide published | Phase 6 |
 | 2026-08-09 | Phase 6 session 6 | Market-Aware COO published (spiral SVG + 12 inline academic citations) · GEO audit page limit fixed 30→75 + 8s timeout pushed to dispatcher · 2 LinkedIn posts queued for Market-Aware COO · GEO re-run confirmed 82/100 overall (up from 65 pre-phase, Content Citability 74, Technical SEO 100, Schema 92) · 13/18 tasks complete | Phase 6 |
 | 2026-08-09 | Phase 6 session 4 | "What Is a Fractional COO?" blog post published (Jekyll/GitHub Pages) · Content pipeline fixes: LOCKED_FAQ_ANCHORS + Facts Clearance Step in content-strategist.js + drafter safety net · "Operations Built for Growth" knowledge repo: v0.1 preservation bundle + v0.2 framework map, foundational doc, research agenda pushed to GitHub · 8/16 tasks complete | Phase 6 |
