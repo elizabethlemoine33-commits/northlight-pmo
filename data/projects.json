@@ -1,7 +1,7 @@
 {
-  "refreshed_at": "2026-08-16T22:00:16.369Z",
-  "triggered_by": "schedule",
-  "open_total": 1,
+  "refreshed_at": "2026-08-17T22:20:39.215Z",
+  "triggered_by": "phase-dashboard-commit",
+  "open_total": 3,
   "projects": [
     {
       "id": "northlight-os",
@@ -15,14 +15,23 @@
       "current_phase_title": "TBD",
       "phase_started": "2026-08-12",
       "open_count": 0,
-      "backlog_count": 2,
+      "backlog_count": 0,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 0,
+      "done_count": 2,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
-      "done_items": [],
+      "done_items": [
+        {
+          "name": "review where Morgan pulls todays date from for meetings. the wrong date meant 2 rounds were spent fixing expectations of data",
+          "priority": "normal"
+        },
+        {
+          "name": "review where Devon and Rowan are pulling their data from and how up to date it is",
+          "priority": "normal"
+        }
+      ],
       "decisions": [],
       "blockers": []
     },
@@ -94,21 +103,55 @@
       "status": "live",
       "github": "https://github.com/elizabethlemoine33-commits/bynorthlight-site",
       "clickup_list_id": "901715263634",
-      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/website/phase-6.html",
-      "current_phase": "7",
-      "current_phase_title": "TBD",
-      "phase_started": "2026-08-11",
-      "open_count": 0,
-      "backlog_count": 5,
+      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/website/phase-7.html",
+      "current_phase": "8",
+      "current_phase_title": "Content Citability Recovery & Investigation",
+      "phase_started": "2026-08-17",
+      "open_count": 2,
+      "backlog_count": 12,
       "ready_count": 0,
-      "in_progress_count": 0,
-      "done_count": 1,
-      "top_items": [],
+      "in_progress_count": 2,
+      "done_count": 13,
+      "top_items": [
+        {
+          "name": "GEO rerun - geo_audit.py after all Phase 7 changes deployed",
+          "priority": "normal"
+        },
+        {
+          "name": "GEO rerun � geo_audit.py � target 89+ from 82/100 baseline",
+          "priority": "normal"
+        }
+      ],
       "ready_items": [],
-      "in_progress_items": [],
+      "in_progress_items": [
+        {
+          "name": "GEO rerun - geo_audit.py after all Phase 7 changes deployed",
+          "priority": "normal"
+        },
+        {
+          "name": "GEO rerun � geo_audit.py � target 89+ from 82/100 baseline",
+          "priority": "normal"
+        }
+      ],
       "done_items": [
         {
-          "name": "Write comparison post: Project management tools for small business operators",
+          "name": "sameAs expansion - add EveryExpert URL to Organization schema on index.html",
+          "priority": "normal"
+        },
+        {
+          "name": "Create llms.txt - AI agent reachability (Oomira fix)",
+          "priority": "normal"
+        },
+        {
+          "name": "DONE: Nav link update - Services to /services.html across all pages",
+          "priority": "normal"
+        },
+        {
+          "name": "DONE: Build /services.html - advisory, products, support, schema",
+          "priority": "normal"
+        },
+        {
+          "name": "DONE: Jekyll includes + layouts - nav, footer, newsletter, default, page",
           "priority": "normal"
         }
       ],
