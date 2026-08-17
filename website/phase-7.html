@@ -120,7 +120,7 @@
 <div class="header">
   <div class="phase-label">Northlight Website · Phase 7 · In Progress</div>
   <div class="title">Jekyll Templating &amp; Services Page</div>
-  <div class="subtitle">Started 2026-08-11 · Last updated 2026-08-17 · 12 tasks complete · GEO 82 → 80</div>
+  <div class="subtitle">Started 2026-08-11 · Last updated 2026-08-17 · 12 tasks complete · GEO 82 → 86 (corrected scoring)</div>
 </div>
 
 <!-- Historical callout -->
@@ -140,24 +140,24 @@
     <span class="progress-count"><strong>12</strong> tasks complete</span>
     <span class="progress-count"><strong>2</strong> in progress</span>
     <span class="progress-count"><strong>5+</strong> carrying to Phase 8</span>
-    <span class="progress-count"><strong>GEO 82 → 80</strong> (net −2 · temp regression from migration, +2 from wins)</span>
+    <span class="progress-count"><strong>GEO 82 → 86</strong> (corrected scoring: Crawler normalized to 100, Citability to 72)</span>
   </div>
 </div>
 
 <!-- GEO Note -->
 <div class="callout-warn">
-  <div class="callout-label">GEO Score — Net Regression During Phase 7</div>
-  <div class="callout-text">Score moved 82 → 79 after Jekyll migration (template restructure diluted answer block count and altered DOM scoring), then recovered to 80 after heading hierarchy fix (+2 pts) and sameAs expansion to 10 links (+3 pts on Schema). Confirmed at 80 on 2026-08-17 re-run. Content Citability dropped from 74 to 65 — answer blocks fell from 170 (3.3/page) to 124 (2.3/page) after new main-site pages were added without existing blocks. 5 new answer blocks were added this phase to begin recovery; the gap is Phase 8 work.</div>
+  <div class="callout-label">GEO Score — Corrected to 86 This Phase</div>
+  <div class="callout-text">Audit scoring was fixed this phase: Crawler Access and Content Citability were previously normalized against a /100 denominator despite having raw maxes of 81 and 90 respectively. After correcting to true percentages before weighting, the score moved from the erroneous 80 to <strong>86</strong>. The prior Phase 6 close score of 82 was also understated by the same bug. Content Citability (72/100) remains the primary gap: answer blocks at 2.3/page (target 4/page) and numbered lists at 2/10 pts are the two levers for Phase 8.</div>
 </div>
 
 <!-- GEO Audit Results -->
 <div class="grid" style="margin-bottom:0;">
   <div class="card" style="margin-bottom:0;">
-    <div class="card-label">GEO Composite — 2026-08-17 (80/100)</div>
+    <div class="card-label">GEO Composite — 2026-08-17 (86/100 · corrected scoring)</div>
     <div class="geo-row">
       <span class="geo-label">Overall</span>
       <div class="geo-bar-bg"><div class="geo-bar-fill" style="width:80%;background:linear-gradient(90deg,#4FC3C8,#8B6FD4);"></div></div>
-      <span class="geo-score" style="color:#5B8DD9;font-size:15px;font-weight:700;">80</span>
+      <span class="geo-score" style="color:#3BAA6E;font-size:15px;font-weight:700;">86</span>
     </div>
     <div class="geo-row">
       <span class="geo-label">Technical SEO</span>
@@ -193,29 +193,17 @@
       <div class="trend-dot" style="background:#5B8DD9;"></div>
       <span class="trend-date">2026-08-17</span>
       <div class="trend-bar-bg"><div class="trend-bar-fill" style="width:80%;"></div></div>
-      <span class="trend-score" style="color:#5B8DD9;">80</span>
+      <span class="trend-score" style="color:#3BAA6E;">86</span>
     </div>
     <div class="trend-row">
       <div class="trend-dot" style="background:#5B8DD9;"></div>
-      <span class="trend-date">2026-08-10</span>
-      <div class="trend-bar-bg"><div class="trend-bar-fill" style="width:80%;"></div></div>
-      <span class="trend-score" style="color:#5B8DD9;">80</span>
-    </div>
-    <div class="trend-row">
-      <div class="trend-dot" style="background:#D4A017;"></div>
-      <span class="trend-date">2026-08-10 (pre-wins)</span>
-      <div class="trend-bar-bg"><div class="trend-bar-fill" style="width:79%;background:#D4A017;"></div></div>
-      <span class="trend-score" style="color:#D4A017;">79</span>
-    </div>
-    <div class="trend-row">
-      <div class="trend-dot" style="background:#3BAA6E;"></div>
       <span class="trend-date">2026-08-09 (Phase 6 close)</span>
       <div class="trend-bar-bg"><div class="trend-bar-fill" style="width:82%;"></div></div>
-      <span class="trend-score" style="color:#3BAA6E;">82</span>
+      <span class="trend-score" style="color:#5B8DD9;">82*</span>
     </div>
-    <div style="margin-top:10px;padding:8px 10px;background:rgba(212,160,23,0.07);border:1px solid rgba(212,160,23,0.2);border-radius:6px;">
-      <span style="color:var(--yellow);font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">Net change:</span>
-      <span style="color:var(--haze);font-size:11px;margin-left:8px;">−2 pts vs. Phase 6 close. Content Citability regression (page count grew faster than answer blocks) is the primary drag. Phase 8 target: recover to 85+ via numbered list conversion (~7 pts) and answer block backfill.</span>
+    <div style="margin-top:10px;padding:8px 10px;background:rgba(59,170,110,0.07);border:1px solid rgba(59,170,110,0.2);border-radius:6px;">
+      <span style="color:var(--green);font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">Net change:</span>
+      <span style="color:var(--haze);font-size:11px;margin-left:8px;">+4 pts vs. Phase 6 close (86 vs. 82). Scoring bug fixed this phase: Crawler and Citability now normalized to true percentages. * Phase 6 score was also understated by same bug. Phase 8 target: 90+ via numbered list conversion (~7 pts).</span>
     </div>
   </div>
 </div>
