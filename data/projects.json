@@ -1,5 +1,5 @@
 {
-  "refreshed_at": "2026-08-19T11:00:16.584Z",
+  "refreshed_at": "2026-08-30T22:00:49.063Z",
   "triggered_by": "schedule",
   "open_total": 2,
   "projects": [
@@ -111,7 +111,7 @@
       "backlog_count": 2,
       "ready_count": 1,
       "in_progress_count": 0,
-      "done_count": 27,
+      "done_count": 29,
       "top_items": [
         {
           "name": "Decide: payment processor for Meetings (Paddle vs Stripe) � complete services.html refund block",
@@ -135,15 +135,15 @@
           "priority": "normal"
         },
         {
+          "name": "Review about page - could any sections be collapsed?",
+          "priority": "normal"
+        },
+        {
           "name": "GEO rerun - geo_audit.py after all Phase 7 changes deployed",
           "priority": "normal"
         },
         {
           "name": "sameAs expansion - add EveryExpert URL to Organization schema on index.html",
-          "priority": "normal"
-        },
-        {
-          "name": "GEO quick win - convert ul to ol in guide-format blog posts",
           "priority": "normal"
         }
       ],
