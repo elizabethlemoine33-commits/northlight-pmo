@@ -4,6 +4,15 @@
 
 ---
 
+## Phase 8 — Homepage Rebuild — Pain-Led Positioning & GEO Enrichment (2026-09-28)
+
+- LinkedIn engagement rate and link clicks measure different things for a CEO/founder audience: publicly reacting to a post about your own operational struggles carries social cost, clicking a link doesn't. The lowest-engagement-rate post in the sample had the only real clicks. Weight clicks over reactions when deciding which persona/framing to lead with for this audience.
+- A recurring voice signature (Elizabeth's "that's not X, it's Y" reframe) reads as authentic once per piece and as AI-templated when repeated — the pattern itself isn't the problem, frequency is. Applies to any writer's real verbal tics, not just this one.
+- The geo_audit.py tool has a real bug: `discover_pages()` passes an explicit `timeout=` into `get()`, which already hardcodes its own `timeout=`, causing every per-page fetch to raise and get silently swallowed as "skipped." Not fixed this phase (worked around in a standalone comparison script) — worth fixing at the source before the next full site-wide GEO run.
+- The GEO composite score is a whole-site aggregate — a single page's content changes are mathematically too small a fraction of 71 pages to move it, even when the page-level change is real and substantial. To measure one page's actual GEO impact, score that page in isolation with the same scoring functions, not the site-wide composite.
+- Numbered-list conversion (div→`<ol><li>`) was the single largest recoverable Content Citability lever this phase, exactly as Phase 7's own learnings predicted — and it required zero visual change, just more semantically correct markup on content that was already list-shaped.
+- Schema type diversity has a real trap: a "founder" field nested inside an Organization block doesn't register as a standalone Person type for scoring or for AI entity recognition — it needs its own top-level `@id` in the graph, referenced by, not duplicated in, the parent.
+
 ## Phase 7 — Jekyll Templating & Services Page (2026-08-17)
 
 - The GEO audit's /100 denominators are misleading at the section level: Crawler Access maxes at 81 pts and Content Citability maxes at 90 pts — both displayed as /100. The composite formula uses raw scores directly, so the theoretical ceiling is ~93, not 100. Set Phase 8 targets relative to the actual ceiling, not 100.

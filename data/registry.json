@@ -93,16 +93,17 @@
       "drive_brief": null,
       "pmo_folder": "website/",
       "clickup_list_id": "901715263634",
-      "current_phase": "7",
-      "current_phase_title": "Jekyll Templating & Services Page",
-      "phase_started": "2026-08-11",
+      "current_phase": "8",
+      "current_phase_title": "Homepage Rebuild — Pain-Led Positioning & GEO Enrichment",
+      "phase_started": "2026-09-28",
       "phases": [
+        { "phase": "7", "title": "Jekyll Templating & Services Page", "started": "2026-08-11", "closed": "2026-08-19" },
         { "phase": "6", "title": "Citation Authority & Content Production", "started": "2026-08-07", "closed": "2026-08-11" },
         { "phase": "5", "title": "Jekyll Migration & SEO/GEO/AEO Foundation", "started": "2026-08-05", "closed": "2026-08-07" },
         { "phase": "4", "title": "Content Depth & Thought Leadership", "started": "2026-07-11", "closed": "2026-07-24" }
       ],
       "registered": "2026-05-24",
-      "last_refreshed": "2026-08-07"
+      "last_refreshed": "2026-09-28"
     },
     {
       "id": "skills-market",
