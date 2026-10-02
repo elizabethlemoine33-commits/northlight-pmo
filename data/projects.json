@@ -1,7 +1,7 @@
 {
-  "refreshed_at": "2026-08-30T22:00:49.063Z",
-  "triggered_by": "schedule",
-  "open_total": 2,
+  "refreshed_at": "2026-10-02T14:31:32.094Z",
+  "triggered_by": "phase-dashboard-commit",
+  "open_total": 55,
   "projects": [
     {
       "id": "northlight-os",
@@ -10,28 +10,19 @@
       "status": "live",
       "github": "https://github.com/elizabethlemoine33-commits/northlight-dispatcher",
       "clickup_list_id": "901715263627",
-      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/os/phase-14.html",
+      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/os/phase-15.html",
       "current_phase": "15",
-      "current_phase_title": "TBD",
-      "phase_started": "2026-08-12",
+      "current_phase_title": "Retire Blue Bear, Social Posts & Sonnet 5.5 Migration",
+      "phase_started": "2026-10-02",
       "open_count": 0,
-      "backlog_count": 0,
+      "backlog_count": 5,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 2,
+      "done_count": 0,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
-      "done_items": [
-        {
-          "name": "review where Morgan pulls todays date from for meetings. the wrong date meant 2 rounds were spent fixing expectations of data",
-          "priority": "normal"
-        },
-        {
-          "name": "review where Devon and Rowan are pulling their data from and how up to date it is",
-          "priority": "normal"
-        }
-      ],
+      "done_items": [],
       "decisions": [],
       "blockers": []
     },
@@ -46,28 +37,22 @@
       "current_phase": "7",
       "current_phase_title": "Commerce & Distribution",
       "phase_started": "2026-08-14",
-      "open_count": 1,
+      "open_count": 0,
       "backlog_count": 0,
       "ready_count": 0,
-      "in_progress_count": 1,
-      "done_count": 1,
-      "top_items": [
-        {
-          "name": "Set up Paddle storefront � Vault + Meetings distribution",
-          "priority": "normal"
-        }
-      ],
+      "in_progress_count": 0,
+      "done_count": 2,
+      "top_items": [],
       "ready_items": [],
-      "in_progress_items": [
-        {
-          "name": "Set up Paddle storefront � Vault + Meetings distribution",
-          "priority": "normal"
-        }
-      ],
+      "in_progress_items": [],
       "done_items": [
         {
           "name": "VB-Audio Cable: handle installation for new users at packaging/distribution",
           "priority": "high"
+        },
+        {
+          "name": "Set up Paddle storefront � Vault + Meetings distribution",
+          "priority": "normal"
         }
       ],
       "decisions": [],
@@ -103,47 +88,75 @@
       "status": "live",
       "github": "https://github.com/elizabethlemoine33-commits/bynorthlight-site",
       "clickup_list_id": "901715263634",
-      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/website/phase-7.html",
-      "current_phase": "7",
-      "current_phase_title": "Jekyll Templating & Services Page",
-      "phase_started": "2026-08-11",
-      "open_count": 1,
-      "backlog_count": 2,
-      "ready_count": 1,
+      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/website/phase-8.html",
+      "current_phase": "8",
+      "current_phase_title": "Homepage Rebuild — Pain-Led Positioning & GEO Enrichment",
+      "phase_started": "2026-09-28",
+      "open_count": 55,
+      "backlog_count": 14,
+      "ready_count": 55,
       "in_progress_count": 0,
-      "done_count": 29,
+      "done_count": 12,
       "top_items": [
         {
-          "name": "Decide: payment processor for Meetings (Paddle vs Stripe) � complete services.html refund block",
-          "priority": "normal"
+          "name": "Confirm subscribe flow still works",
+          "priority": "low"
+        },
+        {
+          "name": "Define what 'activating' a referral relationship looks like",
+          "priority": "low"
+        },
+        {
+          "name": "Decide on activating Spencer Scherer relationship",
+          "priority": "low"
+        },
+        {
+          "name": "Decide on activating Ed Grant relationship",
+          "priority": "low"
         }
       ],
       "ready_items": [
         {
-          "name": "Decide: payment processor for Meetings (Paddle vs Stripe) � complete services.html refund block",
+          "name": "Confirm subscribe flow still works",
+          "priority": "low"
+        },
+        {
+          "name": "Define what 'activating' a referral relationship looks like",
+          "priority": "low"
+        },
+        {
+          "name": "Decide on activating Spencer Scherer relationship",
+          "priority": "low"
+        },
+        {
+          "name": "Decide on activating Ed Grant relationship",
+          "priority": "low"
+        },
+        {
+          "name": "Decide next step on Revenue Engine proposal",
           "priority": "normal"
         }
       ],
       "in_progress_items": [],
       "done_items": [
         {
-          "name": "Create GrowthMentor free advisor profile",
+          "name": "Update schema/sameAs entries",
           "priority": "normal"
         },
         {
-          "name": "Create UpCity free consultant profile",
+          "name": "Re-check AEO phrasing vs. baseline",
           "priority": "normal"
         },
         {
-          "name": "Review about page - could any sections be collapsed?",
-          "priority": "normal"
+          "name": "Red-pen pass on full draft",
+          "priority": "high"
         },
         {
-          "name": "GEO rerun - geo_audit.py after all Phase 7 changes deployed",
-          "priority": "normal"
+          "name": "Trim duplicate FAQ copy",
+          "priority": "low"
         },
         {
-          "name": "sameAs expansion - add EveryExpert URL to Organization schema on index.html",
+          "name": "Trim comparison table",
           "priority": "normal"
         }
       ],
