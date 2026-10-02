@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northlight OS — Phase 15 PMO Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --midnight: #0E0E14;
+    --surface:  #12121E;
+    --border:   #1E2035;
+    --border2:  #2A2A48;
+    --text:     #FFFFFF;
+    --cloud:    #C8CCE0;
+    --haze:     #B0B8D8;
+    --muted:    #8A92A8;
+    --glacial:  #4FC3C8;
+    --boreal:   #5B8DD9;
+    --dusk:     #8B6FD4;
+    --aurora:   #C46FAA;
+    --green:    #3BAA6E;
+    --yellow:   #D4A017;
+    --red:      #C44F4F;
+  }
+  body { background: var(--midnight); color: var(--cloud); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; padding: 32px; }
+  .top-bar { height: 3px; background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%); margin: -32px -32px 32px; }
+
+  .header { margin-bottom: 28px; }
+  .phase-label { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dusk); margin-bottom: 6px; }
+  .title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+  .subtitle { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+  .callout { background: rgba(91,141,217,0.08); border: 1px solid rgba(91,141,217,0.22); border-radius: 8px; padding: 12px 16px; margin-bottom: 24px; color: var(--haze); font-size: 12px; line-height: 1.5; }
+  .callout strong { color: var(--cloud); }
+  .callout-green { background: rgba(59,170,110,0.07); border: 1px solid rgba(59,170,110,0.22); }
+  .callout-aurora { background: rgba(196,111,170,0.07); border: 1px solid rgba(196,111,170,0.22); }
+  .callout-yellow { background: rgba(212,160,23,0.07); border: 1px solid rgba(212,160,23,0.22); }
+
+  .progress-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
+  .progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .progress-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .progress-pct { font-size: 24px; font-weight: 700; color: var(--green); }
+  .progress-bar-bg { background: var(--border); border-radius: 4px; height: 6px; }
+  .progress-bar-fill { background: linear-gradient(90deg, #3BAA6E, #4FC3C8); border-radius: 4px; height: 6px; }
+  .progress-counts { display: flex; gap: 20px; margin-top: 10px; flex-wrap: wrap; }
+  .progress-count { font-size: 11px; color: var(--muted); }
+  .progress-count strong { color: var(--cloud); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .card-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+
+  .badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .badge-done    { background: rgba(59,170,110,0.15); color: #3BAA6E; border: 1px solid rgba(59,170,110,0.3); }
+  .badge-process { background: rgba(196,111,170,0.10); color: var(--aurora); border: 1px solid rgba(196,111,170,0.3); }
+  .badge-high    { background: rgba(196,80,80,0.12); color: var(--red); border: 1px solid rgba(196,80,80,0.3); }
+  .badge-normal  { background: rgba(91,141,217,0.10); color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
+  .badge-low     { background: rgba(138,146,168,0.10); color: var(--muted); border: 1px solid rgba(138,146,168,0.3); }
+
+  .decision-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .decision-item:last-child { border-bottom: none; }
+  .decision-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .decision-rationale { color: var(--muted); font-size: 11px; margin-top: 2px; line-height: 1.5; }
+
+  .learning-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .learning-item:last-child { border-bottom: none; }
+  .learning-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .learning-body { color: var(--muted); font-size: 11px; margin-top: 2px; line-height: 1.5; }
+
+  .activity-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-date { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+  .activity-text { color: var(--cloud); font-size: 12px; line-height: 1.5; }
+
+  .open-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .open-item:last-child { border-bottom: none; }
+  .open-item-text { flex: 1; color: var(--haze); font-size: 11px; line-height: 1.5; }
+  .open-item-id { color: var(--muted); font-size: 10px; font-family: monospace; margin-top: 2px; }
+
+  .feature-block { background: rgba(79,195,200,0.04); border: 1px solid rgba(79,195,200,0.15); border-radius: 8px; padding: 14px 16px; margin-bottom: 12px; }
+  .feature-block:last-child { margin-bottom: 0; }
+  .feature-block-b { background: rgba(139,111,212,0.04); border-color: rgba(139,111,212,0.15); }
+  .feature-block-c { background: rgba(59,170,110,0.04); border-color: rgba(59,170,110,0.15); }
+  .feature-block-d { background: rgba(196,111,170,0.04); border-color: rgba(196,111,170,0.15); }
+  .feature-name { color: var(--glacial); font-size: 12px; font-weight: 600; margin-bottom: 8px; }
+  .feature-name-b { color: var(--dusk); }
+  .feature-name-c { color: var(--green); }
+  .feature-name-d { color: var(--aurora); }
+  .feature-files { display: flex; flex-direction: column; gap: 3px; }
+  .feature-file { font-size: 10px; color: var(--muted); font-family: monospace; }
+  .feature-desc { font-size: 11px; color: var(--haze); line-height: 1.5; margin-bottom: 6px; }
+
+  .incident-block { background: rgba(196,79,79,0.06); border: 1px solid rgba(196,79,79,0.2); border-radius: 8px; padding: 14px 16px; margin-bottom: 16px; }
+  .incident-title { color: var(--red); font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+  .incident-text { color: var(--haze); font-size: 11px; line-height: 1.5; }
+
+  .stat-row { display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+  .stat-chip { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 8px 14px; text-align: center; }
+  .stat-num { font-size: 20px; font-weight: 700; color: var(--red); line-height: 1; }
+  .stat-label { font-size: 9px; color: var(--muted); font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 3px; }
+
+  .arch-tier { border-left: 2px solid var(--border2); padding-left: 14px; margin-bottom: 12px; }
+  .arch-tier:last-child { margin-bottom: 0; }
+  .arch-tier-title { font-size: 11px; font-weight: 600; color: var(--cloud); margin-bottom: 4px; }
+  .arch-tier-body { font-size: 11px; color: var(--muted); line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+<div class="header">
+  <div class="phase-label">Northlight OS · Phase 15</div>
+  <div class="title">Retire Blue Bear, Social Posts &amp; Sonnet 5.5 Migration</div>
+  <div class="subtitle">2026-10-02 → in progress &nbsp;·&nbsp; <span style="color:var(--yellow)">In progress</span> &nbsp;·&nbsp; 3 briefs, 3 deploys</div>
+</div>
+<div class="callout callout-green"><strong>Phase 14 — ClickUp Resilience &amp; Advisory Board Automation</strong> closed August 12 with the batch endpoint, caching and the advisory board review shipped.</div>
+<div class="callout callout-yellow"><strong>Why this phase:</strong> Blue Bear is no longer a client, so OS should stop asking about it (the Friday Slack nudge). Social post flow needs review. Anthropic is retiring Sonnet 4.5, so every call site moves to Sonnet 5.5. Briefs arrive one at a time and each is tested before the next starts.</div>
+<div class="progress-section">
+  <div class="progress-header"><div class="progress-label">Phase progress</div><div class="progress-pct">5%</div></div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:5%"></div></div>
+  <div class="progress-counts"><div class="progress-count"><strong>0</strong> of 3 briefs complete</div><div class="progress-count">Brief 1 in progress</div></div>
+</div>
+<div class="grid">
+  <div class="card"><div class="card-label">Brief 1 — Retire Blue Bear</div><div class="open-item"><span class="badge badge-process">In progress</span><div class="open-item-text"><strong>Step 1 — Remove Blue Bear routing</strong><br>task-intake.js LIST_ROUTING (5 entries), parking.js bluebeat route, space-status.js and file-output.js dead entries, clarify.js comment. Fixes intake/parking pointing at deleted ClickUp lists.</div></div><div class="open-item"><span class="badge badge-normal">Queued</span><div class="open-item-text"><strong>Step 2 — Generic client review + "active clients" switch</strong><br>Drive-JSON setting (default off), Clients tab toggle + route, Friday step skips silently when off (no Slack, no alert, no Anthropic call).</div></div><div class="open-item"><span class="badge badge-normal">Queued</span><div class="open-item-text"><strong>Step 3 — Rename to client wording</strong><br>client-review.js (skill + route), /api/client-review, Slack text, client-learnings Drive file with fallback read to blue-bear-learnings, manual/specs, one dated update-log entry.</div></div><div class="open-item"><span class="badge badge-normal">Queued</span><div class="open-item-text"><strong>Test, merge, deploy</strong><br>8-point test list on the branch, merge to main, Railway redeploy, confirm Friday 9 Oct runs with no Slack nudge.</div></div></div>
+  <div class="card"><div class="card-label">Briefs 2 &amp; 3</div><div class="open-item"><span class="badge badge-low">Awaiting brief</span><div class="open-item-text"><strong>Brief 2 — Social media posts</strong><br>Review how social posts are going through the system. Scope to be supplied by Elizabeth.</div></div><div class="open-item"><span class="badge badge-low">Awaiting brief</span><div class="open-item-text"><strong>Brief 3 — Sonnet 4.5 → 5.5 migration</strong><br>Anthropic retiring Sonnet 4.5. 16 call sites, 2 of them in the review skill; 14 remain after Brief 1. Separate branch and deploy so problems are easy to trace.</div></div></div>
+</div>
+<div class="grid">
+  <div class="card"><div class="card-label">Decisions log</div><div class="decision-item"><div class="decision-title">Blue Bear removed entirely rather than parked</div><div class="decision-rationale">Not a client any more; the Friday nudge was the problem. Review kept as a generic client review behind an off-by-default switch.</div></div><div class="decision-item"><div class="decision-title">Setting stored in Drive JSON, not a Railway env var</div><div class="decision-rationale">Guardrail: no new env vars without confirmation. Matches how other OS state is kept.</div></div><div class="decision-item"><div class="decision-title">Three briefs, three deploys, in order</div><div class="decision-rationale">Blue Bear first so the migration covers 14 call sites, not 16; separate deploys keep faults traceable.</div></div><div class="decision-item"><div class="decision-title">ClickUp untouched by code</div><div class="decision-rationale">Client Work space (90175788400) already deleted by Elizabeth on 2026-10-02.</div></div></div>
+  <div class="card"><div class="card-label">Activity timeline</div>
+    <div class="activity-item"><div class="activity-date">2026-10-02</div><div class="activity-text">Blue Bear ClickUp space deleted by Elizabeth (35 archived tasks). Brief 1 received; Phase 15 dashboard opened.</div></div>
+  </div>
+</div>
+<div class="card"><div class="card-label">Done criteria for Brief 1</div>
+  <div class="open-item-text">Branch merged · Railway redeployed · Friday 9 Oct passes with no Slack nudge · update-log entry dated · then start the Sonnet migration brief.</div>
+</div>
+</body>
+</html>
