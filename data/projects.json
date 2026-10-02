@@ -1,5 +1,5 @@
 {
-  "refreshed_at": "2026-10-02T14:31:32.094Z",
+  "refreshed_at": "2026-10-02T20:01:01.178Z",
   "triggered_by": "phase-dashboard-commit",
   "open_total": 55,
   "projects": [
@@ -15,7 +15,7 @@
       "current_phase_title": "Retire Blue Bear, Social Posts & Sonnet 5.5 Migration",
       "phase_started": "2026-10-02",
       "open_count": 0,
-      "backlog_count": 5,
+      "backlog_count": 7,
       "ready_count": 0,
       "in_progress_count": 0,
       "done_count": 0,
