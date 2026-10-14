@@ -4,6 +4,14 @@
 
 ---
 
+## Phase 9 — Site Rework: Who We Help, Case Studies & Site Standards (2026-10-13)
+
+- A global `a:visited { color: ... }` rule in the default layout silently overrides class-based link colours for any link a visitor has already seen, which is why the same pill looked different in two states. Fix link colour at the root rule, not link by link, and test the visited state.
+- Hand-copied footers drift: five standalone pages had their own footer copies with different link sets, one was never closed in the HTML, and the blog, news, privacy and case-study pages each had another. One shared include with front matter on the standalone pages ended it. Check how many copies of a "shared" element really exist by grepping the built site, not from memory. I told Elizabeth the blog used the shared footer and was wrong.
+- When a design choice is a matter of taste (link colour, arrow colour), build a side-by-side demo of the options before changing the site. Elizabeth chose from six options in one message instead of three rounds of guessing.
+- Close backlog tasks only after reading each task's description and checking the live site. Of eight tasks that looked done from their titles, five matched and three did not.
+- A scope list written before a rework goes stale quickly: the Clarity Call, the "stories" framing and the footer explainer were all overtaken by decisions made during the work. Re-read the open list at each phase close.
+
 ## Phase 8 — Homepage Rebuild — Pain-Led Positioning & GEO Enrichment (2026-09-28)
 
 - LinkedIn engagement rate and link clicks measure different things for a CEO/founder audience: publicly reacting to a post about your own operational struggles carries social cost, clicking a link doesn't. The lowest-engagement-rate post in the sample had the only real clicks. Weight clicks over reactions when deciding which persona/framing to lead with for this audience.
