@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northlight Website — Phase 9 PMO Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --midnight: #0E0E14;
+    --surface:  #12121E;
+    --border:   #1E2035;
+    --border2:  #2A2A48;
+    --text:     #FFFFFF;
+    --cloud:    #C8CCE0;
+    --haze:     #B0B8D8;
+    --muted:    #8A92A8;
+    --glacial:  #4FC3C8;
+    --boreal:   #5B8DD9;
+    --dusk:     #8B6FD4;
+    --aurora:   #C46FAA;
+    --green:    #3BAA6E;
+    --yellow:   #D4A017;
+    --red:      #C44F4F;
+  }
+  body { background: var(--midnight); color: var(--cloud); font-family: 'Outfit', 'Segoe UI', system-ui, sans-serif; font-size: 13px; padding: 32px; }
+  .top-bar { height: 3px; background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%); margin: -32px -32px 32px; }
+
+  .header { margin-bottom: 28px; }
+  .phase-label { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--boreal); margin-bottom: 6px; }
+  .title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; font-family: 'Jost', sans-serif; }
+  .subtitle { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+  .progress-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
+  .progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .progress-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .progress-pct { font-size: 24px; font-weight: 700; color: var(--text); }
+  .progress-bar-bg { background: var(--border); border-radius: 4px; height: 6px; }
+  .progress-bar-fill { background: linear-gradient(90deg, #4FC3C8, #8B6FD4); border-radius: 4px; height: 6px; }
+  .progress-counts { display: flex; gap: 20px; margin-top: 10px; flex-wrap: wrap; }
+  .progress-count { font-size: 11px; color: var(--muted); }
+  .progress-count strong { color: var(--cloud); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; margin-bottom: 16px; }
+  .card-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .card-title { font-size: 14px; font-weight: 600; color: var(--cloud); margin-bottom: 6px; }
+
+  .block-table { width: 100%; border-collapse: collapse; }
+  .block-table th { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 0 6px 8px; text-align: left; border-bottom: 1px solid var(--border); }
+  .block-table th:first-child { padding-left: 0; }
+  .block-table td { padding: 7px 6px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .block-table td:first-child { padding-left: 0; }
+  .block-table tr:last-child td { border-bottom: none; }
+  .block-name { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .block-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .badge-done       { background: rgba(59,170,110,0.15);  color: #3BAA6E;       border: 1px solid rgba(59,170,110,0.3); }
+  .badge-inprogress { background: rgba(91,141,217,0.15);  color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
+  .badge-open       { background: rgba(138,146,168,0.10); color: var(--muted);  border: 1px solid var(--border); }
+  .badge-high       { background: rgba(196,111,170,0.12); color: var(--aurora); border: 1px solid rgba(196,111,170,0.25); }
+  .badge-normal     { background: rgba(91,141,217,0.10);  color: var(--boreal); border: 1px solid rgba(91,141,217,0.2); }
+  .badge-low        { background: rgba(138,146,168,0.08); color: var(--muted);  border: 1px solid var(--border); }
+
+  .callout { background: rgba(91,141,217,0.07); border: 1px solid rgba(91,141,217,0.2); border-radius: 8px; padding: 12px 14px; margin-bottom: 16px; }
+  .callout-label { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--boreal); margin-bottom: 6px; }
+  .callout-text { color: var(--haze); font-size: 12px; line-height: 1.65; }
+
+  .callout-warn { background: rgba(196,111,170,0.07); border: 1px solid rgba(196,111,170,0.2); border-radius: 8px; padding: 12px 14px; margin-bottom: 16px; }
+  .callout-warn .callout-label { color: var(--aurora); }
+
+  .callout-urgent { background: rgba(212,160,23,0.07); border: 1px solid rgba(212,160,23,0.25); border-radius: 8px; padding: 12px 14px; margin-bottom: 16px; }
+  .callout-urgent .callout-label { color: var(--yellow); }
+
+  .callout-green { background: rgba(59,170,110,0.07); border: 1px solid rgba(59,170,110,0.2); border-radius: 8px; padding: 12px 14px; margin-bottom: 16px; }
+  .callout-green .callout-label { color: var(--green); }
+
+  .section-divider { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); padding: 6px 0 10px; border-bottom: 1px solid var(--border); margin-bottom: 14px; margin-top: 20px; }
+
+  .issue-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .issue-item:last-child { border-bottom: none; }
+  .issue-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--yellow); margin-top: 4px; flex-shrink: 0; }
+  .issue-dot.green { background: var(--green); }
+  .issue-dot.muted { background: var(--muted); }
+  .issue-text { color: var(--cloud); font-size: 12px; }
+  .issue-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .geo-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border); }
+  .geo-row:last-child { border-bottom: none; }
+  .geo-label { color: var(--haze); font-size: 12px; width: 200px; flex-shrink: 0; }
+  .geo-bar-bg { flex: 1; background: var(--border); border-radius: 3px; height: 5px; }
+  .geo-bar-fill { border-radius: 3px; height: 5px; }
+  .geo-score { font-size: 12px; font-weight: 600; color: var(--cloud); width: 36px; text-align: right; flex-shrink: 0; }
+
+  .geo-sub-row { padding: 4px 0 4px 12px; display: flex; gap: 6px; align-items: baseline; border-bottom: 1px solid rgba(30,32,53,0.5); }
+  .geo-sub-row:last-child { border-bottom: none; }
+  .geo-sub-label { color: var(--muted); font-size: 11px; flex: 1; }
+  .geo-sub-pts { font-size: 11px; font-weight: 500; }
+
+  .trend-row { display: flex; gap: 6px; align-items: center; padding: 5px 0; }
+  .trend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .trend-date { color: var(--muted); font-size: 11px; width: 90px; }
+  .trend-score { font-size: 12px; font-weight: 600; }
+  .trend-bar-bg { flex: 1; background: var(--border); border-radius: 2px; height: 4px; }
+  .trend-bar-fill { border-radius: 2px; height: 4px; background: linear-gradient(90deg, #4FC3C8, #8B6FD4); }
+
+  .scroll-table { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  .footer { color: var(--muted); font-size: 11px; border-top: 1px solid var(--border); padding-top: 16px; display: flex; justify-content: space-between; margin-top: 32px; }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<div class="header">
+  <div class="phase-label">Northlight Website &middot; Phase 9 &middot; Complete</div>
+  <div class="title">Site Rework: Who We Help, Case Studies &amp; Site Standards</div>
+  <div class="subtitle">Started 2026-09-28 &middot; Closed 2026-10-13 &middot; Hub + 3 persona pages, case studies and credentials rebuilt, then contrast, link-colour, date and footer standards applied across the site &middot; All merged and live</div>
+</div>
+
+<div class="callout">
+  <div class="callout-label">Phase 8 Context</div>
+  <div class="callout-text">Phase 8 (Homepage Rebuild &mdash; Pain-Led Positioning &amp; GEO Enrichment) closed 2026-09-28 with the homepage hero, problem and CTA rewritten and locked, and 26 in-scope tasks untouched: About, Who We Help, Case Studies builds, production deploy, attribution and offer review. Phase 9 delivered most of those, in a different shape: Who We Help became a hub with three persona pages, and Case Studies became honest proof-of-work write-ups instead of client outcomes. The Phase 8 decision "Coffee Chat primary, Clarity Call secondary" went further: the Clarity Call was dropped from the engagement flow.</div>
+</div>
+
+<div class="progress-section">
+  <div class="progress-header"><span class="progress-label">Phase 9 Scope &mdash; Rework Delivered</span><span class="progress-pct">~95%</span></div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:95%"></div></div>
+  <div class="progress-counts">
+    <span class="progress-count"><strong>PRs #15&ndash;#25</strong> merged and live</span>
+    <span class="progress-count"><strong>Left out of scope on purpose:</strong> About page (review together), persona blog posts, Skills Market decision</span>
+  </div>
+  <div class="progress-header" style="margin-top:16px;"><span class="progress-label">Full Website Backlog Progress (in-scope tasks only)</span><span class="progress-pct" style="color:var(--yellow);">~47%</span></div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:47%;background:linear-gradient(90deg,#D4A017,#8B6FD4);"></div></div>
+  <div class="progress-counts">
+    <span class="progress-count"><strong>~21</strong> of <strong>45</strong> in-scope ClickUp tasks complete (12 at the end of Phase 8, 9 more closed 2026-10-13). An estimate: not every Phase 8 task could be mapped one-to-one</span>
+    <span class="progress-count"><strong>70</strong> open tasks in the list today</span>
+    <span class="progress-count">About <strong>24</strong> of those are sales-process, referral and relationship tasks that do not belong on a website list</span>
+    <span class="progress-count">The About build/draft tasks, the AI-answer checks and the directory work remain untouched</span>
+  </div>
+</div>
+
+<div class="callout-green">
+  <div class="callout-label">GEO</div>
+  <div class="callout-text">Live composite 87/100 (2026-10-05, up from 80). About 88 estimated after the case-study answer blocks, from a local replication of the deploy pipeline that matched the live score. No live re-audit has been run since the final merges.</div>
+</div>
+
+<div class="section-divider">What Shipped</div>
+<div class="card">
+  <div class="card-label">Who We Help: hub, quiz and three persona pages</div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">New Who We Help hub with a five-question "find your situation" quiz, plus three dedicated persona pages: Alone at the Top, Stuck on Consensus, The Self-Reliant Builder</div><div class="issue-note">Old links and #anchors (#convergence-check, #why-is-this-circling, #alone-at-the-top and others) redirect to the right new page. Merged as PR #17.</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Engagement flow written the same way everywhere: free 30-minute Coffee Chat, then a second conversation, then a plan we both agree on, then the work</div><div class="issue-note">Offers: Embedded Advisory (about 20 hrs/month, inside the company) and On-Call Advisory (up to 5 hrs/month, flat monthly rate). No public pricing.</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Related reading on persona pages limited to posts Elizabeth approved (only "You Hired Them. Now What?" on Alone at the Top)</div><div class="issue-note">Earlier auto-suggested links were rejected as not relevant</div></div></div>
+</div>
+<div class="card">
+  <div class="card-label">Homepage, Services and credentials</div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Homepage reworked again after the Phase 8 draft, now live; links through to the hub and quiz ("Find your situation")</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Services slimmed down; new "Who will I be working with?" credentials section with six credential chips and EveryExpert / GoFractional / LinkedIn profile pills</div><div class="issue-note">PR #19. Credentials worded as PMI member and CAPM candidate (not certified). Traced the inconsistent pill colours to a global a:visited rule.</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Answer-block summaries added under the section headings on the case studies, for answer-engine citation</div></div></div>
+</div>
+<div class="card">
+  <div class="card-label">Case studies</div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Four case studies rewritten honestly: Northlight OS, Vault, Skills Market and Meetings (moved from its old URL with a redirect)</div><div class="issue-note">Meetings, OS and Vault are presented as proof of work, not products for sale. 15 CC0 tool logos self-hosted.</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Case studies index rewritten with an overview answer block</div></div></div>
+</div>
+<div class="card">
+  <div class="card-label">Standards pass: contrast, links, dates, footers</div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Heading and link standards audit across the built site; PIPEDA and Law 25 link rules checked</div><div class="issue-note">Law 25 rule added to CLAUDE.md (PR #23)</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Grey text token --structural lightened from #6C7295 to #7A81A8 for readability (PR #18)</div><div class="issue-note">Blog layouts deliberately keep their darker #5A6080 (about 3.1:1), still a separate decision</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Sitewide link-colour pass (PR #20): related-reading and FAQ links in about 142 blog posts, printable pages, card links, Vault docs and several single links no longer show default blue or pale grey-blue</div><div class="issue-note">Nav, footer, breadcrumb, author and contents links stay grey by rule</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Related-reading titles use the footer grey (#99A1B6) with the purple arrow, after a six-option demo (PR #22)</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">"Last updated" dates refreshed on the homepage, FAQ, Vault and the three persona pages (PR #21)</div><div class="issue-note">About page and PM-tool "verified August 2026" lines left on purpose</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">One shared footer on every page (PRs #24, #25): was five hand-copied footers plus separate blog, news, privacy and Skills Market footers; the homepage footer was never closed in the HTML. "Powered by Northlight OS" now links to its case study.</div></div></div>
+</div>
+<div class="card">
+  <div class="card-label">Infrastructure, content and housekeeping</div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Knowledge repo switched to private; the dispatcher reads it through a fine-grained token (KNOWLEDGE_REPO_TOKEN, renew by 2027-09-24)</div><div class="issue-note">Public by mistake until Oct 8</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Northlight Vault 1.0.1 released; download link fixed (PR #16)</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Interview-based blog post on the Tech Advisor course published, dated Oct 13 (PR #15)</div><div class="issue-note">Stale Oct 7 date commit on its branch discarded</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">GEO score 80 to 87 live on Oct 5 (PM-tool meta/canonical/H1, sitemap 404s, answer blocks, OG tags); estimated about 88 after the case-study answer blocks</div><div class="issue-note">88 is a local estimate, not a live audit</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Repo cleanup: 10 worktrees and 10 merged branches removed; the site repo is main only</div><div class="issue-note">Stale local Meetings edits (Paddle to Stripe wording) discarded as moot</div></div></div>
+</div>
+
+<div class="section-divider">Deferred / Not Done This Phase</div>
+<div class="card">
+  <div class="card-label">Carried forward, with ClickUp IDs</div>
+  <div class="issue-item"><div class="issue-dot yellow"></div><div><div class="issue-text">About page review: links, Clarity Call CTA, "Last updated" line and hidden date. To be done together; nothing changed unilaterally.</div><div class="issue-note">ClickUp 86e3q4pky</div></div></div>
+  <div class="issue-item"><div class="issue-dot yellow"></div><div><div class="issue-text">Persona blog posts: Alone at the Top (due Oct 20), Stuck on Consensus (Oct 27), The Self-Reliant Builder (Oct 31), interview first</div><div class="issue-note">Parent 86e3q2nva</div></div></div>
+  <div class="issue-item"><div class="issue-dot yellow"></div><div><div class="issue-text">Skills Market keep-or-delist decision by Oct 31; if delisted, apply the documented site-change list</div><div class="issue-note">86e3n5k2z. Skills Market pages deliberately not touched before then</div></div></div>
+  <div class="issue-item"><div class="issue-dot yellow"></div><div><div class="issue-text">Brand-colour links (purple, boreal blue, pink): decide whether to make them teal</div><div class="issue-note">86e3q4pm1</div></div></div>
+  <div class="issue-item"><div class="issue-dot yellow"></div><div><div class="issue-text">Stale Clarity Call ($99) mentions still live in the FAQ refund answer and homepage schema</div><div class="issue-note">86e3q4pkz</div></div></div>
+  <div class="issue-item"><div class="issue-dot yellow"></div><div><div class="issue-text">Mobile sideways scroll on the News index, Digital Reference article and Skills Market case study (nav row too wide at about 420px)</div><div class="issue-note">86e3q4nz8, 86e3q4nza, 86e3q4nzb</div></div></div>
+</div>
+
+<div class="section-divider">Decisions Log</div>
+<div class="scroll-table">
+  <table class="block-table">
+    <thead><tr><th>#</th><th>Decision</th><th>Why</th><th>Date</th></tr></thead>
+    <tbody>
+      <tr><td style="color:var(--muted);font-size:11px;">1</td><td><div class="block-name">Who We Help becomes a hub plus three persona pages</div></td><td><div class="block-note">Personas are distinct readers; one page tried to speak to all three</div></td><td><div class="block-note">2026-09-29</div></td></tr>
+      <tr><td style="color:var(--muted);font-size:11px;">2</td><td><div class="block-name">Tools (Meetings, Vault, OS) are not for sale; present them as proof of work</div></td><td><div class="block-note">Paddle/Stripe/waitlist work became moot; the site should show the work, not sell it</div></td><td><div class="block-note">2026-10-02</div></td></tr>
+      <tr><td style="color:var(--muted);font-size:11px;">3</td><td><div class="block-name">Don't name Northlight Meetings or a failed launch in posts; "a tool I built" is fine</div></td><td><div class="block-note">Keeps the story honest without a public post-mortem</div></td><td><div class="block-note">2026-10-07</div></td></tr>
+      <tr><td style="color:var(--muted);font-size:11px;">4</td><td><div class="block-name">Knowledge repo goes private; the dispatcher reads it via a scoped token</div></td><td><div class="block-note">It held interview and strategy material that should not be public</div></td><td><div class="block-note">2026-10-08</div></td></tr>
+      <tr><td style="color:var(--muted);font-size:11px;">5</td><td><div class="block-name">Retire the Clarity Call from the engagement flow: free Coffee Chat, second conversation, agreed plan</div></td><td><div class="block-note">Matches how Elizabeth wants to start work; stale mentions still being removed</div></td><td><div class="block-note">2026-10 (confirmed during the rework)</div></td></tr>
+      <tr><td style="color:var(--muted);font-size:11px;">6</td><td><div class="block-name">Links are teal by default; nav, dropdowns, footer, breadcrumbs, author and contents links stay grey; nothing default blue or pale grey-blue; About reviewed together</div></td><td><div class="block-note">Brand consistency and accessibility</div></td><td><div class="block-note">2026-10-13</div></td></tr>
+      <tr><td style="color:var(--muted);font-size:11px;">7</td><td><div class="block-name">Lighten the --structural grey to #7A81A8</div></td><td><div class="block-note">Small grey text was hard to read (about 4.1:1, target 4.5:1)</div></td><td><div class="block-note">2026-10-13</div></td></tr>
+      <tr><td style="color:var(--muted);font-size:11px;">8</td><td><div class="block-name">Related-reading cards: footer-grey title with purple arrow (option 1 of 6 demoed)</div></td><td><div class="block-note">Teal clashed with the purple arrow; pale blue-grey is off brand</div></td><td><div class="block-note">2026-10-13</div></td></tr>
+      <tr><td style="color:var(--muted);font-size:11px;">9</td><td><div class="block-name">Footer links "Northlight OS" to its case study; no explainer sentence on every page</div></td><td><div class="block-note">A sentence on every page is clutter; the case study already explains it</div></td><td><div class="block-note">2026-10-13</div></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section-divider">Activity Timeline</div>
+<div class="card">
+<div class="trend-row"><span class="trend-date" style="width:110px;">2026-09-29</span><span style="color:var(--cloud);font-size:12px;">Hub plus three persona pages decided; Alone at the Top drafted first in a shared doc</span></div>
+<div class="trend-row"><span class="trend-date" style="width:110px;">2026-10-02</span><span style="color:var(--cloud);font-size:12px;">Decision that tools are not for sale; site repositioning as proof of work started</span></div>
+<div class="trend-row"><span class="trend-date" style="width:110px;">2026-10-05</span><span style="color:var(--cloud);font-size:12px;">GEO audit 80 to 87 live; broken links and sitemap fixes (PRs #11, #13)</span></div>
+<div class="trend-row"><span class="trend-date" style="width:110px;">2026-10-07/08</span><span style="color:var(--cloud);font-size:12px;">Interview-based blog post drafted; knowledge repo made private; Vault 1.0.1 released</span></div>
+<div class="trend-row"><span class="trend-date" style="width:110px;">2026-10-13</span><span style="color:var(--cloud);font-size:12px;">Site rework merged (PR #17) and verified live; contrast, credentials, link colours, dates and shared footer follow-ups (PRs #18 to #25); ClickUp website list reviewed and cleaned; repo cleaned up</span></div>
+</div>
+
+<div class="section-divider">Open Items Going Into Phase 10</div>
+<div class="card">
+  <div class="card-label">Priority order</div>
+  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">About page review with Elizabeth (links, Clarity Call CTA, dates)</div><div class="issue-note">HIGH</div></div></div>
+  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Add the AI Stack Security Checklist to resources.html. Overdue (task said before Oct 13)</div><div class="issue-note">HIGH</div></div></div>
+  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Persona blog posts: Oct 20 / Oct 27 / Oct 31</div><div class="issue-note">HIGH</div></div></div>
+  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Skills Market keep-or-delist decision by Oct 31</div><div class="issue-note">HIGH</div></div></div>
+  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Remove Clarity Call mentions; reconcile the COO cost figure ($150-220K vs $280-305K in the Atlantic Canada post)</div><div class="issue-note">NORMAL</div></div></div>
+  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Fix mobile sideways scroll on 3 pages; decide on brand-colour links; consider the darker blog grey #5A6080</div><div class="issue-note">NORMAL</div></div></div>
+  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Directories and profiles: GoFractional title, Crunchbase wording, GoodFirms/TechBehemoths, NSBI, BestAIAgencies follow-up (10 tasks)</div><div class="issue-note">NORMAL</div></div></div>
+  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Re-run AI-answer checks and the GSC/Bing check about 30 days after launch (mid-November); clean-URL migration</div><div class="issue-note">LOW</div></div></div>
+  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">About 24 sales-process, referral and relationship tasks sit in this list but are not website work. Move them to a sales or client list</div><div class="issue-note">LOW</div></div></div>
+</div>
+
+<div class="footer">
+  <span>Northlight Website &middot; Phase 9 &middot; Site Rework: Who We Help, Case Studies &amp; Site Standards</span>
+  <span>Dashboard updated 2026-10-13</span>
+</div>
+</body>
+</html>
