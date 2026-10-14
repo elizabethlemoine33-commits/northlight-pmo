@@ -1,7 +1,7 @@
 {
-  "refreshed_at": "2026-10-14T01:05:46.905Z",
-  "triggered_by": "phase-dashboard-commit",
-  "open_total": 47,
+  "refreshed_at": "2026-10-14T11:01:02.122Z",
+  "triggered_by": "schedule",
+  "open_total": 36,
   "projects": [
     {
       "id": "northlight-os",
@@ -97,11 +97,11 @@
       "current_phase": "9",
       "current_phase_title": "Site Rework: Who We Help, Case Studies & Site Standards",
       "phase_started": "2026-09-28",
-      "open_count": 47,
+      "open_count": 36,
       "backlog_count": 23,
-      "ready_count": 47,
+      "ready_count": 36,
       "in_progress_count": 0,
-      "done_count": 23,
+      "done_count": 34,
       "top_items": [
         {
           "name": "Confirm subscribe flow still works",
@@ -153,16 +153,16 @@
           "priority": "normal"
         },
         {
+          "name": "Reconcile full-time COO cost figure in fractional-coo-atlantic-canada.md",
+          "priority": "normal"
+        },
+        {
           "name": "Consider splitting Who We Help into 3 dedicated persona pages",
           "priority": "normal"
         },
         {
-          "name": "Draft new headline",
-          "priority": "high"
-        },
-        {
-          "name": "Deploy global footer fix",
-          "priority": "low"
+          "name": "Fix /pm-tools/ pages: missing meta descriptions, canonical tags, H1s",
+          "priority": "normal"
         }
       ],
       "decisions": [],
