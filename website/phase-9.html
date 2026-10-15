@@ -117,9 +117,9 @@
 <div class="top-bar"></div>
 
 <div class="header">
-  <div class="phase-label">Northlight Website &middot; Phase 9 &middot; Complete</div>
+  <div class="phase-label">Northlight Website &middot; Phase 9 &middot; Complete, extended through 2026-10-15</div>
   <div class="title">Site Rework: Who We Help, Case Studies &amp; Site Standards</div>
-  <div class="subtitle">Started 2026-09-28 &middot; Closed 2026-10-13 &middot; Hub + 3 persona pages, case studies and credentials rebuilt, then contrast, link-colour, date and footer standards applied across the site &middot; All merged and live</div>
+  <div class="subtitle">Started 2026-09-28 &middot; Closed 2026-10-13 &middot; Hub + 3 persona pages, case studies and credentials rebuilt, then contrast, link-colour, date and footer standards applied across the site &middot; All merged and live &middot; Extended 2026-10-14 to 10-15: LinkedIn profile, clean URLs, answer blocks and GEO 89 (PRs #33 to #41)</div>
 </div>
 
 <div class="callout">
@@ -132,7 +132,9 @@
   <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:95%"></div></div>
   <div class="progress-counts">
     <span class="progress-count"><strong>PRs #15&ndash;#25</strong> merged and live</span>
-    <span class="progress-count"><strong>Left out of scope on purpose:</strong> About page (review together), persona blog posts, Skills Market decision</span>
+    <span class="progress-count"><strong>PRs #33&ndash;#41</strong> merged and live (Oct 14&ndash;15)</span>
+    <span class="progress-count"><strong>20</strong> ClickUp tasks closed Oct 14&ndash;15 (3 on Oct 14, 17 on Oct 15)</span>
+    <span class="progress-count"><strong>Left out of scope on purpose:</strong> persona blog posts, Skills Market decision (the About page was reviewed and rebuilt Oct 14&ndash;15)</span>
   </div>
   <div class="progress-header" style="margin-top:16px;"><span class="progress-label">Full Website Backlog Progress (in-scope tasks only)</span><span class="progress-pct" style="color:var(--yellow);">~47%</span></div>
   <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:47%;background:linear-gradient(90deg,#D4A017,#8B6FD4);"></div></div>
@@ -140,13 +142,13 @@
     <span class="progress-count"><strong>~21</strong> of <strong>45</strong> in-scope ClickUp tasks complete (12 at the end of Phase 8, 9 more closed 2026-10-13). An estimate: not every Phase 8 task could be mapped one-to-one</span>
     <span class="progress-count"><strong>70</strong> open tasks in the list today</span>
     <span class="progress-count">About <strong>24</strong> of those are sales-process, referral and relationship tasks that do not belong on a website list</span>
-    <span class="progress-count">The About build/draft tasks, the AI-answer checks and the directory work remain untouched</span>
+    <span class="progress-count">The About build tasks and AI-answer checks are now done; directory work (GoodFirms, TechBehemoths and others) is still open</span>
   </div>
 </div>
 
 <div class="callout-green">
   <div class="callout-label">GEO</div>
-  <div class="callout-text">Live composite 87/100 (2026-10-05, up from 80). About 88 estimated after the case-study answer blocks, from a local replication of the deploy pipeline that matched the live score. No live re-audit has been run since the final merges.</div>
+  <div class="callout-text">Live composite 89/100 (2026-10-15 15:57), up from 80 on Oct 5 and 87&ndash;88 earlier on Oct 15. Content Citability 80 (answer blocks 204 total, 27/40; FAQ schema 20/20; tables 15/15; numbered lists 5/10), Technical SEO 100 (About heading skip fixed), Schema 100, Crawler Access 100, Brand Authority 60 (no Reddit, YouTube or Wikipedia). Remaining headroom is small; the next real check is the 30-day search recheck around Nov 14.</div>
 </div>
 
 <div class="section-divider">What Shipped</div>
@@ -184,16 +186,39 @@
   <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">GEO score 80 to 87 live on Oct 5 (PM-tool meta/canonical/H1, sitemap 404s, answer blocks, OG tags); estimated about 88 after the case-study answer blocks</div><div class="issue-note">88 is a local estimate, not a live audit</div></div></div>
   <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Repo cleanup: 10 worktrees and 10 merged branches removed; the site repo is main only</div><div class="issue-note">Stale local Meetings edits (Paddle to Stripe wording) discarded as moot</div></div></div>
 </div>
+<div class="card">
+  <div class="card-label">Previous session (2026-10-14): LinkedIn profile and the Coffee Chat address</div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">LinkedIn headline and About rewritten with Elizabeth and live: "Fractional COO: someone to think it through with when the call is yours"; About built on the 2 a.m. story, the 50+ people across six countries proof, and a plain-link free 30-minute Coffee Chat close</div><div class="issue-note">ClickUp 86e3eewkg, 86e3eewkj, 86e3eewkk closed</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Roast My LinkedIn Brand audit run twice: 38 to 34. The profile problems (borrowed headline, CV-style About) are gone; the remaining flags are about posts. Decided not to chase the score</div><div class="issue-note">New rule: any statistic in a post names its source in the text or links to it</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Coffee Chat page now answers at /coffee and /coffee.html from one file; canonical and sitemap use the clean address (PR #33)</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Plausible UTM tests: LinkedIn strips UTM tags from Featured-card links (referral shows as LinkedIn / lnkd.in), so the Coffee Chat link is typed plainly</div></div></div>
+</div>
+<div class="card">
+  <div class="card-label">This session (2026-10-15): LinkedIn Featured, site fixes, answer blocks and GEO 89</div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">LinkedIn Featured section finished: Coffee Chat, About, Vault, Meetings, OS, Aurora Brief, in that order. Five new 1200x627 card images and card text written for each; Learning and the "Clarity is Kindness" post left out</div><div class="issue-note">Images in Northlight Branding/LinkedIn Featured. Tasks 86e3eewkm, 86e3eewkn closed</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">LinkedIn credentials audited against Coursera: 254 items on LinkedIn, nothing missing. ClickUp Novice, Intermediate, Expert and Advanced AI already listed; Admin Essentials left off (ClickUp mislinked its two exam certificates). Location stays Eastern Passage</div><div class="issue-note">86e3qphay closed. Two duplicates noted for removal (PM Basics for Success, Salesforce Events Quick Look)</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Coffee Chat is 30 minutes and one name everywhere: contact page said 20 minutes in three places; "Virtual Coffee" replaced across contact, coffee and home; blog calls to action updated (PR #35). Home WebSite schema now uses the full entity name</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Aurora Brief described honestly as one piece of real thinking a month, not tool updates or early access (PR #36)</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Clean URLs batch 2: about, contact, services, learning, who-we-help and the three persona pages answer at both addresses; internal links, schema, llms.txt and sitemap use the clean one (PR #37). Sitemap generator fixed so the deploy stops publishing .html for them (PR #38)</div><div class="issue-note">Persona pages added to the sitemap, where they were missing</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Mobile sideways scroll fixed on the News index, Digital Reference article and Skills Market case study (PR #34). About heading order fixed (PR #39)</div><div class="issue-note">86e3q4nz8, nza, nzb closed</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Answer blocks: About, FAQ (14) and Coffee Chat (3 new questions) tagged for the GEO audit with no visible change (PR #40); 11 short blocks on the EOS, OKR and AI-tool-security posts (PR #41). FAQ "how do engagements start" corrected to the Coffee Chat flow</div><div class="issue-note">GEO 87 to 89 live. 204 answer blocks, up from 168</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Search data read: Search Console 28 days (34 clicks, 2.39K impressions, average position 10.1) and Bing keyword and AI-citation reports. Bing cites the site 42 times for "factors to consider when implementing AI agents in business Canada" and 21 times for choosing a business advisory service. Sitemaps resubmitted to Google and Bing</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">ClickUp list cleaned: Troy, referral-partner and subscribe-flow tasks closed; entity-consistency and AI-answer-check tasks closed; clean-URL task closed with batch 3 created (86e3qzebw). Website repo is main only (16 merged local branches deleted)</div></div></div>
+</div>
 
 <div class="section-divider">Deferred / Not Done This Phase</div>
 <div class="card">
   <div class="card-label">Carried forward, with ClickUp IDs</div>
-  <div class="issue-item"><div class="issue-dot yellow"></div><div><div class="issue-text">About page review: links, Clarity Call CTA, "Last updated" line and hidden date. To be done together; nothing changed unilaterally.</div><div class="issue-note">ClickUp 86e3q4pky</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Done (Oct 14&ndash;15): About page reviewed and rebuilt together; Learning page added</div><div class="issue-note">86e3q4pky closed</div></div></div>
   <div class="issue-item"><div class="issue-dot yellow"></div><div><div class="issue-text">Persona blog posts: Alone at the Top (due Oct 20), Stuck on Consensus (Oct 27), The Self-Reliant Builder (Oct 31), interview first</div><div class="issue-note">Parent 86e3q2nva</div></div></div>
   <div class="issue-item"><div class="issue-dot yellow"></div><div><div class="issue-text">Skills Market keep-or-delist decision by Oct 31; if delisted, apply the documented site-change list</div><div class="issue-note">86e3n5k2z. Skills Market pages deliberately not touched before then</div></div></div>
   <div class="issue-item"><div class="issue-dot yellow"></div><div><div class="issue-text">Brand-colour links (purple, boreal blue, pink): decide whether to make them teal</div><div class="issue-note">86e3q4pm1</div></div></div>
-  <div class="issue-item"><div class="issue-dot yellow"></div><div><div class="issue-text">Stale Clarity Call ($99) mentions still live in the FAQ refund answer and homepage schema</div><div class="issue-note">86e3q4pkz</div></div></div>
-  <div class="issue-item"><div class="issue-dot yellow"></div><div><div class="issue-text">Mobile sideways scroll on the News index, Digital Reference article and Skills Market case study (nav row too wide at about 420px)</div><div class="issue-note">86e3q4nz8, 86e3q4nza, 86e3q4nzb</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Done: no Clarity Call or $99 text remains on any live page. Google&#39;s AI Overview still quotes the $99 from old cached copies; re-crawl requested via sitemap resubmission (Oct 15)</div><div class="issue-note">86e3q4pkz closed</div></div></div>
+  <div class="issue-item"><div class="issue-dot green"></div><div><div class="issue-text">Done: nav row now wraps under 768px on all three pages (PR #34)</div><div class="issue-note">86e3q4nz8, nza, nzb closed</div></div></div>
+  <div class="issue-item"><div class="issue-dot yellow"></div><div><div class="issue-text">Sales-cycle session: map how people enter the sales process with and without a Coffee Chat, and how a Coffee Chat leads to the next step and a purchase. Then rebuild the 13 discovery-kit tasks from that map</div><div class="issue-note">Existing tasks 86e3eewku to 86e3eewm2 wait for it</div></div></div>
+  <div class="issue-item"><div class="issue-dot yellow"></div><div><div class="issue-text">Clean URLs batch 3 (blog posts, case studies, Vault, Meetings, OS pages) and the Cloudflare question for real 301 redirects; check how Bing and Google handle /coffee first</div><div class="issue-note">86e3qzebw</div></div></div>
+  <div class="issue-item"><div class="issue-dot yellow"></div><div><div class="issue-text">GoodFirms (dashboard shows rejected, no email or reason; contact note sent) and TechBehemoths (profile edits paused during their 2.0 rollout). Add About-page links only for listings that go live</div><div class="issue-note">86e3qphb5</div></div></div>
+  <div class="issue-item"><div class="issue-dot yellow"></div><div><div class="issue-text">Privacy policy still mentions "early access" in the promotional-email paragraph (legal text, left as is)</div></div></div>
 </div>
 
 <div class="section-divider">Decisions Log</div>
@@ -210,6 +235,15 @@
       <tr><td style="color:var(--muted);font-size:11px;">7</td><td><div class="block-name">Lighten the --structural grey to #7A81A8</div></td><td><div class="block-note">Small grey text was hard to read (about 4.1:1, target 4.5:1)</div></td><td><div class="block-note">2026-10-13</div></td></tr>
       <tr><td style="color:var(--muted);font-size:11px;">8</td><td><div class="block-name">Related-reading cards: footer-grey title with purple arrow (option 1 of 6 demoed)</div></td><td><div class="block-note">Teal clashed with the purple arrow; pale blue-grey is off brand</div></td><td><div class="block-note">2026-10-13</div></td></tr>
       <tr><td style="color:var(--muted);font-size:11px;">9</td><td><div class="block-name">Footer links "Northlight OS" to its case study; no explainer sentence on every page</div></td><td><div class="block-note">A sentence on every page is clutter; the case study already explains it</div></td><td><div class="block-note">2026-10-13</div></td></tr>
+      <tr><td style="color:var(--muted);font-size:11px;">10</td><td><div class="block-name">Coffee Chat is the one name, and it is 30 minutes everywhere</div></td><td><div class="block-note">Matches About, Services, FAQ and the directory listings; the contact page said 20 minutes</div></td><td><div class="block-note">2026-10-15</div></td></tr>
+      <tr><td style="color:var(--muted);font-size:11px;">11</td><td><div class="block-name">Aurora Brief is described as one piece of real thinking a month, not tool updates or early access</div></td><td><div class="block-note">The old copy promised something the newsletter no longer is</div></td><td><div class="block-note">2026-10-15</div></td></tr>
+      <tr><td style="color:var(--muted);font-size:11px;">12</td><td><div class="block-name">One-person / solo wording stays on the site</div></td><td><div class="block-note">It is what the practice is</div></td><td><div class="block-note">2026-10-15</div></td></tr>
+      <tr><td style="color:var(--muted);font-size:11px;">13</td><td><div class="block-name">Vault is described as free; Meetings and OS as proof of work; footer line reads Built by Northlight Advisory Services</div></td><td><div class="block-note">Full entity name in public contexts; tools are not for sale</div></td><td><div class="block-note">2026-10-15</div></td></tr>
+      <tr><td style="color:var(--muted);font-size:11px;">14</td><td><div class="block-name">LinkedIn Featured order: Coffee Chat, About, Vault, Meetings, OS, Aurora Brief; Learning page and the Clarity is Kindness post left out; location stays Eastern Passage</div></td><td><div class="block-note">Learning is visible from the profile itself; Aurora Brief is not being actively promoted</div></td><td><div class="block-note">2026-10-15</div></td></tr>
+      <tr><td style="color:var(--muted);font-size:11px;">15</td><td><div class="block-name">No formal referral program; warm introductions go into the sales-cycle map as a way in</div></td><td><div class="block-note">Elizabeth already makes introductions; no paid referrals to disclose</div></td><td><div class="block-note">2026-10-15</div></td></tr>
+      <tr><td style="color:var(--muted);font-size:11px;">16</td><td><div class="block-name">Rebuild the discovery-call kit around a sales-cycle map (with and without a Coffee Chat)</div></td><td><div class="block-note">The old tasks assumed a single call, not the Coffee Chat flow</div></td><td><div class="block-note">2026-10-15</div></td></tr>
+      <tr><td style="color:var(--muted);font-size:11px;">17</td><td><div class="block-name">Leave the two ClickUp exam certificates off LinkedIn</div></td><td><div class="block-note">ClickUp&#39;s own records are mislinked and the order cannot be corrected</div></td><td><div class="block-note">2026-10-15</div></td></tr>
+      <tr><td style="color:var(--muted);font-size:11px;">18</td><td><div class="block-name">Clean URLs: both addresses keep working; canonical and sitemap use the clean one; Cloudflare and real 301s deferred</div></td><td><div class="block-note">GitHub Pages cannot send 301s; no urgency while old links still work</div></td><td><div class="block-note">2026-10-15</div></td></tr>
     </tbody>
   </table>
 </div>
@@ -221,25 +255,28 @@
 <div class="trend-row"><span class="trend-date" style="width:110px;">2026-10-05</span><span style="color:var(--cloud);font-size:12px;">GEO audit 80 to 87 live; broken links and sitemap fixes (PRs #11, #13)</span></div>
 <div class="trend-row"><span class="trend-date" style="width:110px;">2026-10-07/08</span><span style="color:var(--cloud);font-size:12px;">Interview-based blog post drafted; knowledge repo made private; Vault 1.0.1 released</span></div>
 <div class="trend-row"><span class="trend-date" style="width:110px;">2026-10-13</span><span style="color:var(--cloud);font-size:12px;">Site rework merged (PR #17) and verified live; contrast, credentials, link colours, dates and shared footer follow-ups (PRs #18 to #25); ClickUp website list reviewed and cleaned; repo cleaned up</span></div>
+<div class="trend-row"><span class="trend-date" style="width:110px;">2026-10-14</span><span style="color:var(--cloud);font-size:12px;">LinkedIn headline and About rewritten and live; Roast audit 38 to 34; /coffee clean URL merged (PR #33); UTM behaviour on Featured links tested</span></div>
+<div class="trend-row"><span class="trend-date" style="width:110px;">2026-10-15</span><span style="color:var(--cloud);font-size:12px;">LinkedIn Featured and credentials finished; PRs #34 to #41 merged (mobile scroll, Coffee Chat 30 minutes, honest newsletter copy, clean URLs batch 2, sitemap fix, heading order, answer blocks); GEO 87 to 89; search data pulled from Search Console and Bing; sitemaps resubmitted; ClickUp and branches tidied</span></div>
 </div>
 
 <div class="section-divider">Open Items Going Into Phase 10</div>
 <div class="card">
-  <div class="card-label">Priority order</div>
-  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">About page review with Elizabeth (links, Clarity Call CTA, dates)</div><div class="issue-note">HIGH</div></div></div>
-  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Add the AI Stack Security Checklist to resources.html. Overdue (task said before Oct 13)</div><div class="issue-note">HIGH</div></div></div>
-  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Persona blog posts: Oct 20 / Oct 27 / Oct 31</div><div class="issue-note">HIGH</div></div></div>
+  <div class="card-label">Priority order (updated 2026-10-15)</div>
+  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Sales-cycle session, then rebuild the discovery-call kit tasks</div><div class="issue-note">HIGH</div></div></div>
+  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Persona blog posts: Oct 20 / Oct 27 / Oct 31 (interview Elizabeth first)</div><div class="issue-note">HIGH</div></div></div>
   <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Skills Market keep-or-delist decision by Oct 31</div><div class="issue-note">HIGH</div></div></div>
-  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Remove Clarity Call mentions; reconcile the COO cost figure ($150-220K vs $280-305K in the Atlantic Canada post)</div><div class="issue-note">NORMAL</div></div></div>
-  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Fix mobile sideways scroll on 3 pages; decide on brand-colour links; consider the darker blog grey #5A6080</div><div class="issue-note">NORMAL</div></div></div>
-  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Directories and profiles: GoFractional title, Crunchbase wording, GoodFirms/TechBehemoths, NSBI, BestAIAgencies follow-up (10 tasks)</div><div class="issue-note">NORMAL</div></div></div>
-  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Re-run AI-answer checks and the GSC/Bing check about 30 days after launch (mid-November); clean-URL migration</div><div class="issue-note">LOW</div></div></div>
-  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">About 24 sales-process, referral and relationship tasks sit in this list but are not website work. Move them to a sales or client list</div><div class="issue-note">LOW</div></div></div>
+  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Add the AI Stack Security Checklist to resources.html. Overdue</div><div class="issue-note">HIGH</div></div></div>
+  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Watch Google and Bing drop the stale $99 Clarity Call after re-crawl; request indexing on home, services, about, coffee and faq</div><div class="issue-note">NORMAL</div></div></div>
+  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">GoodFirms and TechBehemoths: add About-page links only if the listings go live</div><div class="issue-note">NORMAL</div></div></div>
+  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Reconcile the COO cost figure ($150-220K vs $280-305K in the Atlantic Canada post); decide on brand-colour links and the darker blog grey</div><div class="issue-note">NORMAL</div></div></div>
+  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">More short answer blocks on posts that still have none (AI adoption strategy, cybersecurity gap, measuring AI tools), driven by real queries</div><div class="issue-note">NORMAL</div></div></div>
+  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Clean URLs batch 3 and the Cloudflare decision; recheck GEO, Search Console and Bing around Nov 14</div><div class="issue-note">LOW</div></div></div>
+  <div class="issue-item"><div class="issue-dot muted"></div><div><div class="issue-text">Remaining sales-process tasks in this list belong on a sales or client list</div><div class="issue-note">LOW</div></div></div>
 </div>
 
 <div class="footer">
   <span>Northlight Website &middot; Phase 9 &middot; Site Rework: Who We Help, Case Studies &amp; Site Standards</span>
-  <span>Dashboard updated 2026-10-13</span>
+  <span>Dashboard updated 2026-10-15</span>
 </div>
 </body>
 </html>
