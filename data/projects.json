@@ -1,7 +1,7 @@
 {
-  "refreshed_at": "2026-10-14T11:01:02.122Z",
-  "triggered_by": "schedule",
-  "open_total": 36,
+  "refreshed_at": "2026-10-15T16:08:00.300Z",
+  "triggered_by": "phase-dashboard-commit",
+  "open_total": 16,
   "projects": [
     {
       "id": "northlight-os",
@@ -15,7 +15,7 @@
       "current_phase_title": "Retire Blue Bear, Social Posts & Sonnet 5.5 Migration",
       "phase_started": "2026-10-02",
       "open_count": 0,
-      "backlog_count": 18,
+      "backlog_count": 19,
       "ready_count": 0,
       "in_progress_count": 0,
       "done_count": 1,
@@ -97,71 +97,71 @@
       "current_phase": "9",
       "current_phase_title": "Site Rework: Who We Help, Case Studies & Site Standards",
       "phase_started": "2026-09-28",
-      "open_count": 36,
-      "backlog_count": 23,
-      "ready_count": 36,
+      "open_count": 16,
+      "backlog_count": 8,
+      "ready_count": 16,
       "in_progress_count": 0,
-      "done_count": 34,
+      "done_count": 72,
       "top_items": [
         {
-          "name": "Confirm subscribe flow still works",
+          "name": "Iterate checklist/script from review",
           "priority": "low"
         },
         {
-          "name": "Define what 'activating' a referral relationship looks like",
-          "priority": "low"
+          "name": "Do first post-call review",
+          "priority": "normal"
         },
         {
-          "name": "Decide on activating Spencer Scherer relationship",
-          "priority": "low"
+          "name": "Run first live call using the checklist",
+          "priority": "high"
         },
         {
-          "name": "Decide on activating Ed Grant relationship",
-          "priority": "low"
+          "name": "Define post-call review criteria",
+          "priority": "normal"
         }
       ],
       "ready_items": [
         {
-          "name": "Confirm subscribe flow still works",
+          "name": "Iterate checklist/script from review",
           "priority": "low"
         },
         {
-          "name": "Define what 'activating' a referral relationship looks like",
-          "priority": "low"
+          "name": "Do first post-call review",
+          "priority": "normal"
         },
         {
-          "name": "Decide on activating Spencer Scherer relationship",
-          "priority": "low"
+          "name": "Run first live call using the checklist",
+          "priority": "high"
         },
         {
-          "name": "Decide on activating Ed Grant relationship",
-          "priority": "low"
+          "name": "Define post-call review criteria",
+          "priority": "normal"
         },
         {
-          "name": "Decide next step on Revenue Engine proposal",
+          "name": "Rehearse closing script",
           "priority": "normal"
         }
       ],
       "in_progress_items": [],
       "done_items": [
         {
-          "name": "Website: reposition Meetings and other tools as proof of work",
+          "name": "LinkedIn: add missing certifications and fix the swapped ClickUp labels",
           "priority": "normal"
         },
         {
-          "name": "Leftover: bynorthlight-site uncommitted edits and old branches",
+          "name": "Add practical AI wording back into the five directory profiles (Outsource Accelerator, Crunchbase, GoodFirms, TechBehemoths, GoFractional)",
           "priority": "normal"
         },
         {
-          "name": "Reconcile full-time COO cost figure in fractional-coo-atlantic-canada.md",
+          "name": "Check whether Claude can find bynorthlight.ca after the re-crawl",
           "priority": "normal"
         },
         {
-          "name": "Consider splitting Who We Help into 3 dedicated persona pages",
+          "name": "Update the Outsource Accelerator listing wording to match the current site",
           "priority": "normal"
         },
         {
-          "name": "Fix /pm-tools/ pages: missing meta descriptions, canonical tags, H1s",
+          "name": "Decide: turn remaining brand-colour links teal? (purple, boreal blue, pink)",
           "priority": "normal"
         }
       ],
