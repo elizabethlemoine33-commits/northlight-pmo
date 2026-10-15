@@ -9,7 +9,7 @@
 - The deploy regenerates sitemap.xml from the page files, so edits to the committed sitemap are overwritten. Fix generate-sitemap.py instead; it ignored the canonical that layout pages set in front matter and published .html addresses.
 - The GEO audit counts only div.answer-block / div.callout-block. Answers in other markup (accordions) earn FAQ-schema credit but zero answer-block credit; retagging them is honest, and compare computed styles before and after so the page looks the same. A search-and-replace that dropped the answer text was caught only because that comparison was run.
 - A live search or AI overview can quote text that was removed weeks ago. Grep the live pages and the repo first; if clean, the fix is a re-crawl, not another edit.
-- A lost "Looks identical" claim needs a real test: the first style probe printed empty output for both versions and would have passed a broken page.
+- A "looks identical" claim needs a real test: the first style probe printed empty output for both versions and would have passed a broken page.
 - LinkedIn lazy-loads long lists (254 certifications); read the whole list before saying something is missing.
 
 ## Phase 9 — Site Rework: Who We Help, Case Studies & Site Standards (2026-10-13)
