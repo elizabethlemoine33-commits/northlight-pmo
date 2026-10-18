@@ -1,6 +1,6 @@
 {
-  "refreshed_at": "2026-10-15T16:12:43.924Z",
-  "triggered_by": "phase-dashboard-commit",
+  "refreshed_at": "2026-10-18T22:01:05.136Z",
+  "triggered_by": "schedule",
   "open_total": 16,
   "projects": [
     {
@@ -15,14 +15,18 @@
       "current_phase_title": "Retire Blue Bear, Social Posts & Sonnet 5.5 Migration",
       "phase_started": "2026-10-02",
       "open_count": 0,
-      "backlog_count": 19,
+      "backlog_count": 20,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 1,
+      "done_count": 2,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
       "done_items": [
+        {
+          "name": "Batch endpoint safety: cap destructive ops, guard merge_tasks",
+          "priority": "high"
+        },
         {
           "name": "Verify: Blue Bear silence on Friday 9 Oct",
           "priority": "normal"
