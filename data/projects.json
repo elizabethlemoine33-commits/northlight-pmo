@@ -1,7 +1,7 @@
 {
-  "refreshed_at": "2026-10-28T11:00:39.502Z",
+  "refreshed_at": "2026-11-01T22:00:23.604Z",
   "triggered_by": "schedule",
-  "open_total": 14,
+  "open_total": 9,
   "projects": [
     {
       "id": "northlight-os",
@@ -117,12 +117,16 @@
       "current_phase": "9",
       "current_phase_title": "Site Rework: Who We Help, Case Studies & Site Standards",
       "phase_started": "2026-09-28",
-      "open_count": 14,
-      "backlog_count": 7,
-      "ready_count": 14,
-      "in_progress_count": 0,
-      "done_count": 75,
+      "open_count": 9,
+      "backlog_count": 5,
+      "ready_count": 8,
+      "in_progress_count": 1,
+      "done_count": 83,
       "top_items": [
+        {
+          "name": "Review EveryExpert results and decide whether to keep the free Coffee Chat listing",
+          "priority": "normal"
+        },
         {
           "name": "Iterate checklist/script from review",
           "priority": "low"
@@ -134,10 +138,6 @@
         {
           "name": "Run first live call using the checklist",
           "priority": "high"
-        },
-        {
-          "name": "Define post-call review criteria",
-          "priority": "normal"
         }
       ],
       "ready_items": [
@@ -154,15 +154,20 @@
           "priority": "high"
         },
         {
-          "name": "Define post-call review criteria",
+          "name": "Rehearse closing script",
           "priority": "normal"
         },
         {
-          "name": "Rehearse closing script",
+          "name": "Decide whether to formalize into standard practice",
+          "priority": "low"
+        }
+      ],
+      "in_progress_items": [
+        {
+          "name": "Review EveryExpert results and decide whether to keep the free Coffee Chat listing",
           "priority": "normal"
         }
       ],
-      "in_progress_items": [],
       "done_items": [
         {
           "name": "Decide whether to feature the 1999 SSENSE chapter in the About page and bio (needs a copy first)",
