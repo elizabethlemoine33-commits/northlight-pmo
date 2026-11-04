@@ -1,5 +1,5 @@
 {
-  "refreshed_at": "2026-11-01T23:00:38.481Z",
+  "refreshed_at": "2026-11-04T12:00:21.327Z",
   "triggered_by": "schedule",
   "open_total": 9,
   "projects": [
@@ -95,7 +95,7 @@
       "current_phase_title": null,
       "phase_started": null,
       "open_count": 0,
-      "backlog_count": 0,
+      "backlog_count": 1,
       "ready_count": 0,
       "in_progress_count": 0,
       "done_count": 0,
@@ -118,10 +118,10 @@
       "current_phase_title": "Site Rework: Who We Help, Case Studies & Site Standards",
       "phase_started": "2026-09-28",
       "open_count": 9,
-      "backlog_count": 5,
+      "backlog_count": 4,
       "ready_count": 8,
       "in_progress_count": 1,
-      "done_count": 83,
+      "done_count": 84,
       "top_items": [
         {
           "name": "Review EveryExpert results and decide whether to keep the free Coffee Chat listing",
@@ -182,11 +182,11 @@
           "priority": "normal"
         },
         {
-          "name": "Add GoodFirms and TechBehemoths links to the About page once the listings are approved",
+          "name": "Clean URLs batch 3: blog posts, case studies, Vault/Meetings/OS pages (and decide on Cloudflare)",
           "priority": "normal"
         },
         {
-          "name": "LinkedIn: add missing certifications and fix the swapped ClickUp labels",
+          "name": "Add GoodFirms and TechBehemoths links to the About page once the listings are approved",
           "priority": "normal"
         }
       ],
@@ -205,7 +205,7 @@
       "current_phase_title": null,
       "phase_started": null,
       "open_count": 0,
-      "backlog_count": 3,
+      "backlog_count": 2,
       "ready_count": 0,
       "in_progress_count": 0,
       "done_count": 0,
@@ -251,7 +251,7 @@
       "current_phase_title": "Chat Bubbles, Memory Upgrades & Casey Conversations",
       "phase_started": "2026-07-23",
       "open_count": 0,
-      "backlog_count": 2,
+      "backlog_count": 0,
       "ready_count": 0,
       "in_progress_count": 0,
       "done_count": 1,
