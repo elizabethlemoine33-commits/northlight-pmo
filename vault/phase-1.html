@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northlight Vault — Phase 1 PMO Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --midnight: #0E0E14;
+    --surface:  #12121E;
+    --border:   #1E2035;
+    --border2:  #2A2A48;
+    --text:     #FFFFFF;
+    --cloud:    #C8CCE0;
+    --haze:     #BCC2DC;
+    --muted:    #99A1B6;
+    --glacial:  #4FC3C8;
+    --boreal:   #5B8DD9;
+    --dusk:     #8B6FD4;
+    --aurora:   #C46FAA;
+    --green:    #3BAA6E;
+    --yellow:   #D4A017;
+    --red:      #C44F4F;
+  }
+  body { background: var(--midnight); color: var(--cloud); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 14px; line-height: 1.5; padding: 32px; }
+  .top-bar { height: 3px; background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%); margin: -32px -32px 32px; }
+
+  .header { margin-bottom: 28px; }
+  .phase-label { font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dusk); margin-bottom: 6px; }
+  .title { font-size: 24px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+  .subtitle { color: var(--muted); font-size: 13px; margin-top: 4px; }
+
+  .progress-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
+  .progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .progress-label { font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+  .progress-pct { font-size: 26px; font-weight: 700; color: var(--text); }
+  .progress-bar-bg { background: var(--border); border-radius: 4px; height: 6px; }
+  .progress-bar-fill { background: linear-gradient(90deg, #4FC3C8, #8B6FD4); border-radius: 4px; height: 6px; }
+  .progress-outcome { color: var(--haze); font-size: 13px; margin-top: 10px; }
+  .progress-counts { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 8px; }
+  .progress-count { font-size: 13px; color: var(--muted); }
+  .progress-count strong { color: var(--cloud); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .grid-full { grid-column: 1 / -1; }
+  @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } body { padding: 20px; } .top-bar { margin: -20px -20px 24px; } }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .card-label { font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+
+  .table { width: 100%; border-collapse: collapse; }
+  .table th { font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding: 0 12px 8px 0; text-align: left; border-bottom: 1px solid var(--border); }
+  .table td { padding: 9px 12px 9px 0; border-bottom: 1px solid var(--border); vertical-align: top; font-size: 13px; }
+  .table tr:last-child td { border-bottom: none; }
+  .cell-name { color: var(--cloud); font-size: 14px; font-weight: 500; }
+  .cell-note { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .cell-date { color: var(--muted); white-space: nowrap; }
+  @media (max-width: 640px) { .table, .table tbody, .table tr, .table td { display: block; } .table thead { display: none; } .table td { padding: 4px 0; border-bottom: none; } .table tr { padding: 8px 0; border-bottom: 1px solid var(--border); } }
+
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .badge-done       { background: rgba(59,170,110,0.15); color: #4CC785; border: 1px solid rgba(59,170,110,0.35); }
+  .badge-inprogress { background: rgba(91,141,217,0.15); color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
+  .badge-queued     { background: rgba(212,160,23,0.12); color: #E0B030; border: 1px solid rgba(212,160,23,0.3); }
+  .badge-deferred   { background: rgba(153,161,182,0.10); color: var(--muted); border: 1px solid var(--border2); }
+  .badge-high       { background: rgba(196,79,79,0.15); color: #E07070; border: 1px solid rgba(196,79,79,0.35); }
+  .badge-normal     { background: rgba(91,141,217,0.15); color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
+  .badge-low        { background: rgba(153,161,182,0.10); color: var(--muted); border: 1px solid var(--border2); }
+
+  .issue-item { display: flex; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .issue-item:last-child { border-bottom: none; }
+  .issue-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--yellow); margin-top: 7px; flex-shrink: 0; }
+  .issue-dot.red { background: var(--red); }
+  .issue-dot.muted { background: var(--muted); }
+  .issue-dot.green { background: var(--green); }
+  .issue-text { color: var(--cloud); font-size: 14px; }
+  .issue-note { color: var(--muted); font-size: 13px; margin-top: 2px; }
+
+  .activity-item { padding: 9px 0; border-bottom: 1px solid var(--border); }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-date { font-size: 12px; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+  .activity-text { color: var(--cloud); font-size: 14px; }
+
+  .callout { background: rgba(91,141,217,0.07); border: 1px solid rgba(91,141,217,0.2); border-radius: 8px; padding: 12px 14px; margin-bottom: 24px; }
+  .callout-label { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--boreal); margin-bottom: 6px; }
+  .callout-text { color: var(--haze); font-size: 14px; line-height: 1.6; }
+
+  .footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); padding-top: 16px; display: flex; flex-wrap: wrap; gap: 6px 20px; justify-content: space-between; }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<div class="header">
+  <div class="phase-label">Northlight Vault · Phase 1</div>
+  <div class="title">Public Release, Verification &amp; Search Filters</div>
+  <div class="subtitle">5 Oct → 4 Nov 2026 · Status: Complete · v1.0.0 → v1.0.4</div>
+</div>
+
+<div class="callout">
+  <div class="callout-label">Historical Note</div>
+  <div class="callout-text">Phase 1 follows the May 2026 build of Vault (v1.0.0: Google Drive, OneDrive and Dropbox browsing and search, versioning, changelog, Sentry, privacy policy). This dashboard covers the work after launch: four releases, the Google, Dropbox and Microsoft platform reviews, the listings on G2 and TechBehemoths, and search filters built to answer G2's Desktop Search rejection.</div>
+</div>
+
+<div class="progress-section">
+  <div class="progress-header">
+    <div class="progress-label">Phase Progress</div>
+    <div class="progress-pct">100%</div>
+  </div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%"></div></div>
+  <div class="progress-outcome">Phase 1 complete — Vault is on v1.0.4 with a smaller Google permission, search filters and honest search wording; two platform reviews and one G2 dispute are now waiting on other people.</div>
+  <div class="progress-counts">
+    <div class="progress-count"><strong>4</strong> releases (v1.0.1 to v1.0.4)</div>
+    <div class="progress-count"><strong>17</strong> ClickUp tasks recorded (12 done, 5 open)</div>
+    <div class="progress-count"><strong>12</strong> decisions logged</div>
+  </div>
+</div>
+
+<div class="grid">
+
+  <div class="card grid-full">
+    <div class="card-label">What Shipped — Releases</div>
+    <table class="table">
+      <thead>
+        <tr><th style="width:12%">Version</th><th style="width:14%">Date</th><th>What changed</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-done">v1.0.1</span></td>
+          <td class="cell-date">7 Oct 2026</td>
+          <td><div class="cell-name">Feedback announcement</div><div class="cell-note">Dismissible banner with a Share feedback button; Help &gt; Send Feedback. Installer renamed to a version-free file name so the site download link never breaks.</div></td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-done">v1.0.2</span></td>
+          <td class="cell-date">3 Nov 2026</td>
+          <td><div class="cell-name">Review on G2 banner and launch-time update banner</div><div class="cell-note">Asks every user the same way. Electron 42.1.0 to 43.8.6 the day before (Node2Shell fix).</div></td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-done">v1.0.3</span></td>
+          <td class="cell-date">3 Nov 2026</td>
+          <td><div class="cell-name">Smaller Google permission, browser sign-in, crash-report privacy</div><div class="cell-note">drive.readonly to drive.metadata.readonly. Google sign-in opens in the default browser. Sentry drops console and network breadcrumbs and Vault stops logging search text. Welcome banner shows the running version.</div></td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-done">v1.0.4</span></td>
+          <td class="cell-date">4 Nov 2026</td>
+          <td><div class="cell-name">Search filters and a What's New window</div><div class="cell-note">Type, Modified and Account filters that stay on until cleared; up to 100 results per account with a cap note; Dropbox name-only; Office icon fix; readable What's New window built from CHANGELOG.md.</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card grid-full">
+    <div class="card-label">Platform Reviews, Listings &amp; Monitoring</div>
+    <table class="table">
+      <thead>
+        <tr><th style="width:30%">Item</th><th style="width:16%">Status</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="cell-name">Google OAuth verification</div></td>
+          <td><span class="badge badge-queued">Submitted</span></td>
+          <td><div class="cell-note">3 Nov. Restricted scope drive.metadata.readonly, Limited Use statement, demo video. Waiting on Google; not verified yet.</div></td>
+        </tr>
+        <tr>
+          <td><div class="cell-name">Dropbox production request</div></td>
+          <td><span class="badge badge-queued">Submitted</span></td>
+          <td><div class="cell-note">4 Nov. Write scope removed. Dropbox reviews at 50 or more linked users, then gives two weeks.</div></td>
+        </tr>
+        <tr>
+          <td><div class="cell-name">Microsoft publisher verification</div></td>
+          <td><span class="badge badge-done">Not needed</span></td>
+          <td><div class="cell-note">4 Nov. Vault's app is personal-accounts-only; publisher verification applies to multi-tenant apps.</div></td>
+        </tr>
+        <tr>
+          <td><div class="cell-name">Sentry alert for new Vault issues</div></td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><div class="cell-note">4 Nov. Test notification arrived. A real crash alert is still untested.</div></td>
+        </tr>
+        <tr>
+          <td><div class="cell-name">G2, Capterra, Software Advice, GetApp</div></td>
+          <td><span class="badge badge-done">Published</span></td>
+          <td><div class="cell-note">All four listings live; seller About page headline and description corrected 4 Nov.</div></td>
+        </tr>
+        <tr>
+          <td><div class="cell-name">G2 Desktop Search category</div></td>
+          <td><span class="badge badge-inprogress">Dispute open</span></td>
+          <td><div class="cell-note">Rejected 3 Nov (case 00659334). Dispute ticket submitted 4 Nov with the filters, release notes and a redacted screenshot as evidence.</div></td>
+        </tr>
+        <tr>
+          <td><div class="cell-name">TechBehemoths</div></td>
+          <td><span class="badge badge-done">Done</span></td>
+          <td><div class="cell-note">4 Nov. Blue verified badge live; Vault portfolio page and overview video added.</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card grid-full">
+    <div class="card-label">Decisions Log</div>
+    <table class="table">
+      <thead>
+        <tr><th style="width:4%">#</th><th style="width:32%">Decision</th><th>Why</th><th style="width:10%">Who</th><th style="width:11%">Date</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td class="cell-name">Ask Google for metadata-only Drive access</td><td class="cell-note">Vault never reads file contents, so the smaller scope is honest and lighter to review.</td><td>Elizabeth</td><td class="cell-date">3 Nov</td></tr>
+        <tr><td>2</td><td class="cell-name">Google sign-in opens in the default browser</td><td class="cell-note">Google requires it for desktop apps; lets people use accounts they are already signed in to.</td><td>Elizabeth</td><td class="cell-date">3 Nov</td></tr>
+        <tr><td>3</td><td class="cell-name">Crash reports carry no search terms, file names or request addresses</td><td class="cell-note">Keeps the "we do not touch your files" promise true for the Sentry path too.</td><td>Elizabeth</td><td class="cell-date">3 Nov</td></tr>
+        <tr><td>4</td><td class="cell-name">Dispute G2 with a normal ticket quoting the case, not a new categorization case</td><td class="cell-note">G2's process; build the filters first so the appeal is true.</td><td>Elizabeth</td><td class="cell-date">3 Nov</td></tr>
+        <tr><td>5</td><td class="cell-name">Remove Dropbox write scope; submit the production request now</td><td class="cell-note">Vault is read-only; about 77 downloads makes 50 linked users plausible, worst case they say no.</td><td>Elizabeth</td><td class="cell-date">4 Nov</td></tr>
+        <tr><td>6</td><td class="cell-name">No Microsoft publisher verification</td><td class="cell-note">Personal-accounts-only app; not applicable.</td><td>Elizabeth</td><td class="cell-date">4 Nov</td></tr>
+        <tr><td>7</td><td class="cell-name">Filter results in Vault (client-side) and raise the cap to 100 per account</td><td class="cell-note">One code path for all three providers; no new permissions; filters need enough results to work with.</td><td>Elizabeth</td><td class="cell-date">4 Nov</td></tr>
+        <tr><td>8</td><td class="cell-name">Dropbox searches by file name only</td><td class="cell-note">Matches Google Drive and the "we never read file contents" wording.</td><td>Elizabeth</td><td class="cell-date">4 Nov</td></tr>
+        <tr><td>9</td><td class="cell-name">Quick date ranges only; filters stay on until cleared; release as soon as tested</td><td class="cell-note">Simplest thing that meets G2's criterion; a new build does not affect the Google review.</td><td>Elizabeth</td><td class="cell-date">4 Nov</td></tr>
+        <tr><td>10</td><td class="cell-name">Keep OneDrive search as Microsoft's own and say so openly</td><td class="cell-note">Microsoft's search also matches file contents and has no name-only option. Filtering by name in Vault was possible but risked new issues. Changelog, privacy policy and docs say it plainly.</td><td>Elizabeth</td><td class="cell-date">4 Nov</td></tr>
+        <tr><td>11</td><td class="cell-name">Work and school Microsoft accounts: not planned</td><td class="cell-note">Would need a multi-tenant app and publisher verification. Kept as a backlog task in case users ask.</td><td>Elizabeth</td><td class="cell-date">4 Nov</td></tr>
+        <tr><td>12</td><td class="cell-name">Show the changelog as an in-app What's New window</td><td class="cell-note">The raw markdown file opened in Notepad and was hard to read. CHANGELOG.md stays the single source.</td><td>Elizabeth</td><td class="cell-date">4 Nov</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Deferred</div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div><div class="issue-text">In-app automatic updates</div><div class="issue-note">Today the update check links to the GitHub release. Needs a signing check, release metadata and a privacy policy change. Backlog.</div></div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div><div class="issue-text">Work and school Microsoft accounts</div><div class="issue-note">Not planned. Backlog in case a user asks.</div></div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div><div class="issue-text">OneDrive name-only matching</div><div class="issue-note">Possible later by filtering results in Vault; avoided now to limit risk.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Open Items Going Into Phase 2</div>
+    <div class="issue-item">
+      <div class="issue-dot red"></div>
+      <div><div class="issue-text">Watch for Google's verification result <span class="badge badge-high">High</span></div><div class="issue-note">Do not call the app verified until Google confirms.</div></div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot red"></div>
+      <div><div class="issue-text">G2 dispute outcome <span class="badge badge-high">High</span></div><div class="issue-note">Case page linked in ClickUp task 1dfjxwv0hwa.</div></div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot"></div>
+      <div><div class="issue-text">Watch for Dropbox's production review <span class="badge badge-normal">Normal</span></div><div class="issue-note">Starts at 50 linked users, then two weeks to be approved.</div></div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div><div class="issue-text">Decide on Dropbox "Enable additional users" <span class="badge badge-low">Low</span></div><div class="issue-note">May be needed before others can link Dropbox. Unverified.</div></div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot muted"></div>
+      <div><div class="issue-text">Test a real Vault crash alert <span class="badge badge-low">Low</span></div><div class="issue-note">Only the Sentry test notification has been seen.</div></div>
+    </div>
+  </div>
+
+  <div class="card grid-full">
+    <div class="card-label">Activity Timeline</div>
+    <div class="activity-item">
+      <div class="activity-date">5–7 Oct 2026</div>
+      <div class="activity-text">Learnings file moved into the Vault repo. v1.0.1 released with the feedback banner and a version-free installer name.</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">2 Nov 2026</div>
+      <div class="activity-text">Electron bumped to 43.8.6 for Node2Shell. v1.0.2 built: Review on G2 banner and launch-time update banner.</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">3 Nov 2026</div>
+      <div class="activity-text">v1.0.2 and v1.0.3 released. Privacy policy updated (Limited Use statement). Google OAuth verification submitted. G2 listings published; Desktop Search category rejected (case 00659334).</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">4 Nov 2026</div>
+      <div class="activity-text">Sentry alert confirmed. TechBehemoths badge and portfolio page done. Dropbox production request submitted; Microsoft verification reviewed and not needed. v1.0.4 planned, built, tested (OneDrive content matching found and documented) and released. Site docs, privacy policy and filter screenshot published. G2 dispute ticket submitted. 17 Vault tasks recorded in ClickUp.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <span>Northlight Vault · Phase 1 PMO · 4 Nov 2026</span>
+  <span>Sources: Vault repo history and CHANGELOG, northlight-vault skill, ClickUp Vault list, #northlight-build-log, session notes</span>
+</div>
+
+</body>
+</html>

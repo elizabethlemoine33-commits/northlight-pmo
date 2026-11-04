@@ -16,7 +16,7 @@ Privacy-first file storage product — lets users store and search personal file
 ## Phase dashboards
 | Phase | File | Status |
 |---|---|---|
-| — | — | No phase dashboards yet |
+| 1 | [phase-1.html](phase-1.html) | Complete — Public Release, Verification & Search Filters (2026-11-04) |
 
 ## Notes
 Live at bynorthlight.ca/vault. Early access launched May 2026. 9 backlog items in ClickUp (integrations, Android, in-app feedback).
