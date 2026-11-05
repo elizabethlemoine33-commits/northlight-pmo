@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northlight Connections · Phase 1 · Import and People</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --midnight: #0E0E14;
+    --surface:  #12121E;
+    --border:   #1E2035;
+    --border2:  #2A2A48;
+    --text:     #FFFFFF;
+    --cloud:    #C8CCE0;
+    --haze:     #B0B8D8;
+    --muted:    #8A92A8;
+    --glacial:  #4FC3C8;
+    --boreal:   #5B8DD9;
+    --dusk:     #8B6FD4;
+    --aurora:   #C46FAA;
+    --green:    #3BAA6E;
+    --yellow:   #D4A017;
+    --red:      #C44F4F;
+  }
+  body { background: var(--midnight); color: var(--cloud); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; padding: 32px; }
+  .top-bar { height: 3px; background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%); margin: -32px -32px 32px; }
+
+  .header { margin-bottom: 28px; }
+  .phase-label { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dusk); margin-bottom: 6px; }
+  .title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+  .subtitle { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+  .progress-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
+  .progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .progress-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .progress-pct { font-size: 24px; font-weight: 700; color: var(--text); }
+  .progress-bar-bg { background: var(--border); border-radius: 4px; height: 6px; }
+  .progress-bar-fill { background: linear-gradient(90deg, #4FC3C8, #8B6FD4); border-radius: 4px; height: 6px; }
+  .progress-counts { display: flex; gap: 20px; margin-top: 10px; }
+  .progress-count { font-size: 11px; color: var(--muted); }
+  .progress-count strong { color: var(--cloud); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .grid-full { grid-column: 1 / -1; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .card-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+
+  .block-table { width: 100%; border-collapse: collapse; }
+  .block-table th { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 0 0 8px; text-align: left; border-bottom: 1px solid var(--border); }
+  .block-table td { padding: 8px 0; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .block-table tr:last-child td { border-bottom: none; }
+  .block-name { color: var(--cloud); font-size: 12px; }
+  .block-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .badge-done       { background: rgba(59,170,110,0.15); color: var(--green); border: 1px solid rgba(59,170,110,0.3); }
+  .badge-inprogress { background: rgba(91,141,217,0.15); color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
+  .badge-notstarted { background: rgba(138,146,168,0.10); color: var(--muted); border: 1px solid var(--border); }
+  .badge-queued     { background: rgba(212,160,23,0.12); color: var(--yellow); border: 1px solid rgba(212,160,23,0.25); }
+
+  .decision-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .decision-item:last-child { border-bottom: none; }
+  .decision-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .decision-rationale { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .issue-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .issue-item:last-child { border-bottom: none; }
+  .issue-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
+  .dot-yellow { background: var(--yellow); }
+  .dot-blue   { background: var(--boreal); }
+  .dot-muted  { background: var(--muted); }
+  .issue-text { color: var(--cloud); font-size: 12px; }
+  .issue-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .activity-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-date { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+  .activity-text { color: var(--cloud); font-size: 12px; }
+
+  .callout { background: rgba(91,141,217,0.07); border: 1px solid rgba(91,141,217,0.2); border-radius: 8px; padding: 12px 14px; margin-bottom: 24px; }
+  .callout-label { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--boreal); margin-bottom: 6px; }
+  .callout-text { color: var(--haze); font-size: 12px; line-height: 1.6; }
+
+  .goal-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .goal-item:last-child { border-bottom: none; }
+
+  .footer { color: var(--muted); font-size: 11px; border-top: 1px solid var(--border); padding-top: 16px; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<div class="header">
+  <div class="phase-label">Northlight Connections · Phase 1</div>
+  <div class="title">Import and People</div>
+  <div class="subtitle">Started Nov 5, 2026 · Status: In Progress</div>
+</div>
+
+<div class="progress-section">
+  <div class="progress-header">
+    <div class="progress-label">Phase 1 Progress</div>
+    <div class="progress-pct">33%</div>
+  </div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" style="width: 33%;"></div>
+  </div>
+  <div class="progress-counts">
+    <div class="progress-count"><strong>5</strong> of 15 tasks done</div>
+    <div class="progress-count"><strong>10</strong> open (tracked in ClickUp)</div>
+    <div class="progress-count">Rough demo on fake data is up for review</div>
+  </div>
+</div>
+
+<div class="callout">
+  <div class="callout-label">What we are building</div>
+  <div class="callout-text">A small, private, local tool that tracks (never sends) Elizabeth's real conversations with her LinkedIn connections. It reads her own LinkedIn data export, keeps everything in one local file, and never stores message text. Phase 1 is the first working draft: import the export, show people, tag them, track stages, and show a Today list. Phase 1 is done when Draft 1 runs on her real export, she trusts the Today list, and she no longer needs the spreadsheet for follow-ups.</div>
+</div>
+
+<div class="grid">
+  <div class="card grid-full">
+    <div class="card-label">Tool Goals (aspirational)</div>
+    <div class="goal-item"><div class="block-name">1. No one falls through the cracks</div><div class="block-note">Nobody who messaged me waits unanswered for 14+ days without it showing on Today.</div></div>
+    <div class="goal-item"><div class="block-name">2. More real conversations</div><div class="block-note">Coffee chats held per month. Target to be set.</div></div>
+    <div class="goal-item"><div class="block-name">3. No wasted coffees</div><div class="block-note">Job-seekers and non-fits are tagged and never get a coffee offer.</div></div>
+    <div class="goal-item"><div class="block-name">4. Even workload</div><div class="block-note">Follow-ups at random 9–19 day intervals, never more than the daily cap (10 a day).</div></div>
+    <div class="goal-item"><div class="block-name">5. Privacy holds</div><div class="block-note">No message text stored, no real data in the repo, everything local.</div></div>
+    <div class="goal-item"><div class="block-name">6. Small and hers</div><div class="block-note">One computer, no paid CRM, replaces the 18-tab sheet.</div></div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card grid-full">
+    <div class="card-label">Phase 1 Tasks</div>
+    <table class="block-table">
+      <thead>
+        <tr>
+          <th style="width: 62%">Task</th>
+          <th style="width: 38%">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><div class="block-name">Define the tool (rules, data model, plan)</div><div class="block-note">docs/PLAN.md in the repo</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td><div class="block-name">Private repo with a privacy-first setup</div><div class="block-note">Data files and exports are git-ignored</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td><div class="block-name">Skeleton, fake export generator and tests</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td><div class="block-name">Importer with a counts-only preview</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td><div class="block-name">Rough demo on fake data</div><div class="block-note">PR 1, branch slice-1-importer</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td><div class="block-name">Elizabeth reviews the demo and lists changes</div><div class="block-note">Look and feel, workflow</div></td><td><span class="badge badge-inprogress">In progress</span></td></tr>
+        <tr><td><div class="block-name">Stage belongs to a goal: a person can be in more than one</div><div class="block-note">Coffee chat stages first; then a "for work" goal</div></td><td><span class="badge badge-queued">Next</span></td></tr>
+        <tr><td><div class="block-name">Stage as a clickable arrow across, not a dropdown</div></td><td><span class="badge badge-notstarted">Open</span></td></tr>
+        <tr><td><div class="block-name">Merge PR 1 after review</div></td><td><span class="badge badge-notstarted">Open</span></td></tr>
+        <tr><td><div class="block-name">Run the import preview on the real export</div><div class="block-note">Counts only; fix any format surprises</div></td><td><span class="badge badge-notstarted">Open</span></td></tr>
+        <tr><td><div class="block-name">Automatic stage updates</div><div class="block-note">Offer sent, replied, awaiting me</div></td><td><span class="badge badge-notstarted">Open</span></td></tr>
+        <tr><td><div class="block-name">Hidden-connections fill-in file</div></td><td><span class="badge badge-notstarted">Open</span></td></tr>
+        <tr><td><div class="block-name">Tier suggestions from job titles</div></td><td><span class="badge badge-notstarted">Open</span></td></tr>
+        <tr><td><div class="block-name">Backup button and "forget this person"</div></td><td><span class="badge badge-notstarted">Open</span></td></tr>
+        <tr><td><div class="block-name">Draft 1 working on real data</div><div class="block-note">First real week of follow-ups from the Today list</div></td><td><span class="badge badge-notstarted">Open</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-label">Decisions Log</div>
+    <div class="decision-item">
+      <div class="decision-title">1. Tracks, never sends</div>
+      <div class="decision-rationale">Every message is written and sent by hand. No automation of LinkedIn.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">2. Message text is never stored</div>
+      <div class="decision-rationale">Messages are read in memory only for date, direction and whether the coffee link was in the message.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">3. Local file, not a hosted database</div>
+      <div class="decision-rationale">One local SQLite file outside OneDrive keeps people data on her own computer.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">4. Built on the LinkedIn export, not the API</div>
+      <div class="decision-rationale">The API has no people-level data, messages or connection list.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">5. Core separate from any window</div>
+      <div class="decision-rationale">Browser UI on localhost first; Electron can wrap it later if wanted.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Activity Timeline</div>
+    <div class="activity-item">
+      <div class="activity-date">Nov 5, 2026 — Demo review</div>
+      <div class="activity-text">First look at the rough demo. Feedback: a stage should belong to a goal (a person can be in several), and show as a clickable arrow across.</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">Nov 5, 2026 — Build</div>
+      <div class="activity-text">Importer with counts-only preview and a rough fake-data demo built and pushed as PR 1. 23 tests pass.</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">Nov 5, 2026 — Phase 1 kicked off</div>
+      <div class="activity-text">Private repo and plan created. Project registered in the PMO.</div>
+    </div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card grid-full">
+    <div class="card-label">Open Items</div>
+    <div class="issue-item">
+      <div class="issue-dot dot-yellow"></div>
+      <div>
+        <div class="issue-text">Set a target for goal 2: coffee chats held per month</div>
+        <div class="issue-note">Needs Elizabeth's number</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot dot-blue"></div>
+      <div>
+        <div class="issue-text">Rework the data model so stage lives on goal membership, not on the person</div>
+        <div class="issue-note">Comes out of the first demo review</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>Northlight Connections · Phase 1 — Import and People · In Progress</span>
+  <span>2026-11-05 · northlight-pmo/northlight-connections/phase-1.html</span>
+</div>
+
+</body>
+</html>
