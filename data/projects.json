@@ -1,5 +1,5 @@
 {
-  "refreshed_at": "2026-11-05T22:20:45.688Z",
+  "refreshed_at": "2026-11-06T01:03:20.774Z",
   "triggered_by": "phase-dashboard-commit",
   "open_total": 9,
   "projects": [
@@ -346,14 +346,35 @@
       "current_phase_title": "Import and People",
       "phase_started": "2026-11-05",
       "open_count": 0,
-      "backlog_count": 10,
+      "backlog_count": 12,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 0,
+      "done_count": 20,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
-      "done_items": [],
+      "done_items": [
+        {
+          "name": "Change history: timestamps and append-only",
+          "priority": "normal"
+        },
+        {
+          "name": "Forget this person on every person card",
+          "priority": "normal"
+        },
+        {
+          "name": "'Not in latest export' marker on import",
+          "priority": "normal"
+        },
+        {
+          "name": "Do Not Contact flag with big red banner",
+          "priority": "normal"
+        },
+        {
+          "name": "More Declined stages (Reconnect, Referral intro)",
+          "priority": "normal"
+        }
+      ],
       "decisions": [],
       "blockers": []
     }
