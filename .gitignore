@@ -1,0 +1,5 @@
+# AI agent folders can hold saved commands with secrets, so never commit them
+.claude/
+.cursor/
+.gemini/
+.specstory/
