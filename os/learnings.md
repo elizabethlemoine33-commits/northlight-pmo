@@ -12,6 +12,21 @@ completed: in progress, entry of 2026-11-10
 - **Do not infer intent from an unchanged field** — Claude told Elizabeth the rotation next-due dates needed updating after the incident; she had left them alone on purpose (the incident was a fix in the moment; the regular schedule stands). Ask, or leave it.
 
 ---
+phase: Phase 15 — Retire Blue Bear, Social Posts & Sonnet 5.5 Migration
+completed: 2026-11-10
+---
+
+## Phase 15 Learnings
+
+*Drawn from the Phase 15 dashboard and decisions log; closed by Elizabeth on 2026-11-10, five weeks after the three briefs shipped on 2026-10-02.*
+
+- **A one-variable rollback is what makes moving everything at once safe** — all 16 Sonnet calls moved to 5.5 together (`SONNET_MODEL`), because testing covered the main skills and the remaining unknowns only show up in real use. Rollback is one Railway variable and works until 4.5 retires on 24 Nov.
+- **Posts from Claude Code sessions need an approval gate** — the 1 Oct post went out with planning notes and damaged characters. Nothing now sends until Elizabeth approves the exact text (copy-review state, ClickUp audit task, Slack DM).
+- **Observation posts that never saved thread context made replies silently ignored** — Casey now saves context and always acknowledges an @Casey reply (PR #19).
+- **A phase left at "verification in progress" goes stale** — this one stayed at 90% for five weeks after everything shipped and was never closed in the registry. Real-use checks need a date and an owner, or an explicit "close without confirming".
+- **Open items can be done without the page knowing** — at close, six of the seven open-item entries turned out to be done already (the test key revoked, the small fixes built, the blog polish tested, the repo loose ends done, plus the verifications and the Buffer decision) and only needed confirming. The one left, Casey replies after PR #19, does not apply in #northlight-pmo: Casey is not a member and her PMO observations go to #northlight-build-log. Close phases when the work is done, not when the page catches up.
+
+---
 phase: Phase 14 — ClickUp Resilience & Advisory Board Automation
 completed: 2026-08-12
 ---
