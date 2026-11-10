@@ -24,7 +24,7 @@ completed: 2026-11-10
 - **Posts from Claude Code sessions need an approval gate** — the 1 Oct post went out with planning notes and damaged characters. Nothing now sends until Elizabeth approves the exact text (copy-review state, ClickUp audit task, Slack DM).
 - **Observation posts that never saved thread context made replies silently ignored** — Casey now saves context and always acknowledges an @Casey reply (PR #19).
 - **A phase left at "verification in progress" goes stale** — this one stayed at 90% for five weeks after everything shipped and was never closed in the registry. Real-use checks need a date and an owner, or an explicit "close without confirming".
-- **Four open-item entries were not confirmed at close** (Casey replies after PR #19, which does not apply in #northlight-pmo: Casey is not a member and her PMO observations go to #northlight-build-log; small fixes proposed to Casey, not built; untested live combined Aurora and blog polish; repo loose ends). Closing the phase did not close them. The migration test key, the one security item, was confirmed revoked.
+- **Open items can be done without the page knowing** — at close, six of the seven open-item entries turned out to be done already (the test key revoked, the small fixes built, the blog polish tested, the repo loose ends done, plus the verifications and the Buffer decision) and only needed confirming. The one left, Casey replies after PR #19, does not apply in #northlight-pmo: Casey is not a member and her PMO observations go to #northlight-build-log. Close phases when the work is done, not when the page catches up.
 
 ---
 phase: Phase 14 — ClickUp Resilience & Advisory Board Automation
