@@ -1,4 +1,17 @@
 ---
+phase: Phase 16 — Compliance Dashboard (in progress; number proposed)
+completed: in progress, entry of 2026-11-10
+---
+
+## Phase 16 Learnings (so far)
+
+- **A dashboard that waits for a hand-opened record misses the moment it matters most** — the first real internal incident (2026-11-10) turned red only after Elizabeth opened the record by hand, 54 minutes after the ClickUp entry. The ClickUp register is now the trigger (PR #122); it has not yet been proven on live data.
+- **A rarely used screen must explain itself** — she expects to forget the incident screen between uses, and during a real incident felt unsure where things went. Plain-language help and room to breathe are requirements, not polish. Redesign is queued, mockup first.
+- **Transparent selects show a white popup** — the incident panel's dropdowns had light text on the browser's own white list, so options looked empty until hovered. The one CSS fix covered only `select.nl-input`. Use one shared rule so a new dropdown is right by default.
+- **A watcher that ignores drill entries cannot be drilled** — the register watcher skips `drill`, `draft` and `test` tags, so a drill needs a different, very specific, hand-set tag (proposed `nl-drill-live`). Drills are now quarterly, first the week of Dec 14.
+- **Do not infer intent from an unchanged field** — Claude told Elizabeth the rotation next-due dates needed updating after the incident; she had left them alone on purpose (the incident was a fix in the moment; the regular schedule stands). Ask, or leave it.
+
+---
 phase: Phase 14 — ClickUp Resilience & Advisory Board Automation
 completed: 2026-08-12
 ---
