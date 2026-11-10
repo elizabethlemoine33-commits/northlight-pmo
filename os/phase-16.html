@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northlight OS — Phase 16 PMO Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --midnight:#0E0E14; --surface:#12121E; --border:#1E2035; --text:#FFFFFF; --cloud:#C8CCE0; --muted:#8A92A8; --glacial:#4FC3C8; --boreal:#5B8DD9; --dusk:#8B6FD4; --aurora:#C46FAA; --green:#3BAA6E; --yellow:#D4A017; --red:#C44F4F; }
+  body { background: var(--midnight); color: var(--cloud); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; padding: 32px 16px; max-width: 980px; margin: 0 auto; }
+  .top-bar { height: 3px; background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%); margin: -32px -16px 28px; }
+  .phase-label { font-size: 10px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--dusk); margin-bottom: 6px; }
+  h1 { font-size: 22px; color: var(--text); letter-spacing: -.01em; }
+  .subtitle { color: var(--muted); font-size: 12px; margin: 4px 0 22px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; margin-bottom: 16px; }
+  .card-label { font-size: 10px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .pct { font-size: 24px; font-weight: 700; color: var(--text); }
+  .bar-bg { background: var(--border); border-radius: 4px; height: 6px; margin: 10px 0; }
+  .bar-fill { background: linear-gradient(90deg, #4FC3C8, #8B6FD4); border-radius: 4px; height: 6px; width: 39%; }
+  .counts { color: var(--muted); font-size: 11px; } .counts strong { color: var(--cloud); }
+  table { width: 100%; border-collapse: collapse; }
+  th { font-size: 10px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); padding: 0 8px 8px 0; text-align: left; border-bottom: 1px solid var(--border); }
+  td { padding: 8px 8px 8px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .done { background: rgba(59,170,110,.15); color: var(--green); border: 1px solid rgba(59,170,110,.3); }
+  .partial { background: rgba(212,160,23,.12); color: var(--yellow); border: 1px solid rgba(212,160,23,.3); }
+  .unverified { background: rgba(196,111,170,.12); color: var(--aurora); border: 1px solid rgba(196,111,170,.3); }
+  .queued { background: rgba(139,111,212,.12); color: var(--dusk); border: 1px solid rgba(139,111,212,.3); }
+  .notstarted { background: rgba(138,146,168,.10); color: var(--muted); border: 1px solid var(--border); }
+  ul { padding-left: 18px; } li { margin: 5px 0; }
+  .wrap { overflow-x: auto; }
+  a { color: var(--glacial); }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+<div class="phase-label">Northlight OS · Phase 16 · Compliance Dashboard</div>
+<h1>Phase 16 — Compliance Dashboard: current state</h1>
+<div class="subtitle">As of Nov 10, 2026 (evening). State only; history is in os/update-log.md and os/learnings.md. Detail: dashboard/specs/COMPLIANCE-DASHBOARD-HANDOFF.md in northlight-dispatcher. Phase number 16 is a proposal (Phase 15 was the latest on file); Elizabeth to confirm. Statuses are what was confirmed in the session; anything not confirmed is marked Unverified.</div>
+
+<div class="card">
+  <div class="card-label">Progress (recalculated from the rows below)</div>
+  <div class="pct">39%</div>
+  <div class="bar-bg"><div class="bar-fill"></div></div>
+  <div class="counts"><strong>7</strong> of 18 tracked items Done · <strong>1</strong> Unverified · <strong>1</strong> Partial · <strong>5</strong> Queued · <strong>4</strong> Not started. The 18 rows are the items listed here, not a fixed plan; the count changes as items are added.</div>
+</div>
+
+<div class="card">
+  <div class="card-label">Build blocks</div>
+  <div class="wrap"><table>
+  <tr><th>Item</th><th>Status</th></tr>
+  <tr><td>Critical alert level, red banner on every screen, overall status<div class="note">PR #103; Slack push to #northlight-os-alerts</div></td><td><span class="badge done">Done</span></td></tr>
+  <tr><td>Run status log (yearly Google Sheet)<div class="note">PR #103; AIMS-004 A2</div></td><td><span class="badge done">Done</span></td></tr>
+  <tr><td>Incident clock and incident record sheet<div class="note">PR #106; four timers, 10:00 to 23:00 Halifax window</div></td><td><span class="badge done">Done</span></td></tr>
+  <tr><td>Today page<div class="note">PRs #107, #109 (brand colours)</div></td><td><span class="badge done">Done</span></td></tr>
+  <tr><td>Tracking page<div class="note">PR #108; "evidence current" ring stays empty until evidence upload exists</div></td><td><span class="badge done">Done</span></td></tr>
+  <tr><td>Faster loads<div class="note">PR #110</div></td><td><span class="badge done">Done</span></td></tr>
+  <tr><td>Supplier watch (13 status feeds, per-incident tracking, draft entries)<div class="note">PRs #112, #113, #114, #116, #117, #119, #120</div></td><td><span class="badge done">Done</span></td></tr>
+  <tr><td>Internal-incident register watcher, source/kind, Contained, backdating, per-button errors<div class="note">PR #122 merged Nov 10, 21:28 UTC. Deployment and live behaviour not confirmed. First real check is the Dec drill.</div></td><td><span class="badge unverified">Unverified</span></td></tr>
+  <tr><td>Integrity strip<div class="note">Audit chain badge only. Dependabot, secret scanning and public Drive files are not built (need a GitHub token scope; ask first).</div></td><td><span class="badge partial">Partial</span></td></tr>
+  <tr><td>Dropdown lists unreadable (light text on white popup)<div class="note">ClickUp 1dfjxwv2u4m; high priority, small</div></td><td><span class="badge notstarted">Not started</span></td></tr>
+  <tr><td>Incident screen redesign (roomier, plain-language guidance)<div class="note">ClickUp 1dfjxwv2u4x; mockup first, her approval before code</div></td><td><span class="badge notstarted">Not started</span></td></tr>
+  <tr><td>Evidence upload and freshness<div class="note">ClickUp 1dfjxwv1rtj</div></td><td><span class="badge queued">Queued</span> <div class="note">Waiting for AIMS-004 Amendment A3 (draft, approve, then build)</div></td></tr>
+  <tr><td>Audit log viewer</td><td><span class="badge notstarted">Not started</span></td></tr>
+  <tr><td>Combined "Northlight score" (30/30/40)<div class="note">ClickUp 1dfjxwv1rtk; approved in principle</div></td><td><span class="badge queued">Queued</span> <div class="note">Waiting for evidence upload</div></td></tr>
+  <tr><td>Drill tag and quarterly drills (first: week of Dec 14, two drills)<div class="note">ClickUp 1dfjxwv1q7h; proposed tag nl-drill-live, set by hand only</div></td><td><span class="badge notstarted">Not started</span> <div class="note">Tag needs a small code change and an A2.1 wording check first</div></td></tr>
+  <tr><td>User handbook update<div class="note">ClickUp 1dfjxwv2u55</div></td><td><span class="badge queued">Queued</span> <div class="note">Waiting for the incident screen redesign</div></td></tr>
+  <tr><td>Break-glass fallback (view and stale-snapshot alert that work without the Dispatcher)</td><td><span class="badge queued">Queued</span> <div class="note">Deferred; needs her approval for any Apps Script</div></td></tr>
+  <tr><td>Phone alerts<div class="note">ClickUp 1dfjxwv18fd</div></td><td><span class="badge queued">Queued</span> <div class="note">Paused by Elizabeth (Slack VIP is paid-only)</div></td></tr>
+</table></div>
+</div>
+
+<div class="card">
+  <div class="card-label">Open issues</div>
+  <ul>
+    <li>Dropdown lists are unreadable on the dark screen (above).</li>
+    <li>The incident screen feels tight and unclear to use; she is unsure where things go.</li>
+    <li>PR #122 not yet proven against live ClickUp and Drive data.</li>
+    <li>Incident evidence went to Drive by hand; the record does not point to it (needs A3).</li>
+    <li>"No log available" reviews have no note saying why (plan limit, short retention).</li>
+    <li>An event opened only by hand (no ClickUp entry) shows the clock band but not the red banner. Decision needed before the drill.</li>
+    <li>First signal for a register-created record is the entry's creation time; a corrected time is not built.</li>
+    <li>IRP-001 wording for the timer targets is not drafted.</li>
+    <li>PR #123 (handoff doc) is awaiting merge by Elizabeth.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <div class="card-label">Dates</div>
+  <ul>
+    <li>Nov 13: document updates (1dfjxwv0z03), Dependabot and secret scanning check.</li>
+    <li>Week of Dec 14: first quarterly drill (two drills); retreat-signal checks (handoff doc section 12).</li>
+    <li>Mid-March 2027: second quarterly drill.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <div class="card-label">Recent activity (this session)</div>
+  <ul>
+    <li>PR #122 merged. First real internal incident reviewed (66 minutes in ClickUp, all four targets met).</li>
+    <li>Three ClickUp tasks created (dropdown, redesign, handbook); drill plan, spec task and evidence task updated.</li>
+    <li>Handoff doc updated with a paste-in starter (PR #123, awaiting merge).</li>
+  </ul>
+</div>
+</body>
+</html>
