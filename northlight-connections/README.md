@@ -2,7 +2,7 @@
 
 **Status:** Building  
 **Registered:** 2026-11-05  
-**Last refreshed:** 2026-11-05
+**Last refreshed:** 2026-11-11
 
 ## What it is
 A private, local tool that tracks (never sends) Elizabeth's real conversations with her LinkedIn connections, replacing a strained 18-tab spreadsheet. It reads her own LinkedIn data export (not the LinkedIn API) and keeps everything in one local file on her computer.
@@ -26,7 +26,7 @@ A private, local tool that tracks (never sends) Elizabeth's real conversations w
 ## Phase dashboards
 | Phase | File | Status |
 |---|---|---|
-| Phase 1: Import and People | phase-1.html | In progress |
+| Phase 1: Import and People | phase-1.html | In progress (97%; finish line = Draft 1 on real data) |
 
 ## Notes
 - Hard rules: tracks never sends; message text is never stored; no real data in the repo; no new connectors or credentials without asking.

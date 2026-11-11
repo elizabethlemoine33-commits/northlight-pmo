@@ -20,4 +20,9 @@
 - About 4% of connections in the export are hidden (no name or profile link), and some export files have no header row, so the importer must never guess columns.
 - Building on made-up export files from day one kept real people data out of the repo and out of the chat.
 
+- Giving each person an internal ID and making the LinkedIn address optional was a small change (a placeholder address, no table rebuild) that unlocked people met elsewhere; reviewing merges by hand is safer than auto-merging.
+- A backup button and a desktop installer matter more than they look: the data is one file, and "no terminal" is what makes a tool feel finished.
+- Reading the real brand (colours, fonts, the rule about white text on gradients) from the website source beat guessing; keeping every colour in one file made the restyle a single review.
+- Fixed names for things the rules depend on (Closed, Declined, Won) must be protected in an editable library, or one rename silently breaks the logic.
+
 ---

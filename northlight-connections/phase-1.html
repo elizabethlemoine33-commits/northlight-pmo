@@ -96,35 +96,35 @@
 <div class="header">
   <div class="phase-label">Northlight Connections · Phase 1</div>
   <div class="title">Import and People</div>
-  <div class="subtitle">Started Nov 5, 2026 · Refreshed Nov 5, 2026 · Status: In Progress</div>
+  <div class="subtitle">Started Nov 5, 2026 · Refreshed Nov 11, 2026 · Status: In Progress</div>
 </div>
 
 <div class="progress-section">
   <div class="progress-header">
     <div class="progress-label">Phase 1 Progress</div>
-    <div class="progress-pct">60%</div>
+    <div class="progress-pct">97%</div>
   </div>
   <div class="progress-bar-bg">
-    <div class="progress-bar-fill" style="width: 60%;"></div>
+    <div class="progress-bar-fill" style="width: 97%;"></div>
   </div>
   <div class="progress-counts">
-    <div class="progress-count"><strong>21</strong> of 34 tasks done</div>
-    <div class="progress-count"><strong>13</strong> open (tracked in ClickUp)</div>
-    <div class="progress-count"><strong>7</strong> pull requests merged</div>
-    <div class="progress-count">Running on the real export (1,813 people)</div>
+    <div class="progress-count"><strong>36</strong> of 37 tasks done</div>
+    <div class="progress-count"><strong>1</strong> open (the finish line)</div>
+    <div class="progress-count"><strong>15</strong> pull requests merged</div>
+    <div class="progress-count">Installed as a desktop app, running on the real export (1,813 people)</div>
   </div>
 </div>
 
 <div class="callout">
   <div class="callout-label">Where it stands</div>
-  <div class="callout-text">The tool is built and running on Elizabeth's real LinkedIn export. It imports people, tracks each person per goal with a stage library, keeps an append-only change history, and has safety features (Do not contact, Not in latest export, Forget this person). What remains for Draft 1 is mostly adding people who are not on LinkedIn, logging conversations by hand, tier suggestions, a backup button and small screen tidy-ups. Phase 1 stays open until Draft 1 runs on real data day to day and she no longer needs the spreadsheet for follow-ups.</div>
+  <div class="callout-text">Everything planned for Draft 1 is built and merged: the tool installs as a normal desktop app (no terminal), has a Backup button, lets Elizabeth add people who are not on LinkedIn (with a source, several social links and a hand-typed conversation log), merges duplicates after review, sorts and saves views of the People list, suggests tiers from job titles for her to confirm, shows a board view per goal, and wears the Northlight brand colours and logo. Her coffee-chat target is set in the app: 6 per month. The only open item is the Phase 1 finish line: Draft 1 running on real data day to day, with the spreadsheet no longer needed for follow-ups. Phase 1 stays open until Elizabeth confirms that. The three connectors (Claude queries, ClickUp reminders, Calendar matching) are agreed and planned as the next phase.</div>
 </div>
 
 <div class="grid">
   <div class="card grid-full">
     <div class="card-label">Tool Goals (aspirational)</div>
     <div class="goal-item"><div class="block-name">1. No one falls through the cracks</div><div class="block-note">Nobody who messaged me waits unanswered for 14+ days without it showing on Today.</div></div>
-    <div class="goal-item"><div class="block-name">2. More real conversations</div><div class="block-note">Coffee chats held per month. Target still to be set.</div></div>
+    <div class="goal-item"><div class="block-name">2. More real conversations</div><div class="block-note">Coffee chats held per month. Target set: 6 per month, shown on Today and Goals.</div></div>
     <div class="goal-item"><div class="block-name">3. No wasted coffees</div><div class="block-note">Job-seekers, non-fits and clients are kept out of coffee goals.</div></div>
     <div class="goal-item"><div class="block-name">4. Even workload</div><div class="block-note">Follow-ups at random 9–19 day intervals, never more than the daily cap (10 a day).</div></div>
     <div class="goal-item"><div class="block-name">5. Privacy holds</div><div class="block-note">No message text stored, no real data in the repo, everything local, a Forget this person option on every card.</div></div>
@@ -175,22 +175,32 @@
       </tbody>
     </table>
 
+    <div class="card-sublabel">Build-out after the first real-data rounds — done</div>
+    <table class="block-table">
+      <tbody>
+        <tr><td><div class="block-name">Desktop app (Electron) and Windows installer</div><div class="block-note">No terminal; same local data file; app icon</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td><div class="block-name">Backup button</div><div class="block-note">One click saves a complete copy outside OneDrive; reminder after 7 days</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td><div class="block-name">Monthly goal target</div><div class="block-note">6 coffee chats per month set on the Coffee chat goal; progress on Today and Goals</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td><div class="block-name">Add a person by hand, internal ID, source, merge duplicates</div><div class="block-note">People who are not on LinkedIn; source with an Other text box</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td><div class="block-name">Social links per person</div><div class="block-note">LinkedIn, Alignable, Website or Other with a label</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td><div class="block-name">Manual conversation log</div><div class="block-note">Counts for who spoke last; her own words, never copied messages</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td><div class="block-name">Hidden-connections fill-in file</div><div class="block-note">Download, fill in names and addresses, read back</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td><div class="block-name">Show client fields only for Active and Past clients</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td><div class="block-name">UI tidy: Help as a table, Do not contact and Forget side by side</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td><div class="block-name">Tidy the Closed step display</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td><div class="block-name">CSV download for the Activity page</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td><div class="block-name">Saved filters and sorting by column header</div><div class="block-note">Tested with 2,000 people</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td><div class="block-name">Northlight brand colours, fonts and logo</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td><div class="block-name">Tier suggestions from job titles</div><div class="block-note">Editable rules; she accepts or skips; never applied automatically</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td><div class="block-name">Kanban board view per goal</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td><div class="block-name">Graphic empty states</div><div class="block-note">Brand pictures beside the same short text</div></td><td><span class="badge badge-done">Done</span></td></tr>
+      </tbody>
+    </table>
+
     <div class="card-sublabel">Open</div>
     <table class="block-table">
       <tbody>
-        <tr><td style="width: 80%"><div class="block-name">Draft 1 working on real data</div><div class="block-note">The Phase 1 finish line</div></td><td><span class="badge badge-inprogress">In progress</span></td></tr>
-        <tr><td><div class="block-name">Add a person by hand, internal ID, source, merge duplicates</div><div class="block-note">People who are not on LinkedIn</div></td><td><span class="badge badge-queued">Next</span></td></tr>
-        <tr><td><div class="block-name">Manual conversation log</div></td><td><span class="badge badge-queued">Next</span></td></tr>
-        <tr><td><div class="block-name">Tier suggestions from job titles</div></td><td><span class="badge badge-notstarted">Open</span></td></tr>
-        <tr><td><div class="block-name">Hidden-connections fill-in file</div></td><td><span class="badge badge-notstarted">Open</span></td></tr>
-        <tr><td><div class="block-name">Backup button</div></td><td><span class="badge badge-notstarted">Open</span></td></tr>
-        <tr><td><div class="block-name">Show client fields only for Active and Past clients</div></td><td><span class="badge badge-notstarted">Open</span></td></tr>
-        <tr><td><div class="block-name">UI tidy: Help as a table, Do not contact and Forget side by side</div></td><td><span class="badge badge-notstarted">Open</span></td></tr>
-        <tr><td><div class="block-name">Tidy the Closed step display</div></td><td><span class="badge badge-notstarted">Open</span></td></tr>
-        <tr><td><div class="block-name">Saved filters and sorting by column header</div></td><td><span class="badge badge-notstarted">Open</span></td></tr>
-        <tr><td><div class="block-name">CSV download for the Activity page</div><div class="block-note">Idea, not yet logged as a task</div></td><td><span class="badge badge-notstarted">Open</span></td></tr>
-        <tr><td><div class="block-name">Graphic empty states instead of text</div><div class="block-note">Pinned idea</div></td><td><span class="badge badge-notstarted">Open</span></td></tr>
-        <tr><td><div class="block-name">Kanban view per goal</div><div class="block-note">Later</div></td><td><span class="badge badge-notstarted">Open</span></td></tr>
+        <tr><td style="width: 80%"><div class="block-name">Draft 1 working on real data</div><div class="block-note">The Phase 1 finish line: used day to day, spreadsheet no longer needed for follow-ups</div></td><td><span class="badge badge-inprogress">In progress</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -232,6 +242,30 @@
       <div class="decision-rationale">Audit-ready history, with privacy winning when a person is forgotten on purpose.</div>
     </div>
     <div class="decision-item">
+      <div class="decision-title">10. A desktop app, not a terminal (Nov 11)</div>
+      <div class="decision-rationale">An Electron window and Windows installer run the same local app on the same data file. Unsigned installer, so Windows warns once.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">11. Coffee-chat target: 6 per month, kept in the app (Nov 11)</div>
+      <div class="decision-rationale">The target lives on the goal in Connections. Who she meets is not tracked in ClickUp.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">12. People not on LinkedIn: a hand-added record is kept on merge (Nov 11)</div>
+      <div class="decision-rationale">Every person has an internal ID; the LinkedIn address is optional. When the same person later arrives from LinkedIn, she reviews the merge: the hand-added record keeps its history and takes the address.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">13. Suggestions are never applied automatically (Nov 11)</div>
+      <div class="decision-rationale">Title rules propose a relationship or tag; Elizabeth accepts or skips each one.</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">14. Brand look: light page, dark top bar, brand accents (Nov 11)</div>
+      <div class="decision-rationale">Teal and pink outline boxes, dusk purple marks the current stage, gradient on main buttons. Green and red keep their one meaning (pursue and do not pursue).</div>
+    </div>
+    <div class="decision-item">
+      <div class="decision-title">15. Connectors agreed for the next phase (Nov 11)</div>
+      <div class="decision-rationale">(a) Local read-only connector so Claude can query the data as a database, with as few names as possible; (b) one-way ClickUp reminders for follow-ups due today, carrying the LinkedIn profile link instead of a name; (c) Calendar matching that proposes coffee-chat matches she confirms. Each gets a short written plan before it is built.</div>
+    </div>
+    <div class="decision-item">
       <div class="decision-title">9. Merge a PR only when the build is final</div>
       <div class="decision-rationale">PR 6 was merged before its last commit landed, so a follow-up PR 7 was needed.</div>
     </div>
@@ -239,6 +273,14 @@
 
   <div class="card">
     <div class="card-label">Activity Timeline</div>
+    <div class="activity-item">
+      <div class="activity-date">Nov 11, 2026 — Batch 4 and the brand look</div>
+      <div class="activity-text">Sortable columns and saved views, tier suggestions, board view per goal, graphic empty states, and the Northlight colours, fonts and logo. Installer rebuilt with the new icon. PRs 13 to 15.</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">Nov 11, 2026 — Batches 1 to 3</div>
+      <div class="activity-text">Desktop app and Backup with a monthly coffee-chat target (6 a month); add a person by hand with source, social links, conversation log and merge; client-field, Help, Closed-step tidy-ups, Activity CSV and the hidden-connections file. PRs 9 to 12.</div>
+    </div>
     <div class="activity-item">
       <div class="activity-date">Nov 5, 2026 — Real-data testing</div>
       <div class="activity-text">Change history, Help, Settings and the person card tested on the real data. Merged branches cleaned up on GitHub. Small UI notes logged.</div>
@@ -268,29 +310,22 @@
     <div class="issue-item">
       <div class="issue-dot dot-yellow"></div>
       <div>
-        <div class="issue-text">Set a target for goal 2: coffee chats held per month</div>
-        <div class="issue-note">Needs Elizabeth's number</div>
+        <div class="issue-text">Close Phase 1: Elizabeth confirms Draft 1 runs on real data day to day</div>
+        <div class="issue-note">Phase 1 stays open until she does. Use it for a stretch, then list what is still missing.</div>
       </div>
     </div>
     <div class="issue-item">
       <div class="issue-dot dot-blue"></div>
       <div>
-        <div class="issue-text">People who are not on LinkedIn: internal ID, source, merge duplicates, manual conversation log</div>
-        <div class="issue-note">Next build step; needs a small schema change</div>
-      </div>
-    </div>
-    <div class="issue-item">
-      <div class="issue-dot dot-blue"></div>
-      <div>
-        <div class="issue-text">Backup button</div>
-        <div class="issue-note">Until then the data file is copied by hand</div>
+        <div class="issue-text">Next phase (Connectors): short written plan for each, then build</div>
+        <div class="issue-note">1) Local read-only connector for Claude queries (few names). 2) ClickUp reminders for follow-ups due today, with the LinkedIn profile link and no name. 3) Calendar matching that proposes coffee-chat matches she confirms. Needs her OK on each plan and any sign-in.</div>
       </div>
     </div>
     <div class="issue-item">
       <div class="issue-dot dot-muted"></div>
       <div>
-        <div class="issue-text">Later: local connector so Claude can query the data, one-way ClickUp reminders, Calendar matching for coffee chats</div>
-        <div class="issue-note">Each needs Elizabeth's OK before any connector is added</div>
+        <div class="issue-text">Possible polish after real use</div>
+        <div class="issue-note">Goal editing, stage re-ordering, a bulk action for referral fields, a "coffee offer" tick on conversation log entries.</div>
       </div>
     </div>
   </div>
@@ -298,7 +333,7 @@
 
 <div class="footer">
   <span>Northlight Connections · Phase 1 — Import and People · In Progress</span>
-  <span>2026-11-05 · northlight-pmo/northlight-connections/phase-1.html</span>
+  <span>2026-11-11 · northlight-pmo/northlight-connections/phase-1.html</span>
 </div>
 
 </body>
