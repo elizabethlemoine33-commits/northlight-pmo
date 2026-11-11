@@ -16,7 +16,7 @@
   .card-label { font-size: 10px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
   .pct { font-size: 24px; font-weight: 700; color: var(--text); }
   .bar-bg { background: var(--border); border-radius: 4px; height: 6px; margin: 10px 0; }
-  .bar-fill { background: linear-gradient(90deg, #4FC3C8, #8B6FD4); border-radius: 4px; height: 6px; width: 39%; }
+  .bar-fill { background: linear-gradient(90deg, #4FC3C8, #8B6FD4); border-radius: 4px; height: 6px; width: 45%; }
   .counts { color: var(--muted); font-size: 11px; } .counts strong { color: var(--cloud); }
   table { width: 100%; border-collapse: collapse; }
   th { font-size: 10px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); padding: 0 8px 8px 0; text-align: left; border-bottom: 1px solid var(--border); }
@@ -38,13 +38,13 @@
 <div class="top-bar"></div>
 <div class="phase-label">Northlight OS · Phase 16 · Compliance Dashboard</div>
 <h1>Phase 16 — Compliance Dashboard: current state</h1>
-<div class="subtitle">As of Nov 10, 2026 (evening). State only; history is in os/update-log.md and os/learnings.md. Detail: dashboard/specs/COMPLIANCE-DASHBOARD-HANDOFF.md in northlight-dispatcher. Phase number 16 is a proposal (Phase 15 was the latest on file); Elizabeth to confirm. Statuses are what was confirmed in the session; anything not confirmed is marked Unverified.</div>
+<div class="subtitle">As of Nov 11, 2026 (early morning). State only; history is in os/update-log.md and os/learnings.md. Detail: dashboard/specs/COMPLIANCE-DASHBOARD-HANDOFF.md in northlight-dispatcher. Statuses are what was confirmed in the session; anything not confirmed is marked Unverified.</div>
 
 <div class="card">
   <div class="card-label">Progress (recalculated from the rows below)</div>
-  <div class="pct">39%</div>
+  <div class="pct">45%</div>
   <div class="bar-bg"><div class="bar-fill"></div></div>
-  <div class="counts"><strong>7</strong> of 18 tracked items Done · <strong>1</strong> Unverified · <strong>1</strong> Partial · <strong>5</strong> Queued · <strong>4</strong> Not started. The 18 rows are the items listed here, not a fixed plan; the count changes as items are added.</div>
+  <div class="counts"><strong>10</strong> of 22 tracked items Done · <strong>1</strong> Unverified · <strong>5</strong> Partial · <strong>5</strong> Queued · <strong>1</strong> Not started. The 22 rows are the items listed here, not a fixed plan; the count changes as items are added.</div>
 </div>
 
 <div class="card">
@@ -55,18 +55,22 @@
   <tr><td>Run status log (yearly Google Sheet)<div class="note">PR #103; AIMS-004 A2</div></td><td><span class="badge done">Done</span></td></tr>
   <tr><td>Incident clock and incident record sheet<div class="note">PR #106; four timers, 10:00 to 23:00 Halifax window</div></td><td><span class="badge done">Done</span></td></tr>
   <tr><td>Today page<div class="note">PRs #107, #109 (brand colours)</div></td><td><span class="badge done">Done</span></td></tr>
-  <tr><td>Tracking page<div class="note">PR #108; "evidence current" ring stays empty until evidence upload exists</div></td><td><span class="badge done">Done</span></td></tr>
+  <tr><td>Tracking page<div class="note">PR #108; "evidence current" ring stays empty until evidence freshness is measured</div></td><td><span class="badge done">Done</span></td></tr>
   <tr><td>Faster loads<div class="note">PR #110</div></td><td><span class="badge done">Done</span></td></tr>
   <tr><td>Supplier watch (13 status feeds, per-incident tracking, draft entries)<div class="note">PRs #112, #113, #114, #116, #117, #119, #120</div></td><td><span class="badge done">Done</span></td></tr>
-  <tr><td>Internal-incident register watcher, source/kind, Contained, backdating, per-button errors<div class="note">PR #122 merged Nov 10, 21:28 UTC. Deployment and live behaviour not confirmed. First real check is the Dec drill.</div></td><td><span class="badge unverified">Unverified</span></td></tr>
+  <tr><td>Dropdown lists readable everywhere<div class="note">PR #125; ClickUp 1dfjxwv2u4m complete</div></td><td><span class="badge done">Done</span></td></tr>
+  <tr><td>Incident screen redesign (five steps with plain-language help, next-step cue, key checklist from the rotation register)<div class="note">PR #129; ClickUp 1dfjxwv2u4x complete. Elizabeth tried it live on Nov 10 (layout, next-step badge, key chips) and was satisfied; to be refined after the December drills.</div></td><td><span class="badge done">Done</span></td></tr>
+  <tr><td>Evidence upload (AIMS-004 Amendment A3, part 3.1)<div class="note">PR #129. Live test Nov 10: an image uploaded; a text file with a key-shaped string was refused. Files go to Drive, the Evidence log and the incident record; nothing is deleted.</div></td><td><span class="badge done">Done</span></td></tr>
+  <tr><td>Internal-incident register watcher, source/kind, Contained, backdating, per-button errors<div class="note">PR #122 merged Nov 10. Live behaviour against a real ClickUp entry not yet confirmed. First real check is the December drill.</div></td><td><span class="badge unverified">Unverified</span></td></tr>
   <tr><td>Integrity strip<div class="note">Audit chain badge only. Dependabot, secret scanning and public Drive files are not built (need a GitHub token scope; ask first).</div></td><td><span class="badge partial">Partial</span></td></tr>
-  <tr><td>Dropdown lists unreadable (light text on white popup)<div class="note">ClickUp 1dfjxwv2u4m; high priority, small</div></td><td><span class="badge notstarted">Not started</span></td></tr>
-  <tr><td>Incident screen redesign (roomier, plain-language guidance)<div class="note">ClickUp 1dfjxwv2u4x; mockup first, her approval before code</div></td><td><span class="badge notstarted">Not started</span></td></tr>
-  <tr><td>Evidence upload and freshness<div class="note">ClickUp 1dfjxwv1rtj</div></td><td><span class="badge queued">Queued</span> <div class="note">Waiting for AIMS-004 Amendment A3 (draft, approve, then build)</div></td></tr>
+  <tr><td>Drill tag and quarterly drills (first: week of Dec 14, two drills)<div class="note">Tag nl-drill-live built (PR #137; AIMS-004 Amendment A2.2, v1.5): labelled red banner, alert and record, not counted in days since last incident; the OS never sets it. Not yet exercised on live data. ClickUp 1dfjxwv1q7h.</div></td><td><span class="badge partial">Partial</span> <div class="note">The drills themselves are the Dec 14 week</div></td></tr>
+  <tr><td>User handbook update<div class="note">Rough draft of manual section 13 merged (PR #133). ClickUp 1dfjxwv2u55 in progress; refine after the December drills.</div></td><td><span class="badge partial">Partial</span></td></tr>
+  <tr><td>Daily journal (AIMS-004 A3, part 3.2)<div class="note">Dry-run build merged (PRs #132, #138, #140); writes to a dry-run monthly doc only. A week of dry runs, with Elizabeth reading the first entries, before the real folder. ClickUp 1dfjxwv34gr in progress.</div></td><td><span class="badge partial">Partial</span></td></tr>
+  <tr><td>Finance books cleanup and adjustment panel (separate session; own Amendment A4)<div class="note">As last reported: code fixes and the adjustment panel merged (PRs #128, #130, #131, #139); proposals loaded, cleanup not yet applied to the live sheet; A4 awaiting Elizabeth's approval (will be v1.6).</div></td><td><span class="badge partial">Partial</span></td></tr>
+  <tr><td>Evidence freshness (fills the "evidence current" ring)<div class="note">Needs a control-to-evidence mapping and windows (12 months annual, 90 days quarterly, 35 days monthly)</div></td><td><span class="badge queued">Queued</span></td></tr>
+  <tr><td>Combined "Northlight score" (30/30/40)<div class="note">ClickUp 1dfjxwv1rtk; approved in principle; shows "not measured yet" for anything unmeasured</div></td><td><span class="badge queued">Queued</span> <div class="note">Next up</div></td></tr>
+  <tr><td>Compliance agent (AIMS-004 A3, part 3.3)<div class="note">Scope merged (PR #135): rules first, model later, Slack note to #northlight-os-alerts plus an amber banner, weekly "nothing found" line. Reading the ISMS documents through the dispatcher token was proven on Nov 11. ClickUp 1dfjxwv34h4.</div></td><td><span class="badge queued">Queued</span> <div class="note">After about two weeks of real journal entries and an amber banner level</div></td></tr>
   <tr><td>Audit log viewer</td><td><span class="badge notstarted">Not started</span></td></tr>
-  <tr><td>Combined "Northlight score" (30/30/40)<div class="note">ClickUp 1dfjxwv1rtk; approved in principle</div></td><td><span class="badge queued">Queued</span> <div class="note">Waiting for evidence upload</div></td></tr>
-  <tr><td>Drill tag and quarterly drills (first: week of Dec 14, two drills)<div class="note">ClickUp 1dfjxwv1q7h; proposed tag nl-drill-live, set by hand only</div></td><td><span class="badge notstarted">Not started</span> <div class="note">Tag needs a small code change and an A2.1 wording check first</div></td></tr>
-  <tr><td>User handbook update<div class="note">ClickUp 1dfjxwv2u55</div></td><td><span class="badge queued">Queued</span> <div class="note">Waiting for the incident screen redesign</div></td></tr>
   <tr><td>Break-glass fallback (view and stale-snapshot alert that work without the Dispatcher)</td><td><span class="badge queued">Queued</span> <div class="note">Deferred; needs her approval for any Apps Script</div></td></tr>
   <tr><td>Phone alerts<div class="note">ClickUp 1dfjxwv18fd</div></td><td><span class="badge queued">Queued</span> <div class="note">Paused by Elizabeth (Slack VIP is paid-only)</div></td></tr>
 </table></div>
@@ -75,23 +79,24 @@
 <div class="card">
   <div class="card-label">Open issues</div>
   <ul>
-    <li>Dropdown lists are unreadable on the dark screen (above).</li>
-    <li>The incident screen feels tight and unclear to use; she is unsure where things go.</li>
-    <li>PR #122 not yet proven against live ClickUp and Drive data.</li>
-    <li>Incident evidence went to Drive by hand; the record does not point to it (needs A3).</li>
+    <li>Register watcher (PR #122) and the drill tag (PR #137) are not yet proven against a live ClickUp entry. A throwaway tagged entry a few days before the drill is suggested.</li>
+    <li>The key checklist guesses likely keys from the credential name, because the rotation register has no supplier field.</li>
+    <li>Images and PDFs cannot be scanned for keys on upload; they rely on the crop-out reminder.</li>
     <li>"No log available" reviews have no note saying why (plan limit, short retention).</li>
-    <li>An event opened only by hand (no ClickUp entry) shows the clock band but not the red banner. Decision needed before the drill.</li>
+    <li>An event opened only by hand (no ClickUp entry) shows the clock band but not the red banner. Decided to leave it: the ClickUp register stays the source of truth, and the manual-first drill measures how long it takes to get the entry into ClickUp.</li>
     <li>First signal for a register-created record is the entry's creation time; a corrected time is not built.</li>
     <li>IRP-001 wording for the timer targets is not drafted.</li>
-    <li>PR #123 (handoff doc) is awaiting merge by Elizabeth.</li>
+    <li>The compliance agent needs an amber banner level (today only normal and critical exist) and a proven dedupe against Needs attention and overdue ClickUp items (Casey's review).</li>
+    <li>Leftover remote branch origin/pmo-compliance-dashboard-nov10 in the dispatcher repo: one unmerged commit, not reviewed in this session.</li>
   </ul>
 </div>
 
 <div class="card">
   <div class="card-label">Dates</div>
   <ul>
-    <li>Nov 13: document updates (1dfjxwv0z03), Dependabot and secret scanning check.</li>
-    <li>Week of Dec 14: first quarterly drill (two drills); retreat-signal checks (handoff doc section 12).</li>
+    <li>Nov 13: document updates (1dfjxwv0z03; AIMS-004 v1.5 is recorded, the other ISMS documents are not), Dependabot and secret scanning check.</li>
+    <li>Week of Dec 14: first quarterly drill (two drills: ClickUp first, manual first); retreat-signal checks (handoff doc section 12); Elizabeth uses the new incident screen unaided.</li>
+    <li>About two weeks after the journal goes live: go decision for the compliance agent's Stage 1 (rules only).</li>
     <li>Mid-March 2027: second quarterly drill.</li>
   </ul>
 </div>
@@ -99,9 +104,10 @@
 <div class="card">
   <div class="card-label">Recent activity (this session)</div>
   <ul>
-    <li>PR #122 merged. First real internal incident reviewed (66 minutes in ClickUp, all four targets met).</li>
-    <li>Three ClickUp tasks created (dropdown, redesign, handbook); drill plan, spec task and evidence task updated.</li>
-    <li>Handoff doc updated with a paste-in starter (PR #123, awaiting merge).</li>
+    <li>AIMS-004 Amendments A3 (evidence upload, daily journal, compliance agent read access) and A2.2 (live drills) drafted, approved by Elizabeth and recorded in the ISMS document (now v1.5) with Decision Log entries. Finance split into its own session and its own Amendment A4 (will be v1.6).</li>
+    <li>Merged: dropdown fix (#125), incident screen redesign with key checklist and evidence upload (#129), handbook section 13 rough draft (#133), compliance agent scope (#135), live drill tag (#137), plus the journal and finance sessions' PRs.</li>
+    <li>Casey reviewed the evidence screen, the journal dry run and the compliance agent scope; its questions (the job the agent does, build or buy, how noise is measured, load, deduplication) are answered on the scope page.</li>
+    <li>ClickUp tasks updated: dropdown and redesign complete, handbook and journal in progress, comments on the spec, compliance agent and ISMS update tasks.</li>
   </ul>
 </div>
 </body>
