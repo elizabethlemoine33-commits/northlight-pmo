@@ -1,6 +1,6 @@
 ---
 phase: Phase 16 — Compliance Dashboard (in progress; number proposed)
-completed: in progress, entry of 2026-11-10
+completed: in progress, entry of 2026-11-11
 ---
 
 ## Phase 16 Learnings (so far)
@@ -10,6 +10,11 @@ completed: in progress, entry of 2026-11-10
 - **Transparent selects show a white popup** — the incident panel's dropdowns had light text on the browser's own white list, so options looked empty until hovered. The one CSS fix covered only `select.nl-input`. Use one shared rule so a new dropdown is right by default.
 - **A watcher that ignores drill entries cannot be drilled** — the register watcher skips `drill`, `draft` and `test` tags, so a drill needs a different, very specific, hand-set tag (proposed `nl-drill-live`). Drills are now quarterly, first the week of Dec 14.
 - **Do not infer intent from an unchanged field** — Claude told Elizabeth the rotation next-due dates needed updating after the incident; she had left them alone on purpose (the incident was a fix in the moment; the regular schedule stands). Ask, or leave it.
+- **Check the policy wording against the code before building** — A2.1 said the OS ignores entries tagged draft, drill or test, so a drill entry would have raised nothing and exercised nothing. Reading the amendment against the watcher showed it; a one-exact-tag exception (set by hand, never by the OS) was settled in the amendment first, then built.
+- **Write the amendment first, in one pass** — three new powers (evidence upload, a nightly journal, agent read access) went into one amendment (A3): questions answered in chat, approved, recorded, then built. Finance got its own amendment in its own session so the two did not tangle. Splitting a big session by area kept each one readable.
+- **A silent checker looks the same as a broken one** — the compliance agent will only report when something is off, so a weekly "checked, nothing found" line and a run-status-log row are part of the design, not extras.
+- **Measure noise against what was generated, not only what was reviewed, and make deduplication airtight** — Casey's review of the agent scope. A missed duplicate inflates the noise rate and makes the daily cap meaningless, so the dedupe mechanism gets its own review before it ships.
+- **Say what a check cannot catch** — images and PDFs cannot be checked for keys on upload, so those rely on a crop-out reminder; the key checklist guesses likely keys from names because the register has no supplier field. Both are written down as limits, not hidden.
 
 ---
 phase: Phase 15 — Retire Blue Bear, Social Posts & Sonnet 5.5 Migration
