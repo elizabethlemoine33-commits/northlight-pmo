@@ -2,7 +2,7 @@
 
 **Status:** Building  
 **Registered:** 2026-11-05  
-**Last refreshed:** 2026-11-11
+**Last refreshed:** 2026-11-12
 
 ## What it is
 A private, local tool that tracks (never sends) Elizabeth's real conversations with her LinkedIn connections, replacing a strained 18-tab spreadsheet. It reads her own LinkedIn data export (not the LinkedIn API) and keeps everything in one local file on her computer.
