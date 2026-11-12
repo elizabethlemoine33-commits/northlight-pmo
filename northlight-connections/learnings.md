@@ -4,6 +4,16 @@
 
 ---
 
+## Phase 2 — Privacy, Reminders and Connectors (2026-11-12)
+
+- Claude desktop installed from the Microsoft Store redirects files that its child programs write under AppData and then shows them the private copy. A stray test copy of the data folder made the connector read a blank database and write its log where the app could not see it. Never run the app against the default data folder from a development session; the connector now detects a private copy and says so.
+- Fake test names must differ in letters, not digits: matching ignores digits, so "Test01" and "Test02" looked identical and hid a matching problem.
+- Real LinkedIn surnames carry credentials ("Surname, CPA"); matching on the last word missed obvious people until credentials were ignored.
+- Append amendment sections to ISMS pages instead of rewriting them: ClickUp's page markdown can flatten tables. The one full-page edit (AIMS-004 version line) was checked line by line afterwards.
+- When a connector says "off" while the app says "on", compare where each writes its log before suspecting the code.
+
+---
+
 ## Phase 1 — Import and People, progress notes (2026-11-05)
 
 - Merge a pull request only after the build session reports it final. PR 6 was merged before its last commit was pushed, so main lacked the change history and Help work until a second PR; the running app looked unchanged and it took a check of main to find why.

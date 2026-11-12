@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northlight Connections · Phase 2 · Privacy, Reminders and Connectors</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --midnight: #0E0E14;
+    --surface:  #12121E;
+    --border:   #1E2035;
+    --border2:  #2A2A48;
+    --text:     #FFFFFF;
+    --cloud:    #C8CCE0;
+    --haze:     #B0B8D8;
+    --muted:    #8A92A8;
+    --glacial:  #4FC3C8;
+    --boreal:   #5B8DD9;
+    --dusk:     #8B6FD4;
+    --aurora:   #C46FAA;
+    --green:    #3BAA6E;
+    --yellow:   #D4A017;
+    --red:      #C44F4F;
+  }
+  body { background: var(--midnight); color: var(--cloud); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; padding: 32px; }
+  .top-bar { height: 3px; background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%); margin: -32px -32px 32px; }
+
+  .header { margin-bottom: 28px; }
+  .phase-label { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dusk); margin-bottom: 6px; }
+  .title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+  .subtitle { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+  .progress-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
+  .progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .progress-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .progress-pct { font-size: 24px; font-weight: 700; color: var(--text); }
+  .progress-bar-bg { background: var(--border); border-radius: 4px; height: 6px; }
+  .progress-bar-fill { background: linear-gradient(90deg, #4FC3C8, #8B6FD4); border-radius: 4px; height: 6px; }
+  .progress-counts { display: flex; gap: 20px; margin-top: 10px; flex-wrap: wrap; }
+  .progress-count { font-size: 11px; color: var(--muted); }
+  .progress-count strong { color: var(--cloud); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .grid-full { grid-column: 1 / -1; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .card-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .card-sublabel { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dusk); margin: 14px 0 8px; padding-top: 12px; border-top: 1px solid var(--border); }
+
+  .block-table { width: 100%; border-collapse: collapse; }
+  .block-table th { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); padding: 0 0 8px; text-align: left; border-bottom: 1px solid var(--border); }
+  .block-table td { padding: 8px 0; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .block-table tr:last-child td { border-bottom: none; }
+  .block-name { color: var(--cloud); font-size: 12px; }
+  .block-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .badge-done       { background: rgba(59,170,110,0.15); color: var(--green); border: 1px solid rgba(59,170,110,0.3); }
+  .badge-inprogress { background: rgba(91,141,217,0.15); color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
+  .badge-notstarted { background: rgba(138,146,168,0.10); color: var(--muted); border: 1px solid var(--border); }
+  .badge-queued     { background: rgba(212,160,23,0.12); color: var(--yellow); border: 1px solid rgba(212,160,23,0.25); }
+
+  .decision-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .decision-item:last-child { border-bottom: none; }
+  .decision-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .decision-rationale { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .issue-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .issue-item:last-child { border-bottom: none; }
+  .issue-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
+  .dot-yellow { background: var(--yellow); }
+  .dot-blue   { background: var(--boreal); }
+  .dot-muted  { background: var(--muted); }
+  .issue-text { color: var(--cloud); font-size: 12px; }
+  .issue-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .activity-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-date { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+  .activity-text { color: var(--cloud); font-size: 12px; }
+
+  .callout { background: rgba(91,141,217,0.07); border: 1px solid rgba(91,141,217,0.2); border-radius: 8px; padding: 12px 14px; margin-bottom: 24px; }
+  .callout-label { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--boreal); margin-bottom: 6px; }
+  .callout-text { color: var(--haze); font-size: 12px; line-height: 1.6; }
+
+  .goal-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .goal-item:last-child { border-bottom: none; }
+
+  .footer { color: var(--muted); font-size: 11px; border-top: 1px solid var(--border); padding-top: 16px; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<div class="header">
+  <div class="phase-label">Northlight Connections · Phase 2</div>
+  <div class="title">Privacy, Reminders and Connectors</div>
+  <div class="subtitle">Started Nov 11, 2026 · Closed Nov 12, 2026 · Status: Complete</div>
+</div>
+
+<div class="progress-section">
+  <div class="progress-header">
+    <div class="progress-label">Phase 2 Progress</div>
+    <div class="progress-pct">100%</div>
+  </div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" style="width: 100%;"></div>
+  </div>
+  <div class="progress-counts">
+    <div class="progress-count"><strong>14</strong> tasks done</div>
+    <div class="progress-count"><strong>1</strong> open (Dependabot check, next week)</div>
+    <div class="progress-count"><strong>12</strong> pull requests merged (16 to 27), plus 1 website PR</div>
+    <div class="progress-count"><strong>124</strong> automated tests (92 at the start)</div>
+  </div>
+</div>
+
+<div class="callout">
+  <div class="callout-label">Where it stands</div>
+  <div class="callout-text">Phase 1 followed Draft 1 to real daily use; Phase 2 made it fit the ISO policies and added the three agreed extras. Backups are now encrypted and kept to the newest two; any person's data can be exported and people missing for a year come up for review. Reminders live inside the app instead of ClickUp: a 9:00 AM notification, a tray icon, snooze and a profile button. Claude can read the contacts through a local, read-only connector that is off by default, never describes clients, and keeps a log of every question. Coffee chats in an exported Google Calendar are matched to people and set to Held or Booked after Elizabeth confirms each one. The ISMS and AIMS pages, the registers and the public privacy policy were updated to match. All of it runs on the real data and has been tried by Elizabeth.</div>
+</div>
+
+<div class="grid">
+  <div class="card grid-full">
+    <div class="card-label">What shipped</div>
+
+    <div class="card-sublabel">Privacy and safety — done</div>
+    <table class="block-table">
+      <tbody>
+        <tr><td style="width: 80%"><div class="block-name">Encrypted backups and restore</div><div class="block-note">AES-256-GCM, passphrase never stored; restore shows counts first, swaps in at next start and keeps the old file (PR 17)</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td style="width: 80%"><div class="block-name">Newest two backups kept</div><div class="block-note">Only the app's own backup files are ever removed (PR 21)</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td style="width: 80%"><div class="block-name">Export this person's data</div><div class="block-note">One file per person for an access request; the download is logged (PR 18)</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td style="width: 80%"><div class="block-name">Retention review</div><div class="block-note">People missing from the export for 12+ months: forget or keep another 12 months; nothing automatic (PR 18)</div></td><td><span class="badge badge-done">Done</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="card-sublabel">Reminders — done</div>
+    <table class="block-table">
+      <tbody>
+        <tr><td style="width: 80%"><div class="block-name">Tray, close-to-tray and start with Windows</div><div class="block-note">Closing the window hides it; Quit from the tray (PR 19)</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td style="width: 80%"><div class="block-name">9:00 AM Halifax notification</div><div class="block-note">One local notification with the count and first names; catches up after sleep; no Slack or ClickUp involved (PR 19)</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td style="width: 80%"><div class="block-name">Snooze and Open profile on Today</div><div class="block-note">Snooze 1 day to 2 weeks (logged); one click to the LinkedIn profile or first saved link (PR 19)</div></td><td><span class="badge badge-done">Done</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="card-sublabel">Claude connector — done</div>
+    <table class="block-table">
+      <tbody>
+        <tr><td style="width: 80%"><div class="block-name">Read-only local connector, off by default</div><div class="block-note">Counts / Titles / Names for 1, 4 or 8 hours; clients always an ID and stage; five fixed tools; use log kept 24 months; no new package (PR 23)</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td style="width: 80%"><div class="block-name">Windows Store file-redirect fix</div><div class="block-note">Claude desktop from the Store showed the connector a private copy of the data file; the connector now detects and refuses, and its log moved out of AppData (PR 24)</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td style="width: 80%"><div class="block-name">First use with real data</div><div class="block-note">Counts-only answer matched the app</div></td><td><span class="badge badge-done">Done</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="card-sublabel">Calendar matching — done</div>
+    <table class="block-table">
+      <tbody>
+        <tr><td style="width: 80%"><div class="block-name">Exported calendar import with confirmation</div><div class="block-note">Zip or .ics read in memory and not kept; coffee events matched by name; past chats Held, today or later Booked; only date and person saved; Recycle Bin button (PR 25)</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td style="width: 80%"><div class="block-name">Fix any unmatched event</div><div class="block-note">Search box over all people; first or last name alone gives a short list (PR 26)</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td style="width: 80%"><div class="block-name">Credentials, nicknames, already-recorded chats</div><div class="block-note">Surnames like "Surname, CPA" match; Pam for Pamela; repeats flagged and not pre-selected (PR 27)</div></td><td><span class="badge badge-done">Done</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="card-sublabel">Compliance records — done</div>
+    <table class="block-table">
+      <tbody>
+        <tr><td style="width: 80%"><div class="block-name">ISO review of Connections against the ISMS and AIMS</div><div class="block-note">Five conflicts found and resolved or documented (PR 16)</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td style="width: 80%"><div class="block-name">AIMS-004 Amendment A5 and 12 more pages amended</div><div class="block-note">Appended amendment sections; original text untouched; AIMS-004 now v1.7 (PR 20 and ClickUp)</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td style="width: 80%"><div class="block-name">New register entries and risks</div><div class="block-note">Platform Register entry; RISK-030 and RISK-031; RISK-022 updated</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td style="width: 80%"><div class="block-name">Public privacy policy updated</div><div class="block-note">LinkedIn connections and business contacts: what, where, why, retention, consent (website PR 89, live)</div></td><td><span class="badge badge-done">Done</span></td></tr>
+        <tr><td style="width: 80%"><div class="block-name">Build-tool security alert closed</div><div class="block-note">minimatch raised through the installer build tool; npm audit clean (PR 22)</div></td><td><span class="badge badge-done">Done</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-label">Decisions</div>
+    <div class="decision-item"><div class="decision-title">Local-by-design exception, with encrypted backups</div><div class="decision-rationale">The contacts file stays on the laptop; encrypted backups make that acceptable against the cloud-first policy. <em>(Elizabeth, Nov 11)</em></div></div>
+    <div class="decision-item"><div class="decision-title">Reminders live inside the app, not in ClickUp</div><div class="decision-rationale">A reminder with no name or link was useless, and ClickUp would hold third-party profile links. Notification at 9:00 AM, tray, start with Windows. <em>(Elizabeth, Nov 11)</em></div></div>
+    <div class="decision-item"><div class="decision-title">Clients are always an ID and a stage in the Claude connector</div><div class="decision-rationale">Keeps client personal information out of AI tools at every level, as AIMS-004 requires. <em>(Elizabeth, Nov 11)</em></div></div>
+    <div class="decision-item"><div class="decision-title">12-month retention review; export a person; contacts-register row</div><div class="decision-rationale">Fills the retention and access-request gaps for about 2,000 third parties. <em>(Elizabeth, Nov 11)</em></div></div>
+    <div class="decision-item"><div class="decision-title">No MCP software package</div><div class="decision-rationale">The protocol part is about 60 lines, so no new dependency or alert source. <em>(Claude Code, Nov 12)</em></div></div>
+    <div class="decision-item"><div class="decision-title">Keep only the newest two backups</div><div class="decision-rationale">Limits how long a forgotten person can survive in old backups. <em>(Elizabeth, Nov 12)</em></div></div>
+    <div class="decision-item"><div class="decision-title">Calendar through an exported file, with confirmation on every match</div><div class="decision-rationale">No Google sign-in or key; nothing is stored but date and person. <em>(Elizabeth, Nov 11)</em></div></div>
+  </div>
+  <div class="card">
+    <div class="card-label">Deferred and later ideas</div>
+    <div class="issue-item">
+      <div class="issue-dot dot-muted"></div>
+      <div>
+        <div class="issue-text">ClickUp reminders with LinkedIn links</div>
+        <div class="issue-note">Replaced by in-app reminders. Possible later, after the disk-encryption decision and the OPS-001 changes.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot dot-muted"></div>
+      <div>
+        <div class="issue-text">Slack count-only nudge</div>
+        <div class="issue-note">Only if the desktop notification is not enough; needs Elizabeth's OK.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot dot-muted"></div>
+      <div>
+        <div class="issue-text">Direct Google Calendar sign-in</div>
+        <div class="issue-note">Only if the export step becomes too fiddly.</div>
+      </div>
+    </div>
+    <div class="card-sublabel">Learnings</div>
+    <div class="issue-item">
+      <div class="issue-dot dot-blue"></div>
+      <div>
+        <div class="issue-text">The Claude desktop app from the Microsoft Store redirects files its child programs write under AppData</div>
+        <div class="issue-note">A stray test copy of the data folder hid the real database from the connector. Never run the app against the default data folder from a development session; the connector now detects it.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot dot-blue"></div>
+      <div>
+        <div class="issue-text">Fake test names must differ in letters, not digits</div>
+        <div class="issue-note">Matching ignores digits, so "Test01" and "Test02" looked identical and hid a matching problem until real names arrived.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot dot-blue"></div>
+      <div>
+        <div class="issue-text">Real LinkedIn surnames carry credentials</div>
+        <div class="issue-note">"Surname, CPA" broke last-word matching; credentials are now ignored.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot dot-blue"></div>
+      <div>
+        <div class="issue-text">Append, do not rewrite, ISMS pages</div>
+        <div class="issue-note">The page markdown ClickUp returns can flatten tables, so amendments were appended and the one full-page edit was checked line by line.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card grid-full">
+    <div class="card-label">Activity</div>
+    <div class="activity-item">
+      <div class="activity-date">Nov 12, 2026 — PRs 22 to 27</div>
+      <div class="activity-text">Build-tool alert closed; Claude connector built, then fixed for Windows Store file redirection; calendar matching built and refined after Elizabeth tried it on her real calendar (find anyone, credentials, nicknames, already-recorded chats). Installer rebuilt after each merge.</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">Nov 12, 2026 — ISMS follow-through</div>
+      <div class="activity-text">Amendments applied to the ISMS pages in ClickUp, register entries and risks created, tasks closed, AIMS-004 moved to v1.7, privacy policy merged and live. Three recurring tasks set up by Elizabeth.</div>
+    </div>
+    <div class="activity-item">
+      <div class="activity-date">Nov 11, 2026 — PRs 16 to 21</div>
+      <div class="activity-text">Connector plans and ISO review; encrypted backups and restore; export a person and retention review; in-app reminders; amendment drafts; keep newest two backups.</div>
+    </div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card grid-full">
+    <div class="card-label">Open Items</div>
+    <div class="issue-item">
+      <div class="issue-dot dot-yellow"></div>
+      <div>
+        <div class="issue-text">Confirm Dependabot alerts and secret scanning, and that main is protected, on northlight-connections</div>
+        <div class="issue-note">ClickUp task due Nov 18. Elizabeth will do this next week; the alert that appeared has been fixed.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot dot-blue"></div>
+      <div>
+        <div class="issue-text">Watch the 9:00 AM notification and the tray in daily use</div>
+        <div class="issue-note">Report anything odd; Start with Windows is optional.</div>
+      </div>
+    </div>
+    <div class="issue-item">
+      <div class="issue-dot dot-muted"></div>
+      <div>
+        <div class="issue-text">Next phase</div>
+        <div class="issue-note">Not started. Candidates are the three later ideas above, or whatever the first weeks of daily use show.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>Northlight Connections · Phase 2 — Privacy, Reminders and Connectors · Complete</span>
+  <span>2026-11-12 · northlight-pmo/northlight-connections/phase-2.html</span>
+</div>
+
+</body>
+</html>

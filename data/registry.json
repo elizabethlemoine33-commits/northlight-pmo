@@ -208,11 +208,14 @@
       "drive_brief": null,
       "pmo_folder": "northlight-connections/",
       "clickup_list_id": "1600440000002370",
-      "current_phase": "1",
-      "current_phase_title": "Import and People",
-      "phase_started": "2026-11-05",
+      "current_phase": "2",
+      "current_phase_title": "Privacy, Reminders and Connectors",
+      "phase_started": "2026-11-11",
       "registered": "2026-11-05",
-      "last_refreshed": "2026-11-05"
+      "last_refreshed": "2026-11-12",
+      "phases": [
+        { "phase": "1", "title": "Import and People", "started": "2026-11-05", "closed": "2026-11-12" }
+      ]
     }
   ]
 }
