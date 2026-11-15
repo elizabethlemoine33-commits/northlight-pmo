@@ -1,6 +1,6 @@
 {
-  "refreshed_at": "2026-11-12T16:27:37.970Z",
-  "triggered_by": "phase-dashboard-commit",
+  "refreshed_at": "2026-11-15T23:01:04.790Z",
+  "triggered_by": "schedule",
   "open_total": 11,
   "projects": [
     {
@@ -15,7 +15,7 @@
       "current_phase_title": "Compliance Dashboard",
       "phase_started": "2026-11-05",
       "open_count": 2,
-      "backlog_count": 17,
+      "backlog_count": 16,
       "ready_count": 0,
       "in_progress_count": 2,
       "done_count": 3,
@@ -149,10 +149,10 @@
       "current_phase_title": "Site Rework: Who We Help, Case Studies & Site Standards",
       "phase_started": "2026-09-28",
       "open_count": 9,
-      "backlog_count": 4,
+      "backlog_count": 2,
       "ready_count": 8,
       "in_progress_count": 1,
-      "done_count": 84,
+      "done_count": 86,
       "top_items": [
         {
           "name": "Review EveryExpert results and decide whether to keep the free Coffee Chat listing",
@@ -201,6 +201,14 @@
       ],
       "done_items": [
         {
+          "name": "Fix Outsource Accelerator listing: founding year 2026, check for a duplicate listing",
+          "priority": "normal"
+        },
+        {
+          "name": "AI-answer recheck, Nov 12 2026 (compare with Oct 14 baseline and Nov 1 mid-cycle)",
+          "priority": "normal"
+        },
+        {
           "name": "Decide whether to feature the 1999 SSENSE chapter in the About page and bio (needs a copy first)",
           "priority": "low"
         },
@@ -210,14 +218,6 @@
         },
         {
           "name": "Learning page: add Learn Github Copilot (Coursera)",
-          "priority": "normal"
-        },
-        {
-          "name": "Clean URLs batch 3: blog posts, case studies, Vault/Meetings/OS pages (and decide on Cloudflare)",
-          "priority": "normal"
-        },
-        {
-          "name": "Add GoodFirms and TechBehemoths links to the About page once the listings are approved",
           "priority": "normal"
         }
       ],
