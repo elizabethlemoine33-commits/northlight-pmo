@@ -1,5 +1,5 @@
 {
-  "refreshed_at": "2026-11-15T23:01:04.790Z",
+  "refreshed_at": "2026-11-18T12:00:46.962Z",
   "triggered_by": "schedule",
   "open_total": 11,
   "projects": [
@@ -149,10 +149,10 @@
       "current_phase_title": "Site Rework: Who We Help, Case Studies & Site Standards",
       "phase_started": "2026-09-28",
       "open_count": 9,
-      "backlog_count": 2,
+      "backlog_count": 4,
       "ready_count": 8,
       "in_progress_count": 1,
-      "done_count": 86,
+      "done_count": 85,
       "top_items": [
         {
           "name": "Review EveryExpert results and decide whether to keep the free Coffee Chat listing",
