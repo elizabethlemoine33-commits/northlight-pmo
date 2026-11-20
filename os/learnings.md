@@ -1,6 +1,6 @@
 ---
 phase: Phase 16 — Compliance Dashboard (in progress; number proposed)
-completed: in progress, entry of 2026-11-11
+completed: in progress, entries of 2026-11-11 and 2026-11-20
 ---
 
 ## Phase 16 Learnings (so far)
@@ -15,6 +15,15 @@ completed: in progress, entry of 2026-11-11
 - **A silent checker looks the same as a broken one** — the compliance agent will only report when something is off, so a weekly "checked, nothing found" line and a run-status-log row are part of the design, not extras.
 - **Measure noise against what was generated, not only what was reviewed, and make deduplication airtight** — Casey's review of the agent scope. A missed duplicate inflates the noise rate and makes the daily cap meaningless, so the dedupe mechanism gets its own review before it ships.
 - **Say what a check cannot catch** — images and PDFs cannot be checked for keys on upload, so those rely on a crop-out reminder; the key checklist guesses likely keys from names because the register has no supplier field. Both are written down as limits, not hidden.
+
+- **Ship code before renaming ClickUp statuses** (Nov 19 to 20) — the register was renamed first, the watcher did not know the new names, and open-incident false reds plus three duplicate records followed (fixed in PR #185). Six statuses now: closed, quiet and red are decided in code, and an unknown status counts as critical.
+- **A count must separate our own accounts from outsiders** — the first Drive sharing count showed 858 "others", which was the dispatcher service account, and published forms showed 0 public because visibility was not queried. Own accounts are now found from the Google Cloud project, public files by a visibility query, and published forms are allowed for a named reason (OPS-001).
+- **Negated wording is not a warning** — a supplier post saying "this is not a security incident" raised a red banner. Negated security phrases are stripped before the keyword test, but "cannot rule out" is left alone.
+- **Feedback attaches to a message, so one message per finding** — Riley's emoji feedback could only be per message, so each finding is its own Slack message. Questions are capped at 350 characters, emails are redacted before text reaches the model, and tokens are logged so the cost is a real number.
+- **An alert is a doorbell for its draft** — the supplier alert had no link to its draft, so confirming or dismissing the draft changed nothing. The link, the 24-hour re-title and the once-only flag live in the saved feed state, not in a timer, so a restart loses nothing; if the Dispatcher is down the escalation is late, not lost (PR #198).
+- **Say what the plan cannot do, then accept it in the Decision Log** — private repos on the free GitHub plan cannot have branch protection or secret scanning, and Railway audit logs are Enterprise-only. "Main is protected" was true only for public repos and was corrected in four files; the acceptances carry compensating controls and a review date (2027-05-20).
+- **A shared checkout is not safe for uncommitted work** — another session ran a hard reset and wiped uncommitted edits. Work goes in a git worktree, staged by explicit path, removed after the PR merges.
+- **Close small backlog items on purpose** — Kit wording and the IONOS relevance rule were closed as won't do (Slack muting covers the noise), and the hourly heartbeat was dropped; each has a stated reason, so none sits open by default.
 
 ---
 phase: Phase 15 — Retire Blue Bear, Social Posts & Sonnet 5.5 Migration
