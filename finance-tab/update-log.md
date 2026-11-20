@@ -6,6 +6,7 @@
 
 | Date | Session | What Shipped | Phase |
 |---|---|---|---|
+| 2026-11-20 | End of day wrap | Health strip (PR 199), Reports sub-tab with an against-the-log check (PR 202), chart fix and year buttons (PR 200), regenerate offered after Apply (PR 203), Ledger periods from Jan 2026 (PR 201). Next piece chosen: missing receipts | Phase 1 |
 | 2026-11-20 | Registered in the PMO | Project registered. Decisions recorded: accrual method, 7-year retention, policies in a separate ClickUp document (to be created). Ledger read-only Drive match for older rows merged (PR 195) | Phase 1 |
 | 2026-11-20 | Receipt link on new rows | Expense approve now writes the Drive link of the archived receipt into the row; Ledger shows "receipt attached" (PR 194) | Phase 1 |
 | 2026-11-19 | Ledger | Read-only Ledger sub-tab: expenses and revenue, filters, adjusted entries grouped, totals and a P&L check line, category drill-down (PR 192) | Phase 1 |
