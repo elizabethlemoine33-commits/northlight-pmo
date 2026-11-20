@@ -216,6 +216,22 @@
       "phases": [
         { "phase": "1", "title": "Import and People", "started": "2026-11-05", "closed": "2026-11-12" }
       ]
+    },
+    {
+      "id": "finance-tab",
+      "name": "Finance Tab",
+      "slug": "finance-tab",
+      "status": "building",
+      "github": "https://github.com/elizabethlemoine33-commits/northlight-dispatcher",
+      "local": "C:\\Users\\erand\\Desktop\\northlight-dispatcher\\dashboard",
+      "drive_brief": null,
+      "pmo_folder": "finance-tab/",
+      "clickup_list_id": "901715263627",
+      "current_phase": "1",
+      "current_phase_title": "Foundation, Ledger and receipts",
+      "phase_started": "2026-11-20",
+      "registered": "2026-11-20",
+      "last_refreshed": "2026-11-20"
     }
   ]
 }
