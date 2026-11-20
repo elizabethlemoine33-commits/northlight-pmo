@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-11-18T12:00:50.452Z",
-  "triggered_by": "schedule",
+  "last_run": "2026-11-20T18:40:06.708Z",
+  "triggered_by": "phase-dashboard-commit",
   "sources_swept": [
     "clickup",
     "slack"
@@ -15,7 +15,8 @@
     "advisory-board",
     "social-media",
     "standing-pmo",
-    "northlight-connections"
+    "northlight-connections",
+    "finance-tab"
   ],
   "next_scheduled": "See schedule config"
 }
