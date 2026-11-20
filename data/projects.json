@@ -1,7 +1,7 @@
 {
-  "refreshed_at": "2026-11-20T18:40:03.371Z",
+  "refreshed_at": "2026-11-20T20:12:47.488Z",
   "triggered_by": "phase-dashboard-commit",
-  "open_total": 17,
+  "open_total": 19,
   "projects": [
     {
       "id": "northlight-os",
@@ -14,14 +14,18 @@
       "current_phase": "16",
       "current_phase_title": "Compliance Dashboard",
       "phase_started": "2026-11-05",
-      "open_count": 4,
-      "backlog_count": 12,
+      "open_count": 5,
+      "backlog_count": 11,
       "ready_count": 0,
-      "in_progress_count": 4,
+      "in_progress_count": 5,
       "done_count": 6,
       "top_items": [
         {
-          "name": "Finance tab, phase 3: Ledger",
+          "name": "Finance tab, phase 2: health strip and Reports",
+          "priority": "normal"
+        },
+        {
+          "name": "Finance tab: project overview",
           "priority": "normal"
         },
         {
@@ -31,16 +35,16 @@
         {
           "name": "Daily journal: one dated entry per day of what we did and why (phase 2, after the first compliance dashboard phases)",
           "priority": "normal"
-        },
-        {
-          "name": "User handbook: update for the compliance dashboard and incident process",
-          "priority": "normal"
         }
       ],
       "ready_items": [],
       "in_progress_items": [
         {
-          "name": "Finance tab, phase 3: Ledger",
+          "name": "Finance tab, phase 2: health strip and Reports",
+          "priority": "normal"
+        },
+        {
+          "name": "Finance tab: project overview",
           "priority": "normal"
         },
         {
@@ -58,7 +62,7 @@
       ],
       "done_items": [
         {
-          "name": "Finance tab: project overview",
+          "name": "Finance tab, phase 3: Ledger",
           "priority": "normal"
         },
         {
@@ -423,14 +427,18 @@
       "current_phase": "1",
       "current_phase_title": "Foundation, Ledger and receipts",
       "phase_started": "2026-11-20",
-      "open_count": 4,
-      "backlog_count": 12,
+      "open_count": 5,
+      "backlog_count": 11,
       "ready_count": 0,
-      "in_progress_count": 4,
-      "done_count": 0,
+      "in_progress_count": 5,
+      "done_count": 1,
       "top_items": [
         {
-          "name": "Finance tab, phase 3: Ledger",
+          "name": "Finance tab, phase 2: health strip and Reports",
+          "priority": "normal"
+        },
+        {
+          "name": "Finance tab: project overview",
           "priority": "normal"
         },
         {
@@ -439,17 +447,17 @@
         },
         {
           "name": "Daily journal: one dated entry per day of what we did and why (phase 2, after the first compliance dashboard phases)",
-          "priority": "normal"
-        },
-        {
-          "name": "User handbook: update for the compliance dashboard and incident process",
           "priority": "normal"
         }
       ],
       "ready_items": [],
       "in_progress_items": [
         {
-          "name": "Finance tab, phase 3: Ledger",
+          "name": "Finance tab, phase 2: health strip and Reports",
+          "priority": "normal"
+        },
+        {
+          "name": "Finance tab: project overview",
           "priority": "normal"
         },
         {
@@ -465,7 +473,12 @@
           "priority": "normal"
         }
       ],
-      "done_items": [],
+      "done_items": [
+        {
+          "name": "Finance tab, phase 3: Ledger",
+          "priority": "normal"
+        }
+      ],
       "decisions": [],
       "blockers": []
     }
