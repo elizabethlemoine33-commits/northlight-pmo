@@ -1,6 +1,6 @@
 {
-  "refreshed_at": "2026-11-22T23:00:53.963Z",
-  "triggered_by": "schedule",
+  "refreshed_at": "2026-11-23T21:19:06.156Z",
+  "triggered_by": "phase-dashboard-commit",
   "open_total": 19,
   "projects": [
     {
@@ -15,10 +15,10 @@
       "current_phase_title": "Compliance Dashboard",
       "phase_started": "2026-11-05",
       "open_count": 5,
-      "backlog_count": 11,
+      "backlog_count": 9,
       "ready_count": 0,
       "in_progress_count": 5,
-      "done_count": 6,
+      "done_count": 7,
       "top_items": [
         {
           "name": "Finance tab, phase 2: health strip and Reports",
@@ -62,6 +62,10 @@
       ],
       "done_items": [
         {
+          "name": "Finance tab, phase 4: Policies tab",
+          "priority": "normal"
+        },
+        {
           "name": "Finance tab, phase 3: Ledger",
           "priority": "normal"
         },
@@ -75,10 +79,6 @@
         },
         {
           "name": "Compliance dashboard: combined Northlight score",
-          "priority": "normal"
-        },
-        {
-          "name": "Compliance dashboard: evidence upload and evidence freshness",
           "priority": "normal"
         }
       ],
@@ -428,10 +428,10 @@
       "current_phase_title": "Foundation, Ledger and receipts",
       "phase_started": "2026-11-20",
       "open_count": 5,
-      "backlog_count": 11,
+      "backlog_count": 9,
       "ready_count": 0,
       "in_progress_count": 5,
-      "done_count": 1,
+      "done_count": 2,
       "top_items": [
         {
           "name": "Finance tab, phase 2: health strip and Reports",
@@ -474,6 +474,10 @@
         }
       ],
       "done_items": [
+        {
+          "name": "Finance tab, phase 4: Policies tab",
+          "priority": "normal"
+        },
         {
           "name": "Finance tab, phase 3: Ledger",
           "priority": "normal"
