@@ -2,7 +2,7 @@
 
 **Status:** Building  
 **Registered:** 2026-11-20  
-**Last refreshed:** 2026-11-23 (end of day)
+**Last refreshed:** 2026-11-24 (end of day)
 
 ## What it is
 The read-mostly view of Northlight's books inside the OS: health at a glance, reports, a ledger, receipts, reconciliation, an activity trail and a library of finance policies. Built one phase at a time; any new write needs an approved AIMS-004 amendment first.
@@ -19,7 +19,7 @@ The read-mostly view of Northlight's books inside the OS: health at a glance, re
 ## Phase dashboards
 | Phase | File | Status |
 |---|---|---|
-| Phase 1: Foundation, Ledger and receipts | phase-1.html | In progress (about 85%; next: saved year-to-date file, CFO amendment, Reconcile tab) |
+| Phase 1: Foundation, Ledger and receipts | phase-1.html | In progress (about 95%; next: Run summary instruction for the reconciliation session, one live CFO review, then later phases) |
 
 Note: "Phase 1" here is the PMO phase. The project's own plan has phases 1 to 7 in the brief and in ClickUp; PMO Phase 1 covers the foundation work (11 to 12 Nov 2026) and the Ledger and receipt work (19 to 20 Nov 2026).
 

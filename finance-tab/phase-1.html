@@ -106,12 +106,12 @@
 <div class="progress-section">
   <div class="progress-header">
     <div class="progress-label">Phase 1 Progress</div>
-    <div class="progress-pct">85%</div>
+    <div class="progress-pct">95%</div>
   </div>
-  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 85%;"></div></div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 95%;"></div></div>
   <div class="progress-counts">
-    <div class="progress-count"><strong>12</strong> pieces shipped</div>
-    <div class="progress-count"><strong>6</strong> open items</div>
+    <div class="progress-count"><strong>16</strong> pieces shipped</div>
+    <div class="progress-count"><strong>5</strong> open items</div>
     <div class="progress-count">Estimate, set by hand</div>
   </div>
 </div>
@@ -187,6 +187,26 @@
           <td style="width: 46%"><div class="block-name">The audit log in plain words: rows logged, adjustments applied, reports regenerated, receipts connected.</div></td>
           <td style="width: 20%"><span class="badge badge-done">Live</span></td>
         </tr>
+        <tr>
+          <td style="width: 34%"><div class="block-name">Saved year-to-date file (A11)</div><div class="block-note">PR 220 · 24 Nov</div></td>
+          <td style="width: 46%"><div class="block-name">A Save year to date button on the Reports tab writes one file, pl_YearToDate_(year).md, beside the monthly files. Button only, audited, shown in Activity.</div></td>
+          <td style="width: 20%"><span class="badge badge-done">Live</span></td>
+        </tr>
+        <tr>
+          <td style="width: 34%"><div class="block-name">CFO reads the policies and monthly P&amp;L reports (A12)</div><div class="block-note">PR 222 · 24 Nov</div></td>
+          <td style="width: 46%"><div class="block-name">Read-only, through the outside-text guard, size limits, fails closed per source, switch part 12. Waiting for one live review to confirm.</div></td>
+          <td style="width: 20%"><span class="badge badge-done">Merged</span></td>
+        </tr>
+        <tr>
+          <td style="width: 34%"><div class="block-name">Reconcile sub-tab</div><div class="block-note">PR 224 · 24 Nov</div></td>
+          <td style="width: 46%"><div class="block-name">Reads the Run summary tab of each reconciliation workbook, read-only, by label, never guessing. Shows No run summary tab until the session writes one.</div></td>
+          <td style="width: 20%"><span class="badge badge-done">Merged</span></td>
+        </tr>
+        <tr>
+          <td style="width: 34%"><div class="block-name">Revenue recognition and invoicing rules</div><div class="block-note">Policy page v1.1 · 24 Nov</div></td>
+          <td style="width: 46%"><div class="block-name">Agreed from the Client Service Agreement draft: 50/50 deposit and balance, Net 14, revenue on acceptance, retainer monthly. Not built; needs the accountant and an amendment.</div></td>
+          <td style="width: 20%"><span class="badge badge-done">Approved</span></td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -195,6 +215,10 @@
 <div class="grid">
   <div class="card">
     <div class="card-label">Decisions</div>
+    <div class="decision-item"><div class="decision-title">Google permissions are not being narrowed</div><div class="decision-rationale">The Finance tab needs the current Drive and Sheets access. Elizabeth decided against narrowing. (24 Nov)</div></div>
+    <div class="decision-item"><div class="decision-title">Revenue: deposit is deferred, revenue on acceptance; retainer monthly; invoices NL-(year)-nnn; Net 14</div><div class="decision-rationale">Taken from the Client Service Agreement draft, which stays as it is. HST registration starts when a first client is close. Clients pay by e-transfer or Stripe. (24 Nov)</div></div>
+    <div class="decision-item"><div class="decision-title">One session, the ISMS scribe, writes the AIMS-004 pages</div><div class="decision-rationale">Two sessions were editing the same pages and a full-page write can overwrite the other. Changes go through a queue task. (24 Nov)</div></div>
+    <div class="decision-item"><div class="decision-title">Amendments A11 and A12 approved</div><div class="decision-rationale">A11 saved year-to-date file; A12 CFO reads the policies and monthly reports. (24 Nov)</div></div>
     <div class="decision-item"><div class="decision-title">Nothing is connected until Connect is pressed</div><div class="decision-rationale">The first version connected on "Use this one" before the currency and note could be filled in. (23 Nov)</div></div>
     <div class="decision-item"><div class="decision-title">Home office share = area ÷ 1,545 sq ft × 40 ÷ 168 (about 4.2%)</div><div class="decision-rationale">January and February 2026 are claimed as an employee; the accountant confirms the method. (23 Nov)</div></div>
     <div class="decision-item"><div class="decision-title">Meals: full amount in the books, accountant applies the 50%</div><div class="decision-rationale">Keeps the books tied to the card statement; attendees and purpose go in the receipt note. (23 Nov)</div></div>
@@ -210,18 +234,19 @@
   </div>
   <div class="card">
     <div class="card-label">Open items</div>
-    <div class="issue-item"><div class="issue-dot dot-blue"></div><div><div class="issue-text">Saved year-to-date file in Drive</div><div class="issue-note">Needs the one-line A4 4.3 extension.</div></div></div>
-    <div class="issue-item"><div class="issue-dot dot-blue"></div><div><div class="issue-text">CFO agent reads the policies and monthly P&L reports</div><div class="issue-note">Amendment first, then a code change.</div></div></div>
-    <div class="issue-item"><div class="issue-dot dot-yellow"></div><div><div class="issue-text">Reconcile sub-tab</div><div class="issue-note">Agree a fixed tab in the reconciliation workbook before the January run, then build.</div></div></div>
+    <div class="issue-item"><div class="issue-dot dot-yellow"></div><div><div class="issue-text">Give the reconciliation session the Run summary instruction</div><div class="issue-note">Before the January run; until then the Reconcile tab shows No run summary tab. Elizabeth.</div></div></div>
+    <div class="issue-item"><div class="issue-dot dot-blue"></div><div><div class="issue-text">One live advisory board review to confirm the CFO sees the policies and reports</div><div class="issue-note">PR 222 is merged.</div></div></div>
+    <div class="issue-item"><div class="issue-dot dot-blue"></div><div><div class="issue-text">Record the scheduled 1st and 10th P&amp;L runs in the audit log</div><div class="issue-note">Small; likely no amendment, Elizabeth to confirm.</div></div></div>
     <div class="issue-item"><div class="issue-dot dot-yellow"></div><div><div class="issue-text">Home office: accountant confirmation and the January and February hours</div><div class="issue-note">Elizabeth is checking her last return.</div></div></div>
     <div class="issue-item"><div class="issue-dot dot-muted"></div><div><div class="issue-text">Warn-before-edit protection on the live sheets</div><div class="issue-note">Needs an amendment; last because it touches the live sheets.</div></div></div>
-    <div class="issue-item"><div class="issue-dot dot-muted"></div><div><div class="issue-text">Revenue terms, revenue recognition, cash flow, tax set-aside, accountant package</div><div class="issue-note">Later phases; each needs design and an amendment before building.</div></div></div>
+    <div class="issue-item"><div class="issue-dot dot-muted"></div><div><div class="issue-text">Revenue recognition build, home office expense tracker, cash flow, tax set-aside, accountant package</div><div class="issue-note">Later phases; each needs design and an amendment before building. Revenue needs the accountant first.</div></div></div>
   </div>
 </div>
 
 <div class="grid">
   <div class="card grid-full">
     <div class="card-label">Activity</div>
+    <div class="activity-item"><div class="activity-date">2026-11-24</div><div class="activity-text">Revenue and invoicing rules agreed and written to the policies document. A11 and A12 approved and applied through the new ISMS scribe session. Saved year-to-date file live (PR 220), CFO reads the policies and reports (PR 222) and the Reconcile tab (PR 224) merged. Home office tracker added to the backlog.</div></div>
     <div class="activity-item"><div class="activity-date">2026-11-23</div><div class="activity-text">Receipts tab, the approved policies document, the Policies tab and the Activity tab all live (PRs 204, 206, 211, 213). A9 added to the ISMS.</div></div>
     <div class="activity-item"><div class="activity-date">2026-11-20</div><div class="activity-text">Receipt link and Drive match, health strip, Reports sub-tab, chart fix and the regenerate-after-Apply offer all merged (PRs 194, 195, 199, 200, 201, 202, 203). Project registered in the PMO.</div></div>
     <div class="activity-item"><div class="activity-date">2026-11-19</div><div class="activity-text">Ledger approved from the mockup and merged (PR 192).</div></div>

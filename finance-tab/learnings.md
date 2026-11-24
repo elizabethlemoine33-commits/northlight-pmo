@@ -15,5 +15,9 @@
 - Saved monthly reports go stale whenever an adjustment is applied after they were made; four of the saved reports differed from the log by exactly the cleanup entries. The Reports tab now flags this and Apply offers to regenerate.
 - Pushing to a branch after its pull request has merged does not ship the change; check the PR state before pushing and open a new PR if it has merged.
 - Two Claude sessions shared one working folder and a hard reset in one wiped the other's uncommitted edit. Use a separate git worktree for build work.
+- Two sessions writing the same ClickUp page can overwrite each other, because the page tool can only append or replace the whole page. One scribe session that is the only writer, fed by a queue task with the exact text and the approval, removes the clash (24 Nov).
+- Reading a draft contract settled most of the revenue questions at once: the payment terms were already written, so the decisions were only the revenue-timing rules the contract does not cover (24 Nov).
+- A pattern for each new read of outside-origin text: fence it, size-limit it, say the cut, and say which source was missing rather than showing an old copy.
+- A tab that another session writes needs a fixed, label-based layout agreed first; reading by label and listing a problem instead of guessing made the Reconcile tab safe to build before any real run exists.
 
 ---
