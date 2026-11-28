@@ -1,7 +1,7 @@
 {
-  "refreshed_at": "2026-11-25T12:00:59.301Z",
-  "triggered_by": "schedule",
-  "open_total": 21,
+  "refreshed_at": "2026-11-28T02:13:42.168Z",
+  "triggered_by": "phase-dashboard-commit",
+  "open_total": 23,
   "projects": [
     {
       "id": "northlight-os",
@@ -14,37 +14,41 @@
       "current_phase": "16",
       "current_phase_title": "Compliance Dashboard",
       "phase_started": "2026-11-05",
-      "open_count": 6,
-      "backlog_count": 16,
+      "open_count": 7,
+      "backlog_count": 13,
       "ready_count": 0,
-      "in_progress_count": 6,
-      "done_count": 14,
+      "in_progress_count": 7,
+      "done_count": 16,
       "top_items": [
         {
-          "name": "Finance tab: home office expense tracker (design later; same method as expense logging, separate tracker)",
+          "name": "ISMS change queue (scribe)",
           "priority": "normal"
         },
         {
-          "name": "Finance tab, phase 5: Receipts, Reconcile and Activity",
+          "name": "Finance tab, phase 7: cash flow, tax set-aside, home office, equipment, accountant package, CFO agent",
+          "priority": "normal"
+        },
+        {
+          "name": "Finance tab, phase 6: revenue recognition and invoicing",
           "priority": "normal"
         },
         {
           "name": "Finance tab: project overview",
-          "priority": "normal"
-        },
-        {
-          "name": "Compliance agent: scope an agent that checks decisions and actions against ISO 27001 and 42001 (phase 2)",
           "priority": "normal"
         }
       ],
       "ready_items": [],
       "in_progress_items": [
         {
-          "name": "Finance tab: home office expense tracker (design later; same method as expense logging, separate tracker)",
+          "name": "ISMS change queue (scribe)",
           "priority": "normal"
         },
         {
-          "name": "Finance tab, phase 5: Receipts, Reconcile and Activity",
+          "name": "Finance tab, phase 7: cash flow, tax set-aside, home office, equipment, accountant package, CFO agent",
+          "priority": "normal"
+        },
+        {
+          "name": "Finance tab, phase 6: revenue recognition and invoicing",
           "priority": "normal"
         },
         {
@@ -54,15 +58,15 @@
         {
           "name": "Compliance agent: scope an agent that checks decisions and actions against ISO 27001 and 42001 (phase 2)",
           "priority": "normal"
-        },
-        {
-          "name": "Daily journal: one dated entry per day of what we did and why (phase 2, after the first compliance dashboard phases)",
-          "priority": "normal"
         }
       ],
       "done_items": [
         {
           "name": "Vault 1.0.6: build and install the Windows installer, then run the quick check",
+          "priority": "normal"
+        },
+        {
+          "name": "Finance tab: home office expense tracker (design later; same method as expense logging, separate tracker)",
           "priority": "normal"
         },
         {
@@ -75,10 +79,6 @@
         },
         {
           "name": "Finance tab: saved year-to-date P&L file in Drive (needs a one-line AIMS-004 A4 4.3 extension)",
-          "priority": "normal"
-        },
-        {
-          "name": "Finance housekeeping: small items",
           "priority": "normal"
         }
       ],
@@ -133,10 +133,10 @@
       "current_phase_title": "Public Release, Verification & Search Filters",
       "phase_started": "2026-11-04",
       "open_count": 0,
-      "backlog_count": 6,
+      "backlog_count": 5,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 12,
+      "done_count": 13,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
@@ -379,40 +379,19 @@
       "status": "building",
       "github": "https://github.com/elizabethlemoine33-commits/northlight-connections",
       "clickup_list_id": "1600440000002370",
-      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/northlight-connections/phase-2.html",
-      "current_phase": "2",
-      "current_phase_title": "Privacy, Reminders and Connectors",
-      "phase_started": "2026-11-11",
+      "dashboard_url": "https://elizabethlemoine33-commits.github.io/northlight-pmo/northlight-connections/phase-3.html",
+      "current_phase": "3",
+      "current_phase_title": "Safety, Daily Use and Results",
+      "phase_started": "2026-11-27",
       "open_count": 0,
-      "backlog_count": 0,
+      "backlog_count": 2,
       "ready_count": 0,
       "in_progress_count": 0,
-      "done_count": 24,
+      "done_count": 0,
       "top_items": [],
       "ready_items": [],
       "in_progress_items": [],
-      "done_items": [
-        {
-          "name": "Add an audit log to Northlight Connections",
-          "priority": "normal"
-        },
-        {
-          "name": "Connector hardening: detect Claude Windows Store private file copies",
-          "priority": "normal"
-        },
-        {
-          "name": "ISO compliance review, ISMS/AIMS amendments and privacy policy update",
-          "priority": "normal"
-        },
-        {
-          "name": "In-app reminders: tray, 9:00 AM notification, start with Windows, snooze, Open profile",
-          "priority": "normal"
-        },
-        {
-          "name": "Export this person's data and Retention review",
-          "priority": "normal"
-        }
-      ],
+      "done_items": [],
       "decisions": [],
       "blockers": []
     },
@@ -427,37 +406,41 @@
       "current_phase": "1",
       "current_phase_title": "Foundation, Ledger and receipts",
       "phase_started": "2026-11-20",
-      "open_count": 6,
-      "backlog_count": 16,
+      "open_count": 7,
+      "backlog_count": 13,
       "ready_count": 0,
-      "in_progress_count": 6,
-      "done_count": 9,
+      "in_progress_count": 7,
+      "done_count": 11,
       "top_items": [
         {
-          "name": "Finance tab: home office expense tracker (design later; same method as expense logging, separate tracker)",
+          "name": "ISMS change queue (scribe)",
           "priority": "normal"
         },
         {
-          "name": "Finance tab, phase 5: Receipts, Reconcile and Activity",
+          "name": "Finance tab, phase 7: cash flow, tax set-aside, home office, equipment, accountant package, CFO agent",
+          "priority": "normal"
+        },
+        {
+          "name": "Finance tab, phase 6: revenue recognition and invoicing",
           "priority": "normal"
         },
         {
           "name": "Finance tab: project overview",
-          "priority": "normal"
-        },
-        {
-          "name": "Compliance agent: scope an agent that checks decisions and actions against ISO 27001 and 42001 (phase 2)",
           "priority": "normal"
         }
       ],
       "ready_items": [],
       "in_progress_items": [
         {
-          "name": "Finance tab: home office expense tracker (design later; same method as expense logging, separate tracker)",
+          "name": "ISMS change queue (scribe)",
           "priority": "normal"
         },
         {
-          "name": "Finance tab, phase 5: Receipts, Reconcile and Activity",
+          "name": "Finance tab, phase 7: cash flow, tax set-aside, home office, equipment, accountant package, CFO agent",
+          "priority": "normal"
+        },
+        {
+          "name": "Finance tab, phase 6: revenue recognition and invoicing",
           "priority": "normal"
         },
         {
@@ -467,15 +450,15 @@
         {
           "name": "Compliance agent: scope an agent that checks decisions and actions against ISO 27001 and 42001 (phase 2)",
           "priority": "normal"
-        },
-        {
-          "name": "Daily journal: one dated entry per day of what we did and why (phase 2, after the first compliance dashboard phases)",
-          "priority": "normal"
         }
       ],
       "done_items": [
         {
           "name": "Vault 1.0.6: build and install the Windows installer, then run the quick check",
+          "priority": "normal"
+        },
+        {
+          "name": "Finance tab: home office expense tracker (design later; same method as expense logging, separate tracker)",
           "priority": "normal"
         },
         {
@@ -488,10 +471,6 @@
         },
         {
           "name": "Finance tab: saved year-to-date P&L file in Drive (needs a one-line AIMS-004 A4 4.3 extension)",
-          "priority": "normal"
-        },
-        {
-          "name": "Finance housekeeping: small items",
           "priority": "normal"
         }
       ],
