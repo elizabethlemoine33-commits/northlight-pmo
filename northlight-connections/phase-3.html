@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Northlight Connections · Phase 3 · Safety, Daily Use and Results</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --midnight: #0E0E14;
+    --surface:  #12121E;
+    --border:   #1E2035;
+    --border2:  #2A2A48;
+    --text:     #FFFFFF;
+    --cloud:    #C8CCE0;
+    --haze:     #B0B8D8;
+    --muted:    #8A92A8;
+    --glacial:  #4FC3C8;
+    --boreal:   #5B8DD9;
+    --dusk:     #8B6FD4;
+    --aurora:   #C46FAA;
+    --green:    #3BAA6E;
+    --yellow:   #D4A017;
+    --red:      #C44F4F;
+  }
+  body { background: var(--midnight); color: var(--cloud); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; padding: 32px; }
+  .top-bar { height: 3px; background: linear-gradient(90deg, #4FC3C8 0%, #5B8DD9 30%, #8B6FD4 65%, #C46FAA 100%); margin: -32px -32px 32px; }
+
+  .header { margin-bottom: 28px; }
+  .phase-label { font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dusk); margin-bottom: 6px; }
+  .title { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+  .subtitle { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+  .progress-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 24px; }
+  .progress-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .progress-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .progress-pct { font-size: 24px; font-weight: 700; color: var(--text); }
+  .progress-bar-bg { background: var(--border); border-radius: 4px; height: 6px; }
+  .progress-bar-fill { background: linear-gradient(90deg, #4FC3C8, #8B6FD4); border-radius: 4px; height: 6px; }
+  .progress-counts { display: flex; gap: 20px; margin-top: 10px; flex-wrap: wrap; }
+  .progress-count { font-size: 11px; color: var(--muted); }
+  .progress-count strong { color: var(--cloud); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .grid-full { grid-column: 1 / -1; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .card-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .card-sublabel { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dusk); margin: 14px 0 8px; padding-top: 12px; border-top: 1px solid var(--border); }
+
+  .block-table { width: 100%; border-collapse: collapse; }
+  .block-table td { padding: 8px 0; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .block-table tr:last-child td { border-bottom: none; }
+  .block-name { color: var(--cloud); font-size: 12px; }
+  .block-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .badge-done       { background: rgba(59,170,110,0.15); color: var(--green); border: 1px solid rgba(59,170,110,0.3); }
+  .badge-inprogress { background: rgba(91,141,217,0.15); color: var(--boreal); border: 1px solid rgba(91,141,217,0.3); }
+  .badge-notstarted { background: rgba(138,146,168,0.10); color: var(--muted); border: 1px solid var(--border); }
+  .badge-queued     { background: rgba(212,160,23,0.12); color: var(--yellow); border: 1px solid rgba(212,160,23,0.25); }
+
+  .decision-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .decision-item:last-child { border-bottom: none; }
+  .decision-title { color: var(--cloud); font-size: 12px; font-weight: 500; }
+  .decision-rationale { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .issue-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .issue-item:last-child { border-bottom: none; }
+  .issue-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
+  .dot-yellow { background: var(--yellow); }
+  .dot-blue   { background: var(--boreal); }
+  .dot-muted  { background: var(--muted); }
+  .issue-text { color: var(--cloud); font-size: 12px; }
+  .issue-note { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+  .activity-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-date { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+  .activity-text { color: var(--cloud); font-size: 12px; }
+
+  .callout { background: rgba(91,141,217,0.07); border: 1px solid rgba(91,141,217,0.2); border-radius: 8px; padding: 12px 14px; margin-bottom: 24px; }
+  .callout-label { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--boreal); margin-bottom: 6px; }
+  .callout-text { color: var(--haze); font-size: 12px; line-height: 1.6; }
+
+  .footer { color: var(--muted); font-size: 11px; border-top: 1px solid var(--border); padding-top: 16px; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+
+<div class="header">
+  <div class="phase-label">Northlight Connections · Phase 3</div>
+  <div class="title">Safety, Daily Use and Results</div>
+  <div class="subtitle">Started Nov 27, 2026 · Status: Planned, nothing built</div>
+</div>
+
+<div class="progress-section">
+  <div class="progress-header">
+    <div class="progress-label">Phase 3 Progress</div>
+    <div class="progress-pct">0%</div>
+  </div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" style="width: 0%;"></div>
+  </div>
+  <div class="progress-counts">
+    <div class="progress-count"><strong>0</strong> of <strong>20</strong> work items done</div>
+    <div class="progress-count"><strong>4</strong> build rounds (safety first, then three rounds)</div>
+    <div class="progress-count"><strong>1</strong> pull request per package; Elizabeth merges</div>
+  </div>
+</div>
+
+<div class="callout">
+  <div class="callout-label">Where it stands</div>
+  <div class="callout-text">Phases 1 and 2 are complete. Between them and this phase, 24 pull requests (28 to 51, 12 to 19 Nov) were merged and are not on any earlier dashboard: bulk actions, goal reports and drill-downs, fixed navigation and Back, open-record tabs, automatic follow-up dates, decline suggestions, Missed stage, the Grow network routine folder, and the audit log (version 0.4.0). Phase 3 starts from the change spec of 27 Nov 2026 (docs folder of the repo) plus two backlog tasks folded in: the persona marker and the coffee chat campaign review. Nothing is built. Safety and recovery (WP0) comes before anything else, and every round starts with a manual backup.</div>
+</div>
+
+<div class="grid">
+  <div class="card grid-full">
+    <div class="card-label">Build plan (one pull request per package)</div>
+
+    <div class="card-sublabel">Before Round 1 — safety and recovery</div>
+    <table class="block-table"><tbody>
+      <tr><td style="width: 80%"><div class="block-name">WP0 Safety and recovery</div><div class="block-note">Backup before every migration, undo for automatic changes, update files cannot move stages on their own, untrusted-text rules, local server accepts only the app, export and Forget cover every new field, audit events, Electron kept current</div></td><td><span class="badge badge-notstarted">Not started</span></td></tr>
+    </tbody></table>
+
+    <div class="card-sublabel">Round 1 — quick wins</div>
+    <table class="block-table"><tbody>
+      <tr><td style="width: 80%"><div class="block-name">WP1 Bigger notes box (5,000 characters)</div></td><td><span class="badge badge-notstarted">Not started</span></td></tr>
+      <tr><td style="width: 80%"><div class="block-name">WP2 Today in batches of 15</div></td><td><span class="badge badge-notstarted">Not started</span></td></tr>
+      <tr><td style="width: 80%"><div class="block-name">WP3 Goal filter shows only that goal's stage</div></td><td><span class="badge badge-notstarted">Not started</span></td></tr>
+      <tr><td style="width: 80%"><div class="block-name">WP4 Booked meeting day and time on the person page</div></td><td><span class="badge badge-notstarted">Not started</span></td></tr>
+      <tr><td style="width: 80%"><div class="block-name">WP5 Layout pass: card, Today dashboard, row template, names</div><div class="block-note">Screenshots are in</div></td><td><span class="badge badge-notstarted">Not started</span></td></tr>
+      <tr><td style="width: 80%"><div class="block-name">WP6 Menu revamp</div><div class="block-note">Waiting on Elizabeth's pick; option A recommended</div></td><td><span class="badge badge-queued">Queued</span></td></tr>
+    </tbody></table>
+
+    <div class="card-sublabel">Round 2</div>
+    <table class="block-table"><tbody>
+      <tr><td style="width: 80%"><div class="block-name">WP7 Open a person in a separate window, right-click menu</div></td><td><span class="badge badge-notstarted">Not started</span></td></tr>
+      <tr><td style="width: 80%"><div class="block-name">WP8 Aurora Brief invites (scan and status file)</div></td><td><span class="badge badge-notstarted">Not started</span></td></tr>
+      <tr><td style="width: 80%"><div class="block-name">WP9 Filters with AND</div></td><td><span class="badge badge-notstarted">Not started</span></td></tr>
+    </tbody></table>
+
+    <div class="card-sublabel">Round 3</div>
+    <table class="block-table"><tbody>
+      <tr><td style="width: 80%"><div class="block-name">WP10 General update-file reader</div></td><td><span class="badge badge-notstarted">Not started</span></td></tr>
+      <tr><td style="width: 80%"><div class="block-name">WP11 Person card: brief, email flag, contact channel</div></td><td><span class="badge badge-notstarted">Not started</span></td></tr>
+      <tr><td style="width: 80%"><div class="block-name">WP11b Conversation log: bigger box, say where it happened</div></td><td><span class="badge badge-notstarted">Not started</span></td></tr>
+      <tr><td style="width: 80%"><div class="block-name">WP13 Results dashboard</div></td><td><span class="badge badge-notstarted">Not started</span></td></tr>
+      <tr><td style="width: 80%"><div class="block-name">WP14 Settings pages and Grow network automation</div></td><td><span class="badge badge-notstarted">Not started</span></td></tr>
+      <tr><td style="width: 80%"><div class="block-name">WP15 Message templates and what works</div><div class="block-note">Templates bank loaded from a file she supplies, never committed</div></td><td><span class="badge badge-notstarted">Not started</span></td></tr>
+      <tr><td style="width: 80%"><div class="block-name">WP12 Docs and policy text in step</div></td><td><span class="badge badge-notstarted">Not started</span></td></tr>
+    </tbody></table>
+
+    <div class="card-sublabel">Folded in from the backlog</div>
+    <table class="block-table"><tbody>
+      <tr><td style="width: 80%"><div class="block-name">Work opportunity goal in the app (Elizabeth, no code)</div><div class="block-note">Do first. The coffee chat review, the persona report and Results all depend on it</div></td><td><span class="badge badge-notstarted">Not started</span></td></tr>
+      <tr><td style="width: 80%"><div class="block-name">WP16 Persona marker on people</div><div class="block-note">After Round 3 migrations; privacy wording checked first (the personas describe fears)</div></td><td><span class="badge badge-queued">Queued</span></td></tr>
+      <tr><td style="width: 80%"><div class="block-name">WP17 Coffee chat campaign review, with job-title keyword rule</div><div class="block-note">Two message tracks. Waits for WP14 Grow network automation, WP15 templates and the Work opportunity goal; needs Elizabeth's answer on where the title line sits</div></td><td><span class="badge badge-queued">Queued</span></td></tr>
+    </tbody></table>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-label">Decisions</div>
+    <div class="decision-item"><div class="decision-title">One phase, with the rounds as milestones</div><div class="decision-rationale">The packages depend on each other (meeting times, channels, update files, results). <em>(Elizabeth, Nov 27)</em></div></div>
+    <div class="decision-item"><div class="decision-title">Persona marker and coffee chat review join this phase</div><div class="decision-rationale">Both were backlog tasks; they touch the same migrations and files as the spec. <em>(Elizabeth, Nov 27)</em></div></div>
+    <div class="decision-item"><div class="decision-title">No email addresses or phone numbers stored in Connections</div><div class="decision-rationale">A yes/no flag and where it lives. Files with any other column are refused whole. <em>(Elizabeth, Nov 27)</em></div></div>
+    <div class="decision-item"><div class="decision-title">Templates are recipes, not stored messages</div><div class="decision-rationale">The "no message text stored" rule is unchanged; one clarifying sentence is added. <em>(Elizabeth, Nov 27)</em></div></div>
+    <div class="decision-item"><div class="decision-title">ISO and ISMS writes go through a scribe session</div><div class="decision-rationale">Build sessions queue the exact text with Elizabeth's approval; one writer applies it through the dispatcher, as for the AIMS-004 pages. <em>(Elizabeth, Nov 27)</em></div></div>
+  </div>
+  <div class="card">
+    <div class="card-label">Open items going in</div>
+    <div class="issue-item"><div class="issue-dot dot-yellow"></div><div><div class="issue-text">Menu option for WP6 (A recommended)</div><div class="issue-note">Blocks WP6 only</div></div></div>
+    <div class="issue-item"><div class="issue-dot dot-yellow"></div><div><div class="issue-text">Retention periods for briefs and booking details; notes cap</div><div class="issue-note">Defaults: 12 months, 5,000 characters</div></div></div>
+    <div class="issue-item"><div class="issue-dot dot-yellow"></div><div><div class="issue-text">Three coffee-page notice lines, and whether Google's form allows a tick box</div></div></div>
+    <div class="issue-item"><div class="issue-dot dot-yellow"></div><div><div class="issue-text">Where the title line sits for Track A and Track B</div><div class="issue-note">Owner, founder, CEO, president, VP are clear. Director, head of, consultant, coach, fractional are not</div></div></div>
+    <div class="issue-item"><div class="issue-dot dot-blue"></div><div><div class="issue-text">LinkedIn's terms on automated profile viewing</div><div class="issue-note">Before the weekend brief task is scheduled</div></div></div>
+    <div class="issue-item"><div class="issue-dot dot-muted"></div><div><div class="issue-text">Scribe confirmation</div><div class="issue-note">The existing scribe waits for Elizabeth to confirm the cybersecurity-risk session knows about it</div></div></div>
+    <div class="issue-item"><div class="issue-dot dot-blue"></div><div><div class="issue-text">Existing obligations to update as the work lands</div><div class="issue-note">Annual backup-restore test (backup counts change), annual retention review, monthly Electron rebuild, AIMS-004 A5 and A6, privacy policy</div></div></div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card grid-full">
+    <div class="card-label">Activity</div>
+    <div class="activity-item">
+      <div class="activity-date">Nov 27, 2026 — Planning</div>
+      <div class="activity-text">Change spec written (WP0 to WP15) and checked against the ClickUp backlog. Persona marker and coffee chat review folded in. Phase 3 registered at 0%.</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>Northlight Connections · Phase 3 — Safety, Daily Use and Results · Planned</span>
+  <span>2026-11-27 · northlight-pmo/northlight-connections/phase-3.html</span>
+</div>
+
+</body>
+</html>
